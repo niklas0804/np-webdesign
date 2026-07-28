@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Datenschutzerklärung – NP Webdesign</title>
+<meta name="description" content="Datenschutzerklärung von NP Webdesign – Niklas Prüfling, Einzelunternehmen, Schwandorf.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.bunny.net">
+
+<link href="https://fonts.bunny.net/css2?family=playfair-display:ital,wght@0,400;0,500;1,400&family=dm-sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --cream:#f0ebe3;
+
+  --cream2:#e8e2d9;
+
+  --black:#0f0f0e;
+
+  --muted:#7a7670;
+
+  --border:rgba(15,15,14,.11);
+
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
+
+ 
+
+/* NAV */
+
+nav{position:sticky;top:0;z-index:100;background:rgba(240,235,227,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 52px;display:flex;justify-content:space-between;align-items:center}
+
+.nav-logo{font-family:'DM Sans',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--black);text-decoration:none}
+
+.nav-back{font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .3s}
+
+.nav-back:hover{color:var(--black)}
+
+@media(max-width:768px){nav{padding:14px 22px}}
+
+ 
+
+/* HERO */
+
+.page-hero{padding:clamp(52px,8vw,100px) 52px clamp(36px,5vw,60px);border-bottom:1px solid var(--border)}
+
+.page-tag{font-size:.59rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,5rem);font-weight:400;line-height:1;margin-bottom:16px}
+
+.page-date{font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+@media(max-width:768px){.page-hero{padding:44px 22px 32px}}
+
+ 
+
+/* CONTENT */
+
+.content{max-width:760px;margin:0 auto;padding:clamp(44px,6vw,80px) 52px}
+
+@media(max-width:768px){.content{padding:36px 22px}}
+
+ 
+
+h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:400;margin:clamp(36px,4vw,56px) 0 16px;padding-top:clamp(36px,4vw,56px);border-top:1px solid var(--border)}
+
+h2:first-child{margin-top:0;padding-top:0;border-top:none}
+
+h3{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--muted);margin:28px 0 12px}
+
+p{font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.9}
+
+p strong{color:var(--black);font-weight:400}
+
+a{color:var(--black);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .3s}
+
+a:hover{border-color:var(--black)}
+
+ul{list-style:none;margin-bottom:16px}
+
+ul li{font-size:.9rem;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(15,15,14,.05);display:flex;align-items:flex-start;gap:12px;line-height:1.7}
+
+ul li::before{content:'';display:block;width:12px;height:1px;background:var(--black);margin-top:.85em;flex-shrink:0}
+
+ul li strong{color:var(--black);font-weight:400}
+
+ 
+
+/* INDEX */
+
+.index{border:1px solid var(--border);padding:24px 28px;margin-bottom:0}
+
+.index li{border-bottom:none;padding:5px 0}
+
+.index li::before{display:none}
+
+.index a{font-size:.78rem;letter-spacing:.1em}
+
+ 
+
+/* HIGHLIGHT BOX */
+
+.hbox{background:var(--cream2);border:1px solid var(--border);padding:22px 28px;margin:24px 0}
+
+.hbox p{margin:0;font-size:.84rem}
+
+ 
+
+/* SEAL */
+
+.seal{margin-top:clamp(52px,6vw,80px);padding-top:32px;border-top:1px solid var(--border)}
+
+.seal p{font-size:.7rem;color:var(--muted);letter-spacing:.1em}
+
+.seal a{font-size:.7rem;color:var(--muted);border-color:transparent}
+
+.seal a:hover{color:var(--black);border-color:var(--border)}
+
+ 
+
+/* FOOTER */
+
+footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+
+.f-logo{font-size:.73rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(240,235,227,.38)}
+
+.f-copy{font-size:.59rem;color:rgba(240,235,227,.18);letter-spacing:.1em}
+
+.f-links{display:flex;gap:24px}
+
+.f-links a{font-size:.59rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.22);text-decoration:none;border:none;transition:color .3s}
+
+.f-links a:hover{color:rgba(240,235,227,.6)}
+
+@media(max-width:768px){footer{padding:20px 22px;flex-direction:column;align-items:flex-start}}
+
+</style>
+
+</head>
+
+<body>
+
+ 
+
+<nav>
+
+  <a class="nav-logo" href="index.html">NP Webdesign</a>
+
+  <a class="nav-back" href="index.html">
+
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    Zurück zur Website
+
+  </a>
+
+</nav>
+
+ 
+
+<div class="page-hero">
+
+  <div class="page-tag">Rechtliches · NP Webdesign</div>
+
+  <h1 class="page-title">Datenschutz&shy;erklärung</h1>
+
+  <div class="page-date">Stand: <span id="ddate"></span></div>
+
+</div>
+
+ 
+
+<div class="content">
+
+ 
+
+  <h2>Präambel</h2>
+
+  <p>Mit der folgenden Datenschutzerklärung möchte ich Sie darüber aufklären, welche Arten Ihrer personenbezogenen Daten ich zu welchen Zwecken und in welchem Umfang verarbeite. Die Datenschutzerklärung gilt für alle von mir durchgeführten Verarbeitungen personenbezogener Daten im Rahmen der Erbringung meiner Leistungen sowie insbesondere auf dieser Website.</p>
+
+ 
+
+  <h2>Inhaltsübersicht</h2>
+
+  <ul class="index">
+
+    <li><a href="#verantwortlicher">Verantwortlicher</a></li>
+
+    <li><a href="#rechtsgrundlagen">Maßgebliche Rechtsgrundlagen</a></li>
+
+    <li><a href="#sicherheit">Sicherheitsmaßnahmen</a></li>
+
+    <li><a href="#loeschung">Datenspeicherung und Löschung</a></li>
+
+    <li><a href="#rechte">Rechte der betroffenen Personen</a></li>
+
+    <li><a href="#leistungen">Geschäftliche Leistungen</a></li>
+
+    <li><a href="#hosting">Bereitstellung der Website und Webhosting</a></li>
+
+    <li><a href="#kontakt">Kontakt- und Anfrageverwaltung</a></li>
+
+    <li><a href="#drittdienste">Eingebettete Drittdienste</a></li>
+
+    <li><a href="#aenderung">Änderung und Aktualisierung</a></li>
+
+    <li><a href="#begriffe">Begriffsdefinitionen</a></li>
+
+  </ul>
+
+ 
+
+  <h2 id="verantwortlicher">Verantwortlicher</h2>
+
+  <p>
+
+    <strong>Niklas Prüfling</strong><br>
+
+    Friedrich-Ebert-Straße 60<br>
+
+    92421 Schwandorf, Deutschland
+
+  </p>
+
+  <p>E-Mail: <a href="mailto:niklas.pg@online.de">niklas.pg@online.de</a></p>
+
+ 
+
+  <h2 id="rechtsgrundlagen">Maßgebliche Rechtsgrundlagen</h2>
+
+  <p>Im Folgenden erhalten Sie eine Übersicht der Rechtsgrundlagen der DSGVO, auf deren Basis ich personenbezogene Daten verarbeite:</p>
+
+  <ul>
+
+    <li><strong>Vertragserfüllung und vorvertragliche Anfragen (Art. 6 Abs. 1 S. 1 lit. b DSGVO)</strong> — Verarbeitung zur Erfüllung eines Vertrags oder zur Durchführung vorvertraglicher Maßnahmen.</li>
+
+    <li><strong>Rechtliche Verpflichtung (Art. 6 Abs. 1 S. 1 lit. c DSGVO)</strong> — Verarbeitung zur Erfüllung einer gesetzlichen Verpflichtung.</li>
+
+    <li><strong>Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f DSGVO)</strong> — Verarbeitung zur Wahrung berechtigter Interessen, sofern diese nicht durch Ihre Grundrechte überwiegen.</li>
+
+  </ul>
+
+  <p>Zusätzlich gelten nationale Datenschutzregelungen, insbesondere das Bundesdatenschutzgesetz (BDSG).</p>
+
+ 
+
+  <h2 id="sicherheit">Sicherheitsmaßnahmen</h2>
+
+  <p>Ich treffe nach Maßgabe der gesetzlichen Vorgaben und entsprechend dem Stand der Technik geeignete technische und organisatorische Maßnahmen, um ein dem Risiko angemessenes Schutzniveau zu gewährleisten.</p>
+
+  <p>Diese Website wird über eine <strong>TLS/SSL-verschlüsselte Verbindung (HTTPS)</strong> übertragen. Ein entsprechendes Zertifikat ist beim Webhoster hinterlegt.</p>
+
+ 
+
+  <h2 id="loeschung">Datenspeicherung und Löschung</h2>
+
+  <p>Ich lösche personenbezogene Daten, sobald der Verarbeitungszweck entfällt und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Gesetzliche Fristen im Überblick:</p>
+
+  <ul>
+
+    <li><strong>10 Jahre</strong> — Bücher, Jahresabschlüsse, Inventare (§ 147 AO, § 257 HGB)</li>
+
+    <li><strong>8 Jahre</strong> — Buchungsbelege, Rechnungen (§ 147 AO, § 257 HGB)</li>
+
+    <li><strong>6 Jahre</strong> — Geschäftsbriefe und sonstige steuerrelevante Unterlagen (§ 147 AO)</li>
+
+    <li><strong>3 Jahre</strong> — Gewährleistungs- und Schadensersatzansprüche (§§ 195, 199 BGB)</li>
+
+  </ul>
+
+ 
+
+  <h2 id="rechte">Rechte der betroffenen Personen</h2>
+
+  <p>Ihnen stehen nach der DSGVO folgende Rechte zu:</p>
+
+  <ul>
+
+    <li><strong>Auskunftsrecht (Art. 15 DSGVO)</strong> — Sie können Auskunft über die von mir verarbeiteten Daten verlangen.</li>
+
+    <li><strong>Recht auf Berichtigung (Art. 16 DSGVO)</strong> — Sie können die Berichtigung unrichtiger Daten verlangen.</li>
+
+    <li><strong>Recht auf Löschung (Art. 17 DSGVO)</strong> — Sie können unter bestimmten Voraussetzungen die Löschung Ihrer Daten verlangen.</li>
+
+    <li><strong>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</strong> — Sie können die Einschränkung der Verarbeitung verlangen.</li>
+
+    <li><strong>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</strong> — Sie können Ihre Daten in einem maschinenlesbaren Format erhalten.</li>
+
+    <li><strong>Widerspruchsrecht (Art. 21 DSGVO)</strong> — Sie können der Verarbeitung auf Basis berechtigter Interessen widersprechen.</li>
+
+    <li><strong>Beschwerderecht</strong> — Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, z. B. beim Bayerischen Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach.</li>
+
+  </ul>
+
+ 
+
+  <h2 id="leistungen">Geschäftliche Leistungen</h2>
+
+  <p>Ich verarbeite personenbezogene Daten meiner Kunden und Auftraggeber zur Anbahnung, Durchführung und Abwicklung von Webdesign-Aufträgen und vergleichbaren Leistungen. Dies umfasst insbesondere Name, Kontaktdaten, Vertragsdaten und Kommunikationsinhalte.</p>
+
+  <div class="hbox">
+
+    <p><strong>Hinweis zur Umsatzsteuer:</strong> Ich bin Kleinunternehmer gemäß § 19 UStG. Es wird keine Umsatzsteuer berechnet und daher auch nicht gesondert ausgewiesen.</p>
+
+  </div>
+
+  <ul>
+
+    <li><strong>Verarbeitete Daten:</strong> Name, Adresse, E-Mail, Telefon, Vertragsgegenstand, Zahlungsdaten</li>
+
+    <li><strong>Betroffene Personen:</strong> Kunden, Auftraggeber, Interessenten</li>
+
+    <li><strong>Zweck:</strong> Vertragserfüllung, Kommunikation, Rechnungsstellung</li>
+
+    <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b und c DSGVO</li>
+
+    <li><strong>Speicherdauer:</strong> Entsprechend der gesetzlichen Aufbewahrungsfristen (s. o.)</li>
+
+  </ul>
+
+ 
+
+  <h2 id="hosting">Bereitstellung der Website und Webhosting</h2>
+
+  <p>Diese Website wird auf einem gemieteten Webserver gehostet. Beim Abruf der Website werden automatisch sogenannte Server-Logfiles erstellt, die folgende Daten enthalten können: aufgerufene Seiten, Datum und Uhrzeit, übertragene Datenmenge, Browsertyp, Betriebssystem, Referrer-URL und IP-Adresse.</p>
+
+  <ul>
+
+    <li><strong>Zweck:</strong> Technischer Betrieb, Sicherheit, Fehleranalyse</li>
+
+    <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</li>
+
+    <li><strong>Speicherdauer:</strong> Logfiles werden nach maximal 30 Tagen gelöscht oder anonymisiert</li>
+
+  </ul>
+
+ 
+
+  <h2 id="kontakt">Kontakt- und Anfrageverwaltung</h2>
+
+  <p>Wenn Sie mich per E-Mail kontaktieren, werden die von Ihnen übermittelten Daten (Name, E-Mail-Adresse, Nachrichteninhalt) zur Bearbeitung Ihrer Anfrage verarbeitet. Die Kontaktaufnahme erfolgt ausschließlich über Ihren lokalen E-Mail-Client direkt an meine E-Mail-Adresse — es werden dabei keine Daten an Dritte übertragen.</p>
+
+  <ul>
+
+    <li><strong>Verarbeitete Daten:</strong> Name, E-Mail-Adresse, Nachrichteninhalt</li>
+
+    <li><strong>Zweck:</strong> Bearbeitung von Anfragen, vorvertragliche Kommunikation</li>
+
+    <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b und f DSGVO</li>
+
+    <li><strong>Speicherdauer:</strong> Bis zur abschließenden Bearbeitung, danach entsprechend gesetzlicher Fristen</li>
+
+  </ul>
+
+ 
+
+  <h2 id="drittdienste">Eingebettete Drittdienste</h2>
+
+ 
+
+  <h3>Bunny Fonts (Schriftarten)</h3>
+
+  <p>Diese Website verwendet Bunny Fonts zur Darstellung von Schriftarten. Bunny Fonts ist ein datenschutzfreundlicher Dienst der BunnyWay d.o.o., Cesta komandanta Staneta 4A, 1215 Medvode, Slowenien (EU). Beim Laden der Seite wird eine Verbindung zu den Servern von Bunny Fonts hergestellt, um die Schriftarten zu übertragen. Dabei kann die IP-Adresse des Besuchers übertragen werden. Laut Datenschutzrichtlinie von Bunny Fonts werden keine personenbezogenen Daten dauerhaft gespeichert oder an Dritte weitergegeben. Die Server befinden sich ausschließlich in der EU.</p>
+
+  <ul>
+
+    <li><strong>Anbieter:</strong> BunnyWay d.o.o., Slowenien (EU)</li>
+
+    <li><strong>Zweck:</strong> Darstellung von Schriftarten</li>
+
+    <li><strong>Datenschutz:</strong> <a href="https://bunny.net/privacy" target="_blank" rel="noopener">bunny.net/privacy</a></li>
+
+    <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung)</li>
+
+    <li><strong>Drittlandtransfer:</strong> Keiner — Server ausschließlich in der EU</li>
+
+  </ul>
+
+ 
+
+  <h2 id="aenderung">Änderung und Aktualisierung</h2>
+
+  <p>Ich passe diese Datenschutzerklärung an, sobald Änderungen der von mir durchgeführten Datenverarbeitungen dies erforderlich machen. Ich empfehle Ihnen, die Erklärung regelmäßig zu lesen. Das Datum der letzten Aktualisierung finden Sie oben auf dieser Seite.</p>
+
+ 
+
+  <h2 id="begriffe">Begriffsdefinitionen</h2>
+
+  <ul>
+
+    <li><strong>Personenbezogene Daten</strong> — Alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen (Art. 4 Nr. 1 DSGVO).</li>
+
+    <li><strong>Verarbeitung</strong> — Jeder Vorgang im Zusammenhang mit personenbezogenen Daten, z. B. Erheben, Speichern, Übermitteln, Löschen (Art. 4 Nr. 2 DSGVO).</li>
+
+    <li><strong>Verantwortlicher</strong> — Die natürliche oder juristische Person, die über Zwecke und Mittel der Verarbeitung entscheidet (Art. 4 Nr. 7 DSGVO).</li>
+
+    <li><strong>Berechtigte Interessen</strong> — Verarbeitungen, die für legitime Zwecke des Verantwortlichen erforderlich sind, sofern die Interessen der betroffenen Person nicht überwiegen (Art. 6 Abs. 1 lit. f DSGVO).</li>
+
+  </ul>
+
+ 
+
+  <div class="seal">
+
+    <p>Erstellt auf Basis des <a href="https://datenschutz-generator.de/" target="_blank" rel="noopener noreferrer nofollow">Datenschutz-Generators von Dr. Thomas Schwenke</a> — angepasst für NP Webdesign.</p>
+
+  </div>
+
+ 
+
+</div>
+
+ 
+
+<footer>
+
+  <div class="f-logo">NP Webdesign</div>
+
+  <div class="f-copy">© <span id="fyear"></span> Niklas Prüfling · Einzelunternehmen · Bayern</div>
+
+  <div class="f-links">
+
+    <a href="impressum.html">Impressum</a>
+
+    <a href="datenschutz.html">Datenschutz</a>
+
+  </div>
+
+</footer>
+
+ 
+
+<script>
+
+  // Aktuelles Datum und Jahr automatisch
+
+  const now = new Date();
+
+  document.getElementById('ddate').textContent = now.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+
+  document.getElementById('fyear').textContent = now.getFullYear();
+
+</script>
+
+ 
+
+</body>
+
+</html>
