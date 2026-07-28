@@ -1306,7 +1306,7 @@ document.getElementById('fyear').textContent = new Date().getFullYear();
       const progress = Math.min(Math.max(scrolled / totalScroll, 0), 1);
 
       // Video-Zeit setzen
-      const targetTime = progress * vid.duration;
+      const targetTime = Math.min(progress * vid.duration,vid.duration - 0.1);
       if (Math.abs(targetTime - lastTime) > 0.02) {
         vid.currentTime = targetTime;
         lastTime = targetTime;
