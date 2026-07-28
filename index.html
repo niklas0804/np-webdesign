@@ -1265,7 +1265,8 @@ document.getElementById('fyear').textContent = new Date().getFullYear();
 ══════════════════════════════════════════════════ */
 (function() {
   const vid = document.getElementById('scroll-vid');
-    if(isMobile){
+  
+  if(isMobile){
     vid.setAttribute("autoplay", "");
     vid.setAttribute("loop", "");
     vid.play();
