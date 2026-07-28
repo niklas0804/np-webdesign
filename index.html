@@ -1266,11 +1266,17 @@ document.getElementById('fyear').textContent = new Date().getFullYear();
 (function() {
   const vid = document.getElementById('scroll-vid');
   
-  if(isMobile){
-    vid.setAttribute("autoplay", "");
-    vid.setAttribute("loop", "");
-    vid.play();
-    return;
+  if (isMobile) {
+      vid.autoplay = true;
+      vid.loop = true;
+      vid.muted = true;
+      vid.playsInline = true;
+
+      vid.play().catch(err => {
+          console.log("Autoplay blockiert:", err);
+      });
+
+      return;
   }
   const section = document.getElementById('scroll-video-section');
   const fill = document.getElementById('svpFill');
