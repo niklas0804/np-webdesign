@@ -41,11 +41,23 @@ Ohne JavaScript und im Modus `calm` gibt es keine Pins: eine lange, ruhige Seite
 - Fehlende Inhalte erscheinen als sichtbarer `[PLATZHALTER: …]`, nie erfunden.
 - Orange gehört NP: Welt-Paletten nutzen keine Farbtöne von 10–35° mit mehr als 55 % Sättigung.
 
-## Stand (Phase 1, Schritt 1: Fundament)
+## Welten
 
-Gebaut: Reise-Konfiguration, Tokens, Rahmen (Monogramm, Lebenszeichen, Weltzähler, Lineal, Schnittmarken, Mobile-Leiste), Menü,
-Opening mit Rückzoom auf den Werkplan, Standard-Übergänge, Zwischenspiele I–III (Copy-Deck), Finale-Rahmen, FAQ, Footer,
-`/leistungen`, `/impressum`, `/datenschutz`, 404, drei Branchenseiten (Friseur & Barber, Handwerker, Beratung & Coaching), Ruhig-Modus, Betrieb ohne JavaScript.
+Jede Welt ist ein Modul unter `src/worlds/<nr>-<name>/` (Markup, CSS, Bewegung, Daten). Nicht gebaute Welten zeigen `WorldStub`.
+Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src/motion/index.js`, `WORLD_MODULES`).
 
-Noch Platzhalter: Welten 01–03 (je ein eigener Bauschritt), Kontaktformular mit Live-Vorschau und Endpunkt, Finale-Rückzoom,
-Einwilligungsbanner mit Matomo, Branchenseite Bäckerei, Screenshots und Live-Demos der Branchenseiten, Social-Vorschaubilder, Logo (Signet ist ein Platzhalter).
+| Welt | Stand |
+| --- | --- |
+| 01 Korn & Kruste | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
+| 02 Herrenzimmer, 03 Steiner Bau | Platzhalter, werden nach Blueprint gebaut |
+
+Weltschrift Fraunces: `scripts/subset-fraunces.py` reduziert sie auf die benutzten Zeichen (zwei Dateien, zusammen unter 30 KB).
+
+## Stand (Phase 1)
+
+Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergang t00, Welt 01,
+Standard-Übergänge, Zwischenspiele I–III, Finale-Rahmen, FAQ, Footer, `/leistungen`, `/impressum`, `/datenschutz`, 404,
+drei Branchenseiten, Ruhig-Modus, Betrieb ohne JavaScript.
+
+Noch Platzhalter: Welten 02 und 03, Kontaktformular mit Live-Vorschau und Endpunkt, Finale-Rückzoom, Einwilligungsbanner mit Matomo,
+Branchenseite Bäckerei, Hostinger-Partner-Badge (Datei liefern), Logo (das Signet ist ein Platzhalter), Social-Vorschaubilder.

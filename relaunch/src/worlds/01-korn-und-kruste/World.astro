@@ -1,0 +1,118 @@
+---
+/**
+ * Welt 01 · Korn & Kruste · Handwerksbäckerei (Blueprint F). Studie, fiktives Unternehmen.
+ * Hell, warm, organisch: Fraunces, Mehl und Kruste. Leistung im Einsatz: Bildkonzept und Fotobriefing.
+ * Ohne JavaScript: alle sechs Backtage stehen untereinander, alle Brote sind aufgeklappt lesbar.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { BRANCHEN } from '../../content/branchen.js';
+import { BROTE, BACKPLAN, ZEITEN, BON_NR } from './data.js';
+import Laib from './Laib.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '01');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 01 / ${total} · Bäckerei · Studie`;
+const page = Object.values(BRANCHEN).find((b) => b.world === '01');
+---
+<section id={w.anchor} class="world w01" data-section={row.id} data-world="01" data-ground={w.palette.ground} data-tone="light"
+         data-counter={counter} data-counter-short={`01 / ${total}`} aria-labelledby="w01-title">
+
+  <!-- Bühne: Kopf der Welt -->
+  <div class="w01-hero">
+    <div class="w01-hero-text">
+      <p class="w01-kicker">Handwerksbäckerei · Backstube ab fünf Uhr</p>
+      <h2 id="w01-title" class="w01-title" data-soft>Korn &amp; Kruste</h2>
+      <p class="w01-sub">Brot, das Zeit hatte.</p>
+      <p class="mass mass-type" aria-hidden="true"><span>Fraunces 650 · opsz 144 · SOFT 100 · WONK 1</span></p>
+    </div>
+    <div class="w01-hero-art" aria-hidden="false">
+      <figure class="w01-loaf w01-loaf-big" data-aufgehen>
+        <Laib form="rund" label="Illustration: runder Laib Landbrot mit Schnitten, noch ohne Foto" />
+      </figure>
+      <figure class="w01-loaf w01-loaf-small" data-aufgehen>
+        <Laib form="oval" label="Illustration: ovaler Roggenlaib mit schrägen Schnitten" />
+      </figure>
+      <p class="mass mass-dim" aria-hidden="true"><span>Laib · 4 : 3 · Kruste #3B2618</span></p>
+    </div>
+  </div>
+
+  <!-- Backplan -->
+  <div class="w01-plan" data-backplan>
+    <div class="w01-plan-head">
+      <h3 class="w01-h">Backplan</h3>
+      <p class="w01-lead">Was wann aus dem Ofen kommt. Tippen Sie ein Brot an und sehen Sie, wie lange es Zeit hatte.</p>
+      <p class="w01-demo mono">Demo · Beispieldaten einer erfundenen Bäckerei</p>
+    </div>
+
+    <div class="w01-tabs" role="tablist" aria-label="Backplan nach Wochentag" data-tabs>
+      {BACKPLAN.map((d, i) => (
+        <button class="w01-tab" type="button" role="tab" id={`tab-${i}`} aria-controls={`panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab>
+          <span aria-hidden="true">{d.kurz}</span><span class="visually-hidden">{d.tag}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="w01-panels">
+      {BACKPLAN.map((d, i) => (
+        <div class="w01-panel" role="tabpanel" id={`panel-${i}`} aria-labelledby={`tab-${i}`} tabindex="0" data-panel>
+          <h4 class="w01-day">{d.tag}</h4>
+          <ul class="w01-breads">
+            {d.brote.map((key) => {
+              const b = BROTE[key];
+              const uid = `${key}-${i}`;
+              return (
+                <li class={`w01-bread${b.saison ? ' is-saison' : ''}`} data-bread>
+                  <div class="w01-bread-row">
+                    <button class="w01-bread-btn" type="button" aria-expanded="false" aria-controls={`d-${uid}`} data-bread-btn>
+                      <span class="w01-bread-name">{b.name}</span>
+                      <span class="w01-bread-art">{b.art}{b.saison ? ' · saisonal' : ''}</span>
+                    </button>
+                    <button class="w01-bon-btn" type="button" aria-pressed="false" data-bon-add data-name={b.name}>Auf den Bon</button>
+                  </div>
+                  <div class="w01-detail" id={`d-${uid}`} data-detail>
+                    <p>{b.text}</p>
+                    <label class="w01-meter"><span>Teigführung: {b.stunden} {b.stunden === 1 ? 'Stunde' : 'Stunden'}</span>
+                      <meter min="0" max="24" value={b.stunden}>{b.stunden} von 24 Stunden</meter></label>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Bon und Tafel -->
+  <div class="w01-service">
+    <aside class="w01-bon" aria-label="Vorbestell-Bon, Demo" data-bon>
+      <div class="w01-bon-inner">
+        <p class="w01-bon-head mono">Vorbestellung · Demo</p>
+        <p class="w01-bon-nr"><span class="visually-hidden">Bon Nummer </span>Nr. {BON_NR}</p>
+        <p class="w01-bon-empty" data-bon-empty>Noch nichts auf dem Bon. Wählen Sie im Backplan ein Brot.</p>
+        <ol class="w01-bon-list" data-bon-list></ol>
+        <p class="w01-bon-note mono">Sendet nichts. Der Bon bleibt in Ihrem Browser, bis Sie die Seite verlassen.</p>
+        <p class="visually-hidden" role="status" aria-live="polite" data-bon-status></p>
+      </div>
+    </aside>
+
+    <div class="w01-tafel">
+      <h3 class="w01-h">Öffnungszeiten</h3>
+      <dl class="w01-times">
+        {ZEITEN.map(([tag, zeit]) => <div><dt>{tag}</dt><dd>{zeit}</dd></div>)}
+      </dl>
+      <p class="w01-demo mono">Demo · Beispielzeiten</p>
+    </div>
+  </div>
+
+  <aside class="note w01-note" aria-label={`Werkstattnotiz Welt 01: ${w.name}`}>
+    <p class="mono note-head">Welt 01 · Studie · {w.branche}</p>
+    <p class="note-text">{w.notiz}</p>
+    <p class="mono note-tag">Leistung im Einsatz: {w.leistung}</p>
+    {page && <a class="link note-link" href={w.branchPage}>Webdesign für Bäckereien</a>}
+  </aside>
+
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>

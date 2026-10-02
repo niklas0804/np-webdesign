@@ -14,6 +14,7 @@ import Menu from '../components/Menu.astro';
 import Opening from '../components/Opening.astro';
 import Transition from '../components/Transition.astro';
 import WorldStub from '../components/WorldStub.astro';
+import World01 from '../worlds/01-korn-und-kruste/World.astro';
 import Warum from '../components/Warum.astro';
 import Arbeitsweise from '../components/Arbeitsweise.astro';
 import UeberMich from '../components/UeberMich.astro';
@@ -37,6 +38,8 @@ const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'de-DE' },
 ];
 
+// Weltmodule: gebaute Welten ersetzen den Platzhalter (Blueprint N, Weltmodul-Vertrag)
+const worldModules = { '01': World01 };
 const interludes = { warum: Warum, arbeitsweise: Arbeitsweise, 'ueber-mich': UeberMich };
 ---
 <Base
@@ -57,7 +60,7 @@ const interludes = { warum: Warum, arbeitsweise: Arbeitsweise, 'ueber-mich': Ueb
     {journey.map((row) => {
       if (row.kind === 'opening') return <Opening />;
       if (row.kind === 'transition') return <Transition row={row} />;
-      if (row.kind === 'world') return <WorldStub row={row} />;
+      if (row.kind === 'world') { const W = worldModules[row.world] || WorldStub; return <W row={row} />; }
       if (row.kind === 'interlude') { const C = interludes[row.id]; return <C row={row} />; }
       if (row.kind === 'finale') return <Finale row={row} />;
       if (row.kind === 'contact') return <Kontakt row={row} />;

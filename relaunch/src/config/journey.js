@@ -84,7 +84,8 @@ export const journey = (() => {
   /** @type {any[]} */
   const seq = [
     // Opening: Hero (100) + Expansion (150, gepinnt) + Werkplan (80) bilden eine Bühne
-    { id: 'opening', kind: 'opening', anchor: 'werkplan', hero: { d: 100, m: 100 }, expansion: { d: 150, m: 100 }, plan: { d: 80, m: 80 }, ground: MASTER.leinen, tone: 'light' },
+    // t00 (Werkplan → Welt 01, 60/40vh) läuft auf derselben Bühne: Die Zelle wächst auf Viewport-Größe
+    { id: 'opening', kind: 'opening', anchor: 'werkplan', hero: { d: 100, m: 100 }, expansion: { d: 150, m: 100 }, plan: { d: 80, m: 80 }, grow: { d: 60, m: 40 }, ground: MASTER.leinen, tone: 'light' },
     { id: 'welt-01', kind: 'world', world: '01', d: 160, m: 140 },
     { id: 'welt-02', kind: 'world', world: '02', d: 140, m: 120 },
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
@@ -104,7 +105,7 @@ export const journey = (() => {
   seq.forEach((s, i) => {
     out.push(s);
     const next = seq[i + 1];
-    if (!next || next.kind === 'faq') return;
+    if (!next || next.kind === 'faq' || s.kind === 'opening') return;
     out.push({
       id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
       fromGround: groundOf(s), toGround: groundOf(next), fromTone: toneOf(s), toTone: toneOf(next),
@@ -119,6 +120,6 @@ export const worldOf = (row) => WORLDS.find((w) => w.nr === row.world);
 
 /** Kleine Hilfen für Tests und Abnahme */
 export const totals = () => ({
-  desktop: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.hero.d + r.expansion.d + r.plan.d : r.d), 0),
-  mobile: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.hero.m + r.expansion.m + r.plan.m : r.m), 0),
+  desktop: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.hero.d + r.expansion.d + r.plan.d + r.grow.d : r.d), 0),
+  mobile: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.hero.m + r.expansion.m + r.plan.m + r.grow.m : r.m), 0),
 });

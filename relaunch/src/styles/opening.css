@@ -160,7 +160,7 @@
 
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
-  height: calc((100 + var(--expansion) + var(--plan)) * 1svh);
+  height: calc((100 + var(--expansion) + var(--plan) + var(--grow)) * 1svh);
 }
 html[data-mode='desktop'] .stage, html[data-mode='mobile'] .stage {
   position: sticky; top: 0; height: 100svh; overflow: hidden;
@@ -183,3 +183,19 @@ html[data-mode='desktop'] .wp-coord {
   opacity: 0; transition: opacity var(--dur-s);
 }
 html[data-mode='desktop'] .wp-coord.is-on { opacity: 1; }
+
+/* t00 · Werkplan → Welt 01: Die Zelle wächst als Maske auf Viewport-Größe. Nur in den gepinnten Modi. */
+.grow { display: none; }
+html[data-mode='desktop'] .grow, html[data-mode='mobile'] .grow { display: block; position: absolute; inset: 0; background: var(--ground); visibility: hidden; pointer-events: none; }
+.grow-art {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(var(--text) 0 0) 8% 16% / 44% 7% no-repeat,
+    linear-gradient(var(--text) 0 0) 8% 30% / 30% 7% no-repeat,
+    linear-gradient(var(--accent) 0 0) 8% 48% / 22% 9% no-repeat,
+    linear-gradient(var(--accent2) 0 0) 62% 16% / 30% 62% no-repeat,
+    var(--ground);
+}
+/* Ruhig und ohne JavaScript: der orange Faden trennt Werkplan und Welt 01 */
+.opening + .world { border-top: 1.5px solid var(--np-orange); }
+html[data-mode='desktop'] .opening + .world, html[data-mode='mobile'] .opening + .world { border-top: 0; }

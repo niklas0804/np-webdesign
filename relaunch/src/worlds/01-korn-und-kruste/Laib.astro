@@ -1,0 +1,45 @@
+---
+/**
+ * Illustration statt Foto: Die Welt zeigt Brot als gezeichnete Form, bis es Fotos mit Nutzungsrecht gibt
+ * (Blueprint F, S: Bildbudget). Farben nur Braun-Töne unter 55 % Sättigung – Orange gehört NP.
+ */
+const { form = 'rund', class: cls = '', label = '' } = Astro.props;
+const id = `g-${form}-${Math.abs(label.length * 7 + form.length)}`;
+---
+<svg class={`laib laib-${form} ${cls}`} viewBox="0 0 400 300" role="img" aria-label={label || `Illustration: Brot, ${form}`}>
+  <defs>
+    <radialGradient id={`${id}-k`} cx="38%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#C79C6B" />
+      <stop offset=".55" stop-color="#A8794A" />
+      <stop offset="1" stop-color="#6B4528" />
+    </radialGradient>
+    <radialGradient id={`${id}-m`} cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#F3E3C6" />
+      <stop offset="1" stop-color="#D9B88C" />
+    </radialGradient>
+  </defs>
+  {form === 'rund' && (<>
+    <ellipse cx="200" cy="160" rx="170" ry="118" fill={`url(#${id}-k)`} />
+    <g stroke="#F3E3C6" stroke-width="7" stroke-linecap="round" fill="none" opacity=".92">
+      <path d="M120 130 Q200 90 280 130" /><path d="M110 168 Q200 128 290 168" /><path d="M128 205 Q200 168 272 205" />
+    </g>
+  </>)}
+  {form === 'oval' && (<>
+    <ellipse cx="200" cy="165" rx="185" ry="95" fill={`url(#${id}-k)`} />
+    <g stroke="#F3E3C6" stroke-width="7" stroke-linecap="round" fill="none" opacity=".92">
+      <path d="M95 150 L150 190" /><path d="M150 135 L215 195" /><path d="M215 130 L280 192" /><path d="M275 138 L315 178" />
+    </g>
+  </>)}
+  {form === 'brezel' && (<>
+    <path d="M110 215 C70 150 110 70 170 80 C215 88 215 150 200 170 C185 190 150 205 150 205 M290 215 C330 150 290 70 230 80 C185 88 185 150 200 170 C215 190 250 205 250 205 M110 215 C150 245 250 245 290 215"
+          fill="none" stroke={`url(#${id}-k)`} stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
+    <g fill="#F3E3C6" opacity=".9"><circle cx="150" cy="105" r="3.5" /><circle cx="250" cy="105" r="3.5" /><circle cx="200" cy="150" r="3.5" /><circle cx="168" cy="232" r="3.5" /><circle cx="232" cy="232" r="3.5" /></g>
+  </>)}
+  {form === 'blech' && (<>
+    <rect x="35" y="70" width="330" height="170" rx="18" fill={`url(#${id}-m)`} />
+    <g fill="#5E2B4A">
+      {[[85,115],[150,108],[215,116],[280,110],[110,168],[175,160],[240,170],[305,162],[85,215],[150,212],[215,218],[280,212]].map(([x,y]) => <ellipse cx={x} cy={y} rx="26" ry="17" />)}
+    </g>
+    <g fill="#F3E3C6" opacity=".8"><circle cx="60" cy="92" r="3" /><circle cx="330" cy="225" r="3" /><circle cx="345" cy="100" r="3" /></g>
+  </>)}
+</svg>

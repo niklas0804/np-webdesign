@@ -9,6 +9,18 @@ import { initInterludes } from './interludes.js';
 
 watchMode();
 
+/** Weltmodule: Bewegung und Bedienung laden erst 1,5 Bildschirmhöhen vor der Welt (Blueprint N, Ladestrategie) */
+const WORLD_MODULES = { baeckerei: () => import('../worlds/01-korn-und-kruste/motion.js') };
+function loadWorlds() {
+  Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {
+    const el = document.getElementById(anchor);
+    if (!el) return;
+    let started = false;
+    const go = async () => { if (started) return; started = true; const m = await load(); m.init(); ScrollTrigger.refresh(); };
+    ScrollTrigger.create({ trigger: el, start: 'top bottom+=150%', end: 'bottom top', onToggle: (self) => { if (self.isActive) go(); } });
+  });
+}
+
 async function boot() {
   let lenis = null;
   // Lenis nur am Desktop mit Maus oder Trackpad, über den GSAP-Ticker synchronisiert
@@ -30,6 +42,7 @@ async function boot() {
     initTransitions();
   }
   initInterludes();
+  loadWorlds();
 
   ScrollTrigger.refresh();
   root.setAttribute('data-ready', '');

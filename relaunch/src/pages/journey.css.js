@@ -10,8 +10,8 @@ export function GET() {
   for (const r of journey) {
     const sel = `[data-section="${r.id}"]`;
     if (r.kind === 'opening') {
-      desktop.push(`${sel}{--expansion:${r.expansion.d};--plan:${r.plan.d}}`);
-      mobile.push(`${sel}{--expansion:${r.expansion.m};--plan:${r.plan.m}}`);
+      desktop.push(`${sel}{--expansion:${r.expansion.d};--plan:${r.plan.d};--grow:${r.grow.d}}`);
+      mobile.push(`${sel}{--expansion:${r.expansion.m};--plan:${r.plan.m};--grow:${r.grow.m}}`);
     } else {
       desktop.push(`${sel}{--len:${r.d}}`);
       mobile.push(`${sel}{--len:${r.m}}`);
