@@ -1,0 +1,3 @@
+# Entwicklungswerkzeuge gehören nicht auf die öffentliche Website.
+exclude:
+  - tools

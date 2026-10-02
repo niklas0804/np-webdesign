@@ -1,143 +1,34 @@
 <!DOCTYPE html>
-
 <html lang="de">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Impressum – NP Webdesign</title>
 <meta name="description" content="Impressum von NP Webdesign – Niklas Prüfling, Einzelunternehmen, Schwandorf.">
+<link rel="canonical" href="https://np-webdesign.de/impressum.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-
-<link rel="preconnect" href="https://fonts.bunny.net">
-
-<link href="https://fonts.bunny.net/css2?family=playfair-display:ital,wght@0,400;0,500;1,400&family=dm-sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-
-:root{
-
-  --cream:#f0ebe3;
-
-  --cream2:#e8e2d9;
-
-  --black:#0f0f0e;
-
-  --muted:#7a7670;
-
-  --border:rgba(15,15,14,.11);
-
-}
-
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
-
- 
-
-/* NAV */
-
-nav{position:sticky;top:0;z-index:100;background:rgba(240,235,227,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 52px;display:flex;justify-content:space-between;align-items:center}
-
-.nav-logo{font-family:'DM Sans',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--black);text-decoration:none}
-
-.nav-back{font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .3s}
-
-.nav-back:hover{color:var(--black)}
-
-@media(max-width:768px){nav{padding:14px 22px}}
-
- 
-
-/* HERO */
-
-.page-hero{padding:clamp(52px,8vw,100px) 52px clamp(36px,5vw,60px);border-bottom:1px solid var(--border)}
-
-.page-tag{font-size:.59rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-
-.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,5rem);font-weight:400;line-height:1;margin-bottom:16px}
-
-.page-date{font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-
-@media(max-width:768px){.page-hero{padding:44px 22px 32px}}
-
- 
-
-/* CONTENT */
-
-.content{max-width:760px;margin:0 auto;padding:clamp(44px,6vw,80px) 52px}
-
-@media(max-width:768px){.content{padding:36px 22px}}
-
- 
-
-h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:400;margin:clamp(36px,4vw,56px) 0 16px;padding-top:clamp(36px,4vw,56px);border-top:1px solid var(--border)}
-
-h2:first-child{margin-top:0;padding-top:0;border-top:none}
-
-h3{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--muted);margin:28px 0 12px}
-
-p{font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.9}
-
-p strong{color:var(--black);font-weight:400}
-
-a{color:var(--black);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .3s}
-
-a:hover{border-color:var(--black)}
-
- 
-
-.hbox{background:var(--cream2);border:1px solid var(--border);padding:22px 28px;margin:24px 0}
-
-.hbox p{margin:0;font-size:.84rem}
-
- 
-
-/* FOOTER */
-
-footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-
-.f-logo{font-size:.73rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(240,235,227,.38)}
-
-.f-copy{font-size:.59rem;color:rgba(240,235,227,.18);letter-spacing:.1em}
-
-.f-links{display:flex;gap:24px}
-
-.f-links a{font-size:.59rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.22);text-decoration:none;border:none;transition:color .3s}
-
-.f-links a:hover{color:rgba(240,235,227,.6)}
-
-@media(max-width:768px){footer{padding:20px 22px;flex-direction:column;align-items:flex-start}}
-
-</style>
-
+<link rel="preload" href="fonts/playfair-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/legal.css">
 </head>
-
 <body>
 
- 
+<a class="skip" href="#main">Zum Inhalt springen</a>
 
-<nav>
+<header>
+  <nav class="site-nav" aria-label="Hauptnavigation">
+    <a class="nav-logo" href="index.html">NP Webdesign</a>
+    <a class="nav-back" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zurück zur Website
+    </a>
+  </nav>
+</header>
 
-  <a class="nav-logo" href="index.html">NP Webdesign</a>
-
-  <a class="nav-back" href="index.html">
-
-    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-
-    Zurück zur Website
-
-  </a>
-
-</nav>
-
- 
-
+<main id="main">
 <div class="page-hero">
 
   <div class="page-tag">Rechtliches · NP Webdesign</div>
@@ -229,35 +120,16 @@ footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px 
  
 
 </div>
-
- 
+</main>
 
 <footer>
-
   <div class="f-logo">NP Webdesign</div>
-
-  <div class="f-copy">© <span id="fyear"></span> Niklas Prüfling · Einzelunternehmen · Bayern</div>
-
+  <div class="f-copy">© 2026 Niklas Prüfling · Einzelunternehmen · Bayern</div>
   <div class="f-links">
-
     <a href="impressum.html">Impressum</a>
-
     <a href="datenschutz.html">Datenschutz</a>
-
   </div>
-
 </footer>
 
- 
-
-<script>
-
-  document.getElementById('fyear').textContent = new Date().getFullYear();
-
-</script>
-
- 
-
 </body>
-
 </html>

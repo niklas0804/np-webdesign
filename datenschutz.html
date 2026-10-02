@@ -1,184 +1,41 @@
 <!DOCTYPE html>
-
 <html lang="de">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Datenschutzerklärung – NP Webdesign</title>
-<meta name="description" content="Datenschutzerklärung von NP Webdesign – Niklas Prüfling, Einzelunternehmen, Schwandorf.">
+<meta name="description" content="Datenschutzerklärung von NP Webdesign – Niklas Prüfling, Schwandorf.">
+<link rel="canonical" href="https://np-webdesign.de/datenschutz.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-
-<link rel="preconnect" href="https://fonts.bunny.net">
-
-<link href="https://fonts.bunny.net/css2?family=playfair-display:ital,wght@0,400;0,500;1,400&family=dm-sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-
-:root{
-
-  --cream:#f0ebe3;
-
-  --cream2:#e8e2d9;
-
-  --black:#0f0f0e;
-
-  --muted:#7a7670;
-
-  --border:rgba(15,15,14,.11);
-
-}
-
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
-
- 
-
-/* NAV */
-
-nav{position:sticky;top:0;z-index:100;background:rgba(240,235,227,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 52px;display:flex;justify-content:space-between;align-items:center}
-
-.nav-logo{font-family:'DM Sans',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--black);text-decoration:none}
-
-.nav-back{font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .3s}
-
-.nav-back:hover{color:var(--black)}
-
-@media(max-width:768px){nav{padding:14px 22px}}
-
- 
-
-/* HERO */
-
-.page-hero{padding:clamp(52px,8vw,100px) 52px clamp(36px,5vw,60px);border-bottom:1px solid var(--border)}
-
-.page-tag{font-size:.59rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-
-.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,5rem);font-weight:400;line-height:1;margin-bottom:16px}
-
-.page-date{font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-
-@media(max-width:768px){.page-hero{padding:44px 22px 32px}}
-
- 
-
-/* CONTENT */
-
-.content{max-width:760px;margin:0 auto;padding:clamp(44px,6vw,80px) 52px}
-
-@media(max-width:768px){.content{padding:36px 22px}}
-
- 
-
-h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:400;margin:clamp(36px,4vw,56px) 0 16px;padding-top:clamp(36px,4vw,56px);border-top:1px solid var(--border)}
-
-h2:first-child{margin-top:0;padding-top:0;border-top:none}
-
-h3{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--muted);margin:28px 0 12px}
-
-p{font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.9}
-
-p strong{color:var(--black);font-weight:400}
-
-a{color:var(--black);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .3s}
-
-a:hover{border-color:var(--black)}
-
-ul{list-style:none;margin-bottom:16px}
-
-ul li{font-size:.9rem;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(15,15,14,.05);display:flex;align-items:flex-start;gap:12px;line-height:1.7}
-
-ul li::before{content:'';display:block;width:12px;height:1px;background:var(--black);margin-top:.85em;flex-shrink:0}
-
-ul li strong{color:var(--black);font-weight:400}
-
- 
-
-/* INDEX */
-
-.index{border:1px solid var(--border);padding:24px 28px;margin-bottom:0}
-
-.index li{border-bottom:none;padding:5px 0}
-
-.index li::before{display:none}
-
-.index a{font-size:.78rem;letter-spacing:.1em}
-
- 
-
-/* HIGHLIGHT BOX */
-
-.hbox{background:var(--cream2);border:1px solid var(--border);padding:22px 28px;margin:24px 0}
-
-.hbox p{margin:0;font-size:.84rem}
-
- 
-
-/* SEAL */
-
-.seal{margin-top:clamp(52px,6vw,80px);padding-top:32px;border-top:1px solid var(--border)}
-
-.seal p{font-size:.7rem;color:var(--muted);letter-spacing:.1em}
-
-.seal a{font-size:.7rem;color:var(--muted);border-color:transparent}
-
-.seal a:hover{color:var(--black);border-color:var(--border)}
-
- 
-
-/* FOOTER */
-
-footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-
-.f-logo{font-size:.73rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(240,235,227,.38)}
-
-.f-copy{font-size:.59rem;color:rgba(240,235,227,.18);letter-spacing:.1em}
-
-.f-links{display:flex;gap:24px}
-
-.f-links a{font-size:.59rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.22);text-decoration:none;border:none;transition:color .3s}
-
-.f-links a:hover{color:rgba(240,235,227,.6)}
-
-@media(max-width:768px){footer{padding:20px 22px;flex-direction:column;align-items:flex-start}}
-
-</style>
-
+<link rel="preload" href="fonts/playfair-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/legal.css">
 </head>
-
 <body>
 
- 
+<a class="skip" href="#main">Zum Inhalt springen</a>
 
-<nav>
+<header>
+  <nav class="site-nav" aria-label="Hauptnavigation">
+    <a class="nav-logo" href="index.html">NP Webdesign</a>
+    <a class="nav-back" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zurück zur Website
+    </a>
+  </nav>
+</header>
 
-  <a class="nav-logo" href="index.html">NP Webdesign</a>
-
-  <a class="nav-back" href="index.html">
-
-    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-
-    Zurück zur Website
-
-  </a>
-
-</nav>
-
- 
-
+<main id="main">
 <div class="page-hero">
 
   <div class="page-tag">Rechtliches · NP Webdesign</div>
 
   <h1 class="page-title">Datenschutz&shy;erklärung</h1>
 
-  <div class="page-date">Stand: <span id="ddate"></span></div>
+  <div class="page-date">Stand: 2. Oktober 2026</div>
 
 </div>
 
@@ -214,7 +71,7 @@ footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px 
 
     <li><a href="#kontakt">Kontakt- und Anfrageverwaltung</a></li>
 
-    <li><a href="#drittdienste">Eingebettete Drittdienste</a></li>
+    <li><a href="#drittdienste">Externe Dienste und Schriftarten</a></li>
 
     <li><a href="#aenderung">Änderung und Aktualisierung</a></li>
 
@@ -334,6 +191,7 @@ footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px 
 
  
 
+  <!-- TODO (Niklas): Name, Sitz und Auftragsverarbeitung des tatsächlichen Hosters ergänzen und die Aufbewahrungsdauer der Logfiles (30 Tage) beim Hoster prüfen. -->
   <h2 id="hosting">Bereitstellung der Website und Webhosting</h2>
 
   <p>Diese Website wird auf einem gemieteten Webserver gehostet. Beim Abruf der Website werden automatisch sogenannte Server-Logfiles erstellt, die folgende Daten enthalten können: aufgerufene Seiten, Datum und Uhrzeit, übertragene Datenmenge, Browsertyp, Betriebssystem, Referrer-URL und IP-Adresse.</p>
@@ -368,29 +226,10 @@ footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px 
 
  
 
-  <h2 id="drittdienste">Eingebettete Drittdienste</h2>
-
- 
-
-  <h3>Bunny Fonts (Schriftarten)</h3>
-
-  <p>Diese Website verwendet Bunny Fonts zur Darstellung von Schriftarten. Bunny Fonts ist ein datenschutzfreundlicher Dienst der BunnyWay d.o.o., Cesta komandanta Staneta 4A, 1215 Medvode, Slowenien (EU). Beim Laden der Seite wird eine Verbindung zu den Servern von Bunny Fonts hergestellt, um die Schriftarten zu übertragen. Dabei kann die IP-Adresse des Besuchers übertragen werden. Laut Datenschutzrichtlinie von Bunny Fonts werden keine personenbezogenen Daten dauerhaft gespeichert oder an Dritte weitergegeben. Die Server befinden sich ausschließlich in der EU.</p>
-
-  <ul>
-
-    <li><strong>Anbieter:</strong> BunnyWay d.o.o., Slowenien (EU)</li>
-
-    <li><strong>Zweck:</strong> Darstellung von Schriftarten</li>
-
-    <li><strong>Datenschutz:</strong> <a href="https://bunny.net/privacy" target="_blank" rel="noopener">bunny.net/privacy</a></li>
-
-    <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung)</li>
-
-    <li><strong>Drittlandtransfer:</strong> Keiner — Server ausschließlich in der EU</li>
-
-  </ul>
-
- 
+  <h2 id="drittdienste">Externe Dienste und Schriftarten</h2>
+  <p>Diese Website bindet keine externen Dienste ein. Schriftarten, Skripte und Bilder werden ausschließlich von dem Server ausgeliefert, auf dem diese Website liegt. Beim Aufruf der Website werden daher keine Daten an Anbieter von Schriftarten, Statistik-, Werbe-, Karten- oder Video-Diensten übertragen.</p>
+  <p>Diese Website setzt keine Cookies und speichert keine Informationen im Browser (weder Cookies noch lokalen Speicher). Es findet keine Reichweitenmessung, keine Profilbildung und keine Weitergabe von Daten zu Werbezwecken statt.</p>
+  <p>Links zu anderen Websites (zum Beispiel zum Datenschutz-Generator am Ende dieser Seite) sind normale Verweise: Erst wenn Sie einen solchen Link anklicken, verlassen Sie diese Website, und es gelten die Datenschutzhinweise des jeweiligen Anbieters.</p>
 
   <h2 id="aenderung">Änderung und Aktualisierung</h2>
 
@@ -423,41 +262,16 @@ footer{background:var(--black);padding:clamp(20px,3vw,36px) 52px;border-top:1px 
  
 
 </div>
-
- 
+</main>
 
 <footer>
-
   <div class="f-logo">NP Webdesign</div>
-
-  <div class="f-copy">© <span id="fyear"></span> Niklas Prüfling · Einzelunternehmen · Bayern</div>
-
+  <div class="f-copy">© 2026 Niklas Prüfling · Einzelunternehmen · Bayern</div>
   <div class="f-links">
-
     <a href="impressum.html">Impressum</a>
-
     <a href="datenschutz.html">Datenschutz</a>
-
   </div>
-
 </footer>
 
- 
-
-<script>
-
-  // Aktuelles Datum und Jahr automatisch
-
-  const now = new Date();
-
-  document.getElementById('ddate').textContent = now.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
-
-  document.getElementById('fyear').textContent = now.getFullYear();
-
-</script>
-
- 
-
 </body>
-
 </html>
