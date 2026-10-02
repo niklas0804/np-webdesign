@@ -49,3 +49,7 @@
 .page-footer a:hover { color: var(--glut); }
 .page-footer ul { display: flex; gap: var(--s5); flex-wrap: wrap; }
 .page-footer :focus-visible { outline-color: var(--glut); }
+
+.partner-badge { display: flex; align-items: center; gap: var(--s3); }
+.partner-badge img { height: 30px; width: auto; }
+.partner-badge-ph { color: var(--asche); text-transform: none; letter-spacing: .02em; border: 1px dashed currentColor; padding: var(--s2) var(--s3); }

@@ -36,7 +36,6 @@ const titleFull = `${b.title} – NP Webdesign`;
             <span class="btn-label"><span>Projekt besprechen</span><span aria-hidden="true">Projekt besprechen</span></span>
             <span class="btn-arrow" aria-hidden="true">→</span>
           </a>
-          <p class="mono small">[PLATZHALTER: Link zur Live-Demo]</p>
         </div>
       </div>
       <dl class="bs-meta" aria-label="Projektübersicht">
@@ -45,17 +44,16 @@ const titleFull = `${b.title} – NP Webdesign`;
     </div>
   </header>
 
-  <section class="bs-visual" aria-label="Das entwickelte Branchenkonzept">
-    <div class="bs-wrap">
-      <figure>
-        <div class="bs-frame" role="img" aria-label={b.visual.alt}><p class="mono">[PLATZHALTER: Screenshot {b.visual.file}]</p></div>
-        <figcaption class="bs-caption">
-          <span>Das entwickelte Branchenkonzept</span>
-          <span>Studie · fiktives Unternehmen — alle gezeigten Unternehmensdaten sind frei erfunden.</span>
-        </figcaption>
-      </figure>
-    </div>
-  </section>
+  {b.visual && (
+    <section class="bs-visual" aria-label="Das entwickelte Branchenkonzept">
+      <div class="bs-wrap">
+        <figure>
+          <div class="bs-frame" role="img" aria-label={b.visual.alt}><p class="mono">[PLATZHALTER: Screenshot {b.visual.file}]</p></div>
+          <figcaption class="bs-caption"><span>Das entwickelte Branchenkonzept</span><span>Studie · fiktives Unternehmen — alle gezeigten Unternehmensdaten sind frei erfunden.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+  )}
 
   <section class="bs-section" aria-labelledby="h-ausgang">
     <div class="bs-wrap">

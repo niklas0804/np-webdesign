@@ -133,4 +133,5 @@ html[data-mode='desktop'] .beam-fill, html[data-mode='mobile'] .beam-fill { tran
 .footer-links { display: grid; gap: var(--s1); }
 .footer-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); }
 .footer-links a:hover { color: var(--glut); }
+.footer .partner-badge { margin-top: var(--s7); }
 .footer-credit { margin-top: var(--s8); color: var(--asche); font-size: var(--fs-mono-xs); }

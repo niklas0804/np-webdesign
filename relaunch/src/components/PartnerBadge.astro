@@ -1,0 +1,10 @@
+---
+import { SITE } from '../config/site.js';
+const b = SITE.partnerBadge;
+---
+<div class="partner-badge">
+  {b.file
+    ? <img src={`/images/${b.file}`} width={b.width} height={b.height} alt={b.alt} loading="lazy" decoding="async" />
+    : <span class="mono partner-badge-ph">[PLATZHALTER: Hostinger-Partner-Badge als SVG liefern]</span>}
+  {b.label && <span class="small">{b.label}</span>}
+</div>

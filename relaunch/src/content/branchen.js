@@ -2,7 +2,7 @@
  * Branchenseiten (Blueprint K, Q): Texte der drei vorhandenen Beispielkonzepte, wörtlich übernommen
  * aus den Seiten Friseur & Barber, Handwerker, Beratung & Coaching.
  * Geändert nur: keine Fremdschrift, kein Fremd-Badge, E-Mail-Adresse aus site.js.
- * Fehlt (sichtbarer Platzhalter): Screenshot und Live-Demo je Konzept.
+ * Screenshots und Live-Demos bleiben vorerst weg (Entscheidung von Niklas).
  */
 const COMMON = {
   tech: [
@@ -21,7 +21,7 @@ export const BRANCHEN = {
     h1: 'Wie modernes Webdesign <em>Vertrauen</em> schafft.',
     lead: 'Ein Website-Konzept für einen hochwertigen Barbershop mit Fokus auf Markenwirkung, klaren Kontaktwegen und überzeugender Nutzung auf mobilen Geräten.',
     meta: [['Branche', 'Friseur & Barber'], ['Leistung', 'Konzept, Design, Entwicklung'], ['Schwerpunkt', 'Markenwirkung & Nutzerführung'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
-    visual: { alt: 'Screenshot des Barbershop-Website-Konzepts von NP Webdesign', file: 'demo-friseur.webp' },
+    visual: null, // Screenshot des Konzepts: folgt mit der Demo
     ausgangssituation: [
       'Viele Friseur- und Barberbetriebe verlassen sich bei ihrem digitalen Auftritt hauptsächlich auf soziale Netzwerke. Dort stehen aktuelle Beiträge im Vordergrund, während grundlegende Informationen wie Öffnungszeiten, Leistungen, Preise und Kontaktmöglichkeiten schnell in den Hintergrund geraten.',
       'Für neue Interessenten entsteht dadurch kein klar geführter erster Kontakt. Gerade bei einem hochwertigen Salon muss die Website jedoch bereits vor dem Besuch vermitteln, <strong>welchen Anspruch, Stil und welches Erlebnis der Betrieb bietet.</strong>',
@@ -62,7 +62,7 @@ export const BRANCHEN = {
     h1: 'Solides Handwerk <em>sichtbar</em> gemacht.',
     lead: 'Ein Website-Konzept für einen Handwerksbetrieb mit Fokus auf Vertrauen durch Referenzen, eine klare Leistungsübersicht und einen kurzen Weg zur Anfrage.',
     meta: [['Branche', 'Handwerksbetrieb'], ['Leistung', 'Konzept, Design, Entwicklung'], ['Schwerpunkt', 'Vertrauen & Referenzen'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
-    visual: { alt: 'Screenshot des Handwerker-Website-Konzepts von NP Webdesign', file: 'demo-handwerker.webp' },
+    visual: null, // Screenshot des Konzepts: folgt mit der Demo
     ausgangssituation: [
       'Handwerksbetriebe leben von Empfehlungen und sichtbarer Arbeitsqualität — doch viele Websites der Branche zeigen davon wenig. Häufig fehlen Referenzprojekte, die Leistungsübersicht ist unübersichtlich, und ein direkter Kontaktweg ist schwer zu finden.',
       'Interessenten, die online nach einem Betrieb suchen, entscheiden oft innerhalb von Sekunden, ob sie Vertrauen fassen. <strong>Genau dieses Vertrauen muss die Website in kurzer Zeit vermitteln können.</strong>',
@@ -103,7 +103,7 @@ export const BRANCHEN = {
     h1: 'Klarheit, die <em>Vertrauen</em> schafft.',
     lead: 'Ein Website-Konzept für Beratung und Coaching mit Fokus auf klare Positionierung, eine ruhige Bildsprache und einen niedrigschwelligen Weg zum Erstgespräch.',
     meta: [['Branche', 'Beratung & Coaching'], ['Leistung', 'Konzept, Design, Entwicklung'], ['Schwerpunkt', 'Positionierung & Klarheit'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
-    visual: { alt: 'Screenshot des Beratungs- und Coaching-Website-Konzepts von NP Webdesign', file: 'demo-beratung.webp' },
+    visual: null, // Screenshot des Konzepts: folgt mit der Demo
     ausgangssituation: [
       'Beratungs- und Coaching-Angebote sind oft schwer greifbar — Interessenten wissen häufig nicht genau, wofür eine Person steht und für wen das Angebot wirklich gedacht ist. Websites der Branche verlieren sich dadurch schnell in allgemeinen Aussagen statt einer klaren Positionierung.',
       'Gerade bei einer Dienstleistung, die stark von der beratenden Person abhängt, muss die Website <strong>innerhalb weniger Sekunden Klarheit über Haltung, Methode und Zielgruppe schaffen.</strong>',

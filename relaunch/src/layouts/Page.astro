@@ -3,6 +3,7 @@
 import Base from './Base.astro';
 import '../styles/page.css';
 import Logo from '../components/Logo.astro';
+import PartnerBadge from '../components/PartnerBadge.astro';
 import { SITE } from '../config/site.js';
 const { title, description, path, noindex = false, wide = false, bare = false, jsonLd = null } = Astro.props;
 ---
@@ -24,6 +25,7 @@ const { title, description, path, noindex = false, wide = false, bare = false, j
   <footer class="page-footer">
     <div class="page-footer-inner">
       <p class="mono">© {new Date().getFullYear()} {SITE.owner} · Gestaltung und Code: NP Webdesign</p>
+      <PartnerBadge />
       <ul>
         <li><a href="/impressum">Impressum</a></li>
         <li><a href="/datenschutz">Datenschutz</a></li>

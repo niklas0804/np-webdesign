@@ -8,11 +8,14 @@ export const SITE = {
   url: 'https://np-webdesign.de',
   city: 'Schwandorf',
   timeZone: 'Europe/Berlin',
-  email: 'niklas.pg@online.de',
+  email: 'kontakt@np-webdesign.de',
   /** Offen (Blueprint K): Telefonnummer im Rahmen ja oder nein. Im Impressum steht sie bereits. */
   phone: null,
   /** Offen (Blueprint K): Antwortzeit-Zusage, die neben dem Vollzeitjob verlässlich zu halten ist */
   responseTime: null,
+  /** Hostinger-Partner-Badge (Niklas ist offizieller Partner). Die SVG-Datei liegt selbst gehostet unter public/images/, nie von einem Fremdserver.
+   *  Solange file null ist, erscheint im Footer ein sichtbarer Platzhalter. Kennzeichnung als Werbung: bei Bedarf über `label`. */
+  partnerBadge: { file: null, alt: 'Hostinger Partner', label: null, width: 80, height: 30 },
   placeholder: {
     responseTime: '[PLATZHALTER: Antwortzeit-Zusage]',
     portrait: '[PLATZHALTER: Porträtfoto von Niklas]',

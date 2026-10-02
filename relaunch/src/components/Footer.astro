@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../config/site.js';
+import PartnerBadge from './PartnerBadge.astro';
 ---
 <footer class="footer on-dark" data-section="footer" data-tone="dark" data-counter="Kontakt · Rechtliches" data-counter-short="NP" data-bar-off>
   <div class="footer-inner">
@@ -13,6 +14,7 @@ import { SITE } from '../config/site.js';
         <li><a href="/datenschutz">Datenschutz</a></li>
       </ul>
     </div>
+    <PartnerBadge />
     <p class="mono footer-credit">© {new Date().getFullYear()} {SITE.owner} · Gestaltung und Code: NP Webdesign</p>
   </div>
 </footer>
