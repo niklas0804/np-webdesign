@@ -1,0 +1,141 @@
+/* Grundstile */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--frame-top);
+  hanging-punctuation: first;
+}
+html[data-mode='desktop'] { scroll-behavior: auto; } /* Lenis übernimmt, sonst gibt es doppelte Glättung */
+
+body {
+  background: var(--leinen);
+  color: var(--tinte);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  font-stretch: 100%;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media (min-width: 1024px) { body { font-size: 1.125rem; } }
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul, ol { list-style: none; }
+
+h1, h2, h3 { font-family: var(--sans); text-wrap: balance; }
+h1 { font-size: var(--fs-h1); line-height: .95; letter-spacing: -.025em; font-weight: 720; font-stretch: 90%; }
+h2 { font-size: var(--fs-h2); line-height: 1; letter-spacing: -.02em; font-weight: 700; font-stretch: 95%; }
+h3 { font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -.01em; font-weight: 650; }
+p { max-width: var(--measure); }
+.lead { font-size: var(--fs-lead); line-height: 1.45; font-weight: 420; }
+.small { font-size: var(--fs-small); line-height: 1.5; letter-spacing: .005em; }
+
+/* Mono: Maßschicht, Kicker, Zähler */
+.mono, .kicker {
+  font-family: var(--mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.kicker { color: var(--np-mass); }
+
+/* Auswahl, Fokus */
+::selection { background: var(--np-orange); color: var(--nacht); }
+:focus-visible { outline: 2px solid var(--tinte); outline-offset: 2px; }
+html[data-tone='dark'] :focus-visible, .on-dark :focus-visible { outline-color: var(--glut); }
+
+/* Links im Fließtext: Tinte mit 1,5-px-Unterstreichung in NP-Orange */
+.prose a, .link {
+  text-decoration: underline;
+  text-decoration-color: var(--np-orange);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-s) var(--ease-out), text-decoration-thickness var(--dur-s) var(--ease-out);
+}
+.prose a:hover, .link:hover { color: var(--orange-text); text-decoration-thickness: 3px; }
+
+/* Buttons */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 48px;
+  padding: 0 var(--s6);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1rem;
+  letter-spacing: .01em;
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--dur-s) var(--ease-out), transform var(--dur-xs) var(--ease-out);
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateX(-101%);
+  transition: transform var(--dur-s) var(--ease-out);
+}
+.btn:hover::before, .btn:focus-visible::before { transform: translateX(0); }
+.btn:active { transform: scale(.98); }
+.btn .btn-arrow { transition: transform var(--dur-s) var(--ease-out); }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+.btn-label { position: relative; display: block; overflow: hidden; height: 1.6em; }
+.btn-label > span { display: block; transition: transform var(--dur-s) var(--ease-out); }
+.btn-label > span + span { position: absolute; left: 0; top: 100%; }
+.btn:hover .btn-label > span, .btn:focus-visible .btn-label > span { transform: translateY(-100%); }
+
+.btn-primary { background: var(--np-orange); color: var(--nacht); }
+.btn-primary::before { background: var(--tinte); }
+.btn-primary:hover, .btn-primary:focus-visible { color: var(--leinen); }
+.btn-primary:hover .btn-arrow { color: var(--glut); }
+
+.btn-secondary { box-shadow: inset 0 0 0 1.5px var(--tinte); color: var(--tinte); }
+.btn-secondary::before { background: var(--sand); }
+
+/* Hover ohne Rollen auf Touch */
+@media (hover: none) {
+  .btn:hover::before { transform: translateX(-101%); }
+  .btn:active::before { transform: translateX(0); }
+  .btn-label > span + span { display: none; }
+  .btn:hover .btn-label > span { transform: none; }
+}
+
+/* Sprunglinks: nur bei Tastaturfokus sichtbar */
+.skiplinks { position: fixed; top: 0; left: 0; z-index: calc(var(--z-overlay) + 10); display: flex; gap: var(--s2); }
+.skiplinks a {
+  position: absolute; top: -200px; left: var(--s3);
+  background: var(--nacht); color: var(--leinen);
+  padding: var(--s4) var(--s5); white-space: nowrap;
+  font-weight: 650; text-decoration: none;
+}
+.skiplinks a:focus { top: var(--s3); outline-color: var(--glut); }
+.skiplinks a:nth-child(2):focus { top: calc(var(--s3) + 56px); }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* Ohne JavaScript: Hinweise, die nur mit JavaScript funktionieren, ausblenden */
+html:not([data-js]) .needs-js { display: none !important; }
+
+/* Seitliches Scrollen gibt es nie */
+html, body { max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; }
+}

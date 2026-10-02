@@ -1,0 +1,51 @@
+---
+/** Der NP-Rahmen: fest am Viewport, über jeder Welt (Blueprint C, J). Keine Hintergrundbalken. */
+import { builtWorlds } from '../config/journey.js';
+import { SITE } from '../config/site.js';
+import Logo from './Logo.astro';
+const total = String(builtWorlds.length).padStart(2, '0');
+---
+<div class="frame">
+  <a class="frame-logo" href="/#werkplan" aria-label="NP Webdesign – zum Werkplan">
+    <Logo class="frame-logo-mark" />
+  </a>
+
+  <div class="frame-right">
+    <p class="frame-live mono" aria-hidden="true"><span>{SITE.city}</span> · <time data-clock>--:--</time></p>
+    <button class="frame-menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
+      <span class="frame-menu-label">Menü</span>
+    </button>
+    <a class="btn btn-primary frame-cta" href="/#kontakt" data-cta>
+      <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+      <span class="btn-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <p class="frame-counter mono" aria-hidden="true">
+    <span class="frame-counter-long" data-frame-counter>Werkplan</span>
+    <span class="frame-counter-short" data-frame-counter-short>00 / {total}</span>
+  </p>
+
+  <div class="frame-ruler" aria-hidden="true" data-ruler>
+    <span class="ruler-track"></span>
+    <span class="ruler-fill" data-ruler-fill></span>
+    <span class="ruler-mark" data-ruler-mark></span>
+    {builtWorlds.map((w) => (
+      <a class="ruler-tick" href={`/#${w.anchor}`} tabindex="-1" data-tick={w.nr} data-label={`${w.nr} · ${w.name}`}><span class="ruler-tick-label">{w.nr} · {w.name}</span></a>
+    ))}
+  </div>
+  <div class="frame-progress" aria-hidden="true"><span data-progress></span></div>
+
+  <span class="crop crop-tl" aria-hidden="true"></span>
+  <span class="crop crop-tr" aria-hidden="true"></span>
+  <span class="crop crop-bl" aria-hidden="true"></span>
+  <span class="crop crop-br" aria-hidden="true"></span>
+</div>
+
+<!-- Mobile: Anfrage-Leiste in der Daumenzone -->
+<div class="frame-bar" data-frame-bar>
+  <a class="btn btn-primary" href="/#kontakt">
+    <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+    <span class="btn-arrow" aria-hidden="true">→</span>
+  </a>
+</div>

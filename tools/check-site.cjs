@@ -13,7 +13,8 @@
  *   7. Content-Security-Policy je Seite gesetzt, ohne 'unsafe-*' und ohne Fremdhosts
  *   8. kein HTML-Verweis auf fremde Hosts außer normalen Links (<a href>)
  *
- * Aufruf:  NODE_PATH=$(npm root -g) node tools/check-site.cjs
+ * Aufruf:  NODE_PATH=$(npm root -g) node tools/check-site.cjs [Ordner]
+ *          (ohne Ordner: Repo-Wurzel; für den Relaunch: relaunch/dist)
  * Voraussetzung: Playwright mit Chromium (nur lokal nötig, nicht Teil der Website).
  */
 const http = require('http');
@@ -21,11 +22,12 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = path.resolve(process.argv[2] || path.join(__dirname, '..'));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.txt': 'text/plain', '.xml': 'application/xml', '.json': 'application/json', '.jpg': 'image/jpeg', '.png': 'image/png', '.mp4': 'video/mp4' };
 const VIEWPORTS = [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobil', width: 390, height: 844 }, { name: 'schmal', width: 320, height: 640 }];
 /* Elemente, die ohne JavaScript sichtbar sein müssen (nur geprüft, wenn vorhanden) */
-const NOJS_VISIBLE = ['h1', '.hero-title', '.hero-sub', '.pkg', '.pstep', '.krow', '.contact-box', '.faq-answer p', '.ueber-title', '.fact'];
+const NOJS_VISIBLE = ['h1', '.hero-title', '.hero-sub', '.hero-lead', '.pkg', '.pstep', '.krow', '.contact-box', '.faq-answer p', '.ueber-title', '.fact',
+  '.wp-cell', '.wp-statement h2', '.world-title', '.statement', '.step', '.faq-item summary', '.note', '.window-frame', '.finale h2', '.kontakt h2'];
 
 const failures = [];
 const notes = [];
@@ -36,13 +38,15 @@ function serve() {
     let p = decodeURIComponent(req.url.split('?')[0]);
     if (p.endsWith('/')) p += 'index.html';
     const file = path.join(ROOT, p);
-    if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+    let resolved = file;
+    if (!path.extname(file) && fs.existsSync(file + '.html')) resolved = file + '.html'; // /leistungen → leistungen.html
+    if (!resolved.startsWith(ROOT) || !fs.existsSync(resolved) || fs.statSync(resolved).isDirectory()) {
       const nf = path.join(ROOT, '404.html');
       res.writeHead(404, { 'content-type': TYPES['.html'] });
       return res.end(fs.existsSync(nf) ? fs.readFileSync(nf) : 'Not found');
     }
-    res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream' });
-    fs.createReadStream(file).pipe(res);
+    res.writeHead(200, { 'content-type': TYPES[path.extname(resolved)] || 'application/octet-stream' });
+    fs.createReadStream(resolved).pipe(res);
   });
   return new Promise((resolve) => server.listen(0, '127.0.0.1', () => resolve(server)));
 }
@@ -60,6 +64,12 @@ function staticChecks(name, html) {
     fail(name, `HTML bindet Fremdhost ein: ${tag.slice(0, 120)}`);
   }
   if (/rel=["']?(preconnect|dns-prefetch|prefetch)/i.test(html)) fail(name, 'preconnect/dns-prefetch gefunden');
+  // Strikte CSP: kein Inline-Code (Datenblöcke wie JSON-LD sind erlaubt)
+  const inline = (html.match(/<script\b(?![^>]*\bsrc=)(?![^>]*type=["']application\/ld\+json["'])[^>]*>/gi) || []);
+  if (inline.length) fail(name, `Inline-<script> gefunden: ${inline[0]}`);
+  if (/<style[\s>]/i.test(html)) fail(name, 'Inline-<style> gefunden');
+  if (/\sstyle=["']/i.test(html)) fail(name, 'style-Attribut im HTML gefunden');
+  if (/\son(click|load|error|change|submit)=/i.test(html)) fail(name, 'Inline-Event-Handler gefunden');
 }
 
 async function run() {

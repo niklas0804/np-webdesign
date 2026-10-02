@@ -1,0 +1,22 @@
+---
+/**
+ * Welt 11 · Kontakt (Blueprint L). Formular, Live-Vorschau und Endpunkt folgen in einem eigenen Bauschritt.
+ * Bis dahin: ehrlicher Platzhalter plus der direkte Weg per E-Mail – kein totes Formular.
+ */
+import { SITE } from '../config/site.js';
+const { row } = Astro.props;
+---
+<section id={row.anchor} class="kontakt" data-section={row.id} data-ground={row.ground} data-tone="light"
+         data-counter="Welt 11 · Kontakt" data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title">
+  <div class="kontakt-inner">
+    <p class="kicker">Welt 11 · Kontakt</p>
+    <h2 id="kontakt-title">Ihr Entwurf beginnt mit einem Gespräch.</h2>
+    <p class="mono world-placeholder">[PLATZHALTER: Kontaktformular mit Live-Vorschau folgt in einem eigenen Bauschritt]</p>
+    <dl class="facts">
+      <div><dt class="mono">E-Mail</dt><dd><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+      <div><dt class="mono">Standort</dt><dd>{SITE.city}, Oberpfalz</dd></div>
+      <div><dt class="mono">Antwortzeit</dt><dd class="mono">{SITE.placeholder.responseTime}</dd></div>
+      <div><dt class="mono">Preise</dt><dd><a class="link" href="/leistungen">Pakete und Preise</a></dd></div>
+    </dl>
+  </div>
+</section>

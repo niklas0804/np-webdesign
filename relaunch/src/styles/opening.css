@@ -1,0 +1,185 @@
+/* Opening und Werkplan (Blueprint D).
+   Grundzustand = ruhige, gestapelte Seite (ohne JavaScript, Modus „Ruhig“).
+   Die gepinnte Bühne gilt nur, wenn mode-init.js den Modus „desktop“ oder „mobile“ gesetzt hat. */
+
+.opening { position: relative; }
+.anchor { position: absolute; top: 100svh; left: 0; width: 1px; height: 1px; pointer-events: none; }
+
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 34rem;
+  overflow: hidden;
+  padding: 0 var(--gutter);
+}
+
+/* ---- Dekoration ---- */
+.hero-deco { position: absolute; inset: 0; pointer-events: none; }
+.dotgrid {
+  position: absolute; inset: 0; opacity: .12;
+  background-image: radial-gradient(circle, var(--tinte) 1px, transparent 1.2px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+}
+.guide { position: absolute; background: var(--np-orange); opacity: .6; }
+.guide-l, .guide-r { height: 1px; top: 42%; width: 50%; }
+.guide-l { left: 0; transform-origin: right center; }
+.guide-r { right: 0; transform-origin: left center; }
+.guide-t, .guide-b { width: 1px; left: 50%; height: 42%; }
+.guide-t { top: 0; transform-origin: center bottom; }
+.guide-b { top: 42%; height: 58%; transform-origin: center top; }
+
+.construct {
+  position: absolute; left: 50%; top: 42%; width: 400px; height: 300px;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+}
+.construct text { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; }
+.c-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+.fragments { position: absolute; inset: 0; }
+.frag { position: absolute; font-family: var(--mono); font-size: var(--fs-mono-xs); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--stein); white-space: nowrap; }
+.frag::before { content: ''; position: absolute; left: -10px; top: .55em; width: 3px; height: 3px; background: var(--np-orange); border-radius: 50%; }
+.frag-1 { left: 14%; top: 22%; } .frag-2 { left: 82%; top: 20%; } .frag-3 { left: 24%; top: 58%; } .frag-4 { left: 74%; top: 50%; }
+.frag-5 { left: 8%; top: 44%; } .frag-6 { left: 88%; top: 36%; } .frag-7 { left: 64%; top: 66%; } .frag-8 { left: 36%; top: 14%; }
+
+/* ---- Logo und Text ---- */
+.hero-logo { position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%); color: var(--tinte); }
+.hero-logo-mark { height: 72px; width: auto; }
+.construct { top: 30%; transform: translate(-50%, -50%) scale(.75); }
+
+.hero-copy { position: absolute; left: var(--gutter); right: var(--gutter); top: 42%; padding-top: var(--s5); }
+.hero-kicker { margin-bottom: var(--s3); }
+.hero-lead { margin-top: var(--s4); color: var(--stein); max-width: 44ch; }
+.mask { overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
+
+.hero-actions { position: absolute; left: var(--gutter); right: var(--gutter); bottom: max(var(--s5), env(safe-area-inset-bottom)); }
+.hero-buttons { display: flex; flex-direction: column; gap: var(--s3); }
+.hero-buttons .btn { justify-content: center; width: 100%; }
+.hero-direct { margin-top: var(--s3); color: var(--stein); display: none; }
+.hero-hint { display: none; }
+
+@media (min-width: 1024px) {
+  .hero-logo { top: 42%; }
+  .hero-logo-mark { height: 96px; }
+  .construct { top: 42%; transform: translate(-50%, -50%); }
+  .hero-copy { top: auto; bottom: 12vh; left: 6vw; right: auto; max-width: 60vw; padding-top: 0; }
+  .hero-actions { left: auto; right: var(--gutter); bottom: 12vh; text-align: right; }
+  .hero-buttons { flex-direction: row; justify-content: flex-end; }
+  .hero-buttons .btn { width: auto; }
+  .hero-direct { display: block; }
+  .hero-hint {
+    display: flex; align-items: center; gap: var(--s3);
+    position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); color: var(--stein); background: var(--leinen); padding: 4px var(--s3);
+  }
+  .hint-mark { width: 1px; height: 24px; background: var(--np-orange); transform-origin: top; }
+}
+@media (max-width: 1023px) {
+  .frag-extra { display: none; }
+  .frag-1 { left: 8%; top: 13%; } .frag-2 { left: 66%; top: 13%; }
+  .frag-3 { left: 6%; top: 36%; } .frag-4 { left: 72%; top: 37%; }
+  .guide-b { display: none; }
+}
+@media (max-width: 1023px) and (max-height: 700px) { .hero-lead { display: none; } }
+
+/* ---- Eröffnung: reine CSS-Animation, fertig nach 1,6 s (nur bei normaler Bewegung) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-calm]) .guide-l, html:not([data-calm]) .guide-r { animation: draw-x 600ms var(--ease-out) both; }
+  html:not([data-calm]) .guide-t, html:not([data-calm]) .guide-b { animation: draw-y 600ms var(--ease-out) both; }
+  html:not([data-calm]) .guide-l { animation-delay: .4s; } html:not([data-calm]) .guide-r { animation-delay: .48s; }
+  html:not([data-calm]) .guide-t { animation-delay: .56s; } html:not([data-calm]) .guide-b { animation-delay: .64s; }
+
+  html:not([data-calm]) .c-draw { animation: draw-path 500ms var(--ease-out) .6s both; }
+  html:not([data-calm]) .construct text { animation: fade-in 300ms ease-out 1.0s both; }
+
+  html:not([data-calm]) .dotgrid { animation: dots-in 700ms ease-out .9s both; }
+  html:not([data-calm]) .frag { animation: frag-in 400ms var(--ease-out) both; }
+  html:not([data-calm]) .frag-1 { animation-delay: .9s; } html:not([data-calm]) .frag-2 { animation-delay: .97s; }
+  html:not([data-calm]) .frag-3 { animation-delay: 1.04s; } html:not([data-calm]) .frag-4 { animation-delay: 1.11s; }
+  html:not([data-calm]) .frag-5 { animation-delay: 1.18s; } html:not([data-calm]) .frag-6 { animation-delay: 1.25s; }
+  html:not([data-calm]) .frag-7 { animation-delay: 1.32s; } html:not([data-calm]) .frag-8 { animation-delay: 1.39s; }
+
+  html:not([data-calm]) .hero-logo { animation: fade-in 400ms ease-out both; }
+
+  html:not([data-calm]) .mask > * { animation: mask-rise 700ms var(--ease-out) both; }
+  html:not([data-calm]) .hero-copy .mask:nth-child(1) > * { animation-delay: .6s; }
+  html:not([data-calm]) .hero-copy .mask:nth-child(2) > * { animation-delay: .69s; }
+  html:not([data-calm]) .hero-copy .mask:nth-child(3) > * { animation-delay: .78s; }
+  html:not([data-calm]) .hero-actions .mask:nth-child(1) > * { animation-delay: .87s; }
+  html:not([data-calm]) .hero-actions .mask:nth-child(2) > * { animation-delay: .9s; }
+  html:not([data-calm]) .hero-hint { animation: fade-in 500ms ease-out 1.0s both; }
+  html:not([data-calm]) .hint-mark { animation: draw-y 900ms var(--ease-tool) 1.6s 1 both; }
+  html:not([data-calm]) .frame-cta { animation: fade-in 700ms var(--ease-out) .7s both; }
+}
+@keyframes draw-x { from { transform: scaleX(0); } }
+@keyframes draw-y { from { transform: scaleY(0); } }
+@keyframes draw-path { from { stroke-dashoffset: 1; } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes dots-in { from { opacity: 0; } }
+@keyframes frag-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes mask-rise { from { transform: translateY(105%); } }
+
+/* ===== Werkplan ===== */
+.werkplan { position: relative; padding: var(--block) var(--gutter); background: var(--leinen); }
+.wp-grid { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--col-gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.wp-cells { display: contents; }
+.wp-cell { min-width: 0; }
+.wp-link { display: block; text-decoration: none; color: var(--tinte); }
+.wp-frame { display: block; aspect-ratio: 16 / 10; background: var(--kalk); border: 1px solid var(--haarlinie); overflow: hidden; position: relative; }
+.wp-bar { display: flex; align-items: center; gap: 5px; height: 18px; padding: 0 8px; border-bottom: 1px solid var(--haarlinie); background: var(--kalk); transition: border-color var(--dur-s), background var(--dur-s); position: relative; z-index: 1; }
+.wp-bar i { width: 5px; height: 5px; border-radius: 50%; background: var(--stein); opacity: .5; }
+.wp-bar-label { margin-left: auto; font-size: var(--fs-mono-xs); color: var(--stein); }
+.wp-still { position: absolute; inset: 18px 0 0 0; transition: transform var(--dur-m) var(--ease-out);
+  background:
+    linear-gradient(var(--text, #333) 0 0) 8% 16% / 44% 7% no-repeat,
+    linear-gradient(var(--text, #333) 0 0) 8% 30% / 30% 7% no-repeat,
+    linear-gradient(var(--accent, #888) 0 0) 8% 48% / 22% 9% no-repeat,
+    linear-gradient(var(--accent2, #999) 0 0) 62% 16% / 30% 62% no-repeat,
+    var(--ground, #ddd);
+}
+.wp-caption { display: block; margin-top: var(--s2); color: var(--stein); overflow-wrap: anywhere; font-size: var(--fs-mono-xs); }
+.wp-bar-label { display: none; }
+@media (min-width: 600px) { .wp-bar-label { display: block; } .wp-caption { font-size: var(--fs-mono); margin-top: var(--s3); } }
+.wp-link:hover .wp-bar, .wp-link:focus-visible .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); }
+.wp-link:hover .wp-still, .wp-link:focus-visible .wp-still { transform: scale(1.03); }
+.wp-link:focus-visible { outline-offset: 6px; }
+
+.wp-center { display: grid; place-items: center; aspect-ratio: 16 / 10; background: var(--sand); border: 1px solid var(--haarlinie); position: relative; }
+.wp-center-logo { height: var(--wp-logo, 64px); width: auto; color: var(--tinte); }
+.wp-statement { grid-column: 1 / -1; padding-top: var(--s6); }
+.wp-statement h2 { font-size: var(--fs-h2); max-width: 18ch; }
+.wp-note { margin-top: var(--s4); color: var(--orange-text); max-width: 48ch; }
+.wp-coord { display: none; }
+
+@media (min-width: 1024px) {
+  .wp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  .wp-center { aspect-ratio: auto; grid-column: 1 / 2; }
+  .wp-statement { grid-column: 2 / 4; padding-top: 0; display: flex; flex-direction: column; justify-content: center; }
+}
+
+/* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
+html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
+  height: calc((100 + var(--expansion) + var(--plan)) * 1svh);
+}
+html[data-mode='desktop'] .stage, html[data-mode='mobile'] .stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+}
+html[data-mode='desktop'] .anchor, html[data-mode='mobile'] .anchor { top: calc(var(--expansion) * 1svh); }
+html[data-mode='desktop'] .hero, html[data-mode='mobile'] .hero { position: absolute; inset: 0; height: auto; }
+html[data-mode='desktop'] .werkplan, html[data-mode='mobile'] .werkplan {
+  position: absolute; inset: 0; padding: calc(var(--frame-top) + var(--s4)) var(--gutter) var(--s9);
+  display: grid; place-items: center; visibility: hidden; background: transparent;
+}
+html[data-mode='desktop'] .wp-grid, html[data-mode='mobile'] .wp-grid { width: 100%; will-change: auto; }
+html[data-mode='desktop'] .wp-statement, html[data-mode='mobile'] .wp-statement { padding-top: var(--s5); }
+html[data-mode='desktop'] .wp-statement h2, html[data-mode='mobile'] .wp-statement h2 { font-size: clamp(1.5rem, 2.6vw, 2.75rem); }
+html[data-mode='mobile'] .wp-note { margin-top: var(--s2); font-size: var(--fs-mono-xs); }
+
+/* Koordinate am Cursor: einzige Ausnahme vom Systemcursor – ein Hinweis daneben, nur Desktop */
+html[data-mode='desktop'] .wp-coord {
+  display: block; position: fixed; z-index: var(--z-overlay); left: 0; top: 0; pointer-events: none;
+  padding: 3px 6px; background: var(--nacht); color: var(--glut); font-size: var(--fs-mono-xs);
+  opacity: 0; transition: opacity var(--dur-s);
+}
+html[data-mode='desktop'] .wp-coord.is-on { opacity: 1; }

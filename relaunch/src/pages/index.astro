@@ -1,0 +1,73 @@
+---
+/**
+ * Die Reise. Reihenfolge, Längen und Paletten kommen aus src/config/journey.js (Blueprint N, T.3).
+ * Ein DOM, echter Text in Lesereihenfolge; Bühne und Rahmen liegen für Hilfstechnik verborgen darüber.
+ */
+import Base from '../layouts/Base.astro';
+import '../styles/frame.css';
+import '../styles/opening.css';
+import '../styles/sections.css';
+import { journey, PHASE, TEXT } from '../config/journey.js';
+import { SITE, PACKAGES } from '../config/site.js';
+import Frame from '../components/Frame.astro';
+import Menu from '../components/Menu.astro';
+import Opening from '../components/Opening.astro';
+import Transition from '../components/Transition.astro';
+import WorldStub from '../components/WorldStub.astro';
+import Warum from '../components/Warum.astro';
+import Arbeitsweise from '../components/Arbeitsweise.astro';
+import UeberMich from '../components/UeberMich.astro';
+import Finale from '../components/Finale.astro';
+import Kontakt from '../components/Kontakt.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: SITE.name,
+    url: SITE.url,
+    email: SITE.email,
+    founder: { '@type': 'Person', name: SITE.owner },
+    address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: 'Bayern', addressCountry: 'DE' },
+    areaServed: ['Schwandorf', 'Regensburg', 'Amberg', 'Weiden', 'Oberpfalz'],
+    priceRange: `${PACKAGES[0].price} – ${PACKAGES[PACKAGES.length - 1].price}`,
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'de-DE' },
+];
+
+const interludes = { warum: Warum, arbeitsweise: Arbeitsweise, 'ueber-mich': UeberMich };
+---
+<Base
+  title="Webdesign aus Schwandorf – Websites für Betriebe"
+  description="Individuelle Websites für Betriebe in der Oberpfalz – entworfen und gebaut von Niklas Prüfling in Schwandorf, ohne Baukasten."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <div class="skiplinks">
+    <a href="#main">Zum Inhalt springen</a>
+    <a href="#kontakt">Animationen überspringen, direkt zum Kontakt</a>
+  </div>
+
+  <Frame />
+  <Menu />
+
+  <main id="main" data-phase={PHASE}>
+    {journey.map((row) => {
+      if (row.kind === 'opening') return <Opening />;
+      if (row.kind === 'transition') return <Transition row={row} />;
+      if (row.kind === 'world') return <WorldStub row={row} />;
+      if (row.kind === 'interlude') { const C = interludes[row.id]; return <C row={row} />; }
+      if (row.kind === 'finale') return <Finale row={row} />;
+      if (row.kind === 'contact') return <Kontakt row={row} />;
+      if (row.kind === 'faq') return <Faq row={row} />;
+      return null;
+    })}
+  </main>
+
+  <Footer />
+  <script>
+    import '../motion/index.js';
+  </script>
+</Base>

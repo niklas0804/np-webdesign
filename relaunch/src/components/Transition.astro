@@ -1,0 +1,15 @@
+---
+/**
+ * Standard-Übergang (Blueprint T.3): Der orange Faden zieht eine Linie quer über den Viewport,
+ * dahinter wischt die neue Welt herein. Länge kommt aus der Reise-Konfiguration.
+ * Ruhige Variante: nur der Faden als feine Linie, kein Pin.
+ */
+const { row } = Astro.props;
+---
+<section class="transition" data-section={row.id} data-from-tone={row.fromTone} data-to-tone={row.toTone}
+         data-from-ground={row.fromGround} data-to-ground={row.toGround} data-from-id={row.from} data-to-id={row.to} aria-hidden="true">
+  <div class="t-stage">
+    <div class="t-wipe"></div>
+    <div class="t-thread"></div>
+  </div>
+</section>

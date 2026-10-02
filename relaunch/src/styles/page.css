@@ -1,0 +1,51 @@
+/* Unterseiten: Leistungen, Impressum, Datenschutz, 404 – schlicht, ohne Inszenierung (Regel 7) */
+.page-head { position: sticky; top: 0; z-index: var(--z-rahmen); background: var(--leinen); border-bottom: 1px solid var(--haarlinie); }
+.page-head-inner { max-width: var(--max); margin: 0 auto; padding: 8px var(--gutter); display: flex; justify-content: space-between; align-items: center; gap: var(--s5); min-height: 64px; }
+.page-logo { display: inline-flex; align-items: center; gap: var(--s3); min-height: 44px; text-decoration: none; }
+.page-logo svg { height: 28px; width: auto; }
+.page-logo span { font-weight: 700; font-stretch: 90%; letter-spacing: .01em; }
+.page-nav { display: flex; align-items: center; gap: var(--s5); flex-wrap: wrap; }
+.page-nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; font-stretch: 95%; }
+.page-nav a:hover { color: var(--orange-text); }
+
+.page-main { max-width: 860px; margin: 0 auto; padding: var(--s9) var(--gutter) var(--s10); }
+.page-main > .kicker { margin-bottom: var(--s4); }
+.page-main h1 { margin-bottom: var(--s5); overflow-wrap: anywhere; }
+.page-main h2 { font-size: var(--fs-h3); margin: var(--s8) 0 var(--s4); padding-top: var(--s6); border-top: 1px solid var(--haarlinie); font-weight: 700; }
+.page-main h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--stein); margin: var(--s6) 0 var(--s3); font-stretch: 100%; }
+.page-main p { margin-bottom: var(--s4); color: var(--stein); }
+.page-main p strong { color: var(--tinte); font-weight: 600; }
+.page-main a { text-decoration: underline; text-decoration-color: var(--np-orange); text-decoration-thickness: 1.5px; text-underline-offset: 3px; color: var(--tinte); }
+.page-main a:hover { color: var(--orange-text); text-decoration-thickness: 3px; }
+.page-main ul { margin-bottom: var(--s4); }
+.page-main ul li { position: relative; padding: var(--s2) 0 var(--s2) var(--s5); color: var(--stein); border-bottom: 1px solid rgba(28, 23, 18, .06); overflow-wrap: break-word; }
+.page-main ul li::before { content: ''; position: absolute; left: 0; top: 1.15em; width: 12px; height: 1px; background: var(--tinte); }
+.page-main ul li strong { color: var(--tinte); font-weight: 600; }
+.page-main .index-list { border: 1px solid var(--haarlinie); padding: var(--s5); }
+.page-main .index-list li { border: 0; padding-block: var(--s1); }
+.page-main .index-list li::before { display: none; }
+.page-main .index-list a { display: inline-block; padding: var(--s2) 0; text-decoration: none; }
+.page-main .hbox { background: var(--sand); border: 1px solid var(--haarlinie); padding: var(--s5); margin: var(--s5) 0; }
+.page-main .hbox p { margin: 0; }
+.page-main .seal { margin-top: var(--s9); padding-top: var(--s6); border-top: 1px solid var(--haarlinie); }
+.page-main .seal p, .page-main .seal a { font-size: var(--fs-small); }
+
+/* Leistungen */
+.pkgs { display: grid; gap: var(--s5); margin-top: var(--s7); }
+@media (min-width: 1024px) { .pkgs { grid-template-columns: repeat(3, 1fr); } .page-main.wide { max-width: var(--max); } }
+.pkg { background: var(--kalk); border: 1px solid var(--haarlinie); padding: var(--s6); display: grid; gap: var(--s3); align-content: start; }
+.pkg-featured { border-color: var(--tinte); box-shadow: inset 0 3px 0 var(--np-orange); }
+.pkg h2 { all: unset; display: block; font-size: var(--fs-h3); font-weight: 700; font-stretch: 95%; }
+.pkg-price { font-size: var(--fs-h2); font-weight: 750; font-stretch: 90%; line-height: 1; letter-spacing: -.02em; }
+.pkg-note { color: var(--stein); font-size: var(--fs-small); margin: 0 !important; }
+.pkg ul { margin: var(--s3) 0 0; }
+.pkg ul li { font-size: var(--fs-small); }
+.preise-hinweis { margin-top: var(--s7); }
+
+/* Footer der Unterseiten */
+.page-footer { background: var(--nacht); color: var(--asche); padding: var(--s7) var(--gutter); }
+.page-footer-inner { max-width: var(--max); margin: 0 auto; display: flex; flex-wrap: wrap; gap: var(--s4) var(--s7); justify-content: space-between; align-items: center; }
+.page-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); text-decoration: none; }
+.page-footer a:hover { color: var(--glut); }
+.page-footer ul { display: flex; gap: var(--s5); flex-wrap: wrap; }
+.page-footer :focus-visible { outline-color: var(--glut); }

@@ -1,0 +1,49 @@
+---
+import { builtWorlds, TEXT } from '../config/journey.js';
+import { SITE } from '../config/site.js';
+---
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menü" hidden data-menu>
+  <div class="menu-inner on-dark">
+    <button class="menu-close" type="button" data-menu-close>Schließen</button>
+    <div class="menu-cols">
+      <nav class="menu-worlds" aria-label={`Die ${TEXT.worldCount} Welten`}>
+        <p class="kicker">Die {TEXT.worldCount} Welten</p>
+        <ol>
+          {builtWorlds.map((w) => (
+            <li>
+              <a href={`/#${w.anchor}`} data-menu-link data-menu-world={w.nr}>
+                <span class="mono menu-nr">{w.nr}</span>
+                <span class="menu-name">{w.name}</span>
+                <span class="mono menu-branche">{w.branche}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <nav class="menu-links" aria-label="Seiten">
+        <ul>
+          <li><a href="/leistungen" data-menu-link>Leistungen und Preise</a></li>
+          <li><a href="/#arbeitsweise" data-menu-link>Arbeitsweise</a></li>
+          <li><a href="/#ueber-mich" data-menu-link>Über mich</a></li>
+          <li><a href="/#faq" data-menu-link>FAQ</a></li>
+          <li><a href="/#kontakt" data-menu-link>Kontakt</a></li>
+        </ul>
+        <p class="small menu-contact">
+          <a href={`mailto:${SITE.email}`} class="link">{SITE.email}</a><br>
+          <span class="mono" aria-hidden="true">{SITE.city} · <time data-clock>--:--</time></span><br>
+          <span class="mono">{SITE.placeholder.responseTime}</span>
+        </p>
+      </nav>
+    </div>
+    <div class="menu-foot">
+      <button class="calm-switch" type="button" aria-pressed="false" data-calm-switch>
+        <span class="calm-switch-box" aria-hidden="true"></span>
+        Ruhige Ansicht
+      </button>
+      <ul class="menu-legal">
+        <li><a href="/impressum" data-menu-link>Impressum</a></li>
+        <li><a href="/datenschutz" data-menu-link>Datenschutz</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+---
+/** Leistungen und Preise: die einzige Stelle mit Preisen (Blueprint N, T.1). Daten aus src/config/site.js. */
+import Page from '../layouts/Page.astro';
+import { PACKAGES, SITE } from '../config/site.js';
+---
+<Page title="Leistungen und Preise – NP Webdesign" description="Pakete und Preise für Ihre Website: Starter, Professional und Premium. Festpreise, Endpreise ohne Umsatzsteuer nach § 19 UStG." path="/leistungen" wide>
+  <p class="kicker">Leistungen und Preise</p>
+  <h1>Transparente Preise, klare Leistungen.</h1>
+  <p class="lead">Kein versteckter Aufwand — Sie wissen von Anfang an genau, was Sie bekommen.</p>
+  <div class="pkgs">
+    {PACKAGES.map((p) => (
+      <article class={`pkg${p.featured ? ' pkg-featured' : ''}`}>
+        <h2>{p.name}</h2>
+        <p class="pkg-price">{p.price}</p>
+        <p class="pkg-note">{p.note}</p>
+        <ul>{p.features.map((f) => <li>{f}</li>)}</ul>
+        <a class="btn btn-primary" href={`mailto:${SITE.email}?subject=Anfrage%20${p.name}-Paket`}>
+          <span class="btn-label"><span>Anfragen</span><span aria-hidden="true">Anfragen</span></span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </article>
+    ))}
+  </div>
+  <p class="preise-hinweis small">Alle Preise sind Endpreise. Als Kleinunternehmer nach § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+</Page>

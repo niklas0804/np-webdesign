@@ -1,0 +1,20 @@
+---
+/** Finale (Blueprint L): Einladung. Der Rückzoom zum Werkplan mit leerem Zentrum folgt in einem eigenen Bauschritt. */
+import { TEXT } from '../config/journey.js';
+import { SITE } from '../config/site.js';
+const { row } = Astro.props;
+---
+<section id={row.anchor} class="finale" data-section={row.id} data-ground={row.ground} data-tone="light"
+         data-counter={`${TEXT.nextWorld} · Ihr Unternehmen`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title">
+  <div class="finale-inner">
+    <p class="kicker">{TEXT.nextWorld} · Ihr Unternehmen</p>
+    <h2 id="finale-title">{TEXT.claim}</h2>
+    <div class="finale-actions">
+      <a class="btn btn-primary" href="#kontakt">
+        <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="small">Lieber anrufen: <span class="mono">{SITE.placeholder.phone}</span></p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+---
+/**
+ * Opening + Werkplan auf einer Bühne (Blueprint D).
+ * Phase 1–2 laufen als reine CSS-Animation, fertig nach 1,6 s, ohne JavaScript.
+ * Phase 3 (Expansion, Rückzoom) ist scrollgesteuert und nur in den Modi Desktop und Mobile aktiv.
+ */
+import { TEXT, builtWorlds } from '../config/journey.js';
+import Logo from './Logo.astro';
+import Werkplan from './Werkplan.astro';
+
+const noteFragments = [
+  { t: 'Archivo 900', x: 14, y: 22 }, { t: 'Ag', x: 82, y: 20 }, { t: '1fr 2fr', x: 24, y: 62 },
+  { t: 'h1', x: 74, y: 56 }, { t: '16 px', x: 8, y: 44, extra: true }, { t: 'ease: out', x: 90, y: 40, extra: true },
+  { t: '#CE5D17', x: 66, y: 72, extra: true }, { t: `Welt 01–${String(builtWorlds.length).padStart(2, '0')}`, x: 36, y: 14, extra: true },
+];
+---
+<section id="opening" class="opening" data-section="opening" data-counter="Werkplan" data-ground="#F0EBE3" data-tone="light" aria-labelledby="hero-title">
+  <span id="werkplan" class="anchor"></span>
+  <div class="stage" data-stage>
+    <div class="hero" data-hero>
+      <div class="hero-deco" aria-hidden="true" data-hero-deco>
+        <div class="dotgrid"></div>
+        <i class="guide guide-l"></i><i class="guide guide-r"></i><i class="guide guide-t"></i><i class="guide guide-b"></i>
+        <svg class="construct" viewBox="0 0 400 300" fill="none" stroke="var(--np-orange)" stroke-width="1" stroke-linecap="square">
+          <!-- Maße gelten für das Platzhalter-Signet: Höhe 96, Winkel der N-Diagonale atan(60/20) = 71,6° -->
+          <circle class="c-draw" cx="231" cy="128" r="26" pathLength="1" />
+          <path class="c-draw" d="M231 128h26M231 102v52" pathLength="1" />
+          <path class="c-draw" d="M147 72L187 192" pathLength="1" />
+          <path class="c-draw" d="M128 102v96M124 102h8M124 198h8" pathLength="1" />
+          <text class="c-text" x="119" y="154" text-anchor="end" fill="var(--np-orange)" stroke="none">96 px</text>
+          <text class="c-text" x="150" y="62" text-anchor="end" fill="var(--np-orange)" stroke="none">71,6°</text>
+          <text class="c-text" x="200" y="222" text-anchor="middle" fill="var(--np-orange)" stroke="none">#CE5D17</text>
+        </svg>
+        <div class="fragments">
+          {noteFragments.map((f, i) => (
+            <span class={`frag frag-${i + 1} mono-xs${f.extra ? ' frag-extra' : ''}`}>{f.t}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero-logo" aria-hidden="true" data-hero-logo><Logo class="hero-logo-mark" /></div>
+
+      <div class="hero-copy" data-hero-copy>
+        <div class="mask"><p class="kicker hero-kicker">NP Webdesign · Schwandorf</p></div>
+        <div class="mask"><h1 id="hero-title">Websites, die nach Ihrem Unternehmen aussehen.</h1></div>
+        <div class="mask"><p class="lead hero-lead">Individuell entworfen und gebaut für Betriebe in der Oberpfalz und darüber hinaus — von Niklas Prüfling, ohne Baukasten.</p></div>
+      </div>
+
+      <div class="hero-actions" data-hero-actions>
+        <div class="mask">
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#kontakt">
+              <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn-secondary" href="#werkplan">
+              <span class="btn-label"><span>{TEXT.heroSecondary}</span><span aria-hidden="true">{TEXT.heroSecondary}</span></span>
+            </a>
+          </div>
+        </div>
+        <div class="mask"><p class="small hero-direct">Direkt zu: <a class="link" href="/leistungen">Leistungen und Preise</a> · <a class="link" href="#kontakt">Kontakt</a></p></div>
+      </div>
+
+      <p class="hero-hint mono" aria-hidden="true"><span class="hint-mark"></span>Weiter — {TEXT.worldCount === 1 ? 'eine Welt' : `${['', '', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn'][TEXT.worldCount]} Welten`}</p>
+    </div>
+
+    <Werkplan />
+  </div>
+</section>

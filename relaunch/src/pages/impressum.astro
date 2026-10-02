@@ -1,0 +1,10 @@
+---
+import Page from '../layouts/Page.astro';
+import content from '../content/impressum.html?raw';
+---
+<Page title="Impressum – NP Webdesign" description="Impressum von NP Webdesign – Niklas Prüfling, Einzelunternehmen, Schwandorf." path="/impressum">
+  <p class="kicker">Rechtliches · NP Webdesign</p>
+  <h1>Impressum</h1>
+  <p class="mono">Angaben gemäß § 5 DDG</p>
+  <Fragment set:html={content} />
+</Page>

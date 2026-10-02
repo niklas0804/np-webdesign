@@ -1,0 +1,31 @@
+---
+/**
+ * Platzhalter einer Welt, bis das Weltmodul gebaut ist (Blueprint N, Weltmodul-Vertrag):
+ * Kennung, Palette (über journey.css), Markup mit H2, Werkstattnotiz, Abspann.
+ * Jede Welt wird in src/worlds/<nr>-<name>/ durch ihr echtes Modul ersetzt.
+ */
+import { worldOf, builtWorlds } from '../config/journey.js';
+const { row } = Astro.props;
+const w = worldOf(row);
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt ${w.nr} / ${total} · ${w.branche} · Studie`;
+---
+<section id={w.anchor} class="world" data-section={row.id} data-world={w.nr} data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`${w.nr} / ${total}`} aria-labelledby={`${row.id}-title`}>
+  <div class="world-inner">
+    <p class="kicker">Welt {w.nr} · Studie · {w.branche}</p>
+    <h2 id={`${row.id}-title`} class="world-title">{w.name}</h2>
+    <p class="mono world-placeholder">
+      [PLATZHALTER: Welt {w.nr} {w.source === 'demo' ? '– benötigt den Code der vorhandenen Demo' : ''} wird in einem eigenen Bauschritt umgesetzt]
+    </p>
+
+    <aside class="note" aria-label={`Werkstattnotiz Welt ${w.nr}: ${w.name}`}>
+      <p class="mono note-head">Welt {w.nr} · Studie · {w.branche}</p>
+      <p class="note-text">{w.notiz}</p>
+      <p class="mono note-tag">Leistung im Einsatz: {w.leistung}</p>
+      <a class="link note-link" href={w.branchPage}>Websites für {w.branche === 'Bauunternehmen' ? 'Handwerker' : w.branche === 'Barbershop' ? 'Friseure und Barbershops' : w.branche === 'Bäckerei' ? 'Bäckereien' : w.branche}</a>
+    </aside>
+
+    <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+  </div>
+</section>

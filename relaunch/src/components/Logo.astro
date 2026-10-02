@@ -1,0 +1,15 @@
+---
+/**
+ * PLATZHALTER-SIGNET. Das echte Logo liegt noch nicht als sauberes SVG vor (Blueprint K, offener Punkt).
+ * Geometrie ist eigens gebaut: kantiges N, P mit rundem Bauch. Austausch: nur diese Datei.
+ * Signet und Wortmarke sind getrennte Gruppen, Farben laufen über currentColor.
+ */
+const { class: cls = '', decorative = true, label = 'NP Webdesign' } = Astro.props;
+---
+<svg class={cls} viewBox="0 0 112 96" fill="currentColor" fill-rule="evenodd"
+     {...(decorative ? { 'aria-hidden': 'true', focusable: 'false' } : { role: 'img', 'aria-label': label })}>
+  <g class="logo-signet">
+    <path d="M0 96V0h12l20 60V0h12v96H32L12 36v60z" />
+    <path d="M60 0h26a26 26 0 0 1 0 52H72v44H60zM72 12v28h14a14 14 0 0 0 0-28z" />
+  </g>
+</svg>

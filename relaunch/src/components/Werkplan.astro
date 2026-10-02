@@ -1,0 +1,31 @@
+---
+/** Der Werkplan (Blueprint D): Raster aus Weltrahmen um ein Zentrum. Passt sich der Zahl der gebauten Welten an. */
+import { builtWorlds, TEXT } from '../config/journey.js';
+import Logo from './Logo.astro';
+---
+<div class="werkplan" data-werkplan data-count={builtWorlds.length}>
+  <div class="wp-grid">
+    <ol class="wp-cells" aria-label={`Die ${TEXT.worldCount} Welten`}>
+      {builtWorlds.map((w) => (
+        <li class="wp-cell" data-world={w.nr}>
+          <a href={`/#${w.anchor}`} class="wp-link" data-wp-link>
+            <span class="visually-hidden">Welt {w.nr}: {w.name}, {w.branche} (Studie)</span>
+            <span class="wp-frame" aria-hidden="true">
+              <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
+              <span class="wp-still"></span>
+            </span>
+            <span class="wp-caption mono" aria-hidden="true">{w.nr} · {w.name} · {w.branche}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <div class="wp-center" aria-hidden="true" data-wp-center>
+      <Logo class="wp-center-logo" />
+    </div>
+    <div class="wp-statement" data-wp-statement>
+      <h2 id="werkplan-title">{TEXT.statement}</h2>
+      <p class="mono wp-note">{TEXT.statementNote}</p>
+    </div>
+  </div>
+  <p class="wp-coord mono needs-js" aria-hidden="true" data-wp-coord>x 0000 · y 0000</p>
+</div>

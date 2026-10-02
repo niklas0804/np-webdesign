@@ -1,0 +1,27 @@
+---
+/** Zwischenspiel I · Warum individuell (Blueprint F, K). Copy-Deck wörtlich. */
+import { builtWorlds } from '../config/journey.js';
+const { row } = Astro.props;
+const band = builtWorlds.map((w) => w.branche);
+---
+<section id={row.anchor} class="interlude interlude-warum on-dark" data-section={row.id} data-ground={row.ground} data-tone="dark"
+         data-counter="Warum individuell" data-counter-short="Warum" aria-labelledby="warum-title">
+  <div class="band" aria-hidden="true" data-band>
+    <div class="band-track">
+      {[0, 1, 2, 3].map(() => band.map((b) => <span>{b}</span>))}
+    </div>
+  </div>
+  <div class="interlude-inner">
+    <h2 id="warum-title" class="statements">
+      <span class="statement" data-fit>Kein Baukasten.</span>
+      <span class="statement" data-fit>Keine Vorlage.</span>
+      <span class="statement statement-accent" data-fit>Kein Zufall.</span>
+    </h2>
+    <p class="lead warum-lead">Eine Website von der Stange sieht aus wie hundert andere. Ihre Kunden merken das, meist ohne es benennen zu können.</p>
+    <ul class="benefits">
+      <li><strong>Vertrauen auf den ersten Blick:</strong> Wer Sie online findet, entscheidet in Sekunden, ob er anruft.</li>
+      <li><strong>Anfragen statt Absprünge:</strong> Jede Seite führt zu einem nächsten Schritt.</li>
+      <li><strong>Gefunden werden, wo Sie arbeiten:</strong> saubere Technik und klare Inhalte für Google und Ihre Region.</li>
+    </ul>
+  </div>
+</section>

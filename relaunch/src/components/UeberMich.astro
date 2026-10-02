@@ -1,0 +1,18 @@
+---
+/** Zwischenspiel III · Über mich (Blueprint F, K). Werdegang-Text: Freigabe durch Niklas steht noch aus. */
+import { SITE } from '../config/site.js';
+const { row } = Astro.props;
+---
+<section id={row.anchor} class="interlude interlude-ich" data-section={row.id} data-ground={row.ground} data-tone="light"
+         data-counter="Über mich" data-counter-short="Über mich" aria-labelledby="ich-title">
+  <div class="interlude-inner ich-grid">
+    <figure class="window" aria-label="Porträt">
+      <div class="window-frame"><p class="mono">{SITE.placeholder.portrait}</p></div>
+    </figure>
+    <div class="ich-text prose">
+      <h2 id="ich-title">Ich bin Niklas Prüfling.</h2>
+      <p class="lead">NP Webdesign ist mein Studio in Schwandorf. Bevor ich Websites gebaut habe, war ich Mechatroniker und im IT-Systembetrieb tätig. Geblieben ist die Haltung: erst verstehen, wie etwas funktionieren muss — dann bauen.</p>
+      <p>Sie sprechen von der ersten Skizze bis nach dem Launch mit mir. Nicht mit einem Projektmanager.</p>
+    </div>
+  </div>
+</section>

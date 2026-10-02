@@ -1,0 +1,114 @@
+/* Design-Tokens (Blueprint T.2). Farben, Schrift, Abstände, Bewegung – eine Quelle. */
+
+@font-face {
+  font-family: 'Archivo NP';
+  src: url('/fonts/archivo-latin-wdth-wght.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono NP';
+  src: url('/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono NP';
+  src: url('/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Farbe */
+  --leinen: #F0EBE3;
+  --sand: #E3D8C8;
+  --kalk: #FBF8F5;
+  --tinte: #1C1712;
+  --stein: #5E5852;
+  --np-orange: #CE5D17;
+  --orange-text: #A34A0D;
+  --glut: #F08A4B;
+  --ocker: #C99A3E;
+  --nacht: #14100C;
+  --kohle: #2E2822;
+  --asche: #B5AB9F;
+  --hover-toenung: #ECDACB;
+  --fehler: #A3271D;
+  --erfolg: #2E6A4B;
+
+  /* Linien */
+  --haarlinie: rgba(28, 23, 18, .2);
+  --masslinie: 1px solid var(--np-orange);
+
+  /* Schrift */
+  --sans: 'Archivo NP', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --mono: 'Plex Mono NP', 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Schriftskala (Blueprint H) */
+  --fs-mega: clamp(4.5rem, 20vw, 22rem);
+  --fs-display: clamp(3rem, 8.5vw, 9rem);
+  --fs-h1: clamp(2.5rem, 5.6vw, 6rem);
+  --fs-h2: clamp(2rem, 3.8vw, 3.75rem);
+  --fs-h3: clamp(1.375rem, 1.9vw, 1.75rem);
+  --fs-lead: clamp(1.125rem, 1.4vw, 1.375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: .875rem;
+  --fs-mono: .75rem;
+  --fs-mono-xs: .6875rem;
+
+  /* Abstände 1–11 */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px;
+  --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px; --s11: 192px;
+  --block: clamp(96px, 14vh, 192px);
+  --gutter: clamp(16px, 5vw, 80px);
+
+  /* Raster */
+  --max: 1440px;
+  --measure: 66ch;
+  --col-gap: clamp(16px, 2vw, 32px);
+
+  /* Ebenen */
+  --z-atmosphaere: 0;
+  --z-inhalt: 10;
+  --z-buehne: 20;
+  --z-rahmen: 30;
+  --z-overlay: 40;
+
+  /* Bewegung (Blueprint I) */
+  --dur-xs: 120ms;
+  --dur-s: 240ms;
+  --dur-m: 480ms;
+  --dur-l: 700ms;
+  --dur-xl: 1200ms;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-tool: cubic-bezier(.65, 0, .35, 1);
+
+  /* Höhe des Rahmens oben: Fokus liegt nie darunter */
+  --frame-top: 64px;
+
+  /* Von der Reise gesetzt: Farben der NP-Schicht, wechseln mit der Helligkeit der Welt */
+  --np-ink: var(--tinte);
+  --np-mass: var(--orange-text);
+  --np-faint: rgba(28, 23, 18, .2);
+}
+
+/* Der Ton gilt für das Element, das ihn trägt (Rahmen: <html>, Welten und Zwischenspiele: ihr Abschnitt) */
+[data-tone='light'] {
+  --np-ink: var(--tinte);
+  --np-mass: var(--orange-text);
+  --np-faint: rgba(28, 23, 18, .2);
+}
+[data-tone='dark'] {
+  --np-ink: var(--leinen);
+  --np-mass: var(--glut);
+  --np-faint: rgba(240, 235, 227, .22);
+}
+
+@media (min-width: 1024px) {
+  :root { --frame-top: 72px; }
+}

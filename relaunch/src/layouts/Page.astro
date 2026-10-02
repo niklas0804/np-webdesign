@@ -1,0 +1,33 @@
+---
+/** Schlichte Unterseite: Impressum und Datenschutz stehen auf jeder Unterseite einschließlich 404 (Blueprint Q2). */
+import Base from './Base.astro';
+import '../styles/page.css';
+import Logo from '../components/Logo.astro';
+import { SITE } from '../config/site.js';
+const { title, description, path, noindex = false, wide = false } = Astro.props;
+---
+<Base title={title} description={description} path={path} noindex={noindex}>
+  <div class="skiplinks"><a href="#main">Zum Inhalt springen</a></div>
+  <header class="page-head">
+    <div class="page-head-inner">
+      <a class="page-logo" href="/" aria-label="NP Webdesign – zur Startseite"><Logo /><span>NP Webdesign</span></a>
+      <nav class="page-nav" aria-label="Hauptnavigation">
+        <a href="/leistungen">Leistungen und Preise</a>
+        <a href="/#kontakt">Kontakt</a>
+        <a href="/">Zur Reise</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class={`page-main${wide ? ' wide' : ''}`} tabindex="-1">
+    <slot />
+  </main>
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <p class="mono">© {new Date().getFullYear()} {SITE.owner} · Gestaltung und Code: NP Webdesign</p>
+      <ul>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+    </div>
+  </footer>
+</Base>

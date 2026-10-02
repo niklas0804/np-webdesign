@@ -1,0 +1,18 @@
+---
+import { SITE } from '../config/site.js';
+---
+<footer class="footer on-dark" data-section="footer" data-tone="dark" data-counter="Kontakt · Rechtliches" data-counter-short="NP" data-bar-off>
+  <div class="footer-inner">
+    <p class="footer-sign" aria-hidden="true" data-fit>NP Webdesign</p>
+    <div class="footer-cols">
+      <p class="small">{SITE.owner}<br>{SITE.name}, {SITE.city}</p>
+      <p class="small"><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <ul class="footer-links">
+        <li><a href="/leistungen">Leistungen und Preise</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+    </div>
+    <p class="mono footer-credit">© {new Date().getFullYear()} {SITE.owner} · Gestaltung und Code: NP Webdesign</p>
+  </div>
+</footer>

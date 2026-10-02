@@ -1,0 +1,136 @@
+/* Reise-Sektionen: Welten, Übergänge, Zwischenspiele, Finale, Kontakt, FAQ, Footer.
+   Längen (--len) und Paletten (--ground, --text, …) kommen aus /journey.css, erzeugt aus src/config/journey.js. */
+
+/* ---------- Sichtbarer Platzhalter (Blueprint T.1, Punkt 10) ---------- */
+.world-placeholder {
+  display: inline-block; max-width: 60ch; margin: var(--s5) 0; padding: var(--s3) var(--s4);
+  border: 1px dashed currentColor; color: var(--np-mass); text-transform: none; letter-spacing: .02em;
+}
+
+/* ---------- Welten ---------- */
+.world { position: relative; background: var(--ground); color: var(--text); min-height: calc(var(--len) * 1svh); padding: var(--block) var(--gutter); }
+.world-inner { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--s5); align-content: start; }
+.world .kicker { color: var(--accent); }
+.world[data-tone='dark'] .kicker { color: var(--accent); }
+.world-title { font-size: var(--fs-display); line-height: .88; letter-spacing: -.03em; font-weight: 780; font-stretch: 85%; }
+.world :focus-visible { outline-color: var(--text); }
+
+/* Werkstattnotiz: kleine Karte der NP-Schicht, immer in NP-Schriften und NP-Farben */
+.note { max-width: 46ch; padding: var(--s5); background: var(--kalk); color: var(--tinte); border: 1px solid var(--haarlinie); display: grid; gap: var(--s3); font-family: var(--sans); }
+.world[data-tone='dark'] .note { background: var(--kohle); color: var(--leinen); border-color: rgba(240, 235, 227, .2); }
+.note-head { color: var(--orange-text); }
+.world[data-tone='dark'] .note-head, .world[data-tone='dark'] .note-tag { color: var(--glut); }
+.note-text { font-size: var(--fs-lead); line-height: 1.35; font-weight: 520; }
+.note-tag { color: var(--stein); }
+.world[data-tone='dark'] .note-tag { color: var(--asche); }
+.note-link { justify-self: start; min-height: 44px; display: inline-flex; align-items: center; }
+.world[data-tone='dark'] .note-link:hover { color: var(--glut); }
+.credit { color: inherit; opacity: .8; margin-top: var(--s7); font-size: var(--fs-mono-xs); }
+
+/* ---------- Übergänge ---------- */
+/* Ruhig und ohne JavaScript: nur der orange Faden als feine Linie */
+.transition { height: 1.5px; background: var(--np-orange); position: relative; z-index: 2; }
+.t-stage, .t-wipe, .t-thread { display: none; }
+
+html[data-mode='desktop'] .transition, html[data-mode='mobile'] .transition { height: calc((100 + var(--len)) * 1svh); background: var(--from); }
+html[data-mode='desktop'] .t-stage, html[data-mode='mobile'] .t-stage { display: block; position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--from); }
+html[data-mode='desktop'] .t-wipe, html[data-mode='mobile'] .t-wipe { display: block; position: absolute; inset: 0; background: var(--to); transform: translateY(100%); }
+html[data-mode='desktop'] .t-thread, html[data-mode='mobile'] .t-thread { display: block; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: var(--np-orange); transform: scaleX(0); transform-origin: left; }
+
+/* ---------- Zwischenspiele ---------- */
+.interlude { position: relative; background: var(--ground); min-height: calc(var(--len) * 1svh); padding: var(--block) var(--gutter); overflow: clip; } /* clip statt hidden: hidden bricht position: sticky */
+.interlude-inner { max-width: var(--max); margin: 0 auto; }
+.on-dark { color: var(--leinen); }
+
+/* I · Warum */
+.interlude-warum { color: var(--leinen); }
+.statements { display: grid; gap: var(--s3); margin-bottom: var(--s8); }
+.statement { display: block; font-size: clamp(2.75rem, 11vw, 9rem); font-weight: 850; font-stretch: 80%; line-height: .86; letter-spacing: -.04em; text-transform: uppercase; }
+.statement.is-fit { white-space: nowrap; }
+.statement-accent { color: var(--glut); }
+.warum-lead { color: var(--asche); max-width: 38ch; }
+.benefits { display: grid; gap: var(--s5); margin-top: var(--s7); max-width: 60ch; }
+@media (min-width: 1024px) { .benefits { grid-template-columns: repeat(3, 1fr); max-width: none; } }
+.benefits li { border-top: 1px solid rgba(240, 235, 227, .2); padding-top: var(--s4); color: var(--asche); max-width: 34ch; }
+.benefits strong { display: block; color: var(--leinen); font-weight: 650; margin-bottom: var(--s2); }
+.band { margin: 0 calc(var(--gutter) * -1) var(--s9); border-block: 1px solid rgba(240, 235, 227, .2); overflow: hidden; padding: var(--s3) 0; }
+.band-track { display: flex; width: max-content; gap: var(--s7); font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ocker); white-space: nowrap; }
+.band-track span::after { content: '·'; margin-left: var(--s7); color: var(--glut); }
+
+/* II · Arbeitsweise */
+.interlude-weg { color: var(--tinte); padding: 0; }
+.weg-stage { padding: var(--block) var(--gutter); }
+.beam { position: relative; height: 2px; background: var(--haarlinie); margin: var(--s7) 0 var(--s6); }
+.beam-fill { position: absolute; inset: 0; background: var(--np-orange); transform-origin: left; }
+.steps { display: grid; gap: var(--s6); grid-template-columns: 1fr; }
+.step { border-top: 1px solid var(--haarlinie); padding-top: var(--s4); }
+.step-nr { color: var(--orange-text); display: block; margin-bottom: var(--s2); }
+.step h3 { margin-bottom: var(--s2); }
+.step p { color: var(--stein); font-size: var(--fs-small); max-width: 28ch; }
+.weg-close { margin-top: var(--s8); font-weight: 600; }
+@media (min-width: 1024px) {
+  .steps { grid-template-columns: repeat(6, 1fr); gap: var(--s5); }
+  .step { border-top: 0; padding-top: 0; }
+}
+html[data-mode='desktop'] .interlude-weg, html[data-mode='mobile'] .interlude-weg { min-height: calc(var(--len) * 1svh); }
+html[data-mode='desktop'] .weg-stage, html[data-mode='mobile'] .weg-stage { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; padding-top: calc(var(--frame-top) + var(--s6)); padding-bottom: var(--s8); }
+html[data-mode='desktop'] .step:not(.is-on), html[data-mode='mobile'] .step:not(.is-on) { opacity: 0; transform: translateY(12px); }
+.step { transition: opacity var(--dur-m) var(--ease-out), transform var(--dur-m) var(--ease-out); }
+html[data-mode='desktop'] .beam-fill, html[data-mode='mobile'] .beam-fill { transform: scaleX(0); }
+
+/* III · Über mich */
+.interlude-ich { color: var(--tinte); }
+.ich-grid { display: grid; gap: var(--s8); align-items: center; }
+@media (min-width: 1024px) { .ich-grid { grid-template-columns: .8fr 1.2fr; gap: var(--s10); } }
+.window { margin: 0; }
+.window-frame { aspect-ratio: 4 / 5; max-width: 420px; border: 1.5px solid var(--tinte); display: grid; place-items: center; padding: var(--s5); text-align: center; background: var(--sand); }
+.window-frame .mono { color: var(--tinte); text-transform: none; letter-spacing: .02em; }
+.ich-text h2 { margin-bottom: var(--s5); }
+.ich-text p + p { margin-top: var(--s4); }
+
+/* ---------- Finale und Kontakt ---------- */
+.finale, .kontakt { position: relative; background: var(--ground); padding: var(--block) var(--gutter); min-height: min(calc(var(--len) * 1svh), 100svh); }
+.finale-inner, .kontakt-inner { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--s5); align-content: center; min-height: 60svh; }
+.finale h2 { font-size: var(--fs-display); line-height: .92; letter-spacing: -.02em; max-width: 14ch; font-stretch: 90%; }
+.finale-actions { display: grid; gap: var(--s4); justify-items: start; margin-top: var(--s5); }
+.kontakt h2 { max-width: 20ch; }
+.facts { display: grid; gap: var(--s5); margin-top: var(--s6); max-width: 60ch; }
+.facts div { display: grid; gap: var(--s1); border-top: 1px solid var(--haarlinie); padding-top: var(--s3); }
+.facts dt { color: var(--stein); }
+.facts dd { font-size: var(--fs-body); }
+.facts dd .link { min-height: 44px; display: inline-flex; align-items: center; }
+@media (min-width: 1024px) { .facts { grid-template-columns: repeat(2, 1fr); max-width: 760px; } }
+
+/* ---------- FAQ ---------- */
+.faq { background: var(--ground); padding: var(--block) var(--gutter); }
+.faq-inner { max-width: 960px; margin: 0 auto; }
+.faq h2 { margin-bottom: var(--s7); }
+.faq-item { border-top: 1px solid var(--haarlinie); }
+.faq-item:last-child { border-bottom: 1px solid var(--haarlinie); }
+.faq-item summary {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--s5);
+  min-height: 56px; padding: var(--s5) 0; cursor: pointer; list-style: none;
+  font-size: var(--fs-h3); font-weight: 650; line-height: 1.2; letter-spacing: -.01em;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-icon { position: relative; width: 20px; height: 20px; flex-shrink: 0; }
+.faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--tinte); transition: transform var(--dur-s) var(--ease-out); }
+.faq-icon::before { left: 0; right: 0; top: 9px; height: 2px; }
+.faq-icon::after { top: 0; bottom: 0; left: 9px; width: 2px; }
+.faq-item[open] .faq-icon::after { transform: scaleY(0); }
+.faq-item summary:hover { color: var(--orange-text); }
+.faq-a { padding-bottom: var(--s5); color: var(--stein); }
+.faq-a a { color: var(--tinte); }
+
+/* ---------- Footer ---------- */
+.footer { background: var(--nacht); color: var(--leinen); padding: var(--s9) var(--gutter) var(--s7); }
+.footer-inner { max-width: var(--max); margin: 0 auto; }
+.footer-sign { font-size: clamp(3rem, 14vw, 14rem); font-weight: 850; font-stretch: 80%; line-height: .85; letter-spacing: -.04em; text-transform: uppercase; word-spacing: .22em; margin: 0 0 var(--s8); max-width: none; white-space: normal; }
+.footer-sign.is-fit { white-space: nowrap; }
+.footer-cols { display: grid; gap: var(--s5); color: var(--asche); }
+@media (min-width: 1024px) { .footer-cols { grid-template-columns: 1fr 1fr 1fr; } }
+.footer .link { color: var(--leinen); }
+.footer-links { display: grid; gap: var(--s1); }
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); }
+.footer-links a:hover { color: var(--glut); }
+.footer-credit { margin-top: var(--s8); color: var(--asche); font-size: var(--fs-mono-xs); }

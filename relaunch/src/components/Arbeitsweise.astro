@@ -1,0 +1,24 @@
+---
+/** Zwischenspiel II · Arbeitsweise (Blueprint F, K): ein Strahl mit sechs Stationen. */
+import { STEPS } from '../config/site.js';
+const { row } = Astro.props;
+---
+<section id={row.anchor} class="interlude interlude-weg" data-section={row.id} data-ground={row.ground} data-tone="light"
+         data-counter="Arbeitsweise" data-counter-short="Arbeitsweise" aria-labelledby="weg-title">
+  <div class="weg-stage" data-weg>
+    <div class="interlude-inner">
+      <h2 id="weg-title">So arbeiten wir zusammen.</h2>
+      <div class="beam" aria-hidden="true"><span class="beam-fill" data-beam-fill></span></div>
+      <ol class="steps">
+        {STEPS.map((s) => (
+          <li class="step" data-step>
+            <span class="mono step-nr">{s.nr}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="lead weg-close">Von Schritt 01 bis 06 ein Ansprechpartner: ich.</p>
+    </div>
+  </div>
+</section>
