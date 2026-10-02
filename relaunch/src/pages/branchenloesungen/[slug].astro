@@ -1,0 +1,145 @@
+---
+/** Branchenseite (Blueprint K, Q): eine Vorlage für alle Branchen. Inhalte aus src/content/branchen.js. */
+import Page from '../../layouts/Page.astro';
+import '../../styles/branche.css';
+import { BRANCHEN, BRANCHEN_LIST } from '../../content/branchen.js';
+import { WORLDS } from '../../config/journey.js';
+import { SITE } from '../../config/site.js';
+
+export function getStaticPaths() {
+  return BRANCHEN_LIST.map((b) => ({ params: { slug: b.slug }, props: { b } }));
+}
+const { b } = Astro.props;
+const world = WORLDS.find((w) => w.nr === b.world);
+const related = BRANCHEN_LIST.filter((x) => x.slug !== b.slug);
+const path = `/branchenloesungen/${b.slug}`;
+const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent(b.cta.subject)}&body=${encodeURIComponent(b.cta.body)}`;
+const plain = (s) => s.replace(/<[^>]+>/g, '');
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: `Webdesign für ${world.branche}`, serviceType: 'Webdesign',
+    provider: { '@type': 'ProfessionalService', name: SITE.name, url: SITE.url }, areaServed: 'Oberpfalz', url: SITE.url + path },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: SITE.name, item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: b.title, item: SITE.url + path } ] },
+];
+const titleFull = `${b.title} – NP Webdesign`;
+---
+<Page title={titleFull} description={b.description} path={path} bare jsonLd={jsonLd}>
+  <header class="bs-hero">
+    <div class="bs-wrap bs-hero-grid">
+      <div>
+        <p class="bs-eyebrow">{b.eyebrow}</p>
+        <h1 set:html={b.h1} />
+        <p class="lead bs-lead">{b.lead}</p>
+        <div class="bs-actions">
+          <a class="btn btn-primary" href="#anfrage">
+            <span class="btn-label"><span>Projekt besprechen</span><span aria-hidden="true">Projekt besprechen</span></span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <p class="mono small">[PLATZHALTER: Link zur Live-Demo]</p>
+        </div>
+      </div>
+      <dl class="bs-meta" aria-label="Projektübersicht">
+        {b.meta.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+    </div>
+  </header>
+
+  <section class="bs-visual" aria-label="Das entwickelte Branchenkonzept">
+    <div class="bs-wrap">
+      <figure>
+        <div class="bs-frame" role="img" aria-label={b.visual.alt}><p class="mono">[PLATZHALTER: Screenshot {b.visual.file}]</p></div>
+        <figcaption class="bs-caption">
+          <span>Das entwickelte Branchenkonzept</span>
+          <span>Studie · fiktives Unternehmen — alle gezeigten Unternehmensdaten sind frei erfunden.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="bs-section" aria-labelledby="h-ausgang">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">01 · Ausgangssituation</p>
+      <h2 id="h-ausgang">Die <em>Herausforderung.</em></h2>
+      <div class="bs-copy">{b.ausgangssituation.map((p) => <p set:html={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="bs-section alt" aria-labelledby="h-ziele">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">02 · Projektziele</p>
+      <h2 id="h-ziele" set:html={b.ziele.h2} />
+      <ol class="bs-goals">
+        {b.ziele.items.map(([name, mark], i) => (
+          <li class="bs-goal"><span class="nr">{String(i + 1).padStart(2, '0')}</span><span class="name">{name}</span><span class="mark">{mark}</span></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bs-section" aria-labelledby="h-design">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">03 · Designkonzept</p>
+      <h2 id="h-design" set:html={b.design.h2} />
+      <div class="bs-grid three">
+        {b.design.items.map(([tag, h, p]) => <article class="bs-card"><p class="tag">{tag}</p><h3>{h}</h3><p>{p}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-section dark" aria-labelledby="h-umsetzung">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">04 · Umsetzung</p>
+      <h2 id="h-umsetzung">Technik, die sich <em>zurücknimmt.</em></h2>
+      <div class="bs-grid four">
+        {b.tech.map(([tag, h, p]) => <article class="bs-card"><p class="tag">{tag}</p><h3>{h}</h3><p>{p}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-section alt" aria-labelledby="h-nutzen">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">05 · Was die Website leisten soll</p>
+      <h2 id="h-nutzen">Was bringt das <em>Konzept?</em></h2>
+      <div class="bs-grid six">
+        {b.nutzen.map(([h, p]) => <article class="bs-card"><h3>{h}</h3><p>{p}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-section" aria-labelledby="h-vergleich">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">06 · Vergleich</p>
+      <h2 id="h-vergleich">Vorher und Nachher <em>gedacht.</em></h2>
+      <div class="bs-compare">
+        {b.vergleich.map((v) => (
+          <article class="bs-panel"><p class="bs-eyebrow">{v.eyebrow}</p><h3>{v.h3}</h3><ul>{v.li.map((l) => <li>{l}</li>)}</ul></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-more" aria-labelledby="h-mehr">
+    <div class="bs-wrap">
+      <h2 id="h-mehr" class="visually-hidden">Weiterlesen</h2>
+      <p class="bs-eyebrow">Weiterlesen</p>
+      <ul>
+        <li><a class="link" href={world.built ? `/#${world.anchor}` : '/#werkplan'}>Diese Studie in der Reise ansehen</a></li>
+        {related.map((r) => <li><a class="link" href={`/branchenloesungen/${r.slug}`}>{r.title.replace('Website-Konzept ', 'Webdesign für ')}</a></li>)}
+        <li><a class="link" href="/leistungen">Leistungen und Preise</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bs-cta" id="anfrage" aria-labelledby="h-anfrage">
+    <div class="bs-wrap">
+      <p class="bs-eyebrow">{b.cta.eyebrow}</p>
+      <h2 id="h-anfrage">{b.cta.h2}</h2>
+      <p class="lead">{b.cta.text}</p>
+      <a class="btn btn-primary" href={mailto}>
+        <span class="btn-label"><span>{b.cta.button}</span><span aria-hidden="true">{b.cta.button}</span></span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</Page>

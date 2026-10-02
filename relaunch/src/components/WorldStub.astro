@@ -5,9 +5,12 @@
  * Jede Welt wird in src/worlds/<nr>-<name>/ durch ihr echtes Modul ersetzt.
  */
 import { worldOf, builtWorlds } from '../config/journey.js';
+import { BRANCHEN_LIST } from '../content/branchen.js';
 const { row } = Astro.props;
 const w = worldOf(row);
 const total = String(builtWorlds.length).padStart(2, '0');
+// Link zur Branchenseite nur, wenn es sie gibt (Welt 01 folgt mit ihrem Bauschritt)
+const page = BRANCHEN_LIST.find((b) => b.world === w.nr);
 const counter = `Welt ${w.nr} / ${total} · ${w.branche} · Studie`;
 ---
 <section id={w.anchor} class="world" data-section={row.id} data-world={w.nr} data-ground={w.palette.ground} data-tone={w.palette.tone}
@@ -23,7 +26,7 @@ const counter = `Welt ${w.nr} / ${total} · ${w.branche} · Studie`;
       <p class="mono note-head">Welt {w.nr} · Studie · {w.branche}</p>
       <p class="note-text">{w.notiz}</p>
       <p class="mono note-tag">Leistung im Einsatz: {w.leistung}</p>
-      <a class="link note-link" href={w.branchPage}>Websites für {w.branche === 'Bauunternehmen' ? 'Handwerker' : w.branche === 'Barbershop' ? 'Friseure und Barbershops' : w.branche === 'Bäckerei' ? 'Bäckereien' : w.branche}</a>
+      {page && <a class="link note-link" href={w.branchPage}>Webdesign für {page.title.replace('Website-Konzept ', '')}</a>}
     </aside>
 
     <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>

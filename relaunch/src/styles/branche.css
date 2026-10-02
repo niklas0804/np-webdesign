@@ -1,0 +1,74 @@
+/* Branchenseiten (Blueprint K, Q): ruhig, lesbar, eine Spalte pro Gedanke. Kennzeichnung als Beispielkonzept bleibt sichtbar. */
+.bs-wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.bs-section { padding: var(--block) 0; }
+.bs-section.alt { background: var(--sand); }
+.bs-section.dark { background: var(--nacht); color: var(--leinen); }
+.bs-section.dark :focus-visible { outline-color: var(--glut); }
+.bs-eyebrow { font-family: var(--mono); font-size: var(--fs-mono); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--orange-text); margin-bottom: var(--s4); }
+.bs-section.dark .bs-eyebrow { color: var(--glut); }
+.bs-wrap h1 em, .bs-wrap h2 em { font-style: normal; box-shadow: inset 0 -.14em 0 var(--np-orange); }
+.bs-section.dark h2 em { box-shadow: inset 0 -.14em 0 var(--glut); }
+.bs-wrap h2 { margin-bottom: var(--s7); max-width: 20ch; }
+
+/* Kopf */
+.bs-hero { padding: calc(var(--s9) + 8px) 0 var(--s9); border-bottom: 1px solid var(--haarlinie); }
+.bs-hero-grid { display: grid; gap: var(--s8); }
+@media (min-width: 1024px) { .bs-hero-grid { grid-template-columns: 1.4fr 1fr; align-items: end; gap: var(--s10); } }
+.bs-hero h1 { margin-bottom: var(--s5); max-width: 16ch; }
+.bs-lead { max-width: 52ch; color: var(--stein); }
+.bs-actions { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: center; margin-top: var(--s6); }
+.bs-meta { display: grid; border-top: 1.5px solid var(--tinte); }
+.bs-meta > div { display: grid; grid-template-columns: 9ch 1fr; gap: var(--s4); padding: var(--s3) 0; border-bottom: 1px solid var(--haarlinie); }
+.bs-meta dt { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--stein); }
+.bs-meta dd { font-weight: 600; }
+
+/* Bild */
+.bs-visual { padding: var(--s9) 0 0; }
+.bs-frame { aspect-ratio: 1659 / 1186; max-height: 70svh; background: var(--kalk); border: 1px solid var(--haarlinie); display: grid; place-items: center; text-align: center; padding: var(--s6); }
+.bs-frame .mono { color: var(--tinte); text-transform: none; letter-spacing: .02em; max-width: 44ch; border: 1px dashed currentColor; padding: var(--s3) var(--s4); }
+.bs-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s5); margin-top: var(--s3); color: var(--stein); font-size: var(--fs-small); }
+
+/* Text */
+.bs-copy { max-width: 62ch; display: grid; gap: var(--s5); }
+.bs-copy p { max-width: none; color: var(--stein); }
+.bs-copy strong { color: var(--tinte); font-weight: 650; }
+
+/* Ziele */
+.bs-goals { border-top: 1.5px solid var(--tinte); }
+.bs-goal { display: grid; grid-template-columns: 3ch 1fr; gap: var(--s4) var(--s5); align-items: baseline; padding: var(--s4) 0; border-bottom: 1px solid var(--haarlinie); }
+.bs-goal .nr { font-family: var(--mono); font-size: var(--fs-mono); color: var(--orange-text); }
+.bs-goal .name { font-size: var(--fs-lead); font-weight: 600; line-height: 1.25; }
+.bs-goal .mark { grid-column: 2; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--stein); }
+@media (min-width: 1024px) { .bs-goal { grid-template-columns: 4ch 1fr auto; } .bs-goal .mark { grid-column: auto; } }
+
+/* Kartenraster (Design, Technik, Nutzen) */
+.bs-grid { display: grid; gap: var(--s6); }
+@media (min-width: 1024px) { .bs-grid.three { grid-template-columns: repeat(3, 1fr); } .bs-grid.four { grid-template-columns: repeat(2, 1fr); } .bs-grid.six { grid-template-columns: repeat(3, 1fr); } }
+.bs-card { border-top: 1px solid var(--haarlinie); padding-top: var(--s4); display: grid; gap: var(--s3); align-content: start; }
+.bs-section.dark .bs-card { border-color: rgba(240, 235, 227, .22); }
+.bs-card .tag { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--orange-text); }
+.bs-section.dark .bs-card .tag { color: var(--glut); }
+.bs-card h3 { max-width: 22ch; }
+.bs-card p { color: var(--stein); max-width: 46ch; }
+.bs-section.dark .bs-card p { color: var(--asche); }
+
+/* Vergleich */
+.bs-compare { display: grid; gap: var(--s5); }
+@media (min-width: 1024px) { .bs-compare { grid-template-columns: 1fr 1fr; } }
+.bs-panel { border: 1px solid var(--haarlinie); background: var(--kalk); padding: var(--s6); display: grid; gap: var(--s4); align-content: start; }
+.bs-panel:last-child { border-color: var(--tinte); box-shadow: inset 0 3px 0 var(--np-orange); }
+.bs-panel ul li { position: relative; padding: var(--s2) 0 var(--s2) var(--s5); border-bottom: 1px solid rgba(28, 23, 18, .08); color: var(--stein); }
+.bs-panel ul li::before { content: ''; position: absolute; left: 0; top: 1.15em; width: 12px; height: 1px; background: var(--tinte); }
+
+/* Weiterführend und Anfrage */
+.bs-more { padding: var(--s9) 0; border-top: 1px solid var(--haarlinie); }
+.bs-more ul { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s7); margin-top: var(--s4); }
+.bs-more a { display: inline-flex; align-items: center; min-height: 44px; }
+.bs-cta { background: var(--nacht); color: var(--leinen); padding: var(--block) 0; }
+.bs-cta .bs-eyebrow { color: var(--glut); }
+.bs-cta h2 { max-width: 18ch; }
+.bs-cta p { color: var(--asche); margin-bottom: var(--s6); }
+.bs-cta :focus-visible { outline-color: var(--glut); }
+
+/* Orange-Text erreicht auf Sand nur 4,2:1 (Blueprint G: nur ab 24 px) – auf Sand-Flächen deshalb Stein */
+.bs-section.alt .bs-eyebrow, .bs-section.alt .bs-goal .nr, .bs-section.alt .bs-card .tag { color: var(--stein); }

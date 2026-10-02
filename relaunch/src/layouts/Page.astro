@@ -4,9 +4,9 @@ import Base from './Base.astro';
 import '../styles/page.css';
 import Logo from '../components/Logo.astro';
 import { SITE } from '../config/site.js';
-const { title, description, path, noindex = false, wide = false } = Astro.props;
+const { title, description, path, noindex = false, wide = false, bare = false, jsonLd = null } = Astro.props;
 ---
-<Base title={title} description={description} path={path} noindex={noindex}>
+<Base title={title} description={description} path={path} noindex={noindex} jsonLd={jsonLd}>
   <div class="skiplinks"><a href="#main">Zum Inhalt springen</a></div>
   <header class="page-head">
     <div class="page-head-inner">
@@ -18,7 +18,7 @@ const { title, description, path, noindex = false, wide = false } = Astro.props;
       </nav>
     </div>
   </header>
-  <main id="main" class={`page-main${wide ? ' wide' : ''}`} tabindex="-1">
+  <main id="main" class={bare ? 'page-bare' : `page-main${wide ? ' wide' : ''}`} tabindex="-1">
     <slot />
   </main>
   <footer class="page-footer">

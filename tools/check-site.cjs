@@ -76,7 +76,13 @@ async function run() {
   const server = await serve();
   const origin = `http://127.0.0.1:${server.address().port}`;
   const browser = await chromium.launch();
-  const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html')).sort();
+  // alle HTML-Seiten, auch in Unterordnern (z. B. branchenloesungen/)
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+    if (e.name === 'node_modules' || e.name === 'tools' || e.name.startsWith('.')) return [];
+    const full = path.join(dir, e.name);
+    return e.isDirectory() ? walk(full) : e.name.endsWith('.html') ? [path.relative(ROOT, full)] : [];
+  });
+  const pages = walk(ROOT).sort();
 
   for (const file of pages) {
     staticChecks(file, fs.readFileSync(path.join(ROOT, file), 'utf8'));

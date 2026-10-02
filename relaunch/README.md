@@ -23,6 +23,7 @@ NODE_PATH=$(npm root -g) node ../tools/check-site.cjs dist
 | `src/config/journey.js` | **Einzige Quelle** für Reihenfolge, Längen (vh), Paletten, Welten, Claim-Texte. Aktuelle Bauphase: `PHASE` |
 | `src/config/site.js` | Kontakt, Pakete und Preise (einzige Preisstelle), FAQ, Arbeitsweise, sichtbare Platzhalter |
 | `src/pages/journey.css.js` | erzeugt `/journey.css` aus der Konfiguration (Längen, Paletten) |
+| `src/content/branchen.js` | Texte der Branchenseiten (aus den Beispielkonzepten Friseur & Barber, Handwerker, Beratung & Coaching), Vorlage `src/pages/branchenloesungen/[slug].astro` |
 | `src/components/` | Rahmen, Menü, Opening, Werkplan, Übergang, Zwischenspiele, Finale, Kontakt, FAQ, Footer |
 | `src/motion/` | GSAP-Module: Grundgerüst/Modi, Rahmen, Opening-Szene, Übergänge, Zwischenspiele, Satz nach Maß, Menü |
 | `src/styles/` | Tokens, Grundstile, Rahmen, Opening, Sektionen, Unterseiten |
@@ -44,7 +45,7 @@ Ohne JavaScript und im Modus `calm` gibt es keine Pins: eine lange, ruhige Seite
 
 Gebaut: Reise-Konfiguration, Tokens, Rahmen (Monogramm, Lebenszeichen, Weltzähler, Lineal, Schnittmarken, Mobile-Leiste), Menü,
 Opening mit Rückzoom auf den Werkplan, Standard-Übergänge, Zwischenspiele I–III (Copy-Deck), Finale-Rahmen, FAQ, Footer,
-`/leistungen`, `/impressum`, `/datenschutz`, 404, Ruhig-Modus, Betrieb ohne JavaScript.
+`/leistungen`, `/impressum`, `/datenschutz`, 404, drei Branchenseiten (Friseur & Barber, Handwerker, Beratung & Coaching), Ruhig-Modus, Betrieb ohne JavaScript.
 
 Noch Platzhalter: Welten 01–03 (je ein eigener Bauschritt), Kontaktformular mit Live-Vorschau und Endpunkt, Finale-Rückzoom,
-Einwilligungsbanner mit Matomo, Branchenseiten, Social-Vorschaubilder, Logo (Signet ist ein Platzhalter).
+Einwilligungsbanner mit Matomo, Branchenseite Bäckerei, Screenshots und Live-Demos der Branchenseiten, Social-Vorschaubilder, Logo (Signet ist ein Platzhalter).
