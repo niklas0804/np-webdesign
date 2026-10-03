@@ -135,3 +135,33 @@ html[data-mode='desktop'] .beam-fill, html[data-mode='mobile'] .beam-fill { tran
 .footer-links a:hover { color: var(--glut); }
 .footer .partner-badge { margin-top: var(--s7); }
 .footer-credit { margin-top: var(--s8); color: var(--asche); font-size: var(--fs-mono-xs); }
+
+/* ---------- Übergang mit Staffelstab: Bon „Nr. 07“ → Wartemarke (Welt 01 → 02) ---------- */
+.t-bon3d { display: none; }
+/* Diese Variante überblendet statt zu wischen: keine CSS-Verschiebung, sonst liest GSAP sie als Pixelwert */
+html[data-mode='desktop'] .transition[data-variant='bon'] .t-wipe, html[data-mode='mobile'] .transition[data-variant='bon'] .t-wipe { transform: none; }
+html[data-mode='desktop'] .t-bon3d, html[data-mode='mobile'] .t-bon3d {
+  display: block; position: absolute; left: 50%; top: 50%; width: min(300px, 72vw); aspect-ratio: 3 / 4; perspective: 1100px;
+}
+.t-bon-card { position: absolute; inset: 0; transform-style: preserve-3d; }
+.t-bon-face { position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: grid; align-content: start; gap: var(--s3); padding: var(--s6); text-align: left; }
+.t-bon-front {
+  background: #FFFBF3; color: var(--text);
+  padding-bottom: calc(var(--s6) + 16px);
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 32px 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 32px 100%;
+}
+.t-bon-front .mono { color: var(--accent); text-transform: none; letter-spacing: .02em; font-size: var(--fs-mono-xs); }
+.t-bon-nr { font-family: 'Fraunces Display NP', Georgia, serif; font-weight: 650; font-variation-settings: 'SOFT' 100; font-size: 4.5rem; line-height: 1; letter-spacing: -.015em; }
+.t-bon-back {
+  transform: rotateY(180deg); background: var(--accent); color: var(--ground); text-align: center; align-content: center; justify-items: center;
+  font-family: 'Bodoni Moda NP', Didot, Georgia, serif;
+  -webkit-mask: radial-gradient(circle 14px at 0 58%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 58%, #0000 96%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle 14px at 0 58%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 58%, #0000 96%, #000) right / 51% 100% no-repeat;
+}
+.t-bon-head { font-size: .8125rem; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; }
+.t-bon-head span { display: block; }
+.t-bon-nr2 { font-size: 7.5rem; line-height: .95; font-weight: 700; font-variant-numeric: lining-nums; }
+/* Der orange Faden zeichnet zuerst die Kontur des Staffelstabs nach */
+.t-bon-outline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.t-bon-outline rect { fill: none; stroke: var(--np-orange); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }

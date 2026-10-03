@@ -10,7 +10,10 @@ import { initInterludes } from './interludes.js';
 watchMode();
 
 /** Weltmodule: Bewegung und Bedienung laden erst 1,5 Bildschirmhöhen vor der Welt (Blueprint N, Ladestrategie) */
-const WORLD_MODULES = { baeckerei: () => import('../worlds/01-korn-und-kruste/motion.js') };
+const WORLD_MODULES = {
+  baeckerei: () => import('../worlds/01-korn-und-kruste/motion.js'),
+  barbershop: () => import('../worlds/02-herrenzimmer/motion.js'),
+};
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {
     const el = document.getElementById(anchor);

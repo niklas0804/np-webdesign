@@ -33,8 +33,31 @@ export function initTransitions() {
         onLeaveBack: () => { half = null; },
       },
     });
-    // Der Faden zeichnet zuerst die Linie, dann wischt die neue Welt herein
-    tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, 0)
-      .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: 'power2.inOut' }, 0.3);
+    if (sec.dataset.variant === 'bon') {
+      bon(tl, sec, wipe);
+    } else {
+      // Der Faden zeichnet zuerst die Linie, dann wischt die neue Welt herein
+      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, 0)
+        .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: 'power2.inOut' }, 0.3);
+    }
   });
+}
+
+/**
+ * Welt 01 → 02: Ladenschluss. Der Grund dunkelt, der Bon „Nr. 07“ bleibt im Licht, dreht sich um die Hochachse
+ * und wird als goldene Wartemarke neu gedruckt (Blueprint F, Übergang 2). Der Faden zeichnet zuerst die Kontur.
+ * Nur Transform, Deckkraft und Strichlänge – keine Layout-Animation.
+ */
+function bon(tl, sec, wipe) {
+  const obj = $('[data-t-bon]', sec);
+  const card = $('[data-t-card]', sec);
+  const outline = $('[data-t-outline] rect', sec);
+  gsap.set(obj, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
+  gsap.set(wipe, { yPercent: 0, autoAlpha: 0 }); // hier wird nicht gewischt, sondern überblendet
+  tl.fromTo(obj, { autoAlpha: 0, scale: 0.94, y: 24 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.14, ease: 'power2.out' }, 0)
+    .fromTo(outline, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.22, ease: 'power2.out' }, 0.02)
+    .to(outline, { autoAlpha: 0, duration: 0.1 }, 0.26)
+    .fromTo(wipe, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.12)
+    .fromTo(card, { rotationY: 0 }, { rotationY: 180, duration: 0.45, ease: 'power2.inOut' }, 0.3)
+    .to(obj, { autoAlpha: 0, scale: 1.04, duration: 0.15 }, 0.85);
 }

@@ -138,4 +138,5 @@ html:not([data-js]) .w01-bon { display: none; }
 .w01-times dd { font-variant-numeric: tabular-nums; }
 
 .w01-note { margin-top: var(--block); }
+.w01-note .note { margin: 0; }
 .w01 > .credit { margin-top: var(--s8); }

@@ -5,16 +5,15 @@
  * Ohne JavaScript: alle sechs Backtage stehen untereinander, alle Brote sind aufgeklappt lesbar.
  */
 import { WORLDS, builtWorlds } from '../../config/journey.js';
-import { BRANCHEN } from '../../content/branchen.js';
 import { BROTE, BACKPLAN, ZEITEN, BON_NR } from './data.js';
 import Laib from './Laib.astro';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
 import './world.css';
 
 const { row } = Astro.props;
 const w = WORLDS.find((x) => x.nr === '01');
 const total = String(builtWorlds.length).padStart(2, '0');
 const counter = `Welt 01 / ${total} · Bäckerei · Studie`;
-const page = Object.values(BRANCHEN).find((b) => b.world === '01');
 ---
 <section id={w.anchor} class="world w01" data-section={row.id} data-world="01" data-ground={w.palette.ground} data-tone="light"
          data-counter={counter} data-counter-short={`01 / ${total}`} aria-labelledby="w01-title">
@@ -107,12 +106,7 @@ const page = Object.values(BRANCHEN).find((b) => b.world === '01');
     </div>
   </div>
 
-  <aside class="note w01-note" aria-label={`Werkstattnotiz Welt 01: ${w.name}`}>
-    <p class="mono note-head">Welt 01 · Studie · {w.branche}</p>
-    <p class="note-text">{w.notiz}</p>
-    <p class="mono note-tag">Leistung im Einsatz: {w.leistung}</p>
-    {page && <a class="link note-link" href={w.branchPage}>Webdesign für Bäckereien</a>}
-  </aside>
+  <div class="w01-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Bäckereien" /></div>
 
   <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
 </section>

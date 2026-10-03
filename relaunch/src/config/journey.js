@@ -73,6 +73,11 @@ export const TEXT = {
   nextWorld: `Welt ${String(n + 1).padStart(2, '0')}`,
 };
 
+/** Übergänge mit eigenem Staffelstab statt des Standard-Fadens. Schlüssel: `von>nach`. Die Länge bleibt in der Konfiguration. */
+export const TRANSITION_VARIANTS = {
+  'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
+};
+
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
 export const TRANSITION_DEFAULT = { desktop: 60, mobile: 40 };
 
@@ -110,6 +115,7 @@ export const journey = (() => {
       id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
       fromGround: groundOf(s), toGround: groundOf(next), fromTone: toneOf(s), toTone: toneOf(next),
       d: TRANSITION_DEFAULT.desktop, m: TRANSITION_DEFAULT.mobile,
+      variant: TRANSITION_VARIANTS[`${s.id}>${next.id}`] || null,
     });
   });
   return out;

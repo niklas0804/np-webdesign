@@ -1,0 +1,104 @@
+/* Welt 02 · Herrenzimmer (Blueprint F). Palette aus /journey.css: --ground Nachtschwarz, --text Elfenbein, --accent Gold, --accent2 Bordeaux (nur Flächen).
+   Schrift: Bodoni Moda, auf die benutzten Zeichen reduziert (scripts/subset-bodoni.py), eine Datei. Versalien mit weiter Laufweite. */
+@font-face {
+  font-family: 'Bodoni Moda NP';
+  src: url('/fonts/bodoni-02.woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.w02 {
+  --bodoni: 'Bodoni Moda NP', 'Didot', 'Bodoni 72', Georgia, 'Times New Roman', serif;
+  position: relative;
+  padding: 0 var(--gutter) var(--block);
+  font-family: var(--bodoni);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  text-align: center;
+  min-height: calc(var(--len) * 1svh);
+}
+.w02 > * { max-width: 1100px; margin-inline: auto; position: relative; }
+.w02 :focus-visible { outline-color: var(--text); }
+.w02 .mono { font-family: var(--mono); }
+
+/* Mittelachse: schmale Goldlinie wie die Kante eines Spiegels */
+.w02-axis { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; max-width: none; margin: 0; background: var(--accent); opacity: .45; transform-origin: top; pointer-events: none; }
+
+.w02-title, .w02-h, .w02-sub { font-family: var(--bodoni); text-transform: uppercase; letter-spacing: .2em; font-weight: 500; }
+.w02-kicker { font-size: .875rem; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s5); }
+
+/* ---------- Kopf ---------- */
+.w02-hero { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: calc(var(--frame-top) + var(--s4)); padding-bottom: var(--s5); gap: var(--s4); background: var(--ground); }
+.w02-title { font-size: clamp(1.5rem, 6.4vw, 6rem); line-height: 1; margin-right: -.2em; background: var(--ground); padding: 0 .2em 0 .4em; }
+.w02-stage { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--s7); width: 100%; margin-top: var(--s2); }
+.w02-tool { margin: 0; color: var(--accent); opacity: .85; }
+.w02-tool svg { width: 100%; height: auto; max-height: 300px; }
+.w02-tool-l { justify-self: end; width: clamp(80px, 11vw, 150px); }
+.w02-tool-r { justify-self: start; width: clamp(80px, 11vw, 150px); }
+@media (max-width: 1023px) { .w02-tool-l, .w02-tool-r { display: none; } .w02-stage { grid-template-columns: 1fr; } .w02-axis { display: none; } }
+
+/* Wartemarke aus dem Schlitz */
+.w02-printer { width: 260px; justify-self: center; background: var(--ground); }
+.w02-slot { height: 16px; border: 1.5px solid var(--accent); border-radius: 8px; background: #0A0808; position: relative; z-index: 2; }
+.w02-clip { overflow: hidden; margin: 0 14px; padding-bottom: 8px; }
+.w02-ticket {
+  width: 100%; background: var(--accent); color: var(--ground); display: grid; gap: var(--s2); text-align: center;
+  padding: var(--s5) var(--s4) 0; font-family: var(--bodoni);
+  -webkit-mask: radial-gradient(circle 11px at 0 62%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 62%, #0000 96%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle 11px at 0 62%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 62%, #0000 96%, #000) right / 51% 100% no-repeat;
+}
+.w02-t-head { font-size: .75rem; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; margin: 0 auto; }
+.w02-t-head span { display: block; }
+.w02-t-nr { font-size: 5.5rem; line-height: .95; font-weight: 700; font-variant-numeric: lining-nums tabular-nums; margin: var(--s2) auto var(--s4); }
+.w02-t-foot { background: var(--accent2); color: var(--text); margin: 0 calc(var(--s4) * -1); padding: 8px; font-size: .75rem; letter-spacing: .4em; text-transform: uppercase; max-width: none; }
+
+.w02-wait { max-width: 44ch; background: var(--ground); padding: 0 var(--s3); }
+.w02-gold {
+  min-height: 52px; padding: 0 var(--s7); background: var(--accent); color: var(--ground);
+  font-family: var(--bodoni); font-weight: 600; font-size: .9375rem; letter-spacing: .2em; text-transform: uppercase;
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  transition: background var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out);
+}
+.w02-gold:hover, .w02-gold:focus-visible { background: transparent; color: var(--accent); }
+.w02-gold:active { transform: scale(.98); }
+.w02-demo { color: var(--np-mass); text-transform: none; letter-spacing: .02em; font-size: var(--fs-mono-xs); max-width: none; background: var(--ground); padding: 0 var(--s2); }
+
+/* ---------- Preisliste, gespiegelt um die Achse ---------- */
+.w02-preise, .w02-termin { padding-top: var(--block); display: grid; gap: var(--s6); justify-items: center; }
+.w02-h { font-size: clamp(1.25rem, 3vw, 2.25rem); background: var(--ground); padding: 0 .2em 0 .4em; margin-right: -.2em; }
+.w02-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--s8); width: 100%; text-align: left; }
+.w02-list.is-left { text-align: right; }
+.w02-sub { font-size: .9375rem; color: var(--accent); margin-bottom: var(--s4); }
+.w02-slots { background: var(--ground); padding: 0 var(--s3); }
+.w02-row { position: relative; display: flex; align-items: baseline; gap: var(--s3); padding: var(--s4) var(--s2); transition: background var(--dur-s) var(--ease-out); }
+.w02-row dt { order: 1; font-size: 1.1875rem; }
+.w02-row dd { order: 3; font-variant-numeric: lining-nums tabular-nums; font-weight: 600; color: var(--accent); font-family: var(--bodoni), Georgia, 'Times New Roman', serif; }
+.w02-row::before { content: ''; order: 2; flex: 1; min-width: 24px; border-bottom: 2px dotted rgba(237, 230, 216, .45); transform: translateY(-4px); }
+.w02-list.is-left .w02-row { flex-direction: row-reverse; }
+/* Goldlinie beim Hover: zieht von der Mittelachse nach außen auf */
+.w02-row::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-m) var(--ease-out); }
+.w02-list.is-left .w02-row::after { transform-origin: right; }
+.w02-row:hover { background: rgba(201, 162, 74, .08); }
+.w02-row:hover::after { transform: scaleX(1); }
+@media (max-width: 1023px) {
+  .w02-lists { grid-template-columns: 1fr; gap: var(--s7); }
+  .w02-list.is-left { text-align: left; }
+  .w02-list.is-left .w02-row { flex-direction: row; }
+  .w02-list.is-left .w02-row::after { transform-origin: left; }
+}
+
+/* ---------- Termin (Demo) ---------- */
+.w02-lead { max-width: 40ch; background: var(--ground); padding: 0 var(--s3); }
+.w02-slots { display: flex; flex-wrap: wrap; gap: var(--s3); justify-content: center; }
+html:not([data-js]) .w02-slots { display: none; }
+.w02-slot-btn { min-height: 52px; padding: 0 var(--s6); border: 1.5px solid var(--accent); color: var(--accent); font-family: var(--bodoni); font-size: 1.0625rem; letter-spacing: .06em; background: var(--ground); transition: background var(--dur-s), color var(--dur-s); }
+.w02-slot-btn:hover { background: rgba(201, 162, 74, .12); }
+.w02-slot-btn[aria-pressed='true'] { background: var(--accent); color: var(--ground); }
+.w02-confirm { max-width: 46ch; color: var(--text); border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); padding: var(--s3) var(--s5); background: var(--ground); }
+.w02-tool-mid { width: 110px; opacity: .6; margin-top: var(--s4); background: var(--ground); padding: var(--s2); }
+.w02-tool-mid svg { max-height: 140px; }
+
+.w02-note { margin-top: var(--block); text-align: left; display: flex; justify-content: center; }
+.w02-note .note { margin: 0; }
+.w02 > .credit { margin-top: var(--s8); }

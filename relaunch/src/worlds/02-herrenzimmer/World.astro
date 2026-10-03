@@ -1,0 +1,82 @@
+---
+/**
+ * Welt 02 · Herrenzimmer · Barbershop (Blueprint F). Studie, fiktives Unternehmen.
+ * Abends im Salon: Leder, Messing, Ruhe. Symmetrisch um eine schmale Mittelachse wie ein Spiegel, Goldlinien als Trenner.
+ * Leistung im Einsatz: Online-Terminbuchung und Markenwirkung. Wartemarke und Termin sind lokale Demos, sie senden nichts.
+ * Ohne JavaScript: Die Wartemarke steht fertig gedruckt da, die Bedienknöpfe fehlen.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { PREISE, WARTE, TERMINE, pad, wartezeit } from './data.js';
+import Werkzeug from './Werkzeug.astro';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '02');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 02 / ${total} · Barbershop · Studie`;
+---
+<section id={w.anchor} class="world w02" data-section={row.id} data-world="02" data-ground={w.palette.ground} data-tone="dark"
+         data-counter={counter} data-counter-short={`02 / ${total}`} aria-labelledby="w02-title">
+  <div class="w02-axis" aria-hidden="true"></div>
+
+  <!-- Kopf: Wartemarke aus dem Schlitz -->
+  <div class="w02-hero">
+    <p class="w02-kicker">Barbershop · Haarschnitt und Rasur</p>
+    <h2 id="w02-title" class="w02-title">Herrenzimmer</h2>
+
+    <div class="w02-stage">
+      <figure class="w02-tool w02-tool-l"><Werkzeug form="schere" /></figure>
+      <div class="w02-printer" data-printer>
+        <div class="w02-slot" aria-hidden="true"></div>
+        <div class="w02-clip">
+          <div class="w02-ticket" data-ticket>
+            <p class="w02-t-head"><span>Herrenzimmer</span><span>Wartemarke</span></p>
+            <p class="w02-t-nr"><span class="visually-hidden">Ihre Nummer </span><span data-t-nr>{pad(WARTE.start)}</span></p>
+            <p class="w02-t-foot">Demo</p>
+          </div>
+        </div>
+      </div>
+      <figure class="w02-tool w02-tool-r"><Werkzeug form="messer" /></figure>
+    </div>
+
+    <p class="w02-wait" data-wait>Aufgerufen wird Nr. {pad(WARTE.aufgerufen)}. Ihre Wartemarke: Nr. {pad(WARTE.start)}. Geschätzte Wartezeit: etwa {wartezeit(WARTE.start)} Minuten.</p>
+    <button class="w02-gold needs-js" type="button" data-ziehen>Wartemarke ziehen</button>
+    <p class="w02-demo mono">Demo · erfundener Salon, Beispieldaten, es wird nichts gesendet</p>
+    <p class="visually-hidden" role="status" aria-live="polite" data-wait-status></p>
+  </div>
+
+  <!-- Preisliste: gespiegelt um die Mittelachse -->
+  <div class="w02-preise">
+    <h3 class="w02-h">Preisliste</h3>
+    <div class="w02-lists">
+      {Object.entries(PREISE).map(([key, grp], i) => (
+        <section class={`w02-list ${i === 0 ? 'is-left' : 'is-right'}`} aria-labelledby={`pl-${key}`}>
+          <h4 class="w02-sub" id={`pl-${key}`}>{grp.titel}</h4>
+          <dl>
+            {grp.posten.map(([name, preis]) => (
+              <div class="w02-row"><dt>{name}</dt><dd><span class="visually-hidden">Preis: </span>{preis}</dd></div>
+            ))}
+          </dl>
+        </section>
+      ))}
+    </div>
+    <p class="w02-demo mono">Demo · Beispielpreise dieser Studie</p>
+  </div>
+
+  <!-- Termin (Demo) -->
+  <div class="w02-termin" data-termin>
+    <h3 class="w02-h">Termin</h3>
+    <p class="w02-lead">Ein Termin kommt auch nachts rein. Wählen Sie eine Zeit.</p>
+    <div class="w02-slots needs-js" role="group" aria-label="Terminzeit wählen, Demo">
+      {TERMINE.map((t) => <button class="w02-slot-btn" type="button" aria-pressed="false" data-slot>{t}</button>)}
+    </div>
+    <p class="w02-confirm" data-confirm role="status" hidden></p>
+    <noscript><p class="w02-lead">Mit JavaScript wählen Sie hier eine Demo-Terminzeit.</p></noscript>
+    <figure class="w02-tool w02-tool-mid"><Werkzeug form="kamm" /></figure>
+    <p class="w02-demo mono">Demo · Beispielzeiten</p>
+  </div>
+
+  <div class="w02-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Friseure und Barbershops" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>
