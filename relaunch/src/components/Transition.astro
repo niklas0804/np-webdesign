@@ -11,6 +11,17 @@ const { row } = Astro.props;
   <div class="t-stage">
     <div class="t-wipe"></div>
     <div class="t-thread"></div>
+    {row.variant === 'goldlinie' && (
+      <div class="t-mass" data-t-mass>
+        <div class="t-gold" data-world="02" data-t-gold></div>
+        <div class="t-blue" data-world="03" data-t-blue></div>
+        <div class="t-dim" data-world="03" data-t-dim>
+          <svg class="t-arrow t-arrow-l" viewBox="0 0 40 40" aria-hidden="true"><path d="M36 14 L8 20 L36 26 Z" /><path d="M6 6 V34" /></svg>
+          <span class="t-dim-value">12.400</span>
+          <svg class="t-arrow t-arrow-r" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 14 L32 20 L4 26 Z" /><path d="M34 6 V34" /></svg>
+        </div>
+      </div>
+    )}
     {row.variant === 'bon' && (
       <div class="t-bon3d" data-t-bon>
         <div class="t-bon-card" data-t-card>

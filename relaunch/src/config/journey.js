@@ -76,6 +76,7 @@ export const TEXT = {
 /** Übergänge mit eigenem Staffelstab statt des Standard-Fadens. Schlüssel: `von>nach`. Die Länge bleibt in der Konfiguration. */
 export const TRANSITION_VARIANTS = {
   'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
+  'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
 };
 
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */

@@ -1,0 +1,96 @@
+/* Welt 03 · Steiner Bau (Blueprint F). Palette aus /journey.css: --ground Planpapier, --text Tusche, --accent Blaupause, --accent2 Prüfrot.
+   Schriften: Barlow Condensed 600 (Überschriften, Versalien) und Barlow 400 (Text), auf die benutzten Zeichen reduziert. */
+@font-face { font-family: 'Barlow Condensed NP'; src: url('/fonts/barlow-condensed-03.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Barlow NP'; src: url('/fonts/barlow-03.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+
+.world.w03 {
+  --cond: 'Barlow Condensed NP', 'Arial Narrow', 'Roboto Condensed', Arial, sans-serif;
+  --text-f: 'Barlow NP', Arial, Helvetica, sans-serif;
+  padding: 0 var(--gutter) var(--block);
+  font-family: var(--text-f);
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  min-height: calc(var(--len) * 1svh);
+  /* Millimeterpapier: feines 16-px-Raster, kräftige Linie alle 80 px */
+  background-color: var(--ground);
+  background-image:
+    linear-gradient(rgba(43, 92, 138, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .15) 1px, transparent 1px),
+    linear-gradient(rgba(43, 92, 138, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .07) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+.w03 > * { max-width: var(--max); margin-inline: auto; }
+.w03 :focus-visible { outline-color: var(--text); }
+.w03 .mono { font-family: var(--mono); }
+.w03-title, .w03-h, .w03-label h4, .w03-tab, .w03-titleblock dt { font-family: var(--cond); font-weight: 600; text-transform: uppercase; }
+
+/* ---------- Kopf ---------- */
+.w03-hero { padding-top: calc(var(--frame-top) + var(--s9)); padding-bottom: var(--s8); }
+.w03-kicker { font-family: var(--cond); font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: 1rem; color: var(--accent); margin-bottom: var(--s3); }
+.w03-title { font-size: clamp(3.75rem, 14vw, 13rem); line-height: .84; letter-spacing: .005em; margin-bottom: var(--s4); }
+.w03-sub { font-size: clamp(1.25rem, 2.2vw, 2rem); line-height: 1.2; max-width: 22ch; }
+.mass { position: static; display: block; margin-top: var(--s5); font-family: var(--mono); font-size: var(--fs-mono-xs); letter-spacing: .08em; text-transform: uppercase; color: var(--np-mass); }
+
+/* ---------- Zeichenblatt ---------- */
+.w03-plan { padding-top: var(--s7); }
+.w03-tabs { display: flex; gap: 0; max-width: 100%; margin-bottom: -2px; position: relative; z-index: 1; }
+html:not([data-js]) .w03-tabs { display: none; }
+.w03-tab { flex: 0 1 auto; min-width: 0; min-height: 48px; padding: 0 var(--s6); border: 2px solid var(--text); border-bottom-color: transparent; background: rgba(243, 241, 234, .6); color: var(--text); font-size: 1.125rem; letter-spacing: .1em; transition: background var(--dur-s); }
+.w03-tab + .w03-tab { margin-left: -2px; }
+.w03-tab:hover { background: var(--ground); }
+.w03-tab[aria-selected='true'] { background: var(--ground); border-bottom-color: var(--ground); }
+.w03-sheet { position: relative; border: 2px solid var(--text); background: var(--ground); padding: var(--s5); }
+.w03-sheet::before { content: ''; position: absolute; inset: 8px; border: 1px solid var(--text); pointer-events: none; opacity: .55; }
+.w03-views { position: relative; }
+.w03-view { margin: 0; color: var(--text); }
+html[data-js] .w03-view:not(.is-active) { display: none; }
+html:not([data-js]) .w03-view + .w03-view { margin-top: var(--s7); border-top: 1px dashed var(--text); padding-top: var(--s6); }
+.w03-view svg { width: 100%; height: auto; max-height: 72svh; }
+.w03-view .ln-ground path { opacity: .55; stroke-width: 1.6; }
+.w03-view .ln-layer path { stroke: var(--text); }
+.w03-view .ln-dim path { stroke: var(--accent); stroke-width: 1.6; }
+.w03-view .ln-dim text { fill: var(--accent); stroke: none; font-family: var(--cond); font-weight: 600; font-size: 17px; letter-spacing: .03em; }
+.w03-view .is-static text { fill: var(--accent); stroke: none; font-family: var(--cond); font-weight: 600; font-size: 17px; }
+.w03-view text { font-family: var(--cond); }
+
+.w03-titleblock { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: var(--s5) 0 0 auto; width: min(100%, 560px); border: 1.5px solid var(--text); background: var(--ground); position: relative; }
+.w03-titleblock > div { padding: var(--s2) var(--s3); border: 0 solid var(--text); border-width: 0 0 1px 0; display: grid; gap: 2px; }
+.w03-titleblock > div:nth-child(odd) { border-right-width: 1px; }
+.w03-titleblock > div:last-child { grid-column: 1 / -1; border-bottom-width: 0; }
+.w03-titleblock dt { font-size: .8125rem; letter-spacing: .12em; color: var(--accent); }
+.w03-titleblock dd { font-size: 1.0625rem; line-height: 1.25; }
+.w03-demo { margin-top: var(--s3); color: var(--np-mass); text-transform: none; letter-spacing: .02em; font-size: var(--fs-mono-xs); max-width: none; }
+
+/* Prüfstempel (Signatur): Prüfrot, leicht schräg gesetzt */
+.w03-stamp { position: absolute; right: var(--s4); bottom: -26px; width: clamp(96px, 14vw, 150px); color: var(--accent2); transform: rotate(-9deg); opacity: .94; pointer-events: none; }
+.w03-stamp svg { width: 100%; height: auto; }
+.w03-stamp .stamp-ring { font-family: var(--cond); font-weight: 600; font-size: 12.5px; letter-spacing: .14em; fill: currentColor; }
+.w03-stamp .stamp-main { font-family: var(--cond); font-weight: 600; font-size: 24px; letter-spacing: .08em; fill: currentColor; }
+
+/* ---------- Explosionszeichnung ---------- */
+.w03-expl { padding-top: var(--block); display: grid; gap: var(--s5); }
+.w03-h { font-size: var(--fs-h2); line-height: .95; letter-spacing: .01em; }
+.w03-lead { max-width: 44ch; }
+.w03-expl-grid { display: grid; gap: var(--s7); align-items: center; margin-top: var(--s4); }
+@media (min-width: 1024px) { .w03-expl-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s9); } }
+.w03-parts { display: grid; gap: var(--s4); max-width: 460px; padding: var(--s5) 0; }
+.w03-part { color: var(--text); transition: transform var(--dur-m) var(--ease-out), color var(--dur-s); }
+.w03-part svg { width: 100%; height: auto; display: block; }
+html[data-js] .w03-part { cursor: pointer; }
+html[data-js] .w03-part:hover { color: var(--accent); }
+.w03-part.is-open { color: var(--accent2); }
+.w03-expl[data-open='dach'] .p-dach, .w03-expl[data-open='rohbau'] .p-dach { transform: translateY(-30px); }
+.w03-expl[data-open='sanierung'] .p-sanierung, .w03-expl[data-open='rohbau'] .p-sanierung { transform: translateY(30px); }
+.w03-labels { display: grid; gap: var(--s5); }
+.w03-label { border-left: 3px solid var(--accent); padding: var(--s2) 0 var(--s2) var(--s5); max-width: 46ch; }
+.w03-label h4 { font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1; margin-bottom: var(--s2); letter-spacing: .01em; }
+html[data-js] .w03-label:not(.is-open) { display: none; }
+html[data-js] .w03-label.is-open { animation: w03-label var(--dur-m) var(--ease-out); }
+@keyframes w03-label { from { opacity: 0; transform: translateX(-12px); } }
+
+.w03-note { margin-top: var(--block); }
+.w03-note .note { margin: 0; }
+.w03 > .credit { margin-top: var(--s8); }
+@media (max-width: 599px) { .w03-sheet { padding: var(--s3); } .w03-tab { padding: 0 var(--s4); } .w03-stamp { bottom: -18px; } }
+
+@media (max-width: 359px) { .w03-tab { padding: 0 var(--s3); font-size: 1rem; letter-spacing: .06em; } }

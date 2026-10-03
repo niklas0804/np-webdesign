@@ -13,6 +13,7 @@ watchMode();
 const WORLD_MODULES = {
   baeckerei: () => import('../worlds/01-korn-und-kruste/motion.js'),
   barbershop: () => import('../worlds/02-herrenzimmer/motion.js'),
+  bau: () => import('../worlds/03-steiner-bau/motion.js'),
 };
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {

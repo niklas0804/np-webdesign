@@ -35,10 +35,12 @@ export function initTransitions() {
     });
     if (sec.dataset.variant === 'bon') {
       bon(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'goldlinie') {
+      goldlinie(tl, sec, wipe, thread);
     } else {
       // Der Faden zeichnet zuerst die Linie, dann wischt die neue Welt herein
       tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, 0)
-        .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: 'power2.inOut' }, 0.3);
+        .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: 'power2.inOut' }, 0.3);
     }
   });
 }
@@ -60,4 +62,24 @@ function bon(tl, sec, wipe) {
     .fromTo(wipe, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.12)
     .fromTo(card, { rotationY: 0 }, { rotationY: 180, duration: 0.45, ease: 'power2.inOut' }, 0.3)
     .to(obj, { autoAlpha: 0, scale: 1.04, duration: 0.15 }, 0.85);
+}
+
+/**
+ * Welt 02 → 03: Die Goldlinie streckt sich über die Breite, wird tuscheblau, bekommt Maßpfeile und den Wert „12.400“;
+ * Millimeterpapier schiebt sich darunter von unten über das Dunkel (Blueprint F, Übergang 3).
+ * Der orange Faden zeichnet zuerst die Linie nach. Nur Transform und Deckkraft.
+ */
+function goldlinie(tl, sec, wipe, thread) {
+  const gold = $('[data-t-gold]', sec);
+  const blue = $('[data-t-blue]', sec);
+  const dim = $('[data-t-dim]', sec);
+  const mass = $('[data-t-mass]', sec);
+  tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: 'power2.out' }, 0)
+    .to(thread, { autoAlpha: 0, duration: 0.12 }, 0.2)
+    .fromTo(gold, { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power2.out' }, 0.08)
+    .fromTo(blue, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 0.35)
+    .to(gold, { autoAlpha: 0, duration: 0.15 }, 0.35)
+    .fromTo(dim, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.4)
+    .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: 'power2.inOut' }, 0.45)
+    .to(mass, { autoAlpha: 0, duration: 0.1 }, 0.92);
 }

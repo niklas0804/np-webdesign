@@ -1,0 +1,111 @@
+---
+/**
+ * Welt 03 · Steiner Bau · Bauunternehmen (Blueprint F). Studie, fiktives Unternehmen.
+ * Bauzeichnung auf Millimeterpapier mit Bemaßung und Prüfstempel. Leistung im Einsatz: Konzeption und Seitenstruktur.
+ * Ohne JavaScript: alle drei Zeichnungen stehen fertig untereinander, alle Leistungen sind beschrieben.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { SCHNITT, GRUNDRISS, ANSICHT, BLAETTER } from './plan.js';
+import { LEISTUNGEN, SCHRIFTFELD } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '03');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 03 / ${total} · Bauunternehmen · Studie`;
+const views = { grundriss: GRUNDRISS, schnitt: SCHNITT, ansicht: ANSICHT };
+---
+<section id={w.anchor} class="world w03" data-section={row.id} data-world="03" data-ground={w.palette.ground} data-tone="light"
+         data-counter={counter} data-counter-short={`03 / ${total}`} aria-labelledby="w03-title">
+
+  <!-- Kopf -->
+  <div class="w03-hero">
+    <p class="w03-kicker">Bauunternehmen · Rohbau, Dach, Sanierung</p>
+    <h2 id="w03-title" class="w03-title">Steiner Bau</h2>
+    <p class="w03-sub">Jede Leistung ist ein Bauteil mit Maß.</p>
+    <p class="mass mass-type" aria-hidden="true"><span>Barlow Condensed 600 · Tusche #1C2A38 · Raster 16 px</span></p>
+  </div>
+
+  <!-- Zeichenblatt: Plan-Reiter, Zeichnung, Schriftfeld, Prüfstempel -->
+  <div class="w03-plan" data-plan>
+    <div class="w03-tabs needs-js" role="tablist" aria-label="Plan nach Ansicht, Demo" data-tabs3>
+      {BLAETTER.map((b) => (
+        <button class="w03-tab" type="button" role="tab" id={`pt-${b.id}`} aria-controls={`pv-${b.id}`} aria-selected={b.id === 'schnitt' ? 'true' : 'false'} tabindex={b.id === 'schnitt' ? 0 : -1} data-tab3={b.id} data-blatt={`${b.blatt} · ${b.name}`}>{b.name}</button>
+      ))}
+    </div>
+
+    <div class="w03-sheet">
+      <div class="w03-views">
+        {BLAETTER.map((b) => {
+          const v = views[b.id];
+          const lines = b.id === 'schnitt' ? null : v.lines;
+          return (
+            <figure class={`w03-view${b.id === 'schnitt' ? ' is-active' : ''}`} role="tabpanel" id={`pv-${b.id}`} aria-labelledby={`pt-${b.id}`} data-view={b.id}>
+              <svg viewBox="0 0 600 520" role="img" aria-label={b.alt} fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                {b.id === 'schnitt' ? (<>
+                  <g class="ln-ground">{SCHNITT.gelaende.lines.map((d) => <path d={d} pathLength="1" />)}</g>
+                  {SCHNITT.layers.map((l, i) => <g class="ln-layer" data-layer={i} data-name={l.name}>{l.lines.map((d) => <path d={d} pathLength="1" />)}</g>)}
+                  <g class="ln-dim" data-dims>
+                    {SCHNITT.dims.map((dm) => (<>
+                      {dm.lines.map((d) => <path d={d} pathLength="1" />)}
+                      {dm.texts.map((t) => <text x={t.x} y={t.y} text-anchor={t.anchor || 'start'}>{t.t}</text>)}
+                    </>))}
+                  </g>
+                </>) : (<>
+                  <g class="ln-layer is-static">{lines.map((d) => <path d={d} pathLength="1" />)}</g>
+                  <g class="ln-dim is-static">{v.texts.map((t) => <text x={t.x} y={t.y} text-anchor={t.anchor || 'start'}>{t.t}</text>)}</g>
+                </>)}
+              </svg>
+            </figure>
+          );
+        })}
+        <div class="w03-stamp" data-stamp aria-hidden="true">
+          <svg viewBox="0 0 160 160">
+            <defs><path id="w03-ring" d="M80 80 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0" /></defs>
+            <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="4" />
+            <circle cx="80" cy="80" r="40" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <text class="stamp-ring"><textPath href="#w03-ring" startOffset="0" textLength="362" lengthAdjust="spacing">STEINER BAU · STUDIE · DEMO · STEINER BAU · STUDIE · DEMO · </textPath></text>
+            <text class="stamp-main" x="80" y="88" text-anchor="middle">GEPRÜFT</text>
+          </svg>
+        </div>
+      </div>
+
+      <dl class="w03-titleblock">
+        <div><dt>Projekt</dt><dd>{SCHRIFTFELD.projekt}</dd></div>
+        <div><dt>Blatt</dt><dd data-blatt-out>Blatt 2 · Schnitt</dd></div>
+        <div><dt>Maßstab</dt><dd>{SCHRIFTFELD.massstab}</dd></div>
+        <div><dt>Datum</dt><dd>{SCHRIFTFELD.datum}</dd></div>
+        <div><dt>Gezeichnet</dt><dd>{SCHRIFTFELD.gezeichnet}</dd></div>
+      </dl>
+    </div>
+    <p class="w03-demo mono">Demo · fiktive Zeichnung, alle Maße frei erfunden</p>
+  </div>
+
+  <!-- Explosionszeichnung der Leistungen -->
+  <div class="w03-expl" data-expl>
+    <h3 class="w03-h">Leistungen als Bauteile</h3>
+    <p class="w03-lead needs-js">Tippen Sie ein Bauteil an. Es hebt sich heraus und wird beschriftet.</p>
+    <div class="w03-expl-grid">
+      <div class="w03-parts" role="group" aria-label="Bauteile, Demo">
+        <div class="w03-part p-dach" data-part="dach"><svg viewBox="0 0 300 130" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M20 112 L150 20 L280 112 Z" /><path d="M20 112 H280" /><path d="M214 56 V22 H238 V72" /><path d="M150 20 V112 M85 66 V112 M215 66 V112" opacity=".5" /></svg></div>
+        <div class="w03-part p-rohbau" data-part="rohbau"><svg viewBox="0 0 300 130" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M40 14 H260 V116 H40 Z" /><path d="M40 30 H260 M40 100 H260" /><path d="M70 44 H120 V86 H70 Z M70 65 H120 M95 44 V86" /><path d="M180 44 H230 V86 H180 Z M180 65 H230 M205 44 V86" />
+          {(() => { const out = []; for (let x = 44; x < 256; x += 22) out.push(<path d={`M${x} 116 l10 -14`} opacity=".45" />); return out; })()}</svg></div>
+        <div class="w03-part p-sanierung" data-part="sanierung"><svg viewBox="0 0 300 130" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M30 20 H240 V116 H30 Z" stroke-dasharray="7 6" /><path d="M30 20 L240 116 M240 20 L30 116" opacity=".35" stroke-dasharray="3 7" />
+          <path d="M258 8 V124 M286 8 V124 M258 36 H286 M258 66 H286 M258 96 H286 M258 36 L286 66 M286 36 L258 66 M258 66 L286 96 M286 66 L258 96" /></svg></div>
+      </div>
+      <ul class="w03-labels">
+        {LEISTUNGEN.map((p) => (
+          <li class="w03-label" id={`lb-${p.id}`} data-label={p.id}><h4>{p.name}</h4><p>{p.text}</p></li>
+        ))}
+      </ul>
+    </div>
+    <p class="w03-demo mono">Demo · Beispielzeichnung einer fiktiven Firma</p>
+  </div>
+
+  <div class="w03-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Handwerker" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>

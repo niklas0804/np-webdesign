@@ -50,16 +50,16 @@ Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src
 | --- | --- |
 | 01 Korn & Kruste | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
 | 02 Herrenzimmer | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t01 (Bon wird Wartemarke) |
-| 03 Steiner Bau | Platzhalter, wird nach Blueprint gebaut |
+| 03 Steiner Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
 
-Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,6 KB) und `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB).
+Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,6 KB) `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) und `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB).
 Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`.
 
 ## Stand (Phase 1)
 
-Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00 und t01, Welten 01 und 02,
+Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00, t01 und t02, Welten 01 bis 03,
 Standard-Übergänge, Zwischenspiele I–III, Finale-Rahmen, FAQ, Footer, `/leistungen`, `/impressum`, `/datenschutz`, 404,
 drei Branchenseiten, Ruhig-Modus, Betrieb ohne JavaScript.
 
-Noch Platzhalter: Welt 03, Kontaktformular mit Live-Vorschau und Endpunkt, Finale-Rückzoom, Einwilligungsbanner mit Matomo,
+Noch Platzhalter: Kontaktformular mit Live-Vorschau und Endpunkt, Finale-Rückzoom, Einwilligungsbanner mit Matomo,
 Branchenseite Bäckerei, Hostinger-Partner-Badge (Datei liefern), Logo (das Signet ist ein Platzhalter), Social-Vorschaubilder.

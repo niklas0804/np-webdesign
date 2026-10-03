@@ -165,3 +165,21 @@ html[data-mode='desktop'] .t-bon3d, html[data-mode='mobile'] .t-bon3d {
 /* Der orange Faden zeichnet zuerst die Kontur des Staffelstabs nach */
 .t-bon-outline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .t-bon-outline rect { fill: none; stroke: var(--np-orange); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+/* ---------- Übergang mit Staffelstab: Goldlinie wird Maßlinie (Welt 02 → 03) ---------- */
+.t-mass { display: none; }
+html[data-mode='desktop'] .t-mass, html[data-mode='mobile'] .t-mass { display: block; position: absolute; left: var(--gutter); right: var(--gutter); top: 50%; height: 0; }
+.t-gold, .t-blue { position: absolute; left: 0; right: 0; top: -1px; height: 2px; transform-origin: center; }
+.t-gold { background: var(--accent); }
+.t-blue { background: var(--accent); opacity: 0; }
+.t-dim { position: absolute; left: 0; right: 0; top: -20px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--accent); opacity: 0; }
+.t-arrow { position: absolute; top: 0; width: 40px; height: 40px; fill: currentColor; stroke: currentColor; stroke-width: 2; }
+.t-arrow-l { left: -6px; } .t-arrow-r { right: -6px; }
+.t-dim-value { position: relative; top: -26px; font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 1.75rem; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+/* Millimeterpapier schiebt sich von unten über das Dunkel */
+.transition[data-variant='goldlinie'] .t-wipe {
+  background-color: var(--to);
+  background-image: linear-gradient(rgba(43, 92, 138, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .15) 1px, transparent 1px),
+    linear-gradient(rgba(43, 92, 138, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .07) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
