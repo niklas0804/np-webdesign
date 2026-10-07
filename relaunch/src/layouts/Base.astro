@@ -10,6 +10,8 @@ const {
   noindex = false,
   jsonLd = null,
 } = Astro.props;
+// Testversion (NP_TEST=1): jede Seite bekommt noindex, zusätzlich zum Header und zur robots.txt
+const testBuild = import.meta.env.NP_TEST === '1' || process.env.NP_TEST === '1';
 const canonical = SITE.url + (path === '/' ? '/' : path);
 ---
 <!doctype html>
@@ -20,7 +22,7 @@ const canonical = SITE.url + (path === '/' ? '/' : path);
   <title>{title}</title>
   <meta name="description" content={description}>
   <link rel="canonical" href={canonical}>
-  {noindex && <meta name="robots" content="noindex">}
+  {(noindex || testBuild) && <meta name="robots" content={testBuild ? 'noindex, nofollow' : 'noindex'}>}
 
   <!-- Datenschutz als Bauregel (Blueprint Q2): nur eigene Quellen. Jeder versehentlich eingebaute Fremdinhalt wird blockiert. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">

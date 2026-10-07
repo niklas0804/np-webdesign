@@ -4,3 +4,4 @@ dist
 
 # Formular-Endpunkt: Zugangsdaten nur auf dem Server
 public/api/config.php
+dist-test
