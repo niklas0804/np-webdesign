@@ -1,6 +1,8 @@
 /**
  * Branchenseiten (Blueprint K, Q): Texte der drei vorhandenen Beispielkonzepte, wörtlich übernommen
  * aus den Seiten Friseur & Barber, Handwerker, Beratung & Coaching.
+ * Die Seite Bäckerei ist neu geschrieben (Oktober 2026) nach dem Aufbau der Welt 01 und der Blueprint; sie hat zusätzlich
+ * eine Checkliste und drei Branchen-FAQ (Blueprint Q). Texte vor dem Livegang von Niklas prüfen lassen.
  * Geändert nur: keine Fremdschrift, kein Fremd-Badge, E-Mail-Adresse aus site.js.
  * Screenshots und Live-Demos bleiben vorerst weg (Entscheidung von Niklas).
  */
@@ -12,6 +14,61 @@ const COMMON = {
 };
 
 export const BRANCHEN = {
+  baeckerei: {
+    slug: 'baeckerei',
+    world: '01',
+    title: 'Website-Konzept Bäckerei',
+    description: 'Beispielkonzept: Wie eine Website für eine Handwerksbäckerei Frische, Handwerk und Öffnungszeiten sichtbar macht und die Vorbestellung erleichtert.',
+    eyebrow: 'Beispielkonzept · Bäckerei',
+    h1: 'Eine Bäckerei verkauft <em>Duft.</em>',
+    lead: 'Ein Website-Konzept für eine Handwerksbäckerei: Fotografie statt Floskeln, ein Backplan, der zeigt, was wann frisch ist, und ein kurzer Weg zur Vorbestellung.',
+    meta: [['Branche', 'Handwerksbäckerei'], ['Leistung', 'Konzept, Bildkonzept, Entwicklung'], ['Schwerpunkt', 'Bildsprache & Vorbestellung'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Screenshot des Konzepts: folgt mit der Demo
+    ausgangssituation: [
+      'Viele Bäckereien zeigen sich online vor allem über ein Google-Profil und soziale Netzwerke. Dort stehen Öffnungszeiten, Sortiment und Bilder nebeneinander, aber ohne eigene Handschrift. Wo es eine Website gibt, besteht sie oft aus austauschbaren Stockfotos, und die Öffnungszeiten stehen irgendwo im Kleingedruckten.',
+      'Dabei verkauft eine Bäckerei Duft, Frische und Handwerk — und das lässt sich schlecht in Worten erklären. <strong>Die Website muss es zeigen, bevor jemand den Laden betritt.</strong>',
+      'Das Konzept setzt deshalb auf Fotografie statt Text: Makroaufnahmen von Krume, Mehlstaub und Händen tragen die Aussage. Ein Backplan von Montag bis Samstag zeigt, was wann frisch ist, die Teigführung macht die Arbeit hinter dem Brot sichtbar, und ein Vorbestell-Bon führt kurz zur Anfrage.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Frische.</em>', items: [
+      ['Handwerk sichtbar machen', 'Bildsprache'], ['Mehr Vorbestellungen', 'Conversion'], ['Backplan und Öffnungszeiten sofort auffindbar', 'Information'],
+      ['Überzeugende mobile Nutzung', 'Mobile First'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Wiedererkennbare Marke vor Ort und online', 'Marke'] ] },
+    design: { h2: 'Eine Gestaltung, die <em>nach Backstube aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Mehl, Kruste, Roggen', 'Ein warmer, mehlig heller Grund, krustenbrauner Text und ein Roggenton als Akzent erzeugen Nähe und Wärme. Ein Zwetschgenviolett erscheint nur dort, wo es saisonal passt.'],
+      ['02 · Typografie', 'Weiche Serifenschrift mit Charakter', 'Eine variable Serifenschrift wirkt handgemacht. Beim Eintritt wird sie weicher, so wie Teig aufgeht. Die Fließschrift bleibt ruhig und gut lesbar.'],
+      ['03 · Nutzerführung', 'Zeigen vor Sagen', 'Die Seite führt vom Produkt über Backplan und Öffnungszeiten zur Vorbestellung. Die Texte bleiben kurz, die Fotos tragen die Aussage.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Flexible Raster und skalierende Typografie halten Backplan, Öffnungszeiten und Bilder auf Smartphone, Tablet und Desktop verständlich.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Bilder gehen beim Eintritt sanft auf und unterstreichen den Gedanken des Aufgehens, ohne vom Sortiment abzulenken.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Externe Dienste würden bei einer produktiven Umsetzung passend zur tatsächlichen Nutzung geprüft und dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Bilder in passender Größe, semantische Struktur und klar ausgezeichnete Öffnungszeiten schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.'] ],
+    nutzen: [
+      ['Appetit auf den ersten Blick', 'Eigene Fotografie weckt Vertrauen und Lust auf den Besuch, bevor ein Wort gelesen wird.'],
+      ['Weniger Rückfragen', 'Öffnungszeiten, Backplan und Sortiment sind dort zu finden, wo Besucher sie erwarten.'],
+      ['Einfachere Vorbestellung', 'Ein kurzer, klarer Weg zur Anfrage senkt die Hürde, größere Bestellungen aufzugeben.'],
+      ['Wiedererkennbare Marke', 'Farbe, Schrift und Bildsprache ergeben einen eigenständigen Auftritt, der sich von Ketten und Stockfoto-Seiten abhebt.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als Betrieb mit Handwerk und Anspruch.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Stockfotos und versteckte Öffnungszeiten.', li: ['Austauschbare Bilder statt eigener Fotos', 'Öffnungszeiten und Sortiment schwer zu finden', 'Vorbestellung nur per Anruf', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Frische sichtbar macht.', li: ['Eigene Bildsprache aus der Backstube', 'Backplan und Öffnungszeiten auf einen Blick', 'Klarer Weg zur Vorbestellung', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Bäckerei-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut.', items: [
+      'Öffnungszeiten, Adresse und Telefonnummer stehen ohne Klick auf der Startseite und stimmen überall überein: Website, Google-Profil, Verzeichnisse.',
+      'Das Sortiment zeigt echte Fotos der eigenen Backwaren, keine Stockbilder.',
+      'Wechselnde Angebote wie Saisonware und Tagesbrote lassen sich einfach pflegen.',
+      'Vorbestellungen und Anfragen für größere Mengen haben einen kurzen, klaren Weg.',
+      'Pflichtangaben wie Allergenhinweise sind geprüft und dort zu finden, wo sie gebraucht werden.',
+      'Die Seite lädt auf dem Smartphone schnell, auch bei schwachem Netz.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Braucht eine Bäckerei eine eigene Website, wenn es ein Google-Profil gibt?', 'Das Profil zeigt das Wichtigste, aber keine Handschrift. Die eigene Website ist der Ort, an dem Bilder, Backplan, Vorbestellung und die Geschichte des Betriebs so erscheinen, wie Sie es wollen. Und sie gehört Ihnen.'],
+      ['Kann ich Tagesangebote und Öffnungszeiten selbst ändern?', 'Das legen wir im Konzept fest. Für Inhalte, die sich oft ändern, planen wir von Anfang an einen einfachen Weg ein. Ein Redaktionssystem gehört zum Premium-Paket.'],
+      ['Wie kommen die Fotos zustande?', 'Fotos sind das Herz einer Bäckerei-Seite. Ich erstelle vorab ein Bildkonzept und ein Briefing für das Fotografieren: Motive, Licht und Details wie Krume und Mehlstaub. Aufgenommen werden die Bilder von Ihnen oder einem Fotografen; die Bildrechte klären wir vorher.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Ihr Handwerk sichtbar macht und die Vorbestellung leichter macht.', subject: 'Projektanfrage Bäckerei-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Bäckerei.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
   'friseur-barber': {
     slug: 'friseur-barber',
     world: '02',

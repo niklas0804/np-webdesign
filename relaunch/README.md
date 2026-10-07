@@ -60,9 +60,9 @@ Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/f
 
 Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00 bis t03 (t03: Prüfstempel wird NP-Siegel, P-Iris), Welten 01 bis 03,
 Standard-Übergänge, Zwischenspiele I–III, Finale mit Rückzoom auf den Werkplan, leerem Zentrum und Sprung in den Kontakt, letzte Welt mit Kontaktformular und Live-Vorschau, FAQ, Footer, `/leistungen`, `/impressum`,
-`/datenschutz`, 404, drei Branchenseiten, Ruhig-Modus, Betrieb ohne JavaScript, Logo (SVG), Hostinger-Partner-Badge (selbst gehostet), Porträt.
+`/datenschutz`, 404, vier Branchenseiten (Bäckerei, Friseur & Barber, Handwerker, Beratung & Coaching), Ruhig-Modus, Betrieb ohne JavaScript, Logo (SVG), Hostinger-Partner-Badge (selbst gehostet), Porträt.
 
-Noch offen: Einwilligungsbanner mit Matomo, Branchenseite Bäckerei, Social-Vorschaubilder, Welten 04–10,
+Noch offen: Einwilligungsbanner mit Matomo, Social-Vorschaubilder, Welten 04–10,
 Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, Freigabe des Werdegang-Textes.
 
 ## Rechtliche Prüfung

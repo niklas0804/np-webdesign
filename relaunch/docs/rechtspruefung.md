@@ -78,6 +78,7 @@ Noch nicht gebaut. Bitte das Konzept bewerten, bevor es gebaut wird (Blueprint A
 - [ ] **Preisangaben** auf `/leistungen` (Starter 999 €, Professional 1.899 €, Premium ab 2.999 €, jeweils „Endpreis gem. § 19 UStG“): Pflichtangaben nach PAngV, falls Verbraucher angesprochen werden; Zielgruppe ist überwiegend gewerblich.
 - [ ] **Antwortzeit:** „Antwort innerhalb von 2 Werktagen“ ist eine verbindliche Zusage. Haftungs- oder Irreführungsrisiko? Eher „in der Regel“?
 - [ ] **Werbeaussagen** („individuell, keine Standardvorlagen, keine Baukastensysteme“, „DSGVO-orientierte Umsetzung“, „schnelle Website“) belegbar und nicht irreführend (UWG)?
+- [ ] **Branchenseite Bäckerei** (`/branchenloesungen/baeckerei`, neu geschrieben, mit Checkliste und drei FAQ): Aussagen wie „Ein Redaktionssystem gehört zum Premium-Paket“, „Bildrechte klären wir vorher“ und der Hinweis auf geprüfte Allergenangaben sachlich und rechtlich unbedenklich? Die drei anderen Branchenseiten sind wörtlich aus den vorhandenen Beispielkonzepten übernommen.
 - [ ] **Werdegang** (Über mich): „gelernter Mechatroniker, heute IT-Systemtechniker“. Berufsbezeichnungen richtig verwendet?
 - [ ] **Porträtfoto:** Niklas ist selbst abgebildet, Rechte beim Fotografen/Urheber geklärt (falls nicht Selbstaufnahme)?
 

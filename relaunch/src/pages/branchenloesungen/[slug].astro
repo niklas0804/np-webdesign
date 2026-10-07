@@ -117,6 +117,36 @@ const titleFull = `${b.title} – NP Webdesign`;
     </div>
   </section>
 
+  {b.checkliste && (
+    <section class="bs-section alt" aria-labelledby="h-check">
+      <div class="bs-wrap">
+        <p class="bs-eyebrow">07 · Checkliste</p>
+        <h2 id="h-check" set:html={b.checkliste.h2} />
+        <p class="lead bs-lead">{b.checkliste.intro}</p>
+        <ul class="bs-check">
+          {b.checkliste.items.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {b.faq && (
+    <section class="bs-section" aria-labelledby="h-faq">
+      <div class="bs-wrap">
+        <p class="bs-eyebrow">08 · Häufige Fragen</p>
+        <h2 id="h-faq">Drei Fragen, <em>kurz beantwortet.</em></h2>
+        <div class="bs-faq">
+          {b.faq.map(([q, a]) => (
+            <details class="bs-faq-item">
+              <summary><span>{q}</span><span class="bs-faq-icon" aria-hidden="true"></span></summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="bs-more" aria-labelledby="h-mehr">
     <div class="bs-wrap">
       <h2 id="h-mehr" class="visually-hidden">Weiterlesen</h2>

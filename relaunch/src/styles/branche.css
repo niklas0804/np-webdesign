@@ -72,3 +72,19 @@
 
 /* Orange-Text erreicht auf Sand nur 4,2:1 (Blueprint G: nur ab 24 px) – auf Sand-Flächen deshalb Stein */
 .bs-section.alt .bs-eyebrow, .bs-section.alt .bs-goal .nr, .bs-section.alt .bs-card .tag { color: var(--stein); }
+
+/* Checkliste und Branchen-FAQ (nur Seiten, die sie mitbringen) */
+.bs-check { display: grid; gap: 0; margin-top: var(--s6); max-width: 70ch; border-top: 1.5px solid var(--tinte); counter-reset: bs-check; }
+.bs-check li { position: relative; padding: var(--s4) 0 var(--s4) calc(var(--s7) + var(--s2)); border-bottom: 1px solid var(--haarlinie); counter-increment: bs-check; }
+.bs-check li::before { content: counter(bs-check, decimal-leading-zero); position: absolute; left: 0; top: var(--s4); font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .08em; color: var(--orange-text); }
+.bs-faq { margin-top: var(--s6); max-width: 70ch; border-top: 1px solid var(--haarlinie); }
+.bs-faq-item { border-bottom: 1px solid var(--haarlinie); }
+.bs-faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: var(--s5); min-height: 56px; padding: var(--s4) 0; cursor: pointer; list-style: none; font-weight: 650; font-size: var(--fs-h3); line-height: 1.2; }
+.bs-faq-item summary::-webkit-details-marker { display: none; }
+.bs-faq-item summary:hover { color: var(--orange-text); }
+.bs-faq-icon { position: relative; width: 20px; height: 20px; flex-shrink: 0; }
+.bs-faq-icon::before, .bs-faq-icon::after { content: ''; position: absolute; background: var(--tinte); transition: transform var(--dur-s) var(--ease-out); }
+.bs-faq-icon::before { left: 0; right: 0; top: 9px; height: 2px; }
+.bs-faq-icon::after { top: 0; bottom: 0; left: 9px; width: 2px; }
+.bs-faq-item[open] .bs-faq-icon::after { transform: scaleY(0); }
+.bs-faq-item p { padding-bottom: var(--s5); color: var(--stein); }
