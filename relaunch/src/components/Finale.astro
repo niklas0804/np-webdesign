@@ -1,20 +1,48 @@
 ---
-/** Finale (Blueprint L): Einladung. Der Rückzoom zum Werkplan mit leerem Zentrum folgt in einem eigenen Bauschritt. */
-import { TEXT } from '../config/journey.js';
+/**
+ * Finale (Blueprint L): Rückzoom auf den Werkplan, das Logo rückt beiseite, das Zentrum bleibt leer („Welt 04 · Ihr Unternehmen“),
+ * darunter die Einladung. Weiterscrollen lässt die leere Zelle auf Viewport-Größe wachsen und führt in den Kontakt.
+ * Der echte Inhalt (Überschrift, Button) steht einmal im DOM; die Zellen sind reine Bühne (für Hilfstechnik verborgen).
+ * Ruhig und ohne JavaScript: nur die Einladung, gestapelt.
+ */
+import { builtWorlds, TEXT } from '../config/journey.js';
 import { SITE } from '../config/site.js';
+import Logo from './Logo.astro';
 const { row } = Astro.props;
 ---
 <section id={row.anchor} class="finale" data-section={row.id} data-ground={row.ground} data-tone="light"
-         data-counter={`${TEXT.nextWorld} · Ihr Unternehmen`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title">
-  <div class="finale-inner">
-    <p class="kicker">{TEXT.nextWorld} · Ihr Unternehmen</p>
-    <h2 id="finale-title">{TEXT.claim}</h2>
-    <div class="finale-actions">
-      <a class="btn btn-primary" href="#kontakt">
-        <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
-        <span class="btn-arrow" aria-hidden="true">→</span>
-      </a>
-      <p class="small">{SITE.responseTime}.</p>
+         data-counter={`${TEXT.nextWorld} · Ihr Unternehmen`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title" data-finale>
+  <div class="f-stage" data-f-stage>
+    <div class="f-plan" data-f-plan>
+      <div class="wp-grid f-grid" data-f-grid>
+        <div class="f-cells" aria-hidden="true">
+          {builtWorlds.map((w) => (
+            <div class="f-cell" data-world={w.nr}>
+              <span class="wp-frame">
+                <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
+                <span class="wp-still"></span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <div class="f-center" aria-hidden="true" data-f-center>
+          <span class="f-logo" data-f-logo><Logo class="wp-center-logo" /></span>
+          <p class="f-empty mono" data-f-empty>{TEXT.nextWorld} · Ihr Unternehmen<span class="f-cursor" data-f-cursor></span></p>
+        </div>
+        <div class="f-invite" data-f-invite>
+          <p class="kicker">{TEXT.nextWorld} · Ihr Unternehmen</p>
+          <h2 id="finale-title">{TEXT.claim}</h2>
+          <div class="finale-actions">
+            <a class="btn btn-primary" href="#kontakt">
+              <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <p class="small">{SITE.responseTime}.</p>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="f-sign" aria-hidden="true" data-f-sign><Logo class="f-sign-logo" /></div>
+    <div class="f-grow" aria-hidden="true" data-f-grow></div>
   </div>
 </section>

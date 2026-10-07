@@ -77,6 +77,7 @@ export const TEXT = {
 export const TRANSITION_VARIANTS = {
   'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
+  'welt-03>warum': 'pruefstempel', // Prüfstempel wird NP-Siegel, der Ring öffnet sich als P-Iris (Kreisblende) in die Nacht
 };
 
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
@@ -98,7 +99,8 @@ export const journey = (() => {
     { id: 'warum', kind: 'interlude', anchor: 'warum', title: 'Warum individuell', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
     { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', title: 'Arbeitsweise', d: 160, m: 160, ground: MASTER.leinen, tone: 'light', pin: true },
     { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
-    { id: 'finale', kind: 'finale', anchor: 'finale', d: 120, m: 100, ground: MASTER.leinen, tone: 'light' },
+    // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)
+    { id: 'finale', kind: 'finale', anchor: 'finale', d: 200, m: 140, ground: MASTER.leinen, tone: 'light' },
     { id: 'kontakt', kind: 'contact', anchor: 'kontakt', d: 150, m: 200, ground: MASTER.leinen, tone: 'light' },
     { id: 'faq', kind: 'faq', anchor: 'faq', d: 160, m: 230, ground: MASTER.kalk, tone: 'light' },
   ];

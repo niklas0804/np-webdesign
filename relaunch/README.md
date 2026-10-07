@@ -53,15 +53,16 @@ Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src
 | 03 Wittgenfeld Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
 
 Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) und `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB).
+Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/finale.css`) ist eine gepinnte Bühne mit Zoom, Einladung und Sprung in den Kontakt; ruhig und ohne JavaScript bleibt nur die Einladung. Seine Länge steht in `journey.js` (200/140 vh statt 120/100 im Blueprint, weil Rückzoom und Sprung dazukommen).
 Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`.
 
 ## Stand (Phase 1)
 
-Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00, t01 und t02, Welten 01 bis 03,
-Standard-Übergänge, Zwischenspiele I–III, Finale-Rahmen, Welt 11 mit Kontaktformular und Live-Vorschau, FAQ, Footer, `/leistungen`, `/impressum`,
+Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00 bis t03 (t03: Prüfstempel wird NP-Siegel, P-Iris), Welten 01 bis 03,
+Standard-Übergänge, Zwischenspiele I–III, Finale mit Rückzoom auf den Werkplan, leerem Zentrum und Sprung in den Kontakt, letzte Welt mit Kontaktformular und Live-Vorschau, FAQ, Footer, `/leistungen`, `/impressum`,
 `/datenschutz`, 404, drei Branchenseiten, Ruhig-Modus, Betrieb ohne JavaScript, Logo (SVG), Hostinger-Partner-Badge (selbst gehostet), Porträt.
 
-Noch offen: Finale-Rückzoom, Einwilligungsbanner mit Matomo, Branchenseite Bäckerei, Social-Vorschaubilder, Welten 04–10,
+Noch offen: Einwilligungsbanner mit Matomo, Branchenseite Bäckerei, Social-Vorschaubilder, Welten 04–10,
 Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, Freigabe des Werdegang-Textes.
 
 ## Rechtliche Prüfung

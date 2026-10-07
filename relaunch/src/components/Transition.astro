@@ -22,6 +22,24 @@ const { row } = Astro.props;
         </div>
       </div>
     )}
+    {row.variant === 'pruefstempel' && (
+      <>
+        <div class="t-iris" data-t-iris></div>
+        <div class="t-seal" data-world="03" data-t-seal>
+          <svg viewBox="0 0 160 160" focusable="false">
+            <defs><path id="t-ring" d="M80 80 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0" /></defs>
+            <g class="t-seal-ring" data-t-ringgroup>
+              <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="4" />
+              <text class="t-ring-text" data-t-ring-a><textPath href="#t-ring" startOffset="0" textLength="362" lengthAdjust="spacing">WITTGENFELD BAU · STUDIE · DEMO · </textPath></text>
+              <text class="t-ring-text" data-t-ring-b><textPath href="#t-ring" startOffset="0" textLength="362" lengthAdjust="spacing">GEPRÜFT: KEIN BAUKASTEN · NP WEBDESIGN · </textPath></text>
+            </g>
+            <circle cx="80" cy="80" r="40" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <text class="t-seal-main" data-t-main-a x="80" y="88" text-anchor="middle">GEPRÜFT</text>
+            <text class="t-seal-np" data-t-main-b x="80" y="94" text-anchor="middle">NP</text>
+          </svg>
+        </div>
+      </>
+    )}
     {row.variant === 'bon' && (
       <div class="t-bon3d" data-t-bon>
         <div class="t-bon-card" data-t-card>

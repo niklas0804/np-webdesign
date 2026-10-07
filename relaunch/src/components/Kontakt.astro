@@ -1,28 +1,28 @@
 ---
 /**
- * Welt 11 · Kontakt (Blueprint L): Formular links, neutrale Live-Vorschau rechts, Fakten darunter.
+ * Letzte Welt · Kontakt (Blueprint L): Formular links, neutrale Live-Vorschau rechts, Fakten darunter.
  * Ohne JavaScript sendet das Formular normal an /api/kontakt.php; die Antwort kommt über :target (#anfrage-erhalten).
  * Eingaben bleiben im Browser bis zum Absenden: keine Zwischenspeicherung, kein Mitschneiden.
  */
 import { SITE } from '../config/site.js';
-import { builtWorlds } from '../config/journey.js';
+import { builtWorlds, TEXT } from '../config/journey.js';
 import { STEPS } from '../config/site.js';
 const { row } = Astro.props;
 const leistungen = builtWorlds.map((w) => w.leistung).join(' · ');
 const ablauf = STEPS.map((s) => s.title).join(', ');
 ---
 <section id={row.anchor} class="kontakt" data-section={row.id} data-ground={row.ground} data-tone="light"
-         data-counter="Welt 11 · Kontakt" data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title" data-kontakt>
+         data-counter={`${TEXT.nextWorld} · Kontakt`} data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title" data-kontakt>
   <div class="kontakt-inner k-grid">
     <div class="k-head">
-      <p class="kicker">Welt 11 · Kontakt</p>
+      <p class="kicker">{TEXT.nextWorld} · Kontakt</p>
       <h2 id="kontakt-title">Ihr Entwurf beginnt mit einem Gespräch.</h2>
       <p class="lead k-lead">Schreiben Sie mir, worum es geht. {SITE.responseTime}.</p>
     </div>
 
     <aside class="k-preview" aria-label="Vorschau Ihrer Welt" data-preview>
       <div class="k-pv-frame">
-        <span class="k-pv-label mono" aria-hidden="true">Welt 11 · Ihr Unternehmen</span>
+        <span class="k-pv-label mono" aria-hidden="true">{TEXT.nextWorld} · Ihr Unternehmen</span>
         <div class="k-pv-body">
           <p class="k-pv-title is-empty" aria-hidden="true" data-pv-title data-fit data-fit-max="150"><span data-pv-text>Ihr Unternehmen</span><span class="k-cursor" data-cursor></span></p>
           <p class="k-pv-line mono" aria-hidden="true">Ihr Entwurf beginnt mit einem Gespräch.</p>
@@ -87,7 +87,7 @@ const ablauf = STEPS.map((s) => s.title).join(', ');
 
       <div class="k-done" id="anfrage-erhalten" tabindex="-1" data-done>
         <p class="k-done-title" data-done-title>Danke. Ich melde mich {SITE.responseWithin}.</p>
-        <p>Welt 11 ist angelegt.</p>
+        <p>{TEXT.nextWorld} ist angelegt.</p>
         <p class="small"><a class="link" href="#werkplan">Zurück zum Werkplan</a></p>
       </div>
       <p class="k-fail" id="anfrage-fehler" role="alert" data-fail>Das hat leider nicht geklappt. Bitte prüfen Sie Ihre Angaben oder schreiben Sie mir direkt: <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>

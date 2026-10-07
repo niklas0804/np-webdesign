@@ -13,6 +13,8 @@ export function initTransitions() {
     const from = document.querySelector(`[data-section="${sec.dataset.fromId}"]`);
     const to = document.querySelector(`[data-section="${sec.dataset.toId}"]`);
     let half = null;
+    // Der Farbwechsel des Rahmens folgt der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat
+    const split = sec.dataset.variant === 'pruefstempel' ? 0.78 : 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -21,9 +23,10 @@ export function initTransitions() {
         start: 'top top',
         end: 'bottom bottom',
         scrub: true,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           if (!self.isActive) return;
-          const second = self.progress > 0.5;
+          const second = self.progress > split;
           if (second === half) return;
           half = second;
           setTone(second ? sec.dataset.toTone : sec.dataset.fromTone);
@@ -37,6 +40,8 @@ export function initTransitions() {
       bon(tl, sec, wipe);
     } else if (sec.dataset.variant === 'goldlinie') {
       goldlinie(tl, sec, wipe, thread);
+    } else if (sec.dataset.variant === 'pruefstempel') {
+      pruefstempel(tl, sec, wipe);
     } else {
       // Der Faden zeichnet zuerst die Linie, dann wischt die neue Welt herein
       tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, 0)
@@ -82,4 +87,39 @@ function goldlinie(tl, sec, wipe, thread) {
     .fromTo(dim, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.4)
     .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: 'power2.inOut' }, 0.45)
     .to(mass, { autoAlpha: 0, duration: 0.1 }, 0.92);
+}
+
+/**
+ * Welt 03 → Zwischenspiel I: Der Prüfstempel wird gesetzt (1,15 auf 1), färbt sich NP-Orange, sein Text wechselt zu
+ * „Geprüft: kein Baukasten“, und der Ring öffnet sich als P-Iris: eine Kreismaske in der Farbe der Nacht wächst aus dem
+ * Innenkreis über den Viewport (Blueprint F, Übergang 4). Nur Transform, Deckkraft, Farbe und Maske.
+ */
+function pruefstempel(tl, sec, wipe) {
+  const seal = $('[data-t-seal]', sec);
+  const iris = $('[data-t-iris]', sec);
+  const ringA = $('[data-t-ring-a]', sec);
+  const ringB = $('[data-t-ring-b]', sec);
+  const mainA = $('[data-t-main-a]', sec);
+  const mainB = $('[data-t-main-b]', sec);
+  const ringGroup = $('[data-t-ringgroup]', sec);
+  const token = (name, fallback) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+  const orange = token('--np-orange', '#CE5D17');
+  const glut = token('--glut', '#F08A4B');
+  // Innenkreis des Siegels (r 40 von 80) in Pixeln, und der Radius, der den ganzen Viewport deckt
+  const innerR = () => seal.getBoundingClientRect().width * 0.25;
+  const coverR = () => Math.hypot(window.innerWidth, window.innerHeight) / 2 + 8;
+
+  gsap.set(wipe, { autoAlpha: 0 }); // hier wird nicht gewischt, sondern aufgeblendet
+  gsap.set(seal, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
+  gsap.set([ringB, mainB], { autoAlpha: 0 });
+  tl.fromTo(seal, { autoAlpha: 0, scale: 1.15, rotation: -9 }, { autoAlpha: 0.94, scale: 1, rotation: -9, duration: 0.12, ease: 'back.out(2)' }, 0)
+    .to(seal, { color: orange, autoAlpha: 1, duration: 0.14 }, 0.16)
+    .to([ringA, mainA], { autoAlpha: 0, duration: 0.1 }, 0.18)
+    .fromTo([ringB, mainB], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.24)
+    // Die Blende öffnet sich im Innenkreis des Siegels (dem „Bauch des P“) und wächst dann über den Viewport
+    .fromTo(iris, { clipPath: 'circle(0px at 50% 50%)' }, { clipPath: () => `circle(${innerR()}px at 50% 50%)`, duration: 0.08, ease: 'power1.out', immediateRender: true }, 0.3)
+    .to(iris, { clipPath: () => `circle(${coverR()}px at 50% 50%)`, duration: 0.5, ease: 'power2.inOut' }, 0.4)
+    .to(ringGroup, { rotation: 40, svgOrigin: '80 80', duration: 0.5, ease: 'power2.inOut' }, 0.4)
+    .to(seal, { color: glut, duration: 0.2 }, 0.52)
+    .to(seal, { autoAlpha: 0, scale: 1.08, duration: 0.12 }, 0.88);
 }

@@ -186,3 +186,20 @@ html[data-mode='desktop'] .t-mass, html[data-mode='mobile'] .t-mass { display: b
     linear-gradient(rgba(43, 92, 138, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .07) 1px, transparent 1px);
   background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
 }
+
+/* t03 · Prüfstempel → NP-Siegel → P-Iris (Welt 03 → Zwischenspiel I). Nur in den gepinnten Modi. */
+.t-iris, .t-seal { display: none; }
+.transition[data-variant='pruefstempel'] .t-wipe { display: none !important; }
+html[data-mode='desktop'] .transition[data-variant='pruefstempel'] .t-stage, html[data-mode='mobile'] .transition[data-variant='pruefstempel'] .t-stage {
+  background-color: var(--from);
+  background-image: linear-gradient(rgba(43, 92, 138, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .15) 1px, transparent 1px),
+    linear-gradient(rgba(43, 92, 138, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .07) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+html[data-mode='desktop'] .t-iris, html[data-mode='mobile'] .t-iris { display: block; position: absolute; inset: 0; background: var(--to); clip-path: circle(0 at 50% 50%); }
+html[data-mode='desktop'] .t-seal, html[data-mode='mobile'] .t-seal { display: block; position: absolute; left: 50%; top: 50%; width: clamp(190px, 24vw, 280px); color: var(--accent2); opacity: 0; visibility: hidden; }
+.t-seal svg { width: 100%; height: auto; overflow: visible; }
+.t-ring-text { font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; fill: currentColor; }
+.t-seal-main, .t-seal-np { font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; fill: currentColor; }
+.t-seal-main { font-size: 24px; letter-spacing: .08em; }
+.t-seal-np { font-family: var(--sans); font-weight: 800; font-stretch: 90%; font-size: 40px; }

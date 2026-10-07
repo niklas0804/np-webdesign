@@ -7,6 +7,7 @@ import { initOpening } from './opening.js';
 import { initTransitions } from './transitions.js';
 import { initInterludes } from './interludes.js';
 import { initKontakt } from './kontakt.js';
+import { initFinale } from './finale.js';
 
 watchMode();
 
@@ -46,6 +47,7 @@ async function boot() {
   if (pinned) {
     initOpening();
     initTransitions();
+    initFinale();
   }
   initInterludes();
   loadWorlds();

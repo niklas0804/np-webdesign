@@ -1,0 +1,62 @@
+/* Finale (Blueprint L): Rückzoom auf den Werkplan, leeres Zentrum, Einladung, Sprung in den Kontakt.
+   Grundzustand = ruhig und ohne JavaScript: nur die Einladung. Die gepinnte Bühne gilt nur in den Modi desktop und mobile. */
+
+.f-grid { display: block; }
+.f-cells, .f-center, .f-sign, .f-grow { display: none; }
+.f-invite { display: grid; gap: var(--s5); align-content: center; max-width: var(--max); margin: 0 auto; min-height: 60svh; }
+.f-invite h2 { font-size: var(--fs-display); line-height: .92; letter-spacing: -.02em; max-width: 14ch; font-stretch: 90%; }
+
+/* ---- gepinnte Bühne ---- */
+html[data-mode='desktop'] .finale, html[data-mode='mobile'] .finale {
+  height: calc((100 + var(--len)) * 1svh); padding: 0; min-height: 0; background: var(--leinen);
+}
+html[data-mode='desktop'] .f-stage, html[data-mode='mobile'] .f-stage {
+  position: sticky; top: 0; height: 100svh; overflow: clip; background: var(--leinen);
+}
+html[data-mode='desktop'] .f-plan, html[data-mode='mobile'] .f-plan {
+  position: absolute; inset: 0; padding: calc(var(--frame-top) + var(--s4)) var(--gutter) var(--s8);
+  display: grid; place-items: center; visibility: hidden;
+}
+html[data-mode='desktop'] .f-grid, html[data-mode='mobile'] .f-grid {
+  display: grid; width: 100%; max-width: var(--max); gap: var(--col-gap); grid-template-columns: repeat(2, minmax(0, 1fr)); will-change: auto;
+}
+html[data-mode='desktop'] .f-cells, html[data-mode='mobile'] .f-cells { display: contents; }
+.f-cell { min-width: 0; }
+html[data-mode='desktop'] .f-center, html[data-mode='mobile'] .f-center {
+  display: grid; place-items: center; position: relative; aspect-ratio: 16 / 10; min-width: 0;
+  background-color: var(--kalk);
+  background-image: linear-gradient(var(--haarlinie) 1px, transparent 1px), linear-gradient(90deg, var(--haarlinie) 1px, transparent 1px);
+  background-size: 24px 24px; background-position: -1px -1px;
+  border: 1px solid var(--haarlinie);
+}
+.f-center > * { grid-area: 1 / 1; }
+.f-logo { display: block; color: var(--tinte); }
+.f-logo .wp-center-logo { height: 40px; width: auto; }
+.f-empty { color: var(--stein); font-size: var(--fs-mono-xs); text-align: center; padding: 0 var(--s3); max-width: none; opacity: 0; }
+.f-cursor { display: inline-block; width: 2px; height: 1.2em; margin-left: 5px; background: var(--np-orange); vertical-align: -.25em; }
+.f-cursor.is-blink { animation: k-blink 1s steps(1) 6; }
+
+html[data-mode='desktop'] .f-invite, html[data-mode='mobile'] .f-invite {
+  grid-column: 1 / -1; min-height: 0; margin: 0; max-width: none; padding-top: var(--s3); gap: var(--s3); visibility: hidden;
+}
+html[data-mode='desktop'] .f-invite h2, html[data-mode='mobile'] .f-invite h2 { font-size: clamp(1.75rem, 8vw, 2.5rem); line-height: .98; max-width: 16ch; }
+html[data-mode='desktop'] .f-invite .finale-actions, html[data-mode='mobile'] .finale-actions { margin-top: var(--s3); gap: var(--s2); }
+
+html[data-mode='desktop'] .f-sign, html[data-mode='mobile'] .f-sign {
+  display: block; position: absolute; left: 50%; top: calc(var(--frame-top) + var(--s2)); transform: translateX(-50%); color: var(--tinte); visibility: hidden;
+}
+.f-sign-logo { height: 36px; width: auto; }
+html[data-mode='desktop'] .f-grow, html[data-mode='mobile'] .f-grow {
+  display: block; position: absolute; inset: 0; pointer-events: none; visibility: hidden; background-color: var(--kalk);
+  background-image: linear-gradient(var(--haarlinie) 1px, transparent 1px), linear-gradient(90deg, var(--haarlinie) 1px, transparent 1px);
+  background-size: 32px 32px; background-position: -1px -1px;
+}
+
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  html[data-mode='desktop'] .f-center { aspect-ratio: auto; grid-column: 1 / 2; min-height: 200px; }
+  html[data-mode='desktop'] .f-invite { grid-column: 2 / 4; padding-top: 0; }
+  html[data-mode='desktop'] .f-invite h2 { font-size: clamp(2rem, 3.8vw, 3.75rem); }
+  .f-logo .wp-center-logo { height: 56px; }
+  .f-sign-logo { height: 44px; }
+}
