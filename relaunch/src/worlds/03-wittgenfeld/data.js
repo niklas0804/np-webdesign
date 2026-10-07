@@ -1,5 +1,5 @@
 /**
- * Welt 03 · Steiner Bau – Inhalte der Studie. Fiktiv: keine echte Firma, keine Adresse, keine Telefonnummer, keine Domain.
+ * Welt 03 · Wittgenfeld Bau – Inhalte der Studie. Fiktiv: keine echte Firma, keine Adresse, keine Telefonnummer, keine Domain.
  * Maße und Beschriftungen gehören zur Demo-Zeichnung.
  */
 export const LEISTUNGEN = [
@@ -9,7 +9,7 @@ export const LEISTUNGEN = [
 ];
 
 export const SCHRIFTFELD = {
-  projekt: 'Studie Steiner Bau (fiktiv)',
+  projekt: 'Studie Wittgenfeld Bau (fiktiv)',
   massstab: '1 : 50',
   gezeichnet: 'NP Webdesign',
   // Datum der Zeichnung = Datum des Builds

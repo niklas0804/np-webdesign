@@ -22,7 +22,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 
 root = pathlib.Path(__file__).resolve().parent.parent
-world = root / 'src' / 'worlds' / '01-korn-und-kruste'
+world = root / 'src' / 'worlds' / '01-halmberg'
 src = root / 'fonts-src' / 'fraunces-latin-full-normal.woff2'
 out_dir = root / 'public' / 'fonts'
 
@@ -46,7 +46,7 @@ text_chars = set(BASE) | set(strings) | set(visible_text(world / 'World.astro'))
 # Texte, die motion.js zusammensetzt („auf den Bon gelegt“ usw.)
 text_chars |= set(' '.join(re.findall(r'`([^`]*)`', (world / 'motion.js').read_text(encoding='utf-8'))))
 
-display_chars = set('Korn & Kruste Brot, das Zeit hatte. Backplan Öffnungszeiten Nr. 07 0123456789')
+display_chars = set('Halmberg Brot, das Zeit hatte. Backplan Öffnungszeiten Nr. 07 0123456789')
 display_chars |= set(''.join(re.findall(r"name: '([^']+)'", data))) | set(''.join(re.findall(r"tag: '([^']+)'", data)))
 
 

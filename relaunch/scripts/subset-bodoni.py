@@ -16,7 +16,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 
 root = pathlib.Path(__file__).resolve().parent.parent
-world = root / 'src' / 'worlds' / '02-herrenzimmer'
+world = root / 'src' / 'worlds' / '02-messingstuhl'
 src = root / 'fonts-src' / 'bodoni-moda-latin-standard-normal.woff2'
 out = root / 'public' / 'fonts' / 'bodoni-02.woff2'
 

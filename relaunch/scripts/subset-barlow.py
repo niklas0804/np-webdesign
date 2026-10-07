@@ -13,7 +13,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 
 root = pathlib.Path(__file__).resolve().parent.parent
-world = root / 'src' / 'worlds' / '03-steiner-bau'
+world = root / 'src' / 'worlds' / '03-wittgenfeld'
 out_dir = root / 'public' / 'fonts'
 
 

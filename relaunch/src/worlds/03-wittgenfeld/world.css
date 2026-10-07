@@ -1,4 +1,4 @@
-/* Welt 03 · Steiner Bau (Blueprint F). Palette aus /journey.css: --ground Planpapier, --text Tusche, --accent Blaupause, --accent2 Prüfrot.
+/* Welt 03 · Wittgenfeld Bau (Blueprint F). Palette aus /journey.css: --ground Planpapier, --text Tusche, --accent Blaupause, --accent2 Prüfrot.
    Schriften: Barlow Condensed 600 (Überschriften, Versalien) und Barlow 400 (Text), auf die benutzten Zeichen reduziert. */
 @font-face { font-family: 'Barlow Condensed NP'; src: url('/fonts/barlow-condensed-03.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Barlow NP'; src: url('/fonts/barlow-03.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }

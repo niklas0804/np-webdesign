@@ -1,4 +1,4 @@
-/* Welt 02 · Herrenzimmer (Blueprint F). Palette aus /journey.css: --ground Nachtschwarz, --text Elfenbein, --accent Gold, --accent2 Bordeaux (nur Flächen).
+/* Welt 02 · Messingstuhl (Blueprint F). Palette aus /journey.css: --ground Nachtschwarz, --text Elfenbein, --accent Gold, --accent2 Bordeaux (nur Flächen).
    Schrift: Bodoni Moda, auf die benutzten Zeichen reduziert (scripts/subset-bodoni.py), eine Datei. Versalien mit weiter Laufweite. */
 @font-face {
   font-family: 'Bodoni Moda NP';
@@ -26,7 +26,9 @@
 .w02-axis { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; max-width: none; margin: 0; background: var(--accent); opacity: .45; transform-origin: top; pointer-events: none; }
 
 .w02-title, .w02-h, .w02-sub { font-family: var(--bodoni); text-transform: uppercase; letter-spacing: .2em; font-weight: 500; }
-.w02-kicker { font-size: .875rem; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s5); }
+/* Optische Größe fest auf 20: Bei 96 (automatisch für große Schrift) werden die Haarlinien so dünn, dass der Querstrich des H verschwindet */
+.w02-title, .w02-h, .w02-sub, .w02-t-nr { font-optical-sizing: none; font-variation-settings: 'opsz' 20; }
+.w02-kicker { font-weight: 600; font-size: .875rem; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s5); }
 
 /* ---------- Kopf ---------- */
 .w02-hero { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: calc(var(--frame-top) + var(--s4)); padding-bottom: var(--s5); gap: var(--s4); background: var(--ground); }

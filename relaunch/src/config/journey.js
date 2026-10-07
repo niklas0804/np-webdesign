@@ -22,15 +22,15 @@ export const MASTER = {
 
 /** @type {World[]} Die zehn Welten (Blueprint F). `built` richtet sich nach der Bauphase. */
 export const WORLDS = [
-  { nr: '01', slug: 'baeckerei', name: 'Korn & Kruste', branche: 'Bäckerei', anchor: 'baeckerei', branchPage: '/branchenloesungen/baeckerei',
+  { nr: '01', slug: 'baeckerei', name: 'Halmberg', branche: 'Bäckerei', anchor: 'baeckerei', branchPage: '/branchenloesungen/baeckerei',
     palette: { ground: '#F7F0E4', text: '#3B2618', accent: '#8B5A2B', accent2: '#5E2B4A', tone: 'light' },
     notiz: 'Eine Bäckerei verkauft Duft. Darum trägt hier die Fotografie, nicht der Text.',
     built: true, source: 'neu', leistung: 'Bildkonzept und Fotobriefing' },
-  { nr: '02', slug: 'friseur-barber', name: 'Herrenzimmer', branche: 'Barbershop', anchor: 'barbershop', branchPage: '/branchenloesungen/friseur-barber',
+  { nr: '02', slug: 'friseur-barber', name: 'Messingstuhl', branche: 'Barbershop', anchor: 'barbershop', branchPage: '/branchenloesungen/friseur-barber',
     palette: { ground: '#121010', text: '#EDE6D8', accent: '#C9A24A', accent2: '#7A2433', tone: 'dark' },
     notiz: 'Ein Barbershop verkauft Atmosphäre. Die Wartemarke macht Warten zum Teil des Erlebnisses.',
     built: true, source: 'demo', leistung: 'Online-Terminbuchung und Markenwirkung' },
-  { nr: '03', slug: 'handwerker', name: 'Steiner Bau', branche: 'Bauunternehmen', anchor: 'bau', branchPage: '/branchenloesungen/handwerker',
+  { nr: '03', slug: 'handwerker', name: 'Wittgenfeld Bau', branche: 'Bauunternehmen', anchor: 'bau', branchPage: '/branchenloesungen/handwerker',
     palette: { ground: '#F3F1EA', text: '#1C2A38', accent: '#2B5C8A', accent2: '#B23A2E', tone: 'light' },
     notiz: 'Bauherren wollen Klarheit. Darum ist jede Leistung ein Bauteil mit Maß.',
     built: true, source: 'demo', leistung: 'Konzeption und Seitenstruktur' },
@@ -43,7 +43,7 @@ export const WORLDS = [
   { nr: '06', slug: 'beratung-coaching', name: 'Jana Ahrens', branche: 'Coaching', anchor: 'coaching', branchPage: '/branchenloesungen/beratung-coaching',
     palette: { ground: '#F6EFEA', text: '#35292A', accent: '#8A5470', accent2: '#C9B6D9', tone: 'light' },
     built: false, source: 'demo', leistung: 'Nutzerführung' },
-  { nr: '07', slug: 'industrie', name: 'NAABTEC', branche: 'Industrie', anchor: 'industrie', branchPage: '/branchenloesungen/industrie',
+  { nr: '07', slug: 'industrie', name: 'TORQUEL', branche: 'Industrie', anchor: 'industrie', branchPage: '/branchenloesungen/industrie',
     palette: { ground: '#15191D', text: '#E6EAEE', accent: '#F2C230', accent2: '#5A6A78', tone: 'dark' },
     built: false, source: 'neu', leistung: 'Performance und Technik' },
   { nr: '08', slug: 'physiotherapie', name: 'Praxis am Weiher', branche: 'Physiotherapie', anchor: 'physiotherapie', branchPage: '/branchenloesungen/physiotherapie',

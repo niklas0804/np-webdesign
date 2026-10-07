@@ -1,4 +1,4 @@
-/* Welt 01 · Korn & Kruste (Blueprint F). Palette kommt aus /journey.css: --ground Mehl, --text Kruste, --accent Roggen, --accent2 Zwetschge.
+/* Welt 01 · Halmberg (Blueprint F). Palette kommt aus /journey.css: --ground Mehl, --text Kruste, --accent Roggen, --accent2 Zwetschge.
    Schrift: Fraunces, auf die benutzten Zeichen reduziert (scripts/subset-fraunces.py), eine Datei. */
 @font-face {
   font-family: 'Fraunces Display NP';
@@ -39,7 +39,7 @@
 /* ---------- Kopf ---------- */
 .w01-hero { position: relative; min-height: 100svh; display: grid; gap: var(--s6); padding-top: calc(var(--frame-top) + var(--s7)); align-content: center; }
 .w01-kicker { font-size: 1rem; color: var(--accent); margin-bottom: var(--s4); overflow-wrap: anywhere; }
-.w01-title { font-size: clamp(3.5rem, 12vw, 11.5rem); line-height: .88; margin: 0 0 var(--s4); }
+.w01-title { font-size: clamp(3.5rem, 19vw, 8rem); line-height: .88; margin: 0 0 var(--s4); }
 .w01-sub { font-family: var(--serif-d); font-weight: 650; font-variation-settings: 'SOFT' 100; font-size: clamp(1.5rem, 2.6vw, 2.5rem); line-height: 1.15; max-width: 16ch; }
 .w01-hero-art { position: relative; min-height: 46svh; }
 .w01-loaf { margin: 0; clip-path: inset(0 round 46%); }
@@ -56,6 +56,7 @@
 
 @media (min-width: 1024px) {
   .w01-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: var(--s8); }
+  .w01-title { font-size: clamp(4rem, 7.2vw, 9rem); }
   .w01-hero-art { min-height: 72svh; display: grid; align-content: center; }
   .w01-loaf-small { bottom: 2%; left: -8%; }
 }

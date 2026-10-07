@@ -1,5 +1,5 @@
 /**
- * Welt 01 · Korn & Kruste – Inhalte der Studie.
+ * Welt 01 · Halmberg – Inhalte der Studie.
  * Alles hier ist erfunden und als „Demo-Daten“ gekennzeichnet: Es gibt keine echte Bäckerei,
  * keine Adresse, keine Telefonnummer, keine Domain (Blueprint F, Q2).
  * Aufbau und Schnittstelle: Blueprint Weltmodul-Vertrag (Kennung, Palette, Schriften, Markup, Bewegung, Aufräumen).

@@ -48,18 +48,27 @@ Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src
 
 | Welt | Stand |
 | --- | --- |
-| 01 Korn & Kruste | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
-| 02 Herrenzimmer | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t01 (Bon wird Wartemarke) |
-| 03 Steiner Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
+| 01 Halmberg | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
+| 02 Messingstuhl | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t01 (Bon wird Wartemarke) |
+| 03 Wittgenfeld Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
 
-Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,6 KB) `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) und `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB).
+Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) und `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB).
 Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`.
 
 ## Stand (Phase 1)
 
 Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00, t01 und t02, Welten 01 bis 03,
-Standard-Übergänge, Zwischenspiele I–III, Finale-Rahmen, FAQ, Footer, `/leistungen`, `/impressum`, `/datenschutz`, 404,
-drei Branchenseiten, Ruhig-Modus, Betrieb ohne JavaScript.
+Standard-Übergänge, Zwischenspiele I–III, Finale-Rahmen, Welt 11 mit Kontaktformular und Live-Vorschau, FAQ, Footer, `/leistungen`, `/impressum`,
+`/datenschutz`, 404, drei Branchenseiten, Ruhig-Modus, Betrieb ohne JavaScript, Logo (SVG), Hostinger-Partner-Badge (selbst gehostet), Porträt.
 
-Noch Platzhalter: Kontaktformular mit Live-Vorschau und Endpunkt, Finale-Rückzoom, Einwilligungsbanner mit Matomo,
-Branchenseite Bäckerei, Hostinger-Partner-Badge (Datei liefern), Logo (das Signet ist ein Platzhalter), Social-Vorschaubilder.
+Noch offen: Finale-Rückzoom, Einwilligungsbanner mit Matomo, Branchenseite Bäckerei, Social-Vorschaubilder, Welten 04–10,
+Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, Freigabe des Werdegang-Textes.
+
+## Kontaktformular (Welt 11)
+
+- Markup `src/components/Kontakt.astro`, Stil `src/styles/kontakt.css`, Verhalten `src/motion/kontakt.js` (Live-Vorschau, Prüfung beim Verlassen eines Feldes, Senden per `fetch`, nichts wird zwischengespeichert).
+- Ohne JavaScript sendet das Formular normal an `/api/kontakt.php`; die Antwort zeigt die Seite über `#anfrage-erhalten` bzw. `#anfrage-fehler` (`:target`).
+- Endpunkt `public/api/kontakt.php` (PHP 8): Honeypot, serverseitige Prüfung, Mengenbegrenzung (Gesamtzahl pro Stunde, ohne IP-Adressen), Versand per `mail()`, kein Inhalt in Logs.
+- Auf dem Server optional `api/config.php` neben der Datei anlegen (Vorlage `config.sample.php`; Empfänger und Absender). Sie steht in `.gitignore` und kommt nie ins Repository.
+- Der Absender muss zu einem Postfach der eigenen Domain gehören, sonst landen Mails im Spam. Nach dem Hochladen einmal eine Testanfrage senden.
+- Lokal testen: `php -S 127.0.0.1:8098 -t dist` (mit `sendmail_path` auf ein Skript, das die Mail in eine Datei schreibt).

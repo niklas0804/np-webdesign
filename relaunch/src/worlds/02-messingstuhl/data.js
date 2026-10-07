@@ -1,5 +1,5 @@
 /**
- * Welt 02 · Herrenzimmer – Inhalte der Studie.
+ * Welt 02 · Messingstuhl – Inhalte der Studie.
  * Alles hier ist erfunden und als „Demo“ gekennzeichnet: kein echter Salon, keine Adresse, keine Telefonnummer,
  * keine Domain (Blueprint F, Q2). Die Preise sind Beispielpreise dieser Studie, nicht die Preise von NP Webdesign.
  */
