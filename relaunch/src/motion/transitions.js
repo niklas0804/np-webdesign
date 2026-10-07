@@ -13,8 +13,9 @@ export function initTransitions() {
     const from = document.querySelector(`[data-section="${sec.dataset.fromId}"]`);
     const to = document.querySelector(`[data-section="${sec.dataset.toId}"]`);
     let half = null;
-    // Der Farbwechsel des Rahmens folgt der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat
-    const split = sec.dataset.variant === 'pruefstempel' ? 0.78 : 0.5;
+    // Wann der Rahmen seine Farbe wechselt: bei der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat;
+    // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
+    const split = { pruefstempel: 0.78, bon: 0.4 }[sec.dataset.variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },

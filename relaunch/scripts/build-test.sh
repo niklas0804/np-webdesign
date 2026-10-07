@@ -11,6 +11,7 @@ USER_NAME="${1:-np-test}"
 PASSWORD="${NP_TEST_PASSWORD:-$(openssl rand -base64 18 | tr -d '/+=' | cut -c1-16)}"
 AUTH_PATH="${NP_TEST_PATH:-/home/uXXXXXXXXX/domains/np-webdesign.de/public_html/test}"
 
+node scripts/check-palettes.mjs > /dev/null || { node scripts/check-palettes.mjs; exit 1; }
 rm -rf dist-test
 NP_TEST=1 npx astro build
 

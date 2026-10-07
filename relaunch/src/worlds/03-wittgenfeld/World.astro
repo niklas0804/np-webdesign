@@ -16,7 +16,7 @@ const total = String(builtWorlds.length).padStart(2, '0');
 const counter = `Welt 03 / ${total} · Bauunternehmen · Studie`;
 const views = { grundriss: GRUNDRISS, schnitt: SCHNITT, ansicht: ANSICHT };
 ---
-<section id={w.anchor} class="world w03" data-section={row.id} data-world="03" data-ground={w.palette.ground} data-tone="light"
+<section id={w.anchor} class="world w03" data-section={row.id} data-world="03" data-ground={w.palette.ground} data-tone={w.palette.tone}
          data-counter={counter} data-counter-short={`03 / ${total}`} aria-labelledby="w03-title">
 
   <!-- Kopf -->

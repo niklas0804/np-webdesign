@@ -15,7 +15,7 @@ const w = WORLDS.find((x) => x.nr === '01');
 const total = String(builtWorlds.length).padStart(2, '0');
 const counter = `Welt 01 / ${total} · Bäckerei · Studie`;
 ---
-<section id={w.anchor} class="world w01" data-section={row.id} data-world="01" data-ground={w.palette.ground} data-tone="light"
+<section id={w.anchor} class="world w01" data-section={row.id} data-world="01" data-ground={w.palette.ground} data-tone={w.palette.tone}
          data-counter={counter} data-counter-short={`01 / ${total}`} aria-labelledby="w01-title">
 
   <!-- Bühne: Kopf der Welt -->

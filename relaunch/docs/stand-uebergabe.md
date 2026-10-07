@@ -28,6 +28,9 @@ Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine d
 - **Datenschutz technisch:** keine Fremdanfragen, keine Cookies, strikte CSP als Meta-Tag (kein Inline-Code), alle Schriften/Skripte/Bilder selbst gehostet (Weltschriften auf benutzte Zeichen reduziert, ≤ 30 KB je Welt, Skripte in `relaunch/scripts/`), Logo, Hostinger-Partner-Badge (ohne Link) und Porträt (ohne Metadaten) lokal.
 - **Server-Teil:** `public/api/kontakt.php` (Honeypot, Prüfung, Mengenbegrenzung ohne IP, kein Inhalt in Logs, Versand per `mail()` oder optional per SMTP über das IONOS-Postfach), `public/.htaccess` (HTTPS, HSTS, Header, saubere Adressen). Zugangsdaten nur in `api/config.php` auf dem Server (Vorlage `config.sample.php`, in `.gitignore`).
 
+## 4a. Neue Weltpaletten (7. Oktober 2026)
+Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengold #E9C46A, 02 unverändert, 03 Planblau-Weiß #DCE8F1, 04 Reinweiß, 05 British Racing Green, 06 Flieder, 07 Stahlschiefer, 08 Mint, 09 Dämmerungsviolett, 10 Weiß). Dritter NP-Modus „mittel“ (Welten 01 und 06, Maßschicht und Rahmen in Tinte, Anfrage-Button mit Nacht-Rand). Prüfung: `npm run check:palettes` (läuft vor dem Build). Die Blueprint mit den neuen Werten liegt unter `docs/BLUEPRINT.md`, die Änderungsliste unter `docs/blueprint-aenderungen-paletten.md`.
+
 ## 5. Entscheidungen von Niklas (verbindlich)
 - Repository ist der maßgebliche Stand; Altseite nur Beispiel. E-Mail überall `kontakt@np-webdesign.de`. Keine Telefonnummer im Rahmen, Kontakt über Formular (im Impressum steht sie weiter). Antwortzeit „innerhalb von 2 Werktagen“.
 - Hoster Hostinger (Vertragspartner laut Rechnung: HOSTINGER operations, UAB, Vilnius), Rechenzentrum Deutschland bestätigt. Postfach bei IONOS. Hostinger-Partner-Badge bleibt (er ist offizieller Partner). Demos erst einmal weggelassen.

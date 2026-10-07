@@ -1,0 +1,22 @@
+Weltpaletten (aus src/config/journey.js)
+
+Welt                  Grund    Text    Akzent  NP-Modus  Orange/Grund ΔE Leinen
+01 Halmberg           #E9C46A  8,5     6,5     mittel    2,4          46,8
+02 Messingstuhl       #121010  15,3    7,9     dunkel    4,7          88,5
+03 Wittgenfeld Bau    #DCE8F1  11,7    5,6     hell      3,2          10,7
+04 Haas & Sternfeld   #FFFFFF  18,9    7,8     hell      4,0          8,1
+05 Chromwerk          #13382B  10,7    10,4    dunkel    3,2          74,7
+06 Jana Ahrens        #DCD1EA  9,6     4,0     mittel    2,8          19,1
+07 TORQUEL            #2B3642  10,2    7,3     dunkel    3,0          72,4
+08 Praxis am Weiher   #CDE8DA  11,0    4,8     hell      3,1          12,3
+09 Gut Weidenstein    #2A1F33  12,6    7,7     dunkel    3,9          81,5
+10 NP Labor           #FFFFFF  21,0    9,4     hell      4,0          8,1
+
+Kleinster Abstand zweier Gründe: ΔE 10,6 (Welt 03 und 04), verlangt 10
+
+Hinweise:
+  · Grund Welt 04 Haas & Sternfeld liegt bei ΔE 8,1 zu Leinen (Ausnahme in journey.js eingetragen)
+  · Grund Welt 10 NP Labor liegt bei ΔE 8,1 zu Leinen (Ausnahme in journey.js eingetragen)
+  · Orange-Schutz: Zweitfarbe Welt 06 Jana Ahrens #F1C9B5 liegt mit Farbton 20° und Sättigung 68 % im geschützten Bereich (nur Fläche erlaubt)
+
+✓ Alle Palettenregeln erfüllt.

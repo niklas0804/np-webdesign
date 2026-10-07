@@ -149,7 +149,7 @@ html[data-mode='desktop'] .t-bon3d, html[data-mode='mobile'] .t-bon3d {
 .t-bon-card { position: absolute; inset: 0; transform-style: preserve-3d; }
 .t-bon-face { position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: grid; align-content: start; gap: var(--s3); padding: var(--s6); text-align: left; }
 .t-bon-front {
-  background: #FFFBF3; color: var(--text);
+  background: color-mix(in srgb, var(--ground) 25%, #fff); color: var(--text);
   padding-bottom: calc(var(--s6) + 16px);
   -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 32px 100%;
   mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 32px 100%;
@@ -182,8 +182,8 @@ html[data-mode='desktop'] .t-mass, html[data-mode='mobile'] .t-mass { display: b
 /* Millimeterpapier schiebt sich von unten über das Dunkel */
 .transition[data-variant='goldlinie'] .t-wipe {
   background-color: var(--to);
-  background-image: linear-gradient(rgba(43, 92, 138, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .15) 1px, transparent 1px),
-    linear-gradient(rgba(43, 92, 138, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .07) 1px, transparent 1px);
+  background-image: linear-gradient(color-mix(in srgb, var(--to-accent) 15%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--to-accent) 15%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--to-accent) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--to-accent) 7%, transparent) 1px, transparent 1px);
   background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
 }
 
@@ -192,8 +192,8 @@ html[data-mode='desktop'] .t-mass, html[data-mode='mobile'] .t-mass { display: b
 .transition[data-variant='pruefstempel'] .t-wipe { display: none !important; }
 html[data-mode='desktop'] .transition[data-variant='pruefstempel'] .t-stage, html[data-mode='mobile'] .transition[data-variant='pruefstempel'] .t-stage {
   background-color: var(--from);
-  background-image: linear-gradient(rgba(43, 92, 138, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .15) 1px, transparent 1px),
-    linear-gradient(rgba(43, 92, 138, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 92, 138, .07) 1px, transparent 1px);
+  background-image: linear-gradient(color-mix(in srgb, var(--from-accent) 15%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--from-accent) 15%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--from-accent) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--from-accent) 7%, transparent) 1px, transparent 1px);
   background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
 }
 html[data-mode='desktop'] .t-iris, html[data-mode='mobile'] .t-iris { display: block; position: absolute; inset: 0; background: var(--to); clip-path: circle(0 at 50% 50%); }

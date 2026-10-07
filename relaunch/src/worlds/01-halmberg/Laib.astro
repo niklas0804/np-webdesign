@@ -37,7 +37,7 @@ const id = `g-${form}-${Math.abs(label.length * 7 + form.length)}`;
   </>)}
   {form === 'blech' && (<>
     <rect x="35" y="70" width="330" height="170" rx="18" fill={`url(#${id}-m)`} />
-    <g fill="#5E2B4A">
+    <g class="laib-plum">
       {[[85,115],[150,108],[215,116],[280,110],[110,168],[175,160],[240,170],[305,162],[85,215],[150,212],[215,218],[280,212]].map(([x,y]) => <ellipse cx={x} cy={y} rx="26" ry="17" />)}
     </g>
     <g fill="#F3E3C6" opacity=".8"><circle cx="60" cy="92" r="3" /><circle cx="330" cy="225" r="3" /><circle cx="345" cy="100" r="3" /></g>

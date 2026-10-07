@@ -28,4 +28,4 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | `21-kontakt` | Kontakt mit Formular und Live-Vorschau |
 
 Hinweis: Die Standard-Übergänge zwischen gleich hellen Abschnitten zeigen nur den orangen Faden auf Leinen, weil Anfang und Ende dieselbe Farbe haben.
-Das sind die Paletten des Stands vor der Palettenüberarbeitung (siehe Übergabedokument).
+Stand: neue Weltpaletten vom 7. Oktober 2026 (Welt 01 Weizengold, Welt 02 unverändert, Welt 03 Planblau-Weiß).

@@ -103,6 +103,12 @@
   --np-mass: var(--orange-text);
   --np-faint: rgba(28, 23, 18, .2);
 }
+/* mittel: Grund hell, aber NP-Orange erreicht dort keine 3:1 (z. B. Weizengold, Flieder): Maßschicht und Rahmen in Tinte, Orange nur als Dekor */
+[data-tone='mid'] {
+  --np-ink: var(--tinte);
+  --np-mass: var(--tinte);
+  --np-faint: rgba(28, 23, 18, .28);
+}
 [data-tone='dark'] {
   --np-ink: var(--leinen);
   --np-mass: var(--glut);

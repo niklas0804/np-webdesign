@@ -40,6 +40,7 @@ Ohne JavaScript und im Modus `calm` gibt es keine Pins: eine lange, ruhige Seite
 - Längen und Farben stehen nie im Modul. Eine Szene pro Abschnitt, keine Gesamt-Timeline, kein Scroll-Jacking.
 - Fehlende Inhalte erscheinen als sichtbarer `[PLATZHALTER: …]`, nie erfunden.
 - Orange gehört NP: Welt-Paletten nutzen keine Farbtöne von 10–35° mit mehr als 55 % Sättigung.
+- Weltpaletten stehen nur in `src/config/journey.js` (Rechenhilfen in `src/config/color.js`). Der NP-Modus (hell, mittel, dunkel) wird aus dem Grund berechnet, nie von Hand gesetzt. `scripts/check-palettes.mjs` prüft Farbabstand (ΔE ≥ 10), Kontraste und den Orange-Schutz und läuft vor jedem Build (`npm run check:palettes`); bei einem Verstoß bricht der Build ab.
 
 ## Welten
 

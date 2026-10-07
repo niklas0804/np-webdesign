@@ -2,14 +2,16 @@
  * Reise-Konfiguration – einzige Quelle für Reihenfolge, Längen und Paletten (Blueprint N und T.3).
  * Längen in vh. Module schreiben weder Längen noch Farben fest.
  *
- * @typedef {'light'|'dark'} Tone  Helligkeit des Grundes; bestimmt die NP-Farbe (Orange-Text auf hell, Glut auf dunkel)
- * @typedef {{ground:string,text:string,accent:string,accent2:string,tone:Tone}} Palette
+ * @typedef {'light'|'mid'|'dark'} Tone  NP-Modus der Welt, aus dem Grund berechnet (npMode): hell → Orange-Text, mittel → Tinte, dunkel → Glut
+ * @typedef {{ground:string,text:string,accent:string,accentUse:'text'|'large',accent2:string,accent2Use:'text'|'graphic'|'fill'|'lines'|'dekor',accent3?:string,tone:Tone}} Palette
  * @typedef {{nr:string,slug:string,name:string,branche:string,anchor:string,branchPage:string,palette:Palette,
  *            built:boolean,source:'neu'|'demo',leistung:string,notiz?:string}} World
  */
 
 /** Aktuelle Bauphase (Blueprint T.4). Der Werkplan und die Claim-Texte passen sich an. */
 export const PHASE = 1;
+
+import { contrast, luminance } from './color.js';
 
 /** Master-Palette (Blueprint G) */
 export const MASTER = {
@@ -20,42 +22,75 @@ export const MASTER = {
   hoverToenung: '#ECDACB', fehler: '#A3271D', erfolg: '#2E6A4B',
 };
 
-/** @type {World[]} Die zehn Welten (Blueprint F). `built` richtet sich nach der Bauphase. */
+/**
+ * NP-Modus einer Welt (Blueprint C, Markenregel 2) – wird berechnet, nie von Hand gesetzt:
+ *  dunkel  = heller Text steht besser auf dem Grund als dunkler Text
+ *  mittel  = heller Grund, aber NP-Orange erreicht dort keine 3:1 (Maßschicht und Rahmen in Tinte)
+ *  hell    = heller Grund, NP-Orange erreicht mindestens 3:1 (Maßschicht in Orange-Text)
+ * @param {string} ground
+ * @returns {Tone}
+ */
+export function npMode(ground) {
+  if (contrast(ground, MASTER.leinen) > contrast(ground, MASTER.tinte)) return 'dark';
+  return contrast(MASTER.npOrange, ground) < 3 ? 'mid' : 'light';
+}
+
+/**
+ * Weltpalette: Grund, Text, Akzent und Akzent 2. Alles andere folgt daraus.
+ * accentUse: 'text' = Akzent darf als Text stehen (mindestens 4,5:1), 'large' = nur große Schrift und Grafik (mindestens 3:1).
+ * accent2Use: wofür die eingeschränkte Zweitfarbe taugt: text | graphic | fill | lines | dekor (nie als Text, außer 'text').
+ * accent3: optionale dritte Farbe, z. B. Ende eines Verlaufs (nur Fläche).
+ */
+const pal = (ground, text, accent, accent2, { accentUse = 'text', accent2Use = 'fill', accent3 } = {}) =>
+  ({ ground, text, accent, accentUse, accent2, accent2Use, ...(accent3 ? { accent3 } : {}), tone: npMode(ground) });
+
+/** @type {World[]} Die zehn Welten (Blueprint F). `built` richtet sich nach der Bauphase. Paletten: Designentscheidung vom 7. Oktober 2026. */
 export const WORLDS = [
   { nr: '01', slug: 'baeckerei', name: 'Halmberg', branche: 'Bäckerei', anchor: 'baeckerei', branchPage: '/branchenloesungen/baeckerei',
-    palette: { ground: '#F7F0E4', text: '#3B2618', accent: '#8B5A2B', accent2: '#5E2B4A', tone: 'light' },
+    palette: pal('#E9C46A', '#3B2618', '#5E2B4A', '#8B5A2B', { accent2Use: 'graphic' }), // Weizengold · Kruste · Zwetschge · Roggen (nur Grafik, nie Text)
     notiz: 'Eine Bäckerei verkauft Duft. Darum trägt hier die Fotografie, nicht der Text.',
     built: true, source: 'neu', leistung: 'Bildkonzept und Fotobriefing' },
   { nr: '02', slug: 'friseur-barber', name: 'Messingstuhl', branche: 'Barbershop', anchor: 'barbershop', branchPage: '/branchenloesungen/friseur-barber',
-    palette: { ground: '#121010', text: '#EDE6D8', accent: '#C9A24A', accent2: '#7A2433', tone: 'dark' },
+    palette: pal('#121010', '#EDE6D8', '#C9A24A', '#7A2433', { accent2Use: 'fill' }), // Schwarz · Elfenbein · Gold · Bordeaux (nur Fläche)
     notiz: 'Ein Barbershop verkauft Atmosphäre. Die Wartemarke macht Warten zum Teil des Erlebnisses.',
     built: true, source: 'demo', leistung: 'Online-Terminbuchung und Markenwirkung' },
   { nr: '03', slug: 'handwerker', name: 'Wittgenfeld Bau', branche: 'Bauunternehmen', anchor: 'bau', branchPage: '/branchenloesungen/handwerker',
-    palette: { ground: '#F3F1EA', text: '#1C2A38', accent: '#2B5C8A', accent2: '#B23A2E', tone: 'light' },
+    palette: pal('#DCE8F1', '#1C2A38', '#2B5C8A', '#B23A2E', { accent2Use: 'text' }), // Planblau-Weiß · Tusche · Blaupause · Prüfrot
     notiz: 'Bauherren wollen Klarheit. Darum ist jede Leistung ein Bauteil mit Maß.',
     built: true, source: 'demo', leistung: 'Konzeption und Seitenstruktur' },
   { nr: '04', slug: 'kanzlei', name: 'Haas & Sternfeld', branche: 'Kanzlei', anchor: 'kanzlei', branchPage: '/branchenloesungen/kanzlei',
-    palette: { ground: '#FAF8F3', text: '#111111', accent: '#A3122A', accent2: '#6E6E66', tone: 'light' },
+    palette: pal('#FFFFFF', '#111111', '#A3122A', '#6E6E66', { accent2Use: 'text' }), // Reinweiß · Schwarz · Siegelrot · Grau (Linien und Meta)
     built: false, source: 'neu', leistung: 'Texte und Inhaltsstruktur' },
   { nr: '05', slug: 'kfz-werkstatt', name: 'Chromwerk', branche: 'Oldtimer-Werkstatt', anchor: 'oldtimer', branchPage: '/branchenloesungen/kfz-werkstatt',
-    palette: { ground: '#0E0F11', text: '#E8EAED', accent: '#D2203F', accent2: '#8C939B', tone: 'dark' },
+    palette: pal('#13382B', '#E8EAED', '#EFE6D2', '#8C939B', { accent2Use: 'lines' }), // British Racing Green · Chrom · Elfenbein · Chromgrau (nur Linien und große Schrift)
     built: false, source: 'neu', leistung: 'Animation und Interaktion' },
   { nr: '06', slug: 'beratung-coaching', name: 'Jana Ahrens', branche: 'Coaching', anchor: 'coaching', branchPage: '/branchenloesungen/beratung-coaching',
-    palette: { ground: '#F6EFEA', text: '#35292A', accent: '#8A5470', accent2: '#C9B6D9', tone: 'light' },
+    palette: pal('#DCD1EA', '#35292A', '#8A5470', '#F1C9B5', { accentUse: 'large', accent2Use: 'fill', accent3: '#C9B6D9' }), // Flieder · Dunkelbraun · Malve (nur große Schrift/Grafik) · Kugelverlauf Pfirsich → Flieder (nur Fläche)
     built: false, source: 'demo', leistung: 'Nutzerführung' },
   { nr: '07', slug: 'industrie', name: 'TORQUEL', branche: 'Industrie', anchor: 'industrie', branchPage: '/branchenloesungen/industrie',
-    palette: { ground: '#15191D', text: '#E6EAEE', accent: '#F2C230', accent2: '#5A6A78', tone: 'dark' },
+    palette: pal('#2B3642', '#E6EAEE', '#F2C230', '#5A6A78', { accent2Use: 'dekor' }), // Stahlschiefer · Hellgrau · Signalgelb · Rastergrau (nur Dekor)
     built: false, source: 'neu', leistung: 'Performance und Technik' },
   { nr: '08', slug: 'physiotherapie', name: 'Praxis am Weiher', branche: 'Physiotherapie', anchor: 'physiotherapie', branchPage: '/branchenloesungen/physiotherapie',
-    palette: { ground: '#F4F8F6', text: '#1E2D2A', accent: '#2F6B57', accent2: '#CFE6DC', tone: 'light' },
+    palette: pal('#CDE8DA', '#1E2D2A', '#2F6B57', '#CFE6DC', { accent2Use: 'fill' }), // Mint · Tannengrün · Salbei · Hellmint (nur Fläche)
     built: false, source: 'neu', leistung: 'Barrierefreiheit und Terminbuchung' },
   { nr: '09', slug: 'gastronomie-hotel', name: 'Gut Weidenstein', branche: 'Landgasthof', anchor: 'landgasthof', branchPage: '/branchenloesungen/gastronomie-hotel',
-    palette: { ground: '#13212A', text: '#ECE6DA', accent: '#A9BC93', accent2: '#6F8796', tone: 'dark' },
+    palette: pal('#2A1F33', '#ECE6DA', '#A9BC93', '#6F8796', { accent2Use: 'lines' }), // Dämmerungsviolett · Elfenbein · Schilf · Wasser (nur Linien)
     built: false, source: 'neu', leistung: 'Conversion-Struktur' },
   { nr: '10', slug: 'labor', name: 'NP Labor', branche: 'Labor', anchor: 'labor', branchPage: '/',
-    palette: { ground: '#FFFFFF', text: '#000000', accent: '#0000EE', accent2: '#551A8B', tone: 'light' },
+    palette: pal('#FFFFFF', '#000000', '#0000EE', '#551A8B', { accent2Use: 'text' }), // Weiß · Schwarz · Linkblau · Besucht
     built: false, source: 'neu', leistung: 'Sauberer Code, keine Baukasten-Abhängigkeit' },
 ];
+
+/**
+ * Regeln der Unterscheidbarkeit (scripts/check-palettes.mjs, Blueprint R und T.1). Ausnahmen sind hier festgehalten, nicht im Skript.
+ */
+export const DISTINCT = {
+  minDeltaE: 10,
+  /** Paare, die denselben Grund teilen dürfen (beide Weiß, in der Reise weit auseinander) */
+  samePairs: [['04', '10']],
+  /** Welten, deren Grund Leinen nahekommt (Weiß liegt bei ΔE 8,1 zu Leinen) */
+  leinenExempt: ['04', '10'],
+};
 
 export const builtWorlds = WORLDS.filter((w) => w.built);
 
@@ -106,6 +141,7 @@ export const journey = (() => {
   ];
 
   const groundOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.ground : s.ground);
+  const accentOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.accent : null);
   const toneOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.tone : s.tone);
 
   // Übergänge zwischen den Abschnitten einfügen (nicht vor/nach dem Opening-Ende zum FAQ: dort keine Inszenierung)
@@ -117,6 +153,7 @@ export const journey = (() => {
     out.push({
       id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
       fromGround: groundOf(s), toGround: groundOf(next), fromTone: toneOf(s), toTone: toneOf(next),
+      fromAccent: accentOf(s), toAccent: accentOf(next),
       d: TRANSITION_DEFAULT.desktop, m: TRANSITION_DEFAULT.mobile,
       variant: TRANSITION_VARIANTS[`${s.id}>${next.id}`] || null,
     });

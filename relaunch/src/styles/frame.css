@@ -97,6 +97,9 @@
 .crop-br { bottom: 6px; right: 6px; } .crop-br::before, .crop-br::after { right: 0; bottom: 0; }
 
 /* Mobile: Anfrage-Leiste unten, Daumenzone */
+/* NP-Modus „mittel“: Der Anfrage-Button bekommt einen Rand in Nacht, weil Orange auf dem Grund keine 3:1 erreicht */
+html[data-tone='mid'] .frame-cta, html[data-tone='mid'] .frame-bar .btn { box-shadow: inset 0 0 0 1.5px var(--nacht); }
+
 .frame-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-rahmen);
   padding: var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));
