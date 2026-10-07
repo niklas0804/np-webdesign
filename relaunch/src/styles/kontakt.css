@@ -1,0 +1,111 @@
+/* Welt 11 · Kontakt (Blueprint L): Formular, neutrale Live-Vorschau, Fakten */
+.k-grid { align-content: start; gap: var(--s7); min-height: 0; }
+.k-head { display: grid; gap: var(--s4); }
+.k-lead { color: var(--stein); }
+
+/* Vorschau: leerer Website-Rahmen mit Konstruktionslinien, Raster und Schnittmarken */
+.k-preview { min-width: 0; }
+.k-pv-frame {
+  position: relative; overflow: clip; aspect-ratio: 16 / 10; min-height: 180px;
+  background-color: var(--kalk);
+  background-image:
+    linear-gradient(var(--haarlinie) 1px, transparent 1px), linear-gradient(90deg, var(--haarlinie) 1px, transparent 1px);
+  background-size: 32px 32px; background-position: -1px -1px;
+  border: 1.5px solid var(--tinte);
+  display: grid; align-content: center; padding: var(--s5);
+}
+.k-pv-frame::before, .k-pv-frame::after { content: ''; position: absolute; width: 14px; height: 14px; border: 0 solid var(--orange-text); }
+.k-pv-frame::before { top: 8px; left: 8px; border-width: 1.5px 0 0 1.5px; }
+.k-pv-frame::after { right: 8px; bottom: 8px; border-width: 0 1.5px 1.5px 0; }
+.k-pv-label { position: absolute; top: var(--s3); left: 34px; color: var(--stein); font-size: var(--fs-mono-xs); }
+.k-pv-title {
+  font-size: clamp(2rem, 7vw, 5.5rem); line-height: 1; letter-spacing: -.02em; font-weight: 760; font-stretch: 90%;
+  white-space: nowrap; max-width: none; display: block; overflow: hidden; color: var(--tinte);
+}
+.k-pv-title [data-pv-text] { display: inline; }
+.k-pv-title.is-empty [data-pv-text] { color: var(--stein); opacity: .55; }
+.k-cursor { display: inline-block; width: .06em; height: .8em; margin-left: .08em; background: var(--np-orange); vertical-align: -.06em; }
+.k-cursor.is-blink { animation: k-blink 1s steps(1) 6; }
+@keyframes k-blink { 50% { opacity: 0; } }
+.k-pv-line { color: var(--stein); max-width: none; }
+
+/* Vorschau-Inhalt: eigener Block ohne Innenabstand, damit „Satz nach Maß“ die Rahmenbreite trifft */
+.k-pv-body { display: grid; gap: var(--s3); min-width: 0; }
+
+/* NP-Siegel „Anfrage erhalten“ */
+.k-seal { position: absolute; right: var(--s5); bottom: var(--s5); width: clamp(84px, 16vw, 132px); color: var(--fehler); opacity: 0; visibility: hidden; transform: rotate(-9deg) scale(1.25); }
+.k-seal-ring { font-family: var(--mono); font-weight: 500; font-size: 11.5px; letter-spacing: .12em; fill: currentColor; }
+.k-seal-np { font-family: var(--sans); font-weight: 800; font-size: 36px; font-stretch: 90%; fill: currentColor; }
+.kontakt.is-sent .k-seal, .kontakt:has(.k-done:target) .k-seal { visibility: visible; opacity: .92; transform: rotate(-9deg) scale(1); animation: k-stamp 180ms cubic-bezier(.2, 1.6, .4, 1) 1; }
+@keyframes k-stamp { from { opacity: 0; transform: rotate(-9deg) scale(1.25); } }
+
+/* Formular */
+.k-form { display: grid; gap: var(--s5); max-width: 640px; }
+.k-row { display: grid; gap: var(--s5); }
+.k-field { display: grid; gap: var(--s2); align-content: start; }
+.k-field label, .k-topic legend { font-weight: 600; font-size: var(--fs-small); letter-spacing: .01em; }
+.k-req { color: var(--orange-text); }
+.k-opt { font-weight: 400; color: var(--stein); }
+.k-field input, .k-field textarea {
+  width: 100%; font: inherit; font-size: 1rem; color: var(--tinte); background: var(--kalk);
+  border: 1.5px solid var(--haarlinie); border-bottom: 1.5px solid var(--tinte); border-radius: 0;
+  min-height: 48px; padding: var(--s3) var(--s4);
+  transition: border-color var(--dur-s) var(--ease-out), box-shadow var(--dur-s) var(--ease-out);
+}
+.k-field textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
+/* Fokus: Unterkante wächst von 1 auf 2 px in Orange (Blueprint) */
+.k-field input:focus, .k-field textarea:focus { outline: none; border-color: var(--haarlinie); border-bottom-color: var(--np-orange); box-shadow: 0 1px 0 var(--np-orange); }
+.k-field input:focus-visible, .k-field textarea:focus-visible { outline: 2px solid var(--tinte); outline-offset: 2px; }
+.k-field [aria-invalid='true'] { border-bottom-color: var(--fehler); box-shadow: 0 1px 0 var(--fehler); }
+.k-err { display: flex; gap: var(--s2); align-items: flex-start; color: var(--fehler); font-size: var(--fs-small); line-height: 1.4; max-width: none; }
+.k-err[hidden] { display: none; }
+.k-err::before, .k-fail::before { content: '!'; flex: 0 0 auto; display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; margin-top: .05em; font-weight: 800; font-size: .8em; line-height: 1; color: var(--kalk); background: var(--fehler); }
+.k-topic { border: 0; display: grid; gap: var(--s3); min-width: 0; }
+.k-chips { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.k-chip { position: relative; display: inline-flex; }
+.k-chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; cursor: pointer; margin: 0; }
+.k-chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s5); border: 1.5px solid var(--tinte); font-weight: 600; font-size: var(--fs-small); background: var(--kalk); transition: background var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out); }
+.k-chip:hover span { background: var(--hover-toenung); }
+.k-chip input:checked + span { background: var(--tinte); color: var(--leinen); }
+.k-chip input:focus-visible + span { outline: 2px solid var(--tinte); outline-offset: 2px; }
+.k-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.k-submit { justify-self: start; }
+.k-submit[disabled] { opacity: .6; pointer-events: none; }
+.k-privacy { color: var(--stein); }
+.k-status { min-height: 1.5em; font-size: var(--fs-small); color: var(--fehler); max-width: none; }
+.k-status:empty { display: none; }
+
+/* Antworten: Erfolg und Fehler (ohne JavaScript über :target) */
+.k-done, .k-fail { display: none; max-width: 640px; }
+.k-done { gap: var(--s3); border: 1.5px solid var(--tinte); background: var(--kalk); padding: var(--s6); }
+.k-done-title { font-size: var(--fs-h3); font-weight: 700; line-height: 1.2; }
+.k-done:target, .k-main.is-sent .k-done { display: grid; }
+.k-main.is-sent .k-form, .k-main:has(.k-done:target) .k-form { display: none; }
+.k-fail { align-items: flex-start; gap: var(--s2); color: var(--fehler); font-size: var(--fs-small); margin-top: var(--s4); }
+.k-fail:target, .k-main.is-failed .k-fail { display: flex; }
+.k-fail::before { margin-top: .15em; }
+
+/* Fakten */
+.k-facts { margin-top: 0; }
+
+@media (min-width: 1024px) {
+  .k-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s9); row-gap: var(--s7); align-items: start; }
+  .k-head { grid-column: 1 / -1; }
+  .k-main { grid-column: 1; grid-row: 2 / span 2; }
+  .k-preview { grid-column: 2; grid-row: 2; }
+  .k-facts { grid-column: 2; grid-row: 3; grid-template-columns: 1fr 1fr; max-width: none; }
+  .k-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 1023px) {
+  /* Mobile: kompakter Streifen über dem Formular */
+  .k-preview { order: -1; }
+  .k-pv-frame { aspect-ratio: auto; min-height: 0; padding: var(--s7) var(--s5) var(--s5); }
+  .k-pv-title { font-size: clamp(1.75rem, 9vw, 3rem); }
+  .k-pv-line { display: none; }
+  .k-pv-label { left: 30px; }
+  .k-head { order: -2; }
+  .k-main { order: 0; }
+  .k-facts { order: 1; }
+}
+html[data-mode='calm'] .k-cursor.is-blink, html[data-mode='calm'] .kontakt.is-sent .k-seal { animation: none; }
+@media (prefers-reduced-motion: reduce) { .k-cursor.is-blink, .kontakt.is-sent .k-seal { animation: none; } }

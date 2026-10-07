@@ -37,7 +37,16 @@ function fitOne(el) {
   if (Math.abs(w - box) > 1) {
     wrap.fontSize = base * (box / w) + 'px';
   }
+  // Obergrenze (data-fit-max in px): sehr kurzer Text füllt die Zeile nicht, sondern bleibt in Normalbreite
+  const max = parseFloat(el.dataset.fitMax);
+  if (max && parseFloat(getComputedStyle(el).fontSize) > max) {
+    wrap.fontStretch = '';
+    wrap.fontSize = max + 'px';
+  }
 }
+
+/** Eine Zeile neu setzen, z. B. nach einer Eingabe */
+export function fitElement(el) { fitOne(el); }
 
 export function initFit() {
   const els = Array.from(document.querySelectorAll('[data-fit]'));

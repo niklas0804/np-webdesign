@@ -9,26 +9,21 @@ export const SITE = {
   city: 'Schwandorf',
   timeZone: 'Europe/Berlin',
   email: 'kontakt@np-webdesign.de',
-  /** Offen (Blueprint K): Telefonnummer im Rahmen ja oder nein. Im Impressum steht sie bereits. */
+  /** Entschieden: keine Telefonnummer im Rahmen, Kontakt läuft über das Formular. Im Impressum steht sie weiterhin. */
   phone: null,
-  /** Offen (Blueprint K): Antwortzeit-Zusage, die neben dem Vollzeitjob verlässlich zu halten ist */
-  responseTime: null,
+  /** Antwortzeit-Zusage (Niklas: 2 Werktage) */
+  responseWithin: 'innerhalb von 2 Werktagen',
+  responseTime: 'Antwort innerhalb von 2 Werktagen',
   /** Hostinger-Partner-Badge (Niklas ist offizieller Partner). Die SVG-Datei liegt selbst gehostet unter public/images/, nie von einem Fremdserver.
-   *  Solange file null ist, erscheint im Footer ein sichtbarer Platzhalter. Kennzeichnung als Werbung: bei Bedarf über `label`. */
-  partnerBadge: { file: null, alt: 'Hostinger Partner', label: null, width: 80, height: 30 },
-  placeholder: {
-    responseTime: '[PLATZHALTER: Antwortzeit-Zusage]',
-    portrait: '[PLATZHALTER: Porträtfoto von Niklas]',
-    logo: '[PLATZHALTER: Logo als sauberes SVG]',
-    phone: '[PLATZHALTER: Telefonnummer ja/nein]',
-  },
+   *  Ohne Link und ohne Tracking. Wird daraus ein Empfehlungslink, muss `label` „Werbung“ setzen und der Datenschutz angepasst werden. */
+  partnerBadge: { file: 'hostinger-partner.svg', alt: 'Hostinger Partner', label: null, width: 80, height: 30 },
 };
 
 /** Pakete – laut Audit kanonisch; Preise im Licht der neuen Positionierung noch prüfen (Blueprint K, S) */
 export const PACKAGES = [
-  { id: 'starter', name: 'Starter', price: '899 €', note: 'einmalig · Endpreis gem. §19 UStG',
+  { id: 'starter', name: 'Starter', price: '999 €', note: 'einmalig · Endpreis gem. §19 UStG',
     features: ['Professioneller OnePager für Unternehmen', 'Responsives Design', 'Kontaktformular', 'On-Page SEO Grundlagen', 'DSGVO-orientierte Umsetzung'] },
-  { id: 'professional', name: 'Professional', price: '1.799 €', note: 'einmalig · Endpreis gem. §19 UStG', featured: true,
+  { id: 'professional', name: 'Professional', price: '1.899 €', note: 'einmalig · Endpreis gem. §19 UStG', featured: true,
     features: ['Unternehmenswebsite mit bis zu 5 Unterseiten', 'Premium Design & Animationen', 'Erweiterte On-Page SEO', 'Conversion-Optimierung', 'DSGVO-orientierte Umsetzung'] },
   { id: 'premium', name: 'Premium', price: '2.999 €', note: 'ab · individuell · Endpreis gem. §19 UStG',
     features: ['Individuelle Unternehmenswebsite', 'Individuelle Funktionen & CMS', 'Performance-Optimierung', 'Monatliches Reporting', 'Prioritäts-Support', 'Laufende Betreuung möglich', 'DSGVO-orientierte Umsetzung'] },

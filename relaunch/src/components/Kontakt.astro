@@ -1,22 +1,105 @@
 ---
 /**
- * Welt 11 · Kontakt (Blueprint L). Formular, Live-Vorschau und Endpunkt folgen in einem eigenen Bauschritt.
- * Bis dahin: ehrlicher Platzhalter plus der direkte Weg per E-Mail – kein totes Formular.
+ * Welt 11 · Kontakt (Blueprint L): Formular links, neutrale Live-Vorschau rechts, Fakten darunter.
+ * Ohne JavaScript sendet das Formular normal an /api/kontakt.php; die Antwort kommt über :target (#anfrage-erhalten).
+ * Eingaben bleiben im Browser bis zum Absenden: keine Zwischenspeicherung, kein Mitschneiden.
  */
 import { SITE } from '../config/site.js';
+import { builtWorlds } from '../config/journey.js';
+import { STEPS } from '../config/site.js';
 const { row } = Astro.props;
+const leistungen = builtWorlds.map((w) => w.leistung).join(' · ');
+const ablauf = STEPS.map((s) => s.title).join(', ');
 ---
 <section id={row.anchor} class="kontakt" data-section={row.id} data-ground={row.ground} data-tone="light"
-         data-counter="Welt 11 · Kontakt" data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title">
-  <div class="kontakt-inner">
-    <p class="kicker">Welt 11 · Kontakt</p>
-    <h2 id="kontakt-title">Ihr Entwurf beginnt mit einem Gespräch.</h2>
-    <p class="mono world-placeholder">[PLATZHALTER: Kontaktformular mit Live-Vorschau folgt in einem eigenen Bauschritt]</p>
-    <dl class="facts">
+         data-counter="Welt 11 · Kontakt" data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title" data-kontakt>
+  <div class="kontakt-inner k-grid">
+    <div class="k-head">
+      <p class="kicker">Welt 11 · Kontakt</p>
+      <h2 id="kontakt-title">Ihr Entwurf beginnt mit einem Gespräch.</h2>
+      <p class="lead k-lead">Schreiben Sie mir, worum es geht. {SITE.responseTime}.</p>
+    </div>
+
+    <aside class="k-preview" aria-label="Vorschau Ihrer Welt" data-preview>
+      <div class="k-pv-frame">
+        <span class="k-pv-label mono" aria-hidden="true">Welt 11 · Ihr Unternehmen</span>
+        <div class="k-pv-body">
+          <p class="k-pv-title is-empty" aria-hidden="true" data-pv-title data-fit data-fit-max="150"><span data-pv-text>Ihr Unternehmen</span><span class="k-cursor" data-cursor></span></p>
+          <p class="k-pv-line mono" aria-hidden="true">Ihr Entwurf beginnt mit einem Gespräch.</p>
+        </div>
+        <div class="k-seal" aria-hidden="true" data-seal>
+          <svg viewBox="0 0 160 160" focusable="false">
+            <defs><path id="k-ring" d="M80 80 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0" /></defs>
+            <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3" />
+            <circle cx="80" cy="80" r="40" fill="none" stroke="currentColor" stroke-width="2" />
+            <text class="k-seal-ring"><textPath href="#k-ring" startOffset="0" textLength="362" lengthAdjust="spacing">ANFRAGE ERHALTEN · NP WEBDESIGN · ANFRAGE ERHALTEN · NP WEBDESIGN · </textPath></text>
+            <text class="k-seal-np" x="80" y="92" text-anchor="middle">NP</text>
+          </svg>
+        </div>
+      </div>
+    </aside>
+
+    <div class="k-main">
+      <form class="k-form" action="/api/kontakt.php" method="post" data-form data-within={SITE.responseWithin} autocomplete="on">
+        <div class="k-row">
+          <div class="k-field">
+            <label for="k-name">Ihr Name <span class="k-req" aria-hidden="true">*</span></label>
+            <input id="k-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="k-name-err" />
+            <p class="k-err" id="k-name-err" data-err hidden>Bitte nennen Sie mir Ihren Namen.</p>
+          </div>
+          <div class="k-field">
+            <label for="k-firma">Unternehmen <span class="k-opt">(freiwillig)</span></label>
+            <input id="k-firma" name="unternehmen" type="text" autocomplete="organization" maxlength="40" data-company />
+          </div>
+        </div>
+        <div class="k-row">
+          <div class="k-field">
+            <label for="k-mail">E-Mail <span class="k-req" aria-hidden="true">*</span></label>
+            <input id="k-mail" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="200" aria-describedby="k-mail-err" />
+            <p class="k-err" id="k-mail-err" data-err hidden>Bitte geben Sie eine gültige E-Mail-Adresse an, zum Beispiel name@firma.de.</p>
+          </div>
+          <div class="k-field">
+            <label for="k-tel">Telefon <span class="k-opt">(für einen Rückruf, freiwillig)</span></label>
+            <input id="k-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" />
+          </div>
+        </div>
+        <fieldset class="k-topic">
+          <legend>Worum geht es? <span class="k-opt">(freiwillig)</span></legend>
+          <div class="k-chips">
+            <label class="k-chip"><input type="radio" name="anliegen" value="Neue Website" /><span>Neue Website</span></label>
+            <label class="k-chip"><input type="radio" name="anliegen" value="Relaunch" /><span>Relaunch</span></label>
+            <label class="k-chip"><input type="radio" name="anliegen" value="Noch unsicher" /><span>Noch unsicher</span></label>
+          </div>
+        </fieldset>
+        <div class="k-field">
+          <label for="k-msg">Ihr Vorhaben in ein paar Sätzen <span class="k-req" aria-hidden="true">*</span></label>
+          <textarea id="k-msg" name="nachricht" rows="5" required minlength="10" maxlength="4000" aria-describedby="k-msg-err"></textarea>
+          <p class="k-err" id="k-msg-err" data-err hidden>Bitte beschreiben Sie Ihr Vorhaben in ein, zwei Sätzen (mindestens 10 Zeichen).</p>
+        </div>
+        <div class="k-trap" aria-hidden="true"><label>Bitte leer lassen<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <button class="btn btn-primary k-submit" type="submit" data-submit>
+          <span class="btn-label"><span data-submit-label>Anfrage senden</span><span aria-hidden="true">Anfrage senden</span></span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
+        <p class="small k-privacy">Ihre Angaben verwende ich nur, um Ihre Anfrage zu beantworten. Näheres in der <a class="link" href="/datenschutz#kontakt">Datenschutzerklärung</a>. * Pflichtfeld.</p>
+        <p class="k-status" role="status" aria-live="polite" data-status></p>
+      </form>
+
+      <div class="k-done" id="anfrage-erhalten" tabindex="-1" data-done>
+        <p class="k-done-title" data-done-title>Danke. Ich melde mich {SITE.responseWithin}.</p>
+        <p>Welt 11 ist angelegt.</p>
+        <p class="small"><a class="link" href="#werkplan">Zurück zum Werkplan</a></p>
+      </div>
+      <p class="k-fail" id="anfrage-fehler" role="alert" data-fail>Das hat leider nicht geklappt. Bitte prüfen Sie Ihre Angaben oder schreiben Sie mir direkt: <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+
+    <dl class="facts k-facts">
+      <div><dt class="mono">Leistungen</dt><dd>{leistungen}</dd></div>
+      <div><dt class="mono">Preise</dt><dd><a class="link" href="/leistungen">Pakete und Preise</a></dd></div>
+      <div><dt class="mono">Ablauf</dt><dd>{ablauf}. Von der ersten Skizze bis nach dem Launch sprechen Sie mit mir.</dd></div>
+      <div><dt class="mono">Antwortzeit</dt><dd>{SITE.responseTime}</dd></div>
       <div><dt class="mono">E-Mail</dt><dd><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
       <div><dt class="mono">Standort</dt><dd>{SITE.city}, Oberpfalz</dd></div>
-      <div><dt class="mono">Antwortzeit</dt><dd class="mono">{SITE.placeholder.responseTime}</dd></div>
-      <div><dt class="mono">Preise</dt><dd><a class="link" href="/leistungen">Pakete und Preise</a></dd></div>
     </dl>
   </div>
 </section>

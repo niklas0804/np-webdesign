@@ -84,6 +84,9 @@ html[data-mode='desktop'] .beam-fill, html[data-mode='mobile'] .beam-fill { tran
 @media (min-width: 1024px) { .ich-grid { grid-template-columns: .8fr 1.2fr; gap: var(--s10); } }
 .window { margin: 0; }
 .window-frame { aspect-ratio: 4 / 5; max-width: 420px; border: 1.5px solid var(--tinte); display: grid; place-items: center; padding: var(--s5); text-align: center; background: var(--sand); }
+.window-photo { padding: 0; overflow: clip; }
+.window-photo picture, .window-photo img { display: block; width: 100%; height: 100%; }
+.window-photo img { object-fit: cover; object-position: 50% 30%; }
 .window-frame .mono { color: var(--tinte); text-transform: none; letter-spacing: .02em; }
 .ich-text h2 { margin-bottom: var(--s5); }
 .ich-text p + p { margin-top: var(--s4); }

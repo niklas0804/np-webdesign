@@ -1,5 +1,5 @@
 ---
-/** Zwischenspiel III · Über mich (Blueprint F, K). Werdegang-Text: Freigabe durch Niklas steht noch aus. */
+/** Zwischenspiel III · Über mich (Blueprint F, K). Porträt von Niklas (Oktober 2026 geliefert). Werdegang-Text: Freigabe durch Niklas steht noch aus. */
 import { SITE } from '../config/site.js';
 const { row } = Astro.props;
 ---
@@ -7,7 +7,13 @@ const { row } = Astro.props;
          data-counter="Über mich" data-counter-short="Über mich" aria-labelledby="ich-title">
   <div class="interlude-inner ich-grid">
     <figure class="window" aria-label="Porträt">
-      <div class="window-frame"><p class="mono">{SITE.placeholder.portrait}</p></div>
+      <div class="window-frame window-photo">
+        <picture>
+          <source type="image/webp" srcset="/images/niklas-portrait-360.webp 360w, /images/niklas-portrait-614.webp 614w" sizes="(min-width: 1024px) 420px, 80vw" />
+          <img src="/images/niklas-portrait-614.jpg" srcset="/images/niklas-portrait-360.jpg 360w, /images/niklas-portrait-614.jpg 614w" sizes="(min-width: 1024px) 420px, 80vw"
+               width="614" height="768" alt="Porträt von Niklas Prüfling, Inhaber von NP Webdesign" loading="lazy" decoding="async" />
+        </picture>
+      </div>
     </figure>
     <div class="ich-text prose">
       <h2 id="ich-title">Ich bin Niklas Prüfling.</h2>

@@ -6,6 +6,7 @@ import { initRahmen } from './rahmen.js';
 import { initOpening } from './opening.js';
 import { initTransitions } from './transitions.js';
 import { initInterludes } from './interludes.js';
+import { initKontakt } from './kontakt.js';
 
 watchMode();
 
@@ -39,6 +40,7 @@ async function boot() {
   initClock();
   initMenu(lenis);
   initFit();
+  initKontakt();
 
   initRahmen();
   if (pinned) {
