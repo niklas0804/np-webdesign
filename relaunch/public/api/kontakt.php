@@ -4,7 +4,8 @@ declare(strict_types=1);
  * Formular-Endpunkt (Blueprint N, Q2): nimmt die Anfrage entgegen und stellt sie als E-Mail zu.
  * Keine Datenbank, kein Drittdienst, kein Formularinhalt in Logs, keine Speicherung von IP-Adressen.
  * Schutz: Honeypot, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
- * Zugangsdaten und Adressen: optional in config.php neben dieser Datei (siehe config.sample.php), nie im Repository.
+ * Versand: standardmäßig über mail() des Hosters, optional über ein SMTP-Postfach (config.php, Eintrag „smtp“).
+ * Zugangsdaten und Adressen: nur in config.php neben dieser Datei (siehe config.sample.php), nie im Repository.
  */
 
 const MAX_PER_HOUR = 10;
@@ -34,6 +35,73 @@ function finish(bool $ok, string $code, bool $json, int $status = 200): never
     }
     header('Location: /#' . ($ok ? 'anfrage-erhalten' : 'anfrage-fehler'), true, 303);
     exit;
+}
+
+/**
+ * Versand über einen SMTP-Server mit Anmeldung (z. B. das Postfach beim E-Mail-Anbieter): STARTTLS (Port 587) oder SSL (465).
+ * Zugangsdaten stehen nur in config.php auf dem Server. Gibt bei Fehlern false zurück, ohne Inhalte zu protokollieren.
+ */
+function smtp_send(array $c, string $from, string $to, string $subject, array $headers, string $body): bool
+{
+    $secure = $c['secure'] ?? 'tls';
+    $port = (int) ($c['port'] ?? ($secure === 'ssl' ? 465 : 587));
+    $ssl = ['verify_peer' => true, 'verify_peer_name' => true];
+    if (!empty($c['cafile'])) {
+        $ssl['cafile'] = $c['cafile']; // nur für Tests mit eigenem Zertifikat
+    }
+    $fp = @stream_socket_client(($secure === 'ssl' ? 'ssl://' : 'tcp://') . ($c['host'] ?? '') . ':' . $port, $errno, $errstr, 10, STREAM_CLIENT_CONNECT, stream_context_create(['ssl' => $ssl]));
+    if ($fp === false) {
+        return false;
+    }
+    stream_set_timeout($fp, 15);
+    $read = static function () use ($fp): array {
+        $text = '';
+        while (($line = fgets($fp, 1024)) !== false) {
+            $text .= $line;
+            if (strlen($line) < 4 || $line[3] === ' ') {
+                break;
+            }
+        }
+        return [(int) substr($text, 0, 3), $text];
+    };
+    $cmd = static function (string $line, int $ok) use ($fp, $read): bool {
+        fwrite($fp, $line . "\r\n");
+        [$code] = $read();
+        return $code === $ok;
+    };
+    $host = preg_replace('/[^a-z0-9.-]/i', '', substr(strrchr($from, '@') ?: '@localhost', 1)) ?: 'localhost';
+    $done = false;
+    do {
+        if ($read()[0] !== 220) {
+            break;
+        }
+        if (!$cmd('EHLO ' . $host, 250)) {
+            break;
+        }
+        if ($secure === 'tls') {
+            if (!$cmd('STARTTLS', 220) || !stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+                break;
+            }
+            if (!$cmd('EHLO ' . $host, 250)) {
+                break;
+            }
+        }
+        if (!empty($c['user'])) {
+            if (!$cmd('AUTH LOGIN', 334) || !$cmd(base64_encode((string) $c['user']), 334) || !$cmd(base64_encode((string) ($c['pass'] ?? '')), 235)) {
+                break;
+            }
+        }
+        if (!$cmd('MAIL FROM:<' . $from . '>', 250) || !$cmd('RCPT TO:<' . $to . '>', 250) || !$cmd('DATA', 354)) {
+            break;
+        }
+        $head = array_merge(['To: ' . $to, 'Subject: ' . $subject, 'Date: ' . date('r'), 'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . $host . '>'], $headers);
+        $msg = implode("\r\n", $head) . "\r\n\r\n" . preg_replace('/\r\n|\r|\n/', "\r\n", $body);
+        $msg = preg_replace('/^\./m', '..', $msg); // Punkt am Zeilenanfang verdoppeln
+        $done = $cmd($msg . "\r\n.", 250);
+    } while (false);
+    @fwrite($fp, "QUIT\r\n");
+    fclose($fp);
+    return $done;
 }
 
 /** Eingabe säubern: Steuerzeichen raus, Zeilenumbrüche nur im Nachrichtentext erlaubt */
@@ -123,7 +191,13 @@ $headers = [
 ];
 $subject = '=?UTF-8?B?' . base64_encode($cfg['subject'] . ' – ' . $name) . '?=';
 
-if (!mail($cfg['to'], $subject, implode("\n", $lines), implode("\r\n", $headers), '-f' . $cfg['from'])) {
+$sent = false;
+if (is_array($cfg['smtp'] ?? null)) {
+    $sent = smtp_send($cfg['smtp'], $cfg['from'], $cfg['to'], $subject, $headers, implode("\n", $lines));
+} else {
+    $sent = mail($cfg['to'], $subject, implode("\n", $lines), implode("\r\n", $headers), '-f' . $cfg['from']);
+}
+if (!$sent) {
     error_log('kontakt: Versand fehlgeschlagen'); // ohne Inhalt
     finish(false, 'mail', $json, 502);
 }

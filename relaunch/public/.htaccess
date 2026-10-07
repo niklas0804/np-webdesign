@@ -1,0 +1,51 @@
+# Server-Einstellungen für Hostinger (Apache/LiteSpeed). Liegt im Hauptordner der Website (public_html).
+# Nicht lokal testbar: nach dem Hochladen prüfen (https, www, /leistungen, 404, Header unter securityheaders.com).
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS erzwingen
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # www auf die Adresse ohne www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # Saubere Adressen: /leistungen liefert leistungen.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+
+  # Dateien mit Hash im Namen dürfen ein Jahr im Cache bleiben
+  RewriteRule ^_astro/ - [E=NP_HASHED:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=15552000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-Frame-Options "DENY"
+  Header always set Content-Security-Policy "frame-ancestors 'none'"
+
+  <FilesMatch "\.(woff2|svg|jpg|webp|png|ico)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  Header set Cache-Control "public, max-age=31536000, immutable" env=NP_HASHED
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript image/svg+xml application/json
+</IfModule>
+
+# Versteckte Dateien nie ausliefern
+<FilesMatch "^\.(?!htaccess$)">
+  Require all denied
+</FilesMatch>
