@@ -6,7 +6,7 @@ Stand: 8. Oktober 2026 · Branch `claude/phase-1`, am 8. Oktober 2026 per Fast-F
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.
 
 ## 2. Repository und Branches
-- `main`: enthält die alte Live-Seite (Wurzelordner: `index.html`, `impressum.html`, `datenschutz.html`, `css/`, `js/`) samt Phase-0-Korrekturen (PR #1, gemergt). Unverändert seit Phase 0.
+- `main`: enthält die alte Seite im Wurzelordner (`index.html`, `impressum.html`, `datenschutz.html`, `css/`, `js/`, mit Phase-0-Korrekturen) und seit dem 8. Oktober 2026 auch den Relaunch im Ordner `relaunch/`. Niklas hat die Übernahme ausdrücklich gewünscht, die Seite ist derzeit nicht live.
 - `claude/phase-1`: Arbeitsbranch des Relaunchs, inhaltlich identisch mit `main`. Kein Pull Request nötig. Der Relaunch geht nicht automatisch live: zum Ansehen `relaunch/dist` bzw. `relaunch/deploy/np-webdesign-test.zip` bei Hostinger hochladen.
 - Die Altseite im Wurzelordner ist unverändert bis auf die E-Mail-Adresse (`kontakt@np-webdesign.de`). Sie zeigt noch die alten Preise 899 €/1.799 €.
 - `CNAME` wurde von Niklas auf dem Branch gelöscht (Umzug auf Hostinger, kein GitHub Pages mehr).
