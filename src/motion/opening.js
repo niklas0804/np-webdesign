@@ -6,6 +6,9 @@
 import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 import { setSection } from './rahmen.js';
 
+/** Mobil: oberer Versatz des Zellenausschnitts in Viewport-px, gleicher Wert wie in scripts/render-previews.cjs */
+const FOCUS_M = 120;
+
 export function initOpening() {
   const sec = $('#opening');
   const stage = $('[data-stage]');
@@ -51,7 +54,10 @@ export function initOpening() {
     const barH = $('.wp-bar', frameEl).getBoundingClientRect().height;
     const top = fr.top - sr.top + barH;
     const clip = `inset(${top}px ${sr.right - fr.right}px ${sr.bottom - fr.bottom}px ${fr.left - sr.left}px)`;
-    const art = { x: fr.left - sr.left, y: top, s: fr.width / sr.width };
+    // Mobil zeigt die Zelle den Streifen ab FOCUS_M (scripts/render-previews.cjs): die Ebene startet entsprechend nach oben versetzt
+    const focus = mode === 'mobile' ? FOCUS_M : 0;
+    const s = fr.width / sr.width;
+    const art = { x: fr.left - sr.left, y: top - focus * s, s };
     return { s0, x0: target.x - cx, y0: target.y - cy, ox: cx - (gr.left - sr.left), oy: cy - (gr.top - sr.top), clip, art };
   };
 

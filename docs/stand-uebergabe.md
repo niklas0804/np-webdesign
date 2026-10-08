@@ -60,7 +60,7 @@ Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengo
 - `.htaccess` und der SMTP-Versand über IONOS sind nicht auf dem echten Server getestet (SMTP nur gegen lokalen Testserver mit STARTTLS und Anmeldung).
 - Rechtstexte sind nicht anwaltlich geprüft. Die Datenschutzerklärung enthält einen offenen Platzhalter (Logfile-Dauer) und Annahmen über Hostinger, die laut Niklas’ Angaben formuliert sind.
 - Bodoni-Haarlinien (Welt 02) sind auf 1×-Bildschirmen bei kleinen Versalien dünn; große Schrift ist auf optische Größe 20 festgelegt.
-- Hintergründe der Zellen im Werkplan sind abstrakte Standbilder, keine echten Screenshots.
+- Die Zellen im Werkplan zeigen echte Bilder der gebauten Welten (`scripts/render-previews.cjs`, WebP, je 3–7 KB). Sie müssen nach sichtbaren Änderungen an einer Welt neu erzeugt werden; AVIF fehlt, weil ImageMagick hier nur lesen kann.
 - Die Blueprint-Zahl „zehn Welten“ ist im Text dynamisch (aktuell „Drei Welten. Die vierte gehört Ihnen.“); die letzte Welt heißt im Kontakt „Welt 04“ und wird mit jeder neuen Welt automatisch weitergezählt.
 
 ## 8. Wichtige Dateien
@@ -68,7 +68,7 @@ Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengo
 - `docs/rechtspruefung.md`: Prüfliste für den Rechtsprüfer.
 - `src/config/journey.js` (Reise, Paletten, Längen, Übergangsvarianten), `site.js` (Kontaktdaten, Preise, Schritte, FAQ).
 - `src/motion/*.js` (Szenen), `src/worlds/NN-name/` (Welt-Module: `World.astro`, `world.css`, `motion.js`, `data.js`).
-- `tools/check-site.cjs` (Datenschutz- und Qualitätsabnahme).
+- `tools/check-site.cjs` (Datenschutz- und Qualitätsabnahme), `tools/axe-check.cjs` (axe, WCAG 2.2 AA), `scripts/render-previews.cjs` (Vorschau- und Social-Bilder).
 
 ## 9. Regeln für die Weiterarbeit
 - Keine Drittanbieter-Anfragen, keine Cookies, kein Browser-Speicher ohne Handlung; vor jeder technischen Änderung die Datenschutzerklärung prüfen (Pflegeregel der Blueprint).

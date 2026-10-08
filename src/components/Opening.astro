@@ -67,6 +67,9 @@ const noteFragments = [
     <Werkplan />
 
     <!-- t00: Die Zelle 01 wächst auf Viewport-Größe (Ausschnitt-Maske); nur Bühne, für Hilfstechnik verborgen -->
-    <div class="grow" data-world="01" data-grow aria-hidden="true"><div class="grow-art"></div></div>
+    <div class="grow" data-world="01" data-grow aria-hidden="true"><div class="grow-art"><picture>
+      <source media="not all and (min-width: 1024px) and (pointer: fine)" srcset="/images/werkplan/welt-01-grow-m.webp">
+      <img src="/images/werkplan/welt-01-grow-d.webp" width="1280" height="800" alt="" loading="lazy" decoding="async">
+    </picture></div></div>
   </div>
 </section>

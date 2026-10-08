@@ -8,6 +8,7 @@
 import { builtWorlds, TEXT } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Logo from './Logo.astro';
+import WorldStill from './WorldStill.astro';
 const { row } = Astro.props;
 ---
 <section id={row.anchor} class="finale" data-section={row.id} data-ground={row.ground} data-tone="light"
@@ -20,7 +21,7 @@ const { row } = Astro.props;
             <div class="f-cell" data-world={w.nr}>
               <span class="wp-frame">
                 <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
-                <span class="wp-still"></span>
+                <span class="wp-still"><WorldStill nr={w.nr} /></span>
               </span>
             </div>
           ))}

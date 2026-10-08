@@ -2,6 +2,7 @@
 /** Der Werkplan (Blueprint D): Raster aus Weltrahmen um ein Zentrum. Passt sich der Zahl der gebauten Welten an. */
 import { builtWorlds, TEXT } from '../config/journey.js';
 import Logo from './Logo.astro';
+import WorldStill from './WorldStill.astro';
 ---
 <div class="werkplan" data-werkplan data-count={builtWorlds.length}>
   <div class="wp-grid">
@@ -12,7 +13,7 @@ import Logo from './Logo.astro';
             <span class="visually-hidden">Welt {w.nr}: {w.name}, {w.branche} (Studie)</span>
             <span class="wp-frame" aria-hidden="true">
               <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
-              <span class="wp-still"></span>
+              <span class="wp-still"><WorldStill nr={w.nr} /></span>
             </span>
             <span class="wp-caption mono" aria-hidden="true">{w.nr} · {w.name} · {w.branche}</span>
           </a>

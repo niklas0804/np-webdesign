@@ -1,7 +1,7 @@
 # NP Webdesign · Relaunch „Die Journey“
 
 Statische Astro-Seite (Blueprint Abschnitt N/T). Kein UI-Framework, kein WebGL, kein Lottie, keine Fremdserver.
-Die laufende Seite im Repo-Wurzelverzeichnis bleibt bis zum Umzug unberührt.
+Der Quellcode liegt im Wurzelverzeichnis; die fertige Seite entsteht beim Bauen (`dist/`, im Branch `deploy`).
 
 ## Befehle
 
@@ -12,7 +12,13 @@ npm run build      # erzeugt dist/ (nur Dateien, nichts Inline)
 npm run preview    # dist/ lokal ansehen
 
 # Datenschutz- und Qualitäts-Abnahme (Blueprint Q2 / T.4), braucht Playwright mit Chromium
-NODE_PATH=$(npm root -g) node ../tools/check-site.cjs dist
+NODE_PATH=$(npm root -g) node tools/check-site.cjs dist
+# Barrierefreiheit (axe-core, WCAG 2.2 AA) an Startseite, jeder Welt und allen Unterseiten
+AXE=/pfad/zu/axe.min.js NODE_PATH=$(npm root -g) node tools/axe-check.cjs
+
+# Vorschaubilder (Werkplan, Finale, Branchenseiten, Social 1200×630) aus der gebauten Seite rendern.
+# Nach jeder sichtbaren Änderung an einer Welt neu ausführen; ImageMagick und Playwright nötig. Die Bilder liegen im Repo.
+npm run build && NODE_PATH=$(npm root -g) node scripts/render-previews.cjs
 ```
 
 ## Aufbau

@@ -1,0 +1,15 @@
+---
+/**
+ * Vorschaubild einer Welt für Werkplan und Finale: ein echtes Bild des gebauten Einstiegs (scripts/render-previews.cjs),
+ * keine gemalte Skizze. Desktop zeigt den ganzen ersten Blick, Mobil den Streifen mit der Überschrift.
+ * Wird erst nach dem ersten Paint geladen (loading=lazy). Ohne Bild bleibt die Farbfläche der Welt.
+ */
+const { nr } = Astro.props;
+const dir = '/images/werkplan';
+const desktop = ['320', '480', '640'].map((w) => `${dir}/welt-${nr}-d-${w}.webp ${w}w`).join(', ');
+const mobile = ['320', '480'].map((w) => `${dir}/welt-${nr}-m-${w}.webp ${w}w`).join(', ');
+---
+<picture>
+  <source media="not all and (min-width: 1024px) and (pointer: fine)" srcset={mobile} sizes="46vw" width="480" height="298">
+  <img src={`${dir}/welt-${nr}-d-480.webp`} srcset={desktop} sizes="(min-width: 1500px) 440px, 31vw" width="640" height="400" alt="" loading="lazy" decoding="async">
+</picture>

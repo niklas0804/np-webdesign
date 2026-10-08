@@ -120,6 +120,10 @@
 @keyframes frag-in { from { opacity: 0; transform: translateY(6px); } }
 @keyframes mask-rise { from { transform: translateY(105%); } }
 
+/* Der Hero-Text blendet beim Scrollen über Deckkraft aus (autoAlpha setzt auf dem Container visibility:hidden). Die Texte darin sind
+   nicht bedienbar und bleiben für Hilfstechnik im Baum, damit die H1 und der Einleitungstext nach dem Scrollen nicht verschwinden (WCAG 1.3.1). */
+.hero-copy * { visibility: visible; pointer-events: none; }
+
 /* ===== Werkplan ===== */
 .werkplan { position: relative; padding: var(--block) var(--gutter); background: var(--leinen); }
 .wp-grid { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--col-gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -142,6 +146,7 @@
 .wp-bar-label { display: none; }
 @media (min-width: 600px) { .wp-bar-label { display: block; } .wp-caption { font-size: var(--fs-mono); margin-top: var(--s3); } }
 .wp-link:hover .wp-bar, .wp-link:focus-visible .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); }
+.wp-still img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; }
 .wp-link:hover .wp-still, .wp-link:focus-visible .wp-still { transform: scale(1.03); }
 .wp-link:focus-visible { outline-offset: 6px; }
 
@@ -196,6 +201,7 @@ html[data-mode='desktop'] .grow, html[data-mode='mobile'] .grow { display: block
     linear-gradient(var(--accent2) 0 0) 62% 16% / 30% 62% no-repeat,
     var(--ground);
 }
+.grow-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; }
 /* Ruhig und ohne JavaScript: der orange Faden trennt Werkplan und Welt 01 */
 .opening + .world { border-top: 1.5px solid var(--np-orange); }
 html[data-mode='desktop'] .opening + .world, html[data-mode='mobile'] .opening + .world { border-top: 0; }
