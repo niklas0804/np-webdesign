@@ -18,6 +18,8 @@ const WORLD_MODULES = {
   bau: () => import('../worlds/03-wittgenfeld/motion.js'),
   kanzlei: () => import('../worlds/04-haas-sternfeld/motion.js'),
   oldtimer: () => import('../worlds/05-chromwerk/motion.js'),
+  coaching: () => import('../worlds/06-jana-ahrens/motion.js'),
+  industrie: () => import('../worlds/07-torquel/motion.js'),
 };
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {

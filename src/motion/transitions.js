@@ -3,7 +3,7 @@
  * dahinter wischt die neue Welt herein. Eine Szene pro Übergang, gepinnt und scrollgesteuert.
  * Der Zähler springt in der Mitte der Szene (Markenregel 4).
  */
-import { gsap, $, $$ } from './base.js';
+import { gsap, $, $$, mode } from './base.js';
 import { setTone, setSection } from './rahmen.js';
 
 export function initTransitions() {
@@ -15,7 +15,7 @@ export function initTransitions() {
     let half = null;
     // Wann der Rahmen seine Farbe wechselt: bei der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat;
     // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
-    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42 }[sec.dataset.variant] ?? 0.5;
+    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55 }[sec.dataset.variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -43,6 +43,12 @@ export function initTransitions() {
       goldlinie(tl, sec, wipe, thread);
     } else if (sec.dataset.variant === 'pruefstempel') {
       pruefstempel(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'scheinwerfer') {
+      scheinwerfer(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'kreise') {
+      kreise(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'strahl') {
+      strahl(tl, sec, wipe);
     } else if (sec.dataset.variant === 'zierlinie') {
       zierlinie(tl, sec, wipe);
     } else if (sec.dataset.variant === 'nblende') {
@@ -191,4 +197,61 @@ function zierlinie(tl, sec, wipe) {
     .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: 'power2.inOut' }, 0.3)
     .to(path, { stroke: to, duration: 0.3, ease: 'none' }, 0.5)
     .to(path, { autoAlpha: 0, duration: 0.1 }, 0.9);
+}
+
+/**
+ * Welt 05 → Welt 06: Die Kamera fährt auf den runden Scheinwerfer zu. Der Faden zeichnet zuerst den Ring (Elfenbein), das Glas glüht
+ * warm auf (Pfirsich), wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus (Blueprint F, Übergang 7).
+ * Glühen als Radialverlauf ohne Unschärfe (Blueprint O). Nur Transform, Deckkraft, Strichlänge.
+ */
+function scheinwerfer(tl, sec, wipe) {
+  const wrap = $('[data-t-lampwrap]', sec);
+  const ring = $('[data-t-ring]', sec);
+  const lamp = $('[data-t-lamp]', sec);
+  const cover = () => (Math.hypot(window.innerWidth, window.innerHeight) / wrap.getBoundingClientRect().width) * 1.15;
+  gsap.set(wipe, { autoAlpha: 0 });
+  gsap.set(wrap, { xPercent: -50, yPercent: -50 });
+  tl.fromTo(ring, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.18, ease: 'power2.out' }, 0)
+    .fromTo(lamp, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.in' }, 0.16)
+    .to(ring, { opacity: 0, duration: 0.12 }, 0.4)
+    .fromTo(wrap, { scale: 1 }, { scale: cover, duration: 0.5, ease: 'power2.in', immediateRender: false }, 0.34)
+    .to(wipe, { autoAlpha: 1, duration: 0.14 }, 0.86)
+    .to(wrap, { autoAlpha: 0, duration: 0.1 }, 0.9);
+}
+
+/**
+ * Welt 06 → Zwischenspiel II: Die konzentrischen Kreise rollen sich zu einer Linie ab (Ellipsen mit schwindender Höhe und wachsender Breite),
+ * die Linie bekommt sechs Stationen und wechselt von Malve zu NP-Orange; Flieder wird Leinen (Blueprint F, Übergang 8).
+ */
+function kreise(tl, sec, wipe) {
+  const es = $$('[data-t-e]', sec);
+  const stations = $$('[data-t-st]', sec);
+  const svg = $('[data-t-kr]', sec);
+  const orange = getComputedStyle(document.documentElement).getPropertyValue('--np-orange').trim() || '#CE5D17';
+  gsap.set(wipe, { y: 0, yPercent: 100 });
+  tl.fromTo(es, { opacity: 0, scale: 0.7, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.2, stagger: 0.05, ease: 'power2.out' }, 0)
+    .to(es, { attr: { rx: 460, ry: 0.5 }, duration: 0.42, stagger: 0.04, ease: 'power2.inOut' }, 0.25)
+    .to(es, { stroke: orange, duration: 0.25, ease: 'none' }, 0.5)
+    .fromTo(stations, { opacity: 0, scale: 0.2, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.14, stagger: 0.04, ease: 'back.out(2)' }, 0.62)
+    .to(wipe, { yPercent: 0, duration: 0.5, ease: 'power2.inOut' }, 0.4)
+    .to(svg, { autoAlpha: 0, duration: 0.1 }, 0.92);
+}
+
+/**
+ * Zwischenspiel II → Welt 07: Der Prozessstrahl (orange, sechs Stationen) glüht auf und wird zur Laserlinie in Signalgelb;
+ * der Grund dunkelt von Leinen zu Stahlschiefer (Blueprint F, Übergang 9). Leuchten nur am Desktop (Radialverlauf statt Unschärfe).
+ */
+function strahl(tl, sec, wipe) {
+  const beam = $('[data-t-beam]', sec);
+  const dots = $$('[data-t-dot]', sec);
+  const glow = $('[data-t-glow]', sec);
+  const to = getComputedStyle(sec).getPropertyValue('--to-accent').trim() || '#F2C230';
+  gsap.set(wipe, { yPercent: 0, y: 0, autoAlpha: 0 });
+  tl.fromTo(beam, { attr: { x2: 40 } }, { attr: { x2: 960 }, duration: 0.3, ease: 'power2.out' }, 0)
+    .fromTo(dots, { opacity: 0, scale: 0.2, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.14, stagger: 0.04, ease: 'back.out(2)' }, 0.1)
+    .to(wipe, { autoAlpha: 1, duration: 0.4, ease: 'power1.inOut' }, 0.3)
+    .to(beam, { stroke: to, duration: 0.25 }, 0.5)
+    .to(dots, { opacity: 0, duration: 0.15 }, 0.55);
+  if (glow && mode === 'desktop') tl.fromTo(glow, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.45);
+  tl.to([beam, glow].filter(Boolean), { autoAlpha: 0, duration: 0.1 }, 0.92);
 }

@@ -1,12 +1,12 @@
-# Bildschirmfotos (Stand Phase 2, Welt 05)
+# Bildschirmfotos (Stand Phase 2, Welten 06 und 07)
 
 Desktop 1440×900 (`*-desktop.png`) und Mobil 390×844 (`*-mobile.png`), erzeugt mit `scripts/screenshots.cjs` aus dem Produktions-Build (`dist`).
-Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshots.cjs` (mit `ONLY='welt05'` nur passende Aufnahmen, ohne etwas zu löschen).
+Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshots.cjs` (mit `ONLY='welt07'` nur passende Aufnahmen, ohne etwas zu löschen).
 
 | Nr. | Moment |
 | --- | --- |
 | `01-hero` | Hero (Opening fertig) |
-| `02-werkplan` | Werkplan mit den fünf Studien (echte Vorschaubilder) und leerem Zentrum |
+| `02-werkplan` | Werkplan mit den sieben Studien (echte Vorschaubilder) und leerem Zentrum |
 | `03-t00-zelle-waechst` | Übergang t00: Zelle 01 wächst auf Viewport-Größe |
 | `04-welt01-einstieg` | Welt 01 Halmberg (Bäckerei): Einstieg |
 | `05-welt01-backplan` | Welt 01: Backplan und Brote |
@@ -31,13 +31,26 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | `24-welt05-querfahrt-mitte` | Welt 05: Querfahrt, Mitte mit Lichtreflex (Desktop); mobil wischbare Leiste |
 | `25-welt05-datenblatt` | Welt 05: Datenblatt und Ablauf in Kapiteln |
 | `26-welt05-vorher-nachher` | Welt 05: Vorher-Nachher-Regler |
-| `27-uebergang-welt05-arbeitsweise` | Standard-Übergang Racing Green → Leinen (bis Welt 06 gebaut ist) |
-| `28-zwischenspiel2-arbeitsweise` | Zwischenspiel II: Arbeitsweise |
-| `29-uebergang-arbeitsweise-ueber-mich` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
-| `30-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
-| `31-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
-| `32-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 06), Einladung |
-| `33-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
-| `34-kontakt` | Kontakt mit Formular und Live-Vorschau |
+| `27-t06-scheinwerfer-ring` | Übergang t06: Der Faden zeichnet den Ring des Scheinwerfers |
+| `28-t06-scheinwerfer-waechst` | Übergang t06: Das Glas glüht warm auf und wächst zur Farbkugel |
+| `29-welt06-einstieg` | Welt 06 Jana Ahrens (Coaching): Kugel mit Ringen, Name, Satz |
+| `30-welt06-haltung` | Welt 06: Haltungssätze und der Weg in vier Kreisen |
+| `31-welt06-fragen` | Welt 06: „Drei Fragen“ (Demo), die Kugel färbt sich mit |
+| `32-welt06-termin` | Welt 06: Erstgespräch in zwei Klicks (Demo) |
+| `33-t07-kreise-ellipsen` | Übergang t07: Die konzentrischen Kreise vor dem Abrollen |
+| `34-t07-kreise-linie` | Übergang t07: Die Kreise sind zur Linie mit Stationen abgerollt, Flieder wird Leinen |
+| `35-zwischenspiel2-arbeitsweise` | Zwischenspiel II: Arbeitsweise |
+| `36-t08-strahl-gluehen` | Übergang t08: Der Prozessstrahl glüht auf, der Grund dunkelt |
+| `37-t08-strahl-laser` | Übergang t08: Der Strahl ist zur gelben Laserlinie geworden |
+| `38-welt07-einstieg` | Welt 07 TORQUEL (Industrie): Titel, Raster, Kennzahlen |
+| `39-welt07-scan` | Welt 07: Laserlinie scannt, das Messprotokoll entsteht dahinter |
+| `40-welt07-dreher` | Welt 07: Bauteil drehen (Bildplatzhalter, 12 Ansichten, mobil 6) |
+| `41-welt07-anfrage` | Welt 07: Zeichnung anfragen (Demo) |
+| `42-uebergang-welt07-ueber-mich` | Standard-Übergang Stahlschiefer → Leinen (bis Welt 08 und 09 gebaut sind) |
+| `43-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
+| `44-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
+| `45-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 08), Einladung |
+| `46-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
+| `47-kontakt` | Kontakt mit Formular und Live-Vorschau |
 
 Hinweis: Die Standard-Übergänge zwischen gleich hellen Abschnitten zeigen nur den orangen Faden auf Leinen, weil Anfang und Ende dieselbe Farbe haben.

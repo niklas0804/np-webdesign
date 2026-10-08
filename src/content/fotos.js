@@ -88,4 +88,22 @@ export const FOTOS = {
     alt: 'Derselbe Oldtimer nach der Restaurierung mit glänzendem grünem Lack',
     rechte: 'eigene Aufnahme; Fahrzeughalter und Abbildungsrechte klären',
   },
+  'w07-makro': {
+    welt: '07', ratio: '21-9', status: 'fehlt',
+    titel: 'Makro: Metall und Laserlicht',
+    motiv: 'Makroaufnahme einer frisch gefrästen Metalloberfläche mit feinen Fräsriefen, schräg von einer dünnen Laserlinie in Gelb oder Weiß gestreift. Kühl entwickelt, dunkler Hintergrund, keine Maschinenmarken, keine Personen.',
+    format: 'sehr breit 21:9, mindestens 2400 × 1030 px',
+    einsatz: 'Welt 07, Kopfbild und Hintergrund der Laserlinien-Szene',
+    alt: 'Makroaufnahme einer gefrästen Metalloberfläche mit einer Laserlinie',
+    rechte: 'eigene Aufnahme; keine Kundenbauteile mit erkennbarem Logo oder Kennzeichnung',
+  },
+  'w07-bauteil': {
+    welt: '07', ratio: '4-3', status: 'fehlt',
+    titel: 'Bauteil-Drehung: 12 Ansichten',
+    motiv: 'Ein einziges, selbst gefertigtes Demo-Bauteil (z. B. ein Frästeil mit Bohrungen und Taschen) auf neutralem dunkelgrauem Drehteller, in 12 Aufnahmen im Abstand von 30 Grad (0° bis 330°), gleiche Kamerahöhe, gleiche Belichtung, Kantenlicht von links. Kühl, sichtbare Bearbeitungsspuren, keine Kundenzeichnung, kein Logo.',
+    format: '12 Dateien quer 4:3, je mindestens 1600 × 1200 px, durchnummeriert (bauteil-00 bis bauteil-11)',
+    einsatz: 'Welt 07, Bauteil drehen per Ziehen oder Scrollen (mobil mit 6 der 12 Ansichten)',
+    alt: 'Gefrästes Bauteil auf einem Drehteller aus wechselnden Blickwinkeln',
+    rechte: 'eigene Aufnahme eines selbst gefertigten Teils; nichts von Kunden abbilden',
+  },
 };

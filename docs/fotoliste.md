@@ -1,7 +1,7 @@
 # Fotoliste: was Niklas besorgen muss
 
 Erzeugt mit `node scripts/list-photos.mjs` aus `src/content/fotos.js`. Auf der Seite stehen für jedes Foto ein klar markierter Bildplatzhalter mit Motivbeschreibung.
-Offen: **9** Fotos.
+Offen: **11** Fotos.
 
 Allgemein: keine erkennbaren Personen (erfundene Betriebe, keine Gesichter für fiktive Menschen), keine lesbaren Firmennamen oder Schilder, Nutzungs- und Abbildungsrechte vorab klären, Dateiformat JPG oder PNG in voller Größe, ich erzeuge daraus AVIF/WebP in den Breiten aus Blueprint O.
 
@@ -80,4 +80,22 @@ Allgemein: keine erkennbaren Personen (erfundene Betriebe, keine Gesichter für 
 - **Einsatz:** Welt 05, Vorher-Nachher-Schieber, rechte Seite
 - **Alternativtext:** Derselbe Oldtimer nach der Restaurierung mit glänzendem grünem Lack
 - **Rechte:** eigene Aufnahme; Fahrzeughalter und Abbildungsrechte klären
+
+## Welt 07 · TORQUEL (Industrie)
+
+### Makro: Metall und Laserlicht (`w07-makro`)
+
+- **Motiv:** Makroaufnahme einer frisch gefrästen Metalloberfläche mit feinen Fräsriefen, schräg von einer dünnen Laserlinie in Gelb oder Weiß gestreift. Kühl entwickelt, dunkler Hintergrund, keine Maschinenmarken, keine Personen.
+- **Format:** sehr breit 21:9, mindestens 2400 × 1030 px
+- **Einsatz:** Welt 07, Kopfbild und Hintergrund der Laserlinien-Szene
+- **Alternativtext:** Makroaufnahme einer gefrästen Metalloberfläche mit einer Laserlinie
+- **Rechte:** eigene Aufnahme; keine Kundenbauteile mit erkennbarem Logo oder Kennzeichnung
+
+### Bauteil-Drehung: 12 Ansichten (`w07-bauteil`)
+
+- **Motiv:** Ein einziges, selbst gefertigtes Demo-Bauteil (z. B. ein Frästeil mit Bohrungen und Taschen) auf neutralem dunkelgrauem Drehteller, in 12 Aufnahmen im Abstand von 30 Grad (0° bis 330°), gleiche Kamerahöhe, gleiche Belichtung, Kantenlicht von links. Kühl, sichtbare Bearbeitungsspuren, keine Kundenzeichnung, kein Logo.
+- **Format:** 12 Dateien quer 4:3, je mindestens 1600 × 1200 px, durchnummeriert (bauteil-00 bis bauteil-11)
+- **Einsatz:** Welt 07, Bauteil drehen per Ziehen oder Scrollen (mobil mit 6 der 12 Ansichten)
+- **Alternativtext:** Gefrästes Bauteil auf einem Drehteller aus wechselnden Blickwinkeln
+- **Rechte:** eigene Aufnahme eines selbst gefertigten Teils; nichts von Kunden abbilden
 

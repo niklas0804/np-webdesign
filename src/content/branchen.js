@@ -301,6 +301,61 @@ export const BRANCHEN = {
     cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Ihr Handwerk in Bewegung zeigt und passende Restaurierungsprojekte anzieht.', subject: 'Projektanfrage Werkstatt-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Werkstatt.\n\nMein Projekt:\n\nViele Grüße' },
   },
 
+  industrie: {
+    slug: 'industrie',
+    world: '07',
+    title: 'Website-Konzept Industrie und Präzisionsfertigung',
+    description: 'Beispielkonzept: Wie eine Website für Fertigung und Zulieferer mit Messprotokoll, schneller Technik und auffindbaren Zahlen Einkäufer überzeugt und Anfragen für Zeichnungen erleichtert.',
+    eyebrow: 'Beispielkonzept · Industrie und Präzisionsfertigung',
+    h1: 'Einkäufer prüfen genau. Die Seite <em>auch.</em>',
+    lead: 'Ein Website-Konzept für einen Fertigungsbetrieb: ein Messprotokoll statt Werbesprache, jede Zahl auffindbar, ein drehbares Bauteil und ein Anfrageweg für Zeichnungen.',
+    meta: [['Branche', 'Industrie, Zulieferer, Fertigung'], ['Leistung', 'Konzept, Performance, Technik, Entwicklung'], ['Schwerpunkt', 'Belegbare Zahlen & Geschwindigkeit'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: [
+      'Viele Fertigungsbetriebe und Zulieferer zeigen sich online mit einem Maschinenpark als Bilderreihe, ein paar Zertifikatslogos und dem Satz, man liefere „höchste Qualität“. Einkäufer und Konstrukteure suchen etwas anderes: Toleranzen, Materialien, Losgrößen, Lieferzeiten.',
+      'Wer Zeichnungen anfragt, vergleicht mehrere Anbieter in kurzer Zeit. <strong>Die Website muss belegen, was ein Betrieb kann, und das Wichtigste in Sekunden auffindbar machen.</strong>',
+      'Das Konzept setzt deshalb auf Daten statt Behauptungen: Kennzahlen, ein Messprotokoll mit Toleranzanzeige, ein drehbares Bauteil als Bildfolge und ein Anfrageformular, das die Angaben für ein Angebot gleich mitnimmt.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Belegbarkeit.</em>', items: [
+      ['Fähigkeiten mit Zahlen belegen', 'Beweisführung'], ['Mehr qualifizierte Anfragen mit Zeichnung', 'Conversion'], ['Technische Daten schnell auffindbar', 'Struktur'],
+      ['Sehr kurze Ladezeiten', 'Performance'], ['Saubere Grundlage für Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First'] ] },
+    design: { h2: 'Gestaltung, die <em>nach Messtechnik aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Stahlschiefer und Signalgelb', 'Ein kühler, dunkler Grund, helle Schrift und ein einziges Signalgelb für Messwerte und die Laserlinie. Das Raster bleibt als feine Struktur im Hintergrund sichtbar.'],
+      ['02 · Typografie', 'Klar, technisch, tabellentauglich', 'Eine neutrale Groteskschrift für Text und eine Mono-Schrift für Daten. Ziffern stehen tabellarisch, damit Werte in Spalten sauber untereinander stehen.'],
+      ['03 · Nutzerführung', 'Von der Zahl zur Anfrage', 'Kennzahlen, Messprotokoll und Bauteil führen zum Anfragewerkzeug. Wer eine Zeichnung hat, soll sie in wenigen Schritten senden können.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Tabellen bleiben lesbar, auf dem Smartphone entfallen nachrangige Spalten, und die Bildfolge des Bauteils zeigt sechs statt zwölf Ansichten.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Die Laserlinie erklärt, wie das Protokoll entsteht. Mit „Bewegung reduzieren“ steht alles sofort da, und jede Zahl bleibt auffindbar.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Hochgeladene Zeichnungen würden bei einer produktiven Umsetzung verschlüsselt übertragen und der Umgang damit in der Datenschutzerklärung dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Kleine Schriftdateien, Bildfolgen erst bei Bedarf und semantische Tabellen schaffen eine gute Basis für schnelle Ladezeiten und die Suche nach Fertigungsleistungen.'] ],
+    nutzen: [
+      ['Vertrauen durch Zahlen', 'Toleranzen, Losgrößen und Lieferzeiten stehen offen da, statt hinter Kontaktformularen.'],
+      ['Schnellere Angebote', 'Die Anfrage nimmt Material, Stückzahl und Zeichnung gleich mit; Rückfragen werden seltener.'],
+      ['Weniger unpassende Anfragen', 'Wer die Möglichkeiten sieht, fragt gezielter an.'],
+      ['Eigenständige Wirkung', 'Messraster, Laserlinie und Signalgelb unterscheiden den Auftritt von Standardseiten der Branche.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit bei der Suche nach Fertigungsleistungen.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als moderner, verlässlicher Zulieferer.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Maschinenpark statt Beleg.', li: ['Bilder von Maschinen statt Kennzahlen', 'Toleranzen und Materialien schwer zu finden', 'Anfrage nur per E-Mail ohne Struktur', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Zahlen zeigt.', li: ['Kennzahlen und Messprotokoll', 'Bauteil drehbar als Bildfolge', 'Anfrage mit Zeichnung und Stückzahl', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Fertigungs-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut.', items: [
+      'Fertigungsverfahren, Materialien, Toleranzen und Losgrößen stehen auf einer Seite, die ohne Anmeldung erreichbar ist.',
+      'Zertifikate und Normen werden nur genannt, wenn sie aktuell gültig und belegbar sind; Logos nur mit Berechtigung.',
+      'Kundennamen und Referenzen erscheinen nur mit schriftlicher Freigabe der Kunden; Zeichnungen und Bauteile Dritter werden nicht abgebildet.',
+      'Der Weg zur Anfrage nennt, welche Unterlagen gebraucht werden (Zeichnung, Material, Stückzahl, Termin).',
+      'Hochgeladene Zeichnungen werden verschlüsselt übertragen; die Seite sagt, wie mit vertraulichen Unterlagen umgegangen wird.',
+      'Die Seite lädt auch auf dem Smartphone in der Halle schnell und bleibt ohne Animation vollständig bedienbar.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Sind Kennzahlen auf der Website nicht riskant?', 'Nur, wenn sie nicht stimmen. Ich nehme ausschließlich Werte auf, die Sie belegen können, und markiere Beispielwerte in Studien deutlich als solche.'],
+      ['Wie werden Zeichnungen sicher übertragen?', 'Bei einer produktiven Umsetzung läuft der Upload verschlüsselt über Ihren eigenen Server, mit Hinweisen zur Vertraulichkeit. In der Studie ist die Anfrage eine Demo und sendet nichts.'],
+      ['Brauchen wir ein 3D-Modell des Bauteils?', 'Nein. Eine Bildfolge aus zwölf Fotos reicht und ist schneller als jede 3D-Ansicht. Ich erstelle ein Briefing mit Ausschnitt, Licht und Winkel; aufgenommen wird von Ihnen oder einem Fotografen.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Ihre Fähigkeiten belegt und Anfragen mit Zeichnung erleichtert.', subject: 'Projektanfrage Industrie-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meinen Fertigungsbetrieb.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
 };
 
 export const BRANCHEN_LIST = Object.values(BRANCHEN);

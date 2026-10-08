@@ -123,3 +123,11 @@ In `public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erz
 
 - Die Studie Chromwerk und das Beispielfahrzeug sind fiktiv; Fahrzeugdaten sind erfunden und nennen keinen Hersteller. Bitte prüfen, ob der Name Verwechslungsgefahr mit einem bestehenden Betrieb birgt (Markenrecherche macht Niklas selbst vor dem Livegang).
 - Die Checkliste der Branchenseite nennt Fahrzeughalter-Zustimmung, unkenntlich gemachte Kennzeichen und Markenrechte an Emblemen. Bitte auf Vollständigkeit prüfen. Die Foto-Platzhalter schließen erkennbare Hersteller-Logos aus.
+
+## Nachtrag Phase 2: Branchenseiten Beratung/Coaching (Welt 06) und Industrie (Welt 07)
+
+- Welt 06 zeigt nur erfundene Haltungssätze einer fiktiven Beraterin, keine Kundenstimmen und keine Bewertungen. Bitte prüfen, ob die Kennzeichnung („Studie · erfundene Aussagen“) ausreicht. Die Texte der Branchenseite stammen unverändert aus Niklas’ Vorlage.
+- Beratung und Coaching: Bitte prüfen, ob Aussagen zur Wirkung des Coachings (Selbsttest „Drei Fragen“) heilkundliche oder therapeutische Erwartungen wecken könnten. Der Selbsttest ist eine Demo, speichert nichts und trifft keine Aussage über Personen.
+- Welt 07 (Industrie): Kennzahlen, Toleranzen und das Messprotokoll sind erfundene Beispielwerte und als solche gekennzeichnet. Bitte prüfen, ob die Kennzeichnung („Demo · Beispielwerte, erfundenes Teil“) genügt und ob die Aussagen der Branchenseite zu Zertifikaten und Normen unbedenklich sind (es werden keine genannt).
+- Die Demo-Anfrage mit Dateiauswahl liest und überträgt keine Datei. Bei einer echten Umsetzung wäre der Upload von Zeichnungen (vertrauliche Unterlagen) in der Datenschutzerklärung zu beschreiben.
+- Namen der Studien TORQUEL und Jana Ahrens: Markenrecherche macht Niklas selbst vor dem Livegang.

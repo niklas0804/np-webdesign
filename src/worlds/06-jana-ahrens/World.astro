@@ -1,0 +1,92 @@
+---
+/**
+ * Welt 06 · Jana Ahrens · Coaching und Beratung (Blueprint F). Studie, fiktives Unternehmen.
+ * Ruhig, warm, offen. Farbkugel und konzentrische Kreise als Bild für einen Beratungsprozess. Zentriert um die Kugel, eine Spalte, viel Luft.
+ * Hauptanimation: die Kugel atmet mit dem Scrollen, die Kreise wachsen nach außen. „Drei Fragen“ färben die Kugel (Demo, ohne Speicherung).
+ * Leistung im Einsatz: Nutzerführung. Der Weg zur Anfrage ist zwei Klicks kurz. Kein Foto, keine Kundenstimmen.
+ * Ohne JavaScript: alles steht lesbar im Text, die Fragen als Liste, die Bedienknöpfe fehlen.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { KICKER, SATZ, UNTER, HALTUNG, KREISE, FRAGEN, ERGEBNISSE, TERMINE } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '06');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 06 / ${total} · Coaching · Studie`;
+---
+<section id={w.anchor} class="world w06" data-section={row.id} data-world="06" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`06 / ${total}`} aria-labelledby="w06-title">
+
+  <header class="w06-hero">
+    <div class="w06-orb-wrap" aria-hidden="true" data-orbwrap>
+      <span class="w06-ring w06-ring-3" data-ring></span>
+      <span class="w06-ring w06-ring-2" data-ring></span>
+      <span class="w06-ring w06-ring-1" data-ring></span>
+      <span class="w06-orb" data-orb data-mood="1"></span>
+    </div>
+    <p class="w06-kicker">{KICKER} · Studie, fiktives Unternehmen</p>
+    <h2 id="w06-title" class="w06-title">Jana Ahrens</h2>
+    <p class="w06-satz">{SATZ}</p>
+    <p class="w06-unter">{UNTER}</p>
+    <a class="w06-pill" href="#w06-termin">Erstgespräch anfragen</a>
+  </header>
+
+  <section class="w06-haltung" aria-labelledby="w06-haltung-h">
+    <h3 id="w06-haltung-h" class="w06-h">Eine Haltung, drei Sätze</h3>
+    <ul class="w06-karten">
+      {HALTUNG.map((h) => <li class="w06-karte"><p class="w06-karte-satz">{h.satz}</p><p class="w06-karte-tag">{h.tag}</p></li>)}
+    </ul>
+    <p class="w06-demo">Studie · erfundene Aussagen einer fiktiven Beraterin, keine Kundenstimmen</p>
+  </section>
+
+  <section class="w06-prozess" aria-labelledby="w06-prozess-h">
+    <h3 id="w06-prozess-h" class="w06-h">Der Weg in vier Kreisen</h3>
+    <ol class="w06-kreise">
+      {KREISE.map((k) => (
+        <li><span class="w06-nr" aria-hidden="true">{k.nr}</span><div><p class="w06-k-t">{k.name}</p><p class="w06-k-x">{k.text}</p></div></li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="w06-fragen" aria-labelledby="w06-fragen-h" data-fragen>
+    <h3 id="w06-fragen-h" class="w06-h">Drei Fragen</h3>
+    <span class="w06-orb w06-orb-mini" aria-hidden="true" data-orb data-mood="1"></span>
+    <p class="w06-lead">Antworten Sie aus dem Bauch. Die Kugel färbt sich mit.</p>
+    <ol class="w06-fragenliste">
+      {FRAGEN.map((f, i) => (
+        <li>
+          <fieldset class="w06-frage" data-frage={i}>
+            <legend>{f.frage}</legend>
+            <div class="w06-antworten">
+              {f.antworten.map(([a, v]) => (
+                <label class="w06-antwort"><input type="radio" name={`w06-f${i}`} value={v} data-antwort><span>{a}</span></label>
+              ))}
+            </div>
+          </fieldset>
+        </li>
+      ))}
+    </ol>
+    <div class="w06-ergebnis" data-ergebnis role="status" aria-live="polite" hidden>
+      <p class="w06-ergebnis-t" data-ergebnis-t></p>
+      <p class="w06-ergebnis-x" data-ergebnis-x></p>
+    </div>
+    <p class="w06-demo">Demo · es wird nichts gespeichert oder gesendet</p>
+  </section>
+
+  <section class="w06-termin" id="w06-termin" aria-labelledby="w06-termin-h" data-termin tabindex="-1">
+    <h3 id="w06-termin-h" class="w06-h">Erstgespräch anfragen</h3>
+    <p class="w06-lead">Zwei Klicks: eine Zeit wählen, dann vormerken.</p>
+    <div class="w06-slots" role="group" aria-label="Wunschzeit wählen, Demo">
+      {TERMINE.map((t) => <button class="w06-slot" type="button" aria-pressed="false" data-slot>{t}</button>)}
+    </div>
+    <button class="w06-pill w06-pill-fest" type="button" data-vormerken disabled>Anfrage vormerken</button>
+    <p class="w06-confirm" data-confirm role="status" aria-live="polite" hidden></p>
+    <noscript><p class="w06-lead">Mit JavaScript wählen Sie hier eine Demo-Zeit.</p></noscript>
+    <p class="w06-demo">Demo · Beispielzeiten, es wird nichts gesendet</p>
+  </section>
+
+  <div class="w06-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Coaching und Beratung" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>

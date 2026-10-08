@@ -40,6 +40,29 @@ const { row } = Astro.props;
         </div>
       </>
     )}
+    {row.variant === 'scheinwerfer' && (
+      <div class="t-lampwrap" data-world="06" data-t-lampwrap>
+        <svg class="t-lamp-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle data-t-ring cx="50" cy="50" r="48" pathLength="1" /></svg>
+        <div class="t-lamp" data-t-lamp></div>
+      </div>
+    )}
+    {row.variant === 'kreise' && (
+      <svg class="t-kr" viewBox="0 0 1000 400" aria-hidden="true" focusable="false" data-t-kr>
+        <ellipse data-t-e cx="500" cy="200" rx="60" ry="60" />
+        <ellipse data-t-e cx="500" cy="200" rx="110" ry="110" />
+        <ellipse data-t-e cx="500" cy="200" rx="160" ry="160" />
+        {[0, 1, 2, 3, 4, 5].map((i) => <circle data-t-st cx={40 + i * 184} cy="200" r="9" />)}
+      </svg>
+    )}
+    {row.variant === 'strahl' && (
+      <>
+        <div class="t-glow" data-t-glow></div>
+        <svg class="t-st" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <line data-t-beam x1="40" y1="20" x2="960" y2="20" />
+          {[0, 1, 2, 3, 4, 5].map((i) => <circle data-t-dot cx={40 + i * 184} cy="20" r="6" />)}
+        </svg>
+      </>
+    )}
     {row.variant === 'zierlinie' && (
       <svg class="t-zl" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <path data-t-zl d="M40 250 C300 250 380 250 560 250 S860 250 1000 250" pathLength="1" />

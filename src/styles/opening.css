@@ -179,6 +179,21 @@
   .werkplan[data-count='5'] .wp-statement { grid-column: 1 / -1; padding-top: var(--s3); }
 }
 
+/* Sechs Studien: drei Spalten, das Zentrum in der dritten Reihe neben der Aussage; die Aussage ist schmal, das Raster etwas enger.
+   Sieben Studien: vier Spalten, das Zentrum rückt in die Lücke der zweiten Reihe, die Aussage steht darunter. */
+@media (min-width: 1024px) {
+  .werkplan[data-count='6'] .wp-grid { max-width: 980px; }
+  .werkplan[data-count='7'] .wp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
+  .werkplan[data-count='7'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; }
+  .werkplan[data-count='7'] .wp-statement { grid-column: 1 / -1; padding-top: var(--s3); }
+}
+@media (max-width: 1023px) {
+  .werkplan[data-count='6'] .wp-center { grid-column: 1 / -1; aspect-ratio: 16 / 4; }
+  /* Ab sechs Studien passen auf dem Handy keine Beschriftungen mehr unter die Zellen (die Bilder tragen die Namen, der Text steht für Hilfstechnik im Link) */
+  .werkplan:is([data-count='6'], [data-count='7'], [data-count='8'], [data-count='9'], [data-count='10']) .wp-caption { display: none; }
+  .werkplan:is([data-count='6'], [data-count='7'], [data-count='8'], [data-count='9'], [data-count='10']) .wp-grid { gap: var(--s3); }
+}
+
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
   height: calc((100 + var(--expansion) + var(--plan) + var(--grow)) * 1svh);

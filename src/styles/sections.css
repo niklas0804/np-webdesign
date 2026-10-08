@@ -244,3 +244,22 @@ html[data-mode='desktop'] .t-final-wrap, html[data-mode='mobile'] .t-final-wrap 
 .transition[data-variant='zierlinie'] .t-thread { display: none !important; }
 html[data-mode='desktop'] .t-zl, html[data-mode='mobile'] .t-zl { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
 .t-zl path { fill: none; stroke: var(--from-accent, var(--np-orange)); stroke-width: 4; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: .62; }
+
+/* t06 · Welt 05 → Welt 06: Der Scheinwerfer glüht warm auf, wächst über den Viewport und wird zur Farbkugel (Radialverlauf, ohne Unschärfe). */
+.t-lampwrap, .t-kr, .t-st, .t-glow { display: none; }
+.transition[data-variant='scheinwerfer'] .t-wipe, .transition[data-variant='kreise'] .t-thread, .transition[data-variant='strahl'] .t-thread { display: none !important; }
+html[data-mode='desktop'] .t-lampwrap, html[data-mode='mobile'] .t-lampwrap { display: block; position: absolute; left: 50%; top: 50%; width: min(44vmin, 360px); aspect-ratio: 1; z-index: 2; pointer-events: none; }
+.t-lamp-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.t-lamp-ring circle { fill: none; stroke: var(--from-accent, #EFE6D2); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.t-lamp { position: absolute; inset: 0; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle at 36% 32%, #FFF4E6 0%, var(--accent2) 34%, color-mix(in srgb, var(--accent2) 40%, var(--accent3)) 66%, var(--accent3) 100%); }
+/* t07 · Welt 06 → Zwischenspiel II: Die Kreise rollen sich zu einer Linie mit sechs Stationen ab. */
+html[data-mode='desktop'] .t-kr, html[data-mode='mobile'] .t-kr { display: block; position: absolute; left: 0; top: 50%; width: 100%; height: auto; aspect-ratio: 1000 / 400; transform: translateY(-50%); z-index: 2; pointer-events: none; overflow: visible; }
+.t-kr ellipse { fill: none; stroke: var(--from-accent, #8A5470); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.t-kr circle { fill: var(--np-orange); opacity: 0; }
+/* t08 · Zwischenspiel II → Welt 07: Der Prozessstrahl glüht auf und wird zur Laserlinie, der Grund wechselt zu Stahlschiefer. */
+html[data-mode='desktop'] .t-st, html[data-mode='mobile'] .t-st { display: block; position: absolute; left: 0; top: 50%; width: 100%; height: 40px; margin-top: -20px; z-index: 2; pointer-events: none; overflow: visible; }
+.t-st line { stroke: var(--np-orange); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.t-st circle { fill: var(--np-orange); }
+html[data-mode='desktop'] .t-glow { display: block; position: absolute; left: 0; right: 0; top: 50%; height: 220px; margin-top: -110px; z-index: 1; pointer-events: none; opacity: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, color-mix(in srgb, var(--to-accent, #F2C230) 34%, transparent), transparent 70%); }

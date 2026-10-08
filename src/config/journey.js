@@ -68,10 +68,12 @@ export const WORLDS = [
     built: true, source: 'neu', leistung: 'Animation und Interaktion' },
   { nr: '06', slug: 'beratung-coaching', name: 'Jana Ahrens', branche: 'Coaching', anchor: 'coaching', branchPage: '/branchenloesungen/beratung-coaching',
     palette: pal('#DCD1EA', '#35292A', '#8A5470', '#F1C9B5', { accentUse: 'large', accent2Use: 'fill', accent3: '#C9B6D9' }), // Flieder · Dunkelbraun · Malve (nur große Schrift/Grafik) · Kugelverlauf Pfirsich → Flieder (nur Fläche)
-    built: false, source: 'demo', leistung: 'Nutzerführung' },
+    notiz: 'Beratung beginnt mit Vertrauen. Darum ist hier nichts laut — und der Weg zur Anfrage ist zwei Klicks kurz.',
+    built: true, source: 'demo', leistung: 'Nutzerführung' },
   { nr: '07', slug: 'industrie', name: 'TORQUEL', branche: 'Industrie', anchor: 'industrie', branchPage: '/branchenloesungen/industrie',
     palette: pal('#2B3642', '#E6EAEE', '#F2C230', '#5A6A78', { accent2Use: 'dekor' }), // Stahlschiefer · Hellgrau · Signalgelb · Rastergrau (nur Dekor)
-    built: false, source: 'neu', leistung: 'Performance und Technik' },
+    notiz: 'Einkäufer prüfen genau. Darum ist hier jede Zahl auffindbar und die Seite schnell.',
+    built: true, source: 'neu', leistung: 'Performance und Technik' },
   { nr: '08', slug: 'physiotherapie', name: 'Praxis am Weiher', branche: 'Physiotherapie', anchor: 'physiotherapie', branchPage: '/branchenloesungen/physiotherapie',
     palette: pal('#CDE8DA', '#1E2D2A', '#2F6B57', '#CFE6DC', { accent2Use: 'fill' }), // Mint · Tannengrün · Salbei · Hellmint (nur Fläche)
     built: false, source: 'neu', leistung: 'Barrierefreiheit und Terminbuchung' },
@@ -114,6 +116,9 @@ export const TEXT = {
 export const TRANSITION_VARIANTS = {
   'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
+  'welt-05>welt-06': 'scheinwerfer', // Der runde Scheinwerfer glüht warm auf, wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus
+  'welt-06>arbeitsweise': 'kreise', // Die konzentrischen Kreise rollen sich zu einer Linie mit sechs Stationen ab
+  'arbeitsweise>welt-07': 'strahl', // Der Prozessstrahl glüht auf und wird zur Laserlinie, der Grund wechselt zu Stahlschiefer
   'welt-04>welt-05': 'zierlinie', // Die rote Linie unter der Schlagzeile wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird British Racing Green
   'warum>welt-04': 'nblende', // N-Blende: diagonal von Nacht zu Reinweiß, „Kein Zufall.“ fließt in „Nichts dem Zufall überlassen.“
   'welt-03>warum': 'pruefstempel', // Prüfstempel wird NP-Siegel, der Ring öffnet sich als P-Iris (Kreisblende) in die Nacht
@@ -139,7 +144,9 @@ export const journey = (() => {
     { id: 'welt-04', kind: 'world', world: '04', d: 200, m: 160 },
     // scene: Länge der gepinnten Querfahrt (Desktop); mobil ist die Bildstrecke eine wischbare Leiste ohne Pin
     { id: 'welt-05', kind: 'world', world: '05', d: 240, m: 180, scene: { d: 260, m: 0 } },
+    { id: 'welt-06', kind: 'world', world: '06', d: 230, m: 190 },
     { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', title: 'Arbeitsweise', d: 160, m: 160, ground: MASTER.leinen, tone: 'light', pin: true },
+    { id: 'welt-07', kind: 'world', world: '07', d: 260, m: 200 },
     { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
     // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)
     { id: 'finale', kind: 'finale', anchor: 'finale', d: 200, m: 140, ground: MASTER.leinen, tone: 'light' },
