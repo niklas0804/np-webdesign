@@ -1,6 +1,6 @@
 # Änderungen an BLUEPRINT.md: neue Weltpaletten (7. Oktober 2026)
 
-Datei: `relaunch/docs/BLUEPRINT.md` (Kopie der hochgeladenen Blueprint mit den Änderungen; die Zeilennummern beziehen sich auf diese neue Datei, Stand nach allen Änderungen ungefähr).
+Datei: `docs/BLUEPRINT.md` (Kopie der hochgeladenen Blueprint mit den Änderungen; die Zeilennummern beziehen sich auf diese neue Datei, Stand nach allen Änderungen ungefähr).
 
 Grund: Die hellen Welten (01, 03, 04, 06, 08) hatten fast denselben cremeweißen Grund wie das NP-Leinen, die dunklen (02, 05, 07) fast dasselbe Schwarz. Jede Beispielseite soll komplett anders aussehen, auch farblich.
 

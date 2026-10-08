@@ -14,7 +14,7 @@
  *   8. kein HTML-Verweis auf fremde Hosts außer normalen Links (<a href>)
  *
  * Aufruf:  NODE_PATH=$(npm root -g) node tools/check-site.cjs [Ordner]
- *          (ohne Ordner: Repo-Wurzel; für den Relaunch: relaunch/dist)
+ *          (ohne Ordner: Repo-Wurzel; für die gebaute Seite: dist)
  * Voraussetzung: Playwright mit Chromium (nur lokal nötig, nicht Teil der Website).
  */
 const http = require('http');

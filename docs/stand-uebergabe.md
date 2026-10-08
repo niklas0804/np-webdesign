@@ -6,16 +6,17 @@ Stand: 8. Oktober 2026 · Branch `claude/phase-1`, am 8. Oktober 2026 per Fast-F
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.
 
 ## 2. Repository und Branches
-- `main`: enthält die alte Seite im Wurzelordner (`index.html`, `impressum.html`, `datenschutz.html`, `css/`, `js/`, mit Phase-0-Korrekturen) und seit dem 8. Oktober 2026 auch den Relaunch im Ordner `relaunch/`. Niklas hat die Übernahme ausdrücklich gewünscht, die Seite ist derzeit nicht live.
-- `claude/phase-1`: Arbeitsbranch des Relaunchs, inhaltlich identisch mit `main`. Kein Pull Request nötig. Der Relaunch geht nicht automatisch live: zum Ansehen `relaunch/dist` bzw. `relaunch/deploy/np-webdesign-test.zip` bei Hostinger hochladen.
-- Die Altseite im Wurzelordner ist unverändert bis auf die E-Mail-Adresse (`kontakt@np-webdesign.de`). Sie zeigt noch die alten Preise 899 €/1.799 €.
-- `CNAME` wurde von Niklas auf dem Branch gelöscht (Umzug auf Hostinger, kein GitHub Pages mehr).
+- Der Wurzelordner des Repositorys ist der Astro-Projektordner (`src/`, `public/`, `scripts/`, `docs/`, `package.json`). Die alte Seite (`index.html`, `css/`, `js/` usw.) wurde am 8. Oktober 2026 entfernt; es gibt nur noch den Relaunch.
+- `main`: aktueller Stand des Quellcodes.
+- `deploy`: die fertig gebaute Seite, so wie sie auf den Webspace gehört (Inhalt direkt ins Hauptverzeichnis laden). Sie wird von der GitHub Action `.github/workflows/deploy.yml` bei jedem Push auf `main` neu erzeugt.
+- `claude/phase-1`: früherer Arbeitsbranch, inhaltlich wie `main`.
+- `CNAME` wurde von Niklas gelöscht (Umzug auf Hostinger, kein GitHub Pages mehr).
 
 ## 3. Bauen und prüfen
-- `cd relaunch && npm install && npm run build` (Ausgabe `relaunch/dist`). Astro 7, GSAP 3.15 + ScrollTrigger, Lenis (nur Desktop), kein UI-Framework.
-- Abnahme: `NODE_PATH=$(npm root -g) node tools/check-site.cjs relaunch/dist` (Playwright: keine Fremdanfragen, keine Cookies/Browser-Speicher, keine Konsolenfehler/CSP-Verstöße, kein seitliches Scrollen ab 320 px, keine Endlos-Animationen, Inhalt ohne JavaScript). Letzter Lauf: 9 Seiten × 3 Viewports + ohne JavaScript, **0 Befunde**.
+- `npm install && npm run build` (Ausgabe `dist`). Astro 7, GSAP 3.15 + ScrollTrigger, Lenis (nur Desktop), kein UI-Framework.
+- Abnahme: `NODE_PATH=$(npm root -g) node tools/check-site.cjs dist` (Playwright: keine Fremdanfragen, keine Cookies/Browser-Speicher, keine Konsolenfehler/CSP-Verstöße, kein seitliches Scrollen ab 320 px, keine Endlos-Animationen, Inhalt ohne JavaScript). Letzter Lauf: 9 Seiten × 3 Viewports + ohne JavaScript, **0 Befunde**.
 - axe-core (WCAG 2.2 AA, Desktop gepinnt, Mobil, Ruhig, Unterseiten): **0 Verstöße**.
-- Formular lokal testen: `php -S 127.0.0.1:8098 -t relaunch/dist` mit `sendmail_path` auf ein Skript, das die Mail in eine Datei schreibt.
+- Formular lokal testen: `php -S 127.0.0.1:8098 -t dist` mit `sendmail_path` auf ein Skript, das die Mail in eine Datei schreibt.
 
 ## 4. Was gebaut ist (Phase 1, ohne Matomo-Banner)
 - **Reise:** Opening (Hero, Rückzoom, Werkplan) → Welt 01 → t01 → Welt 02 → t02 → Welt 03 → t03 → Zwischenspiele I–III (Warum individuell, Arbeitsweise, Über mich) mit Standard-Übergängen → Finale → Kontakt → FAQ → Footer. Reihenfolge, Längen und Paletten stehen nur in `src/config/journey.js`.
@@ -25,7 +26,7 @@ Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine d
 - **Kontakt:** Formular (Name, Unternehmen, E-Mail, Telefon, Anliegen-Chips, Nachricht) mit neutraler Live-Vorschau des Firmennamens, Siegel „Anfrage erhalten“, Fakten. Läuft auch ohne JavaScript.
 - **Seiten:** `/leistungen` (Pakete: Starter 999 €, Professional 1.899 €, Premium ab 2.999 €, Endpreise nach § 19 UStG), `/impressum`, `/datenschutz`, 404, vier Branchenseiten unter `/branchenloesungen/` (Bäckerei neu geschrieben mit Checkliste und 3 FAQ; Friseur & Barber, Handwerker, Beratung & Coaching wörtlich aus Niklas’ Vorlagen).
 - **Betriebsarten:** `desktop` (≥ 1024 px, Maus, normale Bewegung), `mobile`, `calm` (Bewegung reduzieren oder Schalter „Ruhige Ansicht“, speichert erst nach Klick `np-calm` im localStorage), ohne JavaScript = ruhige Seite.
-- **Datenschutz technisch:** keine Fremdanfragen, keine Cookies, strikte CSP als Meta-Tag (kein Inline-Code), alle Schriften/Skripte/Bilder selbst gehostet (Weltschriften auf benutzte Zeichen reduziert, ≤ 30 KB je Welt, Skripte in `relaunch/scripts/`), Logo, Hostinger-Partner-Badge (ohne Link) und Porträt (ohne Metadaten) lokal.
+- **Datenschutz technisch:** keine Fremdanfragen, keine Cookies, strikte CSP als Meta-Tag (kein Inline-Code), alle Schriften/Skripte/Bilder selbst gehostet (Weltschriften auf benutzte Zeichen reduziert, ≤ 30 KB je Welt, Skripte in `scripts/`), Logo, Hostinger-Partner-Badge (ohne Link) und Porträt (ohne Metadaten) lokal.
 - **Server-Teil:** `public/api/kontakt.php` (Honeypot, Prüfung, Mengenbegrenzung ohne IP, kein Inhalt in Logs, Versand per `mail()` oder optional per SMTP über das IONOS-Postfach), `public/.htaccess` (HTTPS, HSTS, Header, saubere Adressen). Zugangsdaten nur in `api/config.php` auf dem Server (Vorlage `config.sample.php`, in `.gitignore`).
 
 ## 4a. Neue Weltpaletten (7. Oktober 2026)
@@ -35,7 +36,7 @@ Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengo
 - Repository ist der maßgebliche Stand; Altseite nur Beispiel. E-Mail überall `kontakt@np-webdesign.de`. Keine Telefonnummer im Rahmen, Kontakt über Formular (im Impressum steht sie weiter). Antwortzeit „innerhalb von 2 Werktagen“.
 - Hoster Hostinger (Vertragspartner laut Rechnung: HOSTINGER operations, UAB, Vilnius), Rechenzentrum Deutschland bestätigt. Postfach bei IONOS. Hostinger-Partner-Badge bleibt (er ist offizieller Partner). Demos erst einmal weggelassen.
 - Studiennamen vorerst wie jetzt (Halmberg, Messingstuhl, Wittgenfeld Bau, geplant TORQUEL u. a.); die bisherigen Namen gab es als reale Betriebe. Markenrecherche macht Niklas selbst vor dem Livegang. Werdegang-Text ist von Niklas freigegeben.
-- Preise Starter und Professional um 100 € erhöht (Relaunch); Altseite noch alt.
+- Preise Starter und Professional um 100 € erhöht.
 
 ## 6. Offen
 **Von Niklas:**
@@ -43,8 +44,8 @@ Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengo
 2. IONOS-Angaben im Datenschutz (IONOS SE, Montabaur) gegen den Vertrag prüfen; Auftragsverarbeitungsvertrag bestätigen.
 3. `api/config.php` mit IONOS-SMTP-Zugangsdaten auf dem Server anlegen; danach Testanfrage senden.
 4. Markenrecherche der Studiennamen (DPMAregister, EUIPO).
-5. Rechtsprüfung: Liste in `relaunch/docs/rechtspruefung.md` (Hostinger-Unterauftragnehmer inkl. AWS/Google Cloud, Standardvertragsklauseln, Formular, Einwilligungsbanner/Matomo, Badge, Aussagen, Lizenzen, BFSG).
-6. Livegang: `relaunch/dist` bei Hostinger hochladen (Altseite wird ersetzt); Preise der Altseite angleichen?
+5. Rechtsprüfung: Liste in `docs/rechtspruefung.md` (Hostinger-Unterauftragnehmer inkl. AWS/Google Cloud, Standardvertragsklauseln, Formular, Einwilligungsbanner/Matomo, Badge, Aussagen, Lizenzen, BFSG).
+6. Livegang: `dist` bei Hostinger hochladen 
 7. Bildmaterial und Demo-Code der Studien, falls später gewünscht.
 
 **Entwicklung:**
@@ -63,10 +64,10 @@ Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengo
 - Die Blueprint-Zahl „zehn Welten“ ist im Text dynamisch (aktuell „Drei Welten. Die vierte gehört Ihnen.“); die letzte Welt heißt im Kontakt „Welt 04“ und wird mit jeder neuen Welt automatisch weitergezählt.
 
 ## 8. Wichtige Dateien
-- `relaunch/README.md`: Struktur, Modi, Welten, Schriftskripte, Formular.
-- `relaunch/docs/rechtspruefung.md`: Prüfliste für den Rechtsprüfer.
-- `relaunch/src/config/journey.js` (Reise, Paletten, Längen, Übergangsvarianten), `site.js` (Kontaktdaten, Preise, Schritte, FAQ).
-- `relaunch/src/motion/*.js` (Szenen), `relaunch/src/worlds/NN-name/` (Welt-Module: `World.astro`, `world.css`, `motion.js`, `data.js`).
+- `README.md`: Struktur, Modi, Welten, Schriftskripte, Formular.
+- `docs/rechtspruefung.md`: Prüfliste für den Rechtsprüfer.
+- `src/config/journey.js` (Reise, Paletten, Längen, Übergangsvarianten), `site.js` (Kontaktdaten, Preise, Schritte, FAQ).
+- `src/motion/*.js` (Szenen), `src/worlds/NN-name/` (Welt-Module: `World.astro`, `world.css`, `motion.js`, `data.js`).
 - `tools/check-site.cjs` (Datenschutz- und Qualitätsabnahme).
 
 ## 9. Regeln für die Weiterarbeit

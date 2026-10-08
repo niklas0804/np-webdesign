@@ -1,0 +1,29 @@
+# Baut die Seite bei jedem Push auf main und schreibt das fertige Ergebnis in den Branch "deploy".
+# Der Inhalt dieses Branches gehört direkt ins Hauptverzeichnis des Webspaces (z. B. per Hostinger-Git oder als ZIP).
+name: Seite bauen und Deploy-Branch aktualisieren
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Ergebnis in den Branch deploy schreiben
+        run: |
+          cd dist
+          git init -q -b deploy
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Build von ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" deploy

@@ -1,7 +1,7 @@
 # Prüfliste für die rechtliche Prüfung (np-webdesign.de, Relaunch)
 
 Stand: 7. Oktober 2026 · Verantwortlicher: Niklas Prüfling, Einzelunternehmen, Friedrich-Ebert-Straße 60, 92421 Schwandorf
-Quelle der Texte: `relaunch/src/content/impressum.html`, `relaunch/src/content/datenschutz.html`, `relaunch/src/components/*`, `relaunch/public/api/kontakt.php`.
+Quelle der Texte: `src/content/impressum.html`, `src/content/datenschutz.html`, `src/components/*`, `public/api/kontakt.php`.
 Diese Liste ist keine Rechtsberatung. Sie sagt, was die Seite tut, und fragt, was geprüft werden soll.
 
 ## 1. Was die Seite technisch tut (Grundlage der Prüfung)
@@ -95,7 +95,7 @@ Noch nicht gebaut. Bitte das Konzept bewerten, bevor es gebaut wird (Blueprint A
 
 ## 9. Technische Schutzmaßnahmen (Art. 32 DSGVO)
 
-In `relaunch/public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erzwungen, HSTS (6 Monate), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, `frame-ancestors 'none'`.
+In `public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erzwungen, HSTS (6 Monate), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, `frame-ancestors 'none'`.
 - [ ] Reichen diese Maßnahmen? Fehlt etwas Erwartbares?
 - [ ] Zugangsdaten (SMTP-Passwort) liegen nur in `api/config.php` auf dem Server, nicht im Repository.
 
@@ -104,7 +104,6 @@ In `relaunch/public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): 
 - [ ] Speicherdauer Logfiles (Hostinger-Support fragen).
 - [ ] Markenrecherche der Studiennamen (Niklas).
 - [ ] Ergebnis dieser Prüfung einarbeiten und Datenschutzerklärung neu datieren.
-- [ ] Altseite (Repo-Wurzel): E-Mail ist umgestellt; Preise dort noch alt (899 €/1.799 €). Altseite wird mit dem Livegang ersetzt.
 
 ## Fragen an den Prüfer (kurz)
 

@@ -6,7 +6,6 @@ Die laufende Seite im Repo-Wurzelverzeichnis bleibt bis zum Umzug unberührt.
 ## Befehle
 
 ```bash
-cd relaunch
 npm install
 npm run dev        # Entwicklung
 npm run build      # erzeugt dist/ (nur Dateien, nichts Inline)
