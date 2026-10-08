@@ -191,6 +191,61 @@ export const BRANCHEN = {
     ],
     cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen professionellen Webauftritt, der Ihre Positionierung schärft und mehr Erstgespräche bringt.', subject: 'Projektanfrage Beratung-Coaching-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Praxis.\n\nMein Projekt:\n\nViele Grüße' },
   },
+  kanzlei: {
+    slug: 'kanzlei',
+    world: '04',
+    title: 'Website-Konzept Kanzlei und Steuerberatung',
+    description: 'Beispielkonzept: Wie eine Website für Kanzlei und Steuerberatung mit Typografie, klarer Struktur und verständlichen Texten Urteilsvermögen zeigt und Mandate anbahnt.',
+    eyebrow: 'Beispielkonzept · Kanzlei und Steuerberatung',
+    h1: 'Eine Kanzlei verkauft <em>Urteilsvermögen.</em>',
+    lead: 'Ein Website-Konzept für Kanzlei und Steuerberatung: Typografie wie in einer guten Wirtschaftszeitung, ein Themenregister statt Leistungsfloskeln und Texte, die man ohne Wörterbuch versteht.',
+    meta: [['Branche', 'Kanzlei und Steuerberatung'], ['Leistung', 'Konzept, Texte, Inhaltsstruktur, Entwicklung'], ['Schwerpunkt', 'Typografie & Verständlichkeit'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: [
+      'Viele Kanzleien und Steuerberatungen zeigen sich online mit einer Liste von Rechtsgebieten, einem Foto vom Besprechungstisch und dem Satz, man sei „kompetent und engagiert“. Das stimmt vermutlich, unterscheidet aber niemanden von den Kollegen nebenan.',
+      'Dabei verkaufen diese Betriebe kein Produkt, sondern Urteilsvermögen — und das lässt sich nicht behaupten, sondern nur zeigen. <strong>Die Website muss Sorgfalt erkennen lassen, bevor das erste Gespräch stattfindet.</strong>',
+      'Das Konzept setzt deshalb auf Typografie und Text: ein ruhiger Satzspiegel, ein einziger Farbakzent, Fußnoten für Details und ein Themenregister, das Besucher direkt zu ihrer Frage führt. Das Layout nimmt die Haltung der Beratung vorweg.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Verständlichkeit.</em>', items: [
+      ['Sorgfalt und Seriosität sichtbar machen', 'Vertrauen'], ['Mehr passende Mandatsanfragen', 'Conversion'], ['Themen und Zuständigkeiten sofort auffindbar', 'Struktur'],
+      ['Komplexes verständlich erklären', 'Inhalt'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First'] ] },
+    design: { h2: 'Gestaltung, die <em>nach Sorgfalt aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Schwarz auf Weiß, ein Rot', 'Reinweißer Grund, druckschwarze Schrift und genau ein Rot für die Linie unter der Schlagzeile. Wo alles ruhig ist, fällt das Wichtige auf.'],
+      ['02 · Typografie', 'Zeitungssatz mit Haltung', 'Eine Serifenschrift für Schlagzeile und Fließtext, Kapitälchen für Rubriken, ein dreispaltiger Leitartikel mit Initiale und Randnotizen für die Details.'],
+      ['03 · Nutzerführung', 'Vom Thema zur Frage', 'Ein Themenregister führt wie ein Inhaltsverzeichnis zu Erbrecht, Gesellschaftsrecht und Steuern. Jede Rubrik nennt typische Fragen, damit Besucher sich wiederfinden.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Der Satzspiegel wechselt von drei Spalten auf zwei und eine. Randnotizen rücken unter den Text, ohne dass etwas verloren geht.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Die Zeilen setzen sich wie Druckzeilen, die rote Linie zieht sich auf. Das ist Rhythmus, keine Show; mit „Bewegung reduzieren“ steht alles sofort da.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Externe Dienste würden bei einer produktiven Umsetzung passend zur tatsächlichen Nutzung geprüft und dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Schlanke Schriftdateien, semantische Überschriften und ein klar gegliedertes Themenregister schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.'] ],
+    nutzen: [
+      ['Sorgfalt auf den ersten Blick', 'Ein ruhiger, präziser Auftritt zeigt die Arbeitsweise, bevor jemand anruft.'],
+      ['Passendere Anfragen', 'Das Themenregister und typische Fragen führen Besucher zu der Rubrik, die zu ihrem Anliegen passt.'],
+      ['Weniger Erklärbedarf im Erstgespräch', 'Verständliche Texte beantworten die häufigsten Fragen vorab.'],
+      ['Wiedererkennbare Marke', 'Satzspiegel, Schrift und das eine Rot ergeben einen eigenständigen Auftritt, der sich von Standardseiten abhebt.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als moderne, vertrauenswürdige Beratung.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Rechtsgebiete in einer Liste.', li: ['Austauschbare Floskeln statt klarer Aussagen', 'Zuständigkeiten schwer zu finden', 'Fachsprache ohne Erklärung', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Sorgfalt zeigt.', li: ['Typografie als Ausdruck der Haltung', 'Themenregister als Wegweiser', 'Verständliche Texte mit Randnotizen', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Kanzlei-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut. Sie ersetzt keine berufsrechtliche Prüfung.', items: [
+      'Berufsbezeichnung, zuständige Kammer, berufsrechtliche Regelungen und weitere Pflichtangaben stehen vollständig im Impressum. Was genau gilt, klärt der Betrieb mit seiner Kammer.',
+      'Aussagen zu Leistungen und Erfolgen sind berufsrechtlich zulässig und belegbar; Werbeaussagen prüft der Betrieb vor der Veröffentlichung.',
+      'Themen und Zuständigkeiten sind ohne Fachwörter beschrieben und von der Startseite aus mit einem Klick erreichbar.',
+      'Ein kurzer, klarer Weg zum Erstgespräch: ein Formular, das nur abfragt, was gebraucht wird, und eine verständliche Datenschutzinformation dazu.',
+      'Mandantendaten gehören nicht in ein Kontaktformular ohne Verschlüsselung; die Seite weist darauf hin und nennt einen sicheren Weg für Unterlagen.',
+      'Die Seite lädt auf dem Smartphone schnell, auch bei schwachem Netz.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Darf eine Kanzlei oder Steuerberatung mit solchen Aussagen werben?', 'Für Rechtsanwälte und Steuerberater gelten berufsrechtliche Grenzen für Werbung. Ich gestalte Struktur, Texte und Auftritt; ob eine Aussage zulässig ist, prüft der Betrieb mit seiner Kammer oder einer fachkundigen Stelle, bevor die Seite online geht.'],
+      ['Kann die Kanzlei Fachbeiträge selbst veröffentlichen?', 'Das legen wir im Konzept fest. Für Beiträge, die regelmäßig erscheinen, planen wir von Anfang an einen einfachen Weg ein. Ein Redaktionssystem gehört zum Premium-Paket.'],
+      ['Warum kein Foto vom Team?', 'Ein gutes Teamfoto ist ein Gewinn, aber kein Muss. Es wird nur verwendet, wenn die abgebildeten Personen einwilligen und die Rechte geklärt sind. Bis dahin tragen Typografie, Texte und Architektur den Auftritt.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Sorgfalt zeigt und passende Mandate anbahnt.', subject: 'Projektanfrage Kanzlei-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Kanzlei oder Steuerberatung.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
 };
 
 export const BRANCHEN_LIST = Object.values(BRANCHEN);

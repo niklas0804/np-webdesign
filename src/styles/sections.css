@@ -203,3 +203,38 @@ html[data-mode='desktop'] .t-seal, html[data-mode='mobile'] .t-seal { display: b
 .t-seal-main, .t-seal-np { font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; fill: currentColor; }
 .t-seal-main { font-size: 24px; letter-spacing: .08em; }
 .t-seal-np { font-family: var(--sans); font-weight: 800; font-stretch: 90%; font-size: 40px; }
+
+/* Bildplatzhalter (Blueprint T.1, Punkt 10: fehlende Inhalte als sichtbarer Platzhalter). Farben folgen der Welt. */
+.foto-platzhalter { margin: 0; }
+.fp-frame { display: grid; align-content: center; justify-items: start; gap: var(--s2); padding: var(--s5); position: relative;
+  border: 2px dashed currentColor; color: var(--text);
+  background: repeating-linear-gradient(135deg, color-mix(in srgb, currentColor 7%, transparent) 0 10px, transparent 10px 20px); }
+.fp-frame[data-ratio='3-2'] { aspect-ratio: 3 / 2; } .fp-frame[data-ratio='4-3'] { aspect-ratio: 4 / 3; } .fp-frame[data-ratio='21-9'] { aspect-ratio: 21 / 9; }
+.fp-frame[data-ratio='4-5'] { aspect-ratio: 4 / 5; } .fp-frame[data-ratio='1-1'] { aspect-ratio: 1; } .fp-frame[data-ratio='16-9'] { aspect-ratio: 16 / 9; }
+.fp-frame p { margin: 0; max-width: 48ch; font-size: .875rem; line-height: 1.4; text-align: left; text-transform: none; letter-spacing: 0; }
+.fp-tag { font-family: var(--mono); font-size: var(--fs-mono-xs) !important; letter-spacing: .1em !important; text-transform: uppercase !important; background: var(--text); color: var(--ground); padding: 3px 8px; }
+.fp-titel { font-weight: 700; font-size: 1rem !important; }
+.fp-k { font-weight: 700; }
+.fp-meta { opacity: .85; }
+@media (max-width: 599px) { .fp-frame { padding: var(--s3); gap: var(--s1); } .fp-frame p { font-size: .8125rem; } }
+
+/* t04 · Warum → Welt 04: N-Blende von Nacht zu Reinweiß, „Kein Zufall.“ fließt in „Nichts dem Zufall überlassen.“ Nur in den gepinnten Modi. */
+.t-n-outline, .t-n-l, .t-n-d, .t-n-r, .t-fill, .t-kz, .t-final-wrap { display: none; }
+.transition[data-variant='nblende'] .t-wipe { display: none !important; }
+html[data-mode='desktop'] .t-n-outline, html[data-mode='mobile'] .t-n-outline { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: visible; }
+.t-n-outline polygon { fill: none; stroke: var(--np-orange); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+html[data-mode='desktop'] .t-n-l, html[data-mode='mobile'] .t-n-l,
+html[data-mode='desktop'] .t-n-d, html[data-mode='mobile'] .t-n-d,
+html[data-mode='desktop'] .t-n-r, html[data-mode='mobile'] .t-n-r,
+html[data-mode='desktop'] .t-fill, html[data-mode='mobile'] .t-fill { display: block; position: absolute; background: var(--to); pointer-events: none; }
+.t-n-l { left: 0; top: 0; bottom: 0; width: 26%; clip-path: inset(100% 0 0 0); }
+.t-n-r { left: 74%; top: 0; bottom: 0; right: 0; clip-path: inset(100% 0 0 0); }
+.t-n-d { inset: 0; clip-path: polygon(26% 0, 26% 0, 26% 0, 26% 0); }
+.t-fill { inset: 0; visibility: hidden; } /* Startlage setzt GSAP (xPercent, skewX); ein CSS-Transform würde als Pixelwert mitgerechnet */
+html[data-mode='desktop'] .t-kz, html[data-mode='mobile'] .t-kz { display: block; position: absolute; z-index: 2; left: 50%; top: 50%; margin: 0; white-space: nowrap; opacity: 0; visibility: hidden;
+  font-family: var(--np-disp); font-weight: 500; font-size: clamp(2.75rem, 8vw, 8rem); line-height: 1; letter-spacing: -.02em; color: var(--np-orange); }
+.t-kz span { display: inline-block; }
+html[data-mode='desktop'] .t-final-wrap, html[data-mode='mobile'] .t-final-wrap { display: grid; align-items: center; position: absolute; z-index: 2; inset: 0; padding: 0 var(--gutter); pointer-events: none; color: var(--text); }
+.t-final-in { width: min(1280px, 100%); margin: 0 auto; }
+.t-final { margin: 0; color: var(--text); }
+.t-final span { display: inline-block; }

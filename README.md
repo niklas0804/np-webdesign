@@ -57,8 +57,9 @@ Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src
 | 01 Halmberg | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
 | 02 Messingstuhl | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t01 (Bon wird Wartemarke) |
 | 03 Wittgenfeld Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
+| 04 Haas & Sternfeld | gebaut nach Blueprint (Phase 2, Welt 1 von 3); Eingangs-Übergang N-Blende (Warum → 04, „Kein Zufall.“ wird „Nichts dem Zufall überlassen.“); Zeitungs-Satzspiegel mit dreispaltigem Leitartikel, Initiale, Fußnoten als Marginalien (Tastatur und Touch), Themenregister, Bildplatzhalter |
 
-Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) und `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB).
+Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB) und `scripts/subset-newsreader.py` (Welt 04, zwei Dateien, 30,6 KB: Display opsz 72 / 500 und Text opsz 16 / 400–600; eine Datei mit beiden Achsen wäre 47 KB groß, Kapitälchen entstehen im Browser, weil die Schrift keine echten mitbringt).
 Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/finale.css`) ist eine gepinnte Bühne mit Zoom, Einladung und Sprung in den Kontakt; ruhig und ohne JavaScript bleibt nur die Einladung. Seine Länge steht in `journey.js` (200/140 vh statt 120/100 im Blueprint, weil Rückzoom und Sprung dazukommen).
 Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`.
 
@@ -85,3 +86,7 @@ Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, Freigabe d
 - Das Postfach liegt bei IONOS, die Website bei Hostinger. Empfohlen: in `config.php` den Eintrag `smtp` setzen (Vorlage liegt bei), dann geht die Anfrage über das IONOS-Postfach selbst (STARTTLS, Anmeldung) und Absender und SPF passen zusammen. Ohne `smtp` nutzt der Endpunkt `mail()` von Hostinger; dann SPF-Eintrag der Domain für Hostinger prüfen.
 - Nach dem Hochladen einmal eine Testanfrage senden.
 - Lokal testen: `php -S 127.0.0.1:8098 -t dist` (mit `sendmail_path` auf ein Skript, das die Mail in eine Datei schreibt).
+
+## Bilder und Platzhalter
+
+Wo eine Welt ein Foto braucht, steht ein klar markierter **Bildplatzhalter** mit Motivbeschreibung (`src/components/BildPlatzhalter.astro`), nie eine gezeichnete Ersatzgrafik. Die Einträge stehen in `src/content/fotos.js`; `node scripts/list-photos.mjs` erzeugt daraus `docs/fotoliste.md` (was Niklas besorgen muss). Die Vorschaubilder im Werkplan, im Finale, auf den Branchenseiten und für Social Media dagegen sind echte Aufnahmen der gebauten Seite (`scripts/render-previews.cjs`).

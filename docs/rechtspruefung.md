@@ -112,3 +112,9 @@ In `public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erz
 3. Kann die Zusage „innerhalb von 2 Werktagen“ so stehen bleiben?
 4. Ist das Hostinger-Badge ohne Kennzeichnung zulässig?
 5. Ist die Kennzeichnung der erfundenen Studien-Unternehmen ausreichend, um Verwechslungen zu vermeiden?
+
+## Nachtrag Phase 2: Branchenseite Kanzlei und Steuerberatung (Welt 04)
+
+- Die Seite `/branchenloesungen/kanzlei` spricht Rechtsanwälte und Steuerberater an. Für diese Berufe gelten berufsrechtliche Grenzen für Werbung. Bitte prüfen, ob Aussagen wie „Urteilsvermögen“, „Sorgfalt“ und „Mandate anbahnen“ in Text, Checkliste und FAQ unbedenklich sind.
+- Die Studie Haas & Sternfeld ist fiktiv. Prüfen, ob der Name Verwechslungsgefahr mit einer bestehenden Kanzlei oder Steuerberatung birgt (Markenrecherche macht Niklas selbst vor dem Livegang, Namen bleiben vorerst).
+- Beträge, Fristen und Gesetzesbezüge in der Studie sind Beispielwerte und ausdrücklich keine Rechtsauskunft; die Marginalie 1 sagt das. Bitte prüfen, ob der Hinweis ausreicht.

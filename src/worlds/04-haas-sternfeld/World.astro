@@ -1,0 +1,108 @@
+---
+/**
+ * Welt 04 · Haas & Sternfeld · Kanzlei und Steuerberatung (Blueprint F). Studie, fiktives Unternehmen.
+ * Wirtschaftszeitung am Sonntag: seriös, klug, ruhig. Viel Weißraum, schwarze Schrift, ein einziges Rot (die Linie unter der Schlagzeile).
+ * 12-Spalten-Satzspiegel, dreispaltiger Leitartikel mit Initiale, Rubrikenleiste, Marginalien, Themenregister.
+ * Leistung im Einsatz: Texte und Inhaltsstruktur. Fußnoten öffnen als Marginalie, das Register führt zu den Rubriken.
+ * Ohne JavaScript: alles steht aufgeschlagen im Text, die Marginalien sind sichtbar.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { SCHLAGZEILE, UNTERZEILE, MARGINALIEN, LEITARTIKEL, ZITAT, THEMEN } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '04');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 04 / ${total} · Kanzlei · Studie`;
+const nr = (id) => MARGINALIEN.findIndex((m) => m.id === id) + 1;
+---
+<section id={w.anchor} class="world w04" data-section={row.id} data-world="04" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`04 / ${total}`} aria-labelledby="w04-title">
+
+  <!-- Rubrikenleiste: Zeitungskopf -->
+  <header class="w04-head">
+    <div class="w04-bar">
+      <h2 id="w04-title" class="w04-name">Haas &amp; Sternfeld</h2>
+      <p class="w04-rubrik">Kanzlei und Steuerberatung</p>
+      <p class="w04-meta">Studie · fiktives Unternehmen</p>
+    </div>
+    <p class="w04-themen" aria-label="Themen"><span>Erbrecht</span><span>Gesellschaftsrecht</span><span>Steuern</span></p>
+  </header>
+
+  <!-- Schlagzeile mit der roten Linie -->
+  <div class="w04-front">
+    <h3 class="w04-headline" data-headline>{SCHLAGZEILE}</h3>
+    <span class="w04-line" aria-hidden="true" data-line></span>
+    <p class="w04-lead">{UNTERZEILE}</p>
+  </div>
+
+  <!-- Leitartikel in drei Spalten, daneben die Marginalien -->
+  <div class="w04-paper">
+    <article class="w04-article" aria-labelledby="w04-leit">
+      <p class="w04-rubrik w04-rubrik-s">Leitartikel</p>
+      <h3 id="w04-leit" class="w04-h">{LEITARTIKEL.titel}</h3>
+      <div class="w04-cols" data-cols>
+        {LEITARTIKEL.absaetze.map((a) => (
+          <p class={a.initiale ? 'w04-p w04-p-first' : 'w04-p'}>
+            {a.initiale && <span class="w04-initial" data-initial aria-hidden="true">W</span>}
+            {a.initiale && <span class="visually-hidden">W</span>}
+            {a.text}
+            {a.fn && (
+              <sup class="w04-fn"><button class="w04-fn-btn" type="button" data-fn={a.fn} aria-expanded="false" aria-controls={a.fn}>
+                <span class="visually-hidden">Anmerkung </span>{nr(a.fn)}
+              </button></sup>
+            )}
+          </p>
+        ))}
+      </div>
+    </article>
+    <aside class="w04-margins" aria-label="Anmerkungen zum Leitartikel" data-margins>
+      <p class="w04-hint" aria-hidden="true">Anmerkungen: Die hochgestellten Zahlen im Text öffnen sie hier.</p>
+      {MARGINALIEN.map((m, i) => (
+        <p class="w04-margin" id={m.id} data-margin={m.id}><span class="w04-margin-nr">{i + 1}</span>{m.text}</p>
+      ))}
+    </aside>
+  </div>
+
+  <!-- Architektur: Bildplatzhalter statt gezeichneter Ersatzgrafik -->
+  <div class="w04-photo"><BildPlatzhalter id="w04-architektur" /></div>
+
+  <!-- Zitat -->
+  <figure class="w04-quote">
+    <blockquote><p>{ZITAT.text}</p></blockquote>
+    <figcaption>{ZITAT.quelle}</figcaption>
+  </figure>
+
+  <!-- Themenregister (Inhaltsverzeichnis) und die Rubriken -->
+  <div class="w04-register-wrap">
+    <nav class="w04-register" aria-labelledby="w04-reg-h">
+      <h3 id="w04-reg-h" class="w04-rubrik w04-rubrik-s">Themenregister</h3>
+      <ol>
+        {THEMEN.map((t) => (
+          <li><a href={`#w04-${t.id}`} data-thema={t.id}><span class="w04-reg-name">{t.name}</span><span class="w04-reg-dots" aria-hidden="true"></span><span class="w04-reg-seite"><span class="visually-hidden">Seite </span>{t.seite}</span></a></li>
+        ))}
+      </ol>
+    </nav>
+    <div class="w04-photo-s"><BildPlatzhalter id="w04-dokumente" /></div>
+  </div>
+
+  <div class="w04-themenliste">
+    {THEMEN.map((t) => (
+      <article class="w04-thema" id={`w04-${t.id}`} aria-labelledby={`w04-t-${t.id}`} tabindex="-1">
+        <p class="w04-rubrik w04-rubrik-s">Seite {t.seite}</p>
+        <h3 id={`w04-t-${t.id}`} class="w04-h w04-h-s">{t.name}</h3>
+        <p class="w04-p">{t.text}</p>
+        <ul class="w04-fragen" aria-label={`Häufige Fragen: ${t.name}`}>
+          {t.fragen.map((f) => <li>{f}</li>)}
+        </ul>
+      </article>
+    ))}
+  </div>
+
+  <p class="visually-hidden" role="status" aria-live="polite" data-fn-status></p>
+
+  <div class="w04-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Kanzleien und Steuerberater" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>

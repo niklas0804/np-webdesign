@@ -40,6 +40,19 @@ const { row } = Astro.props;
         </div>
       </>
     )}
+    {row.variant === 'nblende' && (
+      <>
+        <svg class="t-n-outline" data-t-outline viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,100 0,0 26,0 74,66 74,0 100,0 100,100 74,100 26,34 26,100" pathLength="1" /></svg>
+        <div class="t-n-l" data-t-nl></div>
+        <div class="t-n-d" data-t-nd></div>
+        <div class="t-n-r" data-t-nr></div>
+        <div class="t-fill" data-t-fill></div>
+        <p class="t-kz" data-t-kz><span data-t-kein>Kein</span> <span data-t-kz-z>Zufall</span><span data-t-dot>.</span></p>
+        <div class="t-final-wrap" data-world="04" data-t-finalwrap>
+          <div class="t-final-in"><p class="w04-headline t-final" data-t-final><span data-t-pre>Nichts</span> <span data-t-pre>dem</span> <span data-t-final-z>Zufall</span> <span data-t-post>überlassen.</span></p></div>
+        </div>
+      </>
+    )}
     {row.variant === 'bon' && (
       <div class="t-bon3d" data-t-bon>
         <div class="t-bon-card" data-t-card>

@@ -9,7 +9,7 @@
  */
 
 /** Aktuelle Bauphase (Blueprint T.4). Der Werkplan und die Claim-Texte passen sich an. */
-export const PHASE = 1;
+export const PHASE = 2;
 
 import { contrast, luminance } from './color.js';
 
@@ -60,7 +60,8 @@ export const WORLDS = [
     built: true, source: 'demo', leistung: 'Konzeption und Seitenstruktur' },
   { nr: '04', slug: 'kanzlei', name: 'Haas & Sternfeld', branche: 'Kanzlei', anchor: 'kanzlei', branchPage: '/branchenloesungen/kanzlei',
     palette: pal('#FFFFFF', '#111111', '#A3122A', '#6E6E66', { accent2Use: 'text' }), // Reinweiß · Schwarz · Siegelrot · Grau (Linien und Meta)
-    built: false, source: 'neu', leistung: 'Texte und Inhaltsstruktur' },
+    notiz: 'Eine Kanzlei verkauft Urteilsvermögen. Darum führt hier die Typografie.',
+    built: true, source: 'neu', leistung: 'Texte und Inhaltsstruktur' },
   { nr: '05', slug: 'kfz-werkstatt', name: 'Chromwerk', branche: 'Oldtimer-Werkstatt', anchor: 'oldtimer', branchPage: '/branchenloesungen/kfz-werkstatt',
     palette: pal('#13382B', '#E8EAED', '#EFE6D2', '#8C939B', { accent2Use: 'lines' }), // British Racing Green · Chrom · Elfenbein · Chromgrau (nur Linien und große Schrift)
     built: false, source: 'neu', leistung: 'Animation und Interaktion' },
@@ -112,6 +113,7 @@ export const TEXT = {
 export const TRANSITION_VARIANTS = {
   'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
+  'warum>welt-04': 'nblende', // N-Blende: diagonal von Nacht zu Reinweiß, „Kein Zufall.“ fließt in „Nichts dem Zufall überlassen.“
   'welt-03>warum': 'pruefstempel', // Prüfstempel wird NP-Siegel, der Ring öffnet sich als P-Iris (Kreisblende) in die Nacht
 };
 
@@ -132,6 +134,7 @@ export const journey = (() => {
     { id: 'welt-02', kind: 'world', world: '02', d: 140, m: 120 },
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
     { id: 'warum', kind: 'interlude', anchor: 'warum', title: 'Warum individuell', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
+    { id: 'welt-04', kind: 'world', world: '04', d: 200, m: 160 },
     { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', title: 'Arbeitsweise', d: 160, m: 160, ground: MASTER.leinen, tone: 'light', pin: true },
     { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
     // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)

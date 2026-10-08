@@ -163,6 +163,15 @@
   .wp-statement { grid-column: 2 / 4; padding-top: 0; display: flex; flex-direction: column; justify-content: center; }
 }
 
+/* Vier Studien: vier Spalten, das Zentrum und die Aussage darunter (mobil: das Zentrum über die ganze Breite) */
+@media (min-width: 1024px) {
+  .werkplan[data-count='4'] .wp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .werkplan[data-count='4'] .wp-statement { grid-column: 2 / 5; }
+}
+@media (max-width: 1023px) {
+  .werkplan[data-count='4'] .wp-center { grid-column: 1 / -1; aspect-ratio: 16 / 5; }
+}
+
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
   height: calc((100 + var(--expansion) + var(--plan) + var(--grow)) * 1svh);

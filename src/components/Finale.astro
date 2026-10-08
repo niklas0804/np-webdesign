@@ -15,7 +15,7 @@ const { row } = Astro.props;
          data-counter={`${TEXT.nextWorld} · Ihr Unternehmen`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title" data-finale>
   <div class="f-stage" data-f-stage>
     <div class="f-plan" data-f-plan>
-      <div class="wp-grid f-grid" data-f-grid>
+      <div class="wp-grid f-grid" data-f-grid data-count={builtWorlds.length}>
         <div class="f-cells" aria-hidden="true">
           {builtWorlds.map((w) => (
             <div class="f-cell" data-world={w.nr}>

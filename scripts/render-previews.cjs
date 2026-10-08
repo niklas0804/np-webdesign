@@ -20,6 +20,8 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 
 
 /** Auf Mobil zeigt die Zelle den Streifen ab dieser Höhe (Viewport-px), dort steht die Überschrift der Welt */
 const FOCUS_M = 120;
+/** Abweichung je Welt für die Zellenbilder (nicht für die Wachstumsebene): Welt 04 zeigt die Schlagzeile statt des Zeitungskopfs */
+const FOCUS_CELL = { '04': 340 };
 
 let cardHtml = '';
 const srv = http.createServer((q, r) => {
@@ -75,7 +77,7 @@ srv.listen(0, async () => {
     // Mobil: Streifen ab FOCUS_M (Bildschirmpunkte, Aufnahme mit Faktor 2)
     for (const width of [320, 480]) {
       const out = path.join(PUB, 'werkplan', `welt-${w.nr}-m-${width}.webp`);
-      webp(M, out, width, 68, `780x${Math.round(780 * 0.62)}+0+${FOCUS_M * 2}`); report.push([out, kb(out)]);
+      webp(M, out, width, 68, `780x${Math.round(780 * 0.62)}+0+${(FOCUS_CELL[w.nr] ?? FOCUS_M) * 2}`); report.push([out, kb(out)]);
     }
     const bild = path.join(PUB, 'branche', `welt-${w.nr}-1200.webp`);
     webp(D, bild, 1200, 72); report.push([bild, kb(bild)]);
@@ -120,9 +122,10 @@ srv.listen(0, async () => {
     const w = WORLDS.find((x) => x.nr === b.world);
     const kopf = `<div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>`;
     const titel = esc(b.title.replace(/ – .*$/, ''));
+    const klein = titel.length > 30; // lange Titel etwas kleiner setzen
     if (w.built) {
       cards[`branche-${b.slug}`] = `<div class="card">${kopf}
-        <h1 style="font-size:60px;margin-top:70px;width:470px">${titel}</h1>
+        <h1 style="font-size:${klein ? 48 : 60}px;margin-top:70px;width:470px">${titel}</h1>
         <p class="mono note" style="margin-top:28px;width:460px">Studie ${w.nr} · ${esc(w.name)}<br>${esc(w.branche)}</p>
         <div style="position:absolute;right:64px;top:112px">${frame(b64(shots[`${w.nr}-d`]), w.nr, 580, 363)}</div></div>`;
     } else {

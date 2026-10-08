@@ -15,7 +15,7 @@ export function initTransitions() {
     let half = null;
     // Wann der Rahmen seine Farbe wechselt: bei der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat;
     // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
-    const split = { pruefstempel: 0.78, bon: 0.4 }[sec.dataset.variant] ?? 0.5;
+    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42 }[sec.dataset.variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -43,6 +43,8 @@ export function initTransitions() {
       goldlinie(tl, sec, wipe, thread);
     } else if (sec.dataset.variant === 'pruefstempel') {
       pruefstempel(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'nblende') {
+      nblende(tl, sec, wipe);
     } else {
       // Der Faden zeichnet zuerst die Linie, dann wischt die neue Welt herein
       tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, 0)
@@ -123,4 +125,52 @@ function pruefstempel(tl, sec, wipe) {
     .to(ringGroup, { rotation: 40, svgOrigin: '80 80', duration: 0.5, ease: 'power2.inOut' }, 0.4)
     .to(seal, { color: glut, duration: 0.2 }, 0.52)
     .to(seal, { autoAlpha: 0, scale: 1.08, duration: 0.12 }, 0.88);
+}
+
+/**
+ * Zwischenspiel I → Welt 04: Der orange Faden zeichnet ein N nach (Kontur), dann setzt sich das N in Weiß über die Nacht:
+ * linker Schenkel, Diagonale, rechter Schenkel; danach füllt eine schräge Kante den Rest mit Reinweiß (Blueprint F, Übergang 5).
+ * „Kein Zufall.“ steht dabei in NP-Orange mittig; das Wort „Zufall“ wandert an seine Stelle in „Nichts dem Zufall überlassen.“,
+ * die übrigen Wörter erscheinen, am Ende blendet alles aus und die Welt rollt mit derselben Schlagzeile herein.
+ * Nur Transform, Deckkraft, Farbe, Strichlänge und Masken.
+ */
+function nblende(tl, sec, wipe) {
+  const outline = $('[data-t-outline] polygon', sec);
+  const nl = $('[data-t-nl]', sec);
+  const nd = $('[data-t-nd]', sec);
+  const nr = $('[data-t-nr]', sec);
+  const fill = $('[data-t-fill]', sec);
+  const kz = $('[data-t-kz]', sec);
+  const kein = $('[data-t-kein]', sec);
+  const kzZ = $('[data-t-kz-z]', sec);
+  const dot = $('[data-t-dot]', sec);
+  const wrap = $('[data-t-finalwrap]', sec);
+  const final = $('[data-t-final]', sec);
+  const pre = $$('[data-t-pre]', sec);
+  const finZ = $('[data-t-final-z]', sec);
+  const post = $$('[data-t-post]', sec);
+  const ink = () => getComputedStyle(final).color;
+  // Das Wort „Zufall“ fährt von seiner Mitte-Position an die Stelle im Schlagzeilen-Satz (gleiche Schriftgröße, nur Verschiebung)
+  const shift = (axis) => () => {
+    const a = kzZ.getBoundingClientRect(); const b = finZ.getBoundingClientRect();
+    return axis === 'x' ? b.left - a.left : b.top - a.top;
+  };
+
+  gsap.set(wipe, { autoAlpha: 0 });
+  gsap.set(kz, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
+  gsap.set([...pre, finZ, ...post], { autoAlpha: 0 });
+  tl.fromTo(outline, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.16, ease: 'power2.out' }, 0)
+    .fromTo(kz, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.12, ease: 'power2.out' }, 0.04)
+    .fromTo(nl, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.1, ease: 'power2.out' }, 0.14)
+    .fromTo(nd, { clipPath: 'polygon(26% 0%, 26% 0%, 26% 0%, 26% 0%)' }, { clipPath: 'polygon(26% 0%, 74% 66%, 74% 100%, 26% 34%)', duration: 0.14, ease: 'none' }, 0.24)
+    .fromTo(nr, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.1, ease: 'power2.out' }, 0.38)
+    .to(outline, { autoAlpha: 0, duration: 0.08 }, 0.3)
+    .fromTo(fill, { xPercent: -130, skewX: -35, autoAlpha: 1 }, { xPercent: 0, skewX: 0, autoAlpha: 1, duration: 0.24, ease: 'power2.inOut' }, 0.46)
+    .to(kzZ, { color: ink, duration: 0.08 }, 0.72)
+    .to([kein, dot], { autoAlpha: 0, duration: 0.08 }, 0.7)
+    .to(kzZ, { x: shift('x'), y: shift('y'), duration: 0.2, ease: 'power2.inOut' }, 0.72)
+    .fromTo([...pre, ...post], { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.12, stagger: 0.05, ease: 'power2.out' }, 0.78)
+    .set(finZ, { autoAlpha: 1 }, 0.92)
+    .set(kzZ, { autoAlpha: 0 }, 0.92)
+    .to([wrap, kz], { autoAlpha: 0, duration: 0.08 }, 0.94);
 }

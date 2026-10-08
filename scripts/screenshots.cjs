@@ -3,6 +3,7 @@
  * Bildschirmfotos der Reise (Desktop 1440×900, Mobil 390×844) nach docs/screens/.
  * Voraussetzung: npm run build (Ordner dist), Playwright mit Chromium.
  * Aufruf:  NODE_PATH=$(npm root -g) node scripts/screenshots.cjs
+ *          ONLY='welt04' NODE_PATH=... node scripts/screenshots.cjs   (nur Aufnahmen, deren Name passt; löscht nichts)
  */
 const { chromium } = require('playwright');
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -23,32 +24,40 @@ const at = {
   js: (fn) => ({ fn, kind: 'js' }),
 };
 const SHOTS = [
-  ['01-hero', at.js(() => 0)],
-  ['02-werkplan', at.js(() => { const e = document.getElementById('werkplan'); return e.getBoundingClientRect().top + scrollY; })],
-  ['03-t00-zelle-waechst', at.opening(0.5)],
-  ['04-welt01-einstieg', at.top('#baeckerei')],
-  ['05-welt01-backplan', at.top('.w01-plan', -80)],
-  ['06-t01-bon', at.prog('[data-section="t-welt-01-welt-02"]', 0.55)],
-  ['07-welt02-einstieg', at.top('#barbershop')],
-  ['08-welt02-preise', at.top('.w02-preise', -120)],
-  ['09-t02-goldlinie', at.prog('[data-section="t-welt-02-welt-03"]', 0.55)],
-  ['10-welt03-einstieg', at.top('#bau')],
-  ['11-welt03-schnitt', at.top('.w03-sheet', -36)],
-  ['12-t03-pruefstempel', at.prog('[data-section="t-welt-03-warum"]', 0.5)],
-  ['13-zwischenspiel1-warum', at.top('#warum')],
-  ['14-uebergang-warum-arbeitsweise', at.prog('[data-section="t-warum-arbeitsweise"]', 0.55)],
-  ['15-zwischenspiel2-arbeitsweise', at.prog('#arbeitsweise', 0.5)],
-  ['16-uebergang-arbeitsweise-ueber-mich', at.prog('[data-section="t-arbeitsweise-ueber-mich"]', 0.55)],
-  ['17-zwischenspiel3-ueber-mich', at.top('#ueber-mich')],
-  ['18-uebergang-ueber-mich-finale', at.prog('[data-section="t-ueber-mich-finale"]', 0.55)],
-  ['19-finale', at.prog('#finale', 0.72)],
-  ['20-finale-sprung-in-kontakt', at.prog('#finale', 0.9)],
-  ['21-kontakt', at.top('#kontakt')],
+  ['hero', at.js(() => 0)],
+  ['werkplan', at.js(() => { const e = document.getElementById('werkplan'); return e.getBoundingClientRect().top + scrollY; })],
+  ['t00-zelle-waechst', at.opening(0.5)],
+  ['welt01-einstieg', at.top('#baeckerei')],
+  ['welt01-backplan', at.top('.w01-plan', -80)],
+  ['t01-bon', at.prog('[data-section="t-welt-01-welt-02"]', 0.55)],
+  ['welt02-einstieg', at.top('#barbershop')],
+  ['welt02-preise', at.top('.w02-preise', -120)],
+  ['t02-goldlinie', at.prog('[data-section="t-welt-02-welt-03"]', 0.55)],
+  ['welt03-einstieg', at.top('#bau')],
+  ['welt03-schnitt', at.top('.w03-sheet', -36)],
+  ['t03-pruefstempel', at.prog('[data-section="t-welt-03-warum"]', 0.5)],
+  ['zwischenspiel1-warum', at.top('#warum')],
+  ['t04-n-blende-strich', at.prog('[data-section="t-warum-welt-04"]', 0.3)],
+  ['t04-n-blende-fuellung', at.prog('[data-section="t-warum-welt-04"]', 0.55)],
+  ['t04-n-blende-zufall', at.prog('[data-section="t-warum-welt-04"]', 0.82)],
+  ['welt04-einstieg', at.top('#kanzlei')],
+  ['welt04-leitartikel', at.top('.w04-paper', -100)],
+  ['welt04-register', at.top('.w04-register-wrap', -100)],
+  ['uebergang-welt04-arbeitsweise', at.prog('[data-section="t-welt-04-arbeitsweise"]', 0.55)],
+  ['zwischenspiel2-arbeitsweise', at.prog('#arbeitsweise', 0.5)],
+  ['uebergang-arbeitsweise-ueber-mich', at.prog('[data-section="t-arbeitsweise-ueber-mich"]', 0.55)],
+  ['zwischenspiel3-ueber-mich', at.top('#ueber-mich')],
+  ['uebergang-ueber-mich-finale', at.prog('[data-section="t-ueber-mich-finale"]', 0.55)],
+  ['finale', at.prog('#finale', 0.72)],
+  ['finale-sprung-in-kontakt', at.prog('#finale', 0.9)],
+  ['kontakt', at.top('#kontakt')],
 ];
+SHOTS.forEach((s, i) => { s[0] = String(i + 1).padStart(2, '0') + '-' + s[0]; });
 
 srv.listen(0, async () => {
   const base = `http://127.0.0.1:${srv.address().port}/`;
   fs.mkdirSync(OUT, { recursive: true });
+  if (!process.env.ONLY) fs.readdirSync(OUT).filter((f) => f.endsWith('.png')).forEach((f) => fs.unlinkSync(path.join(OUT, f)));
   const browser = await chromium.launch();
   for (const [label, vp, opts] of [
     ['desktop', { width: 1440, height: 900 }, {}],
@@ -58,7 +67,7 @@ srv.listen(0, async () => {
     const page = await ctx.newPage();
     const errs = []; page.on('pageerror', (e) => errs.push(e.message));
     await page.goto(base); await page.waitForTimeout(2500);
-    for (const [name, pos] of SHOTS) {
+    for (const [name, pos] of SHOTS.filter(([n]) => !process.env.ONLY || new RegExp(process.env.ONLY).test(n))) {
       const y = await page.evaluate(({ pos, fn }) => {
         const H = innerHeight;
         const tops = (s) => document.querySelector(s).getBoundingClientRect().top + scrollY;

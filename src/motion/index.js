@@ -16,6 +16,7 @@ const WORLD_MODULES = {
   baeckerei: () => import('../worlds/01-halmberg/motion.js'),
   barbershop: () => import('../worlds/02-messingstuhl/motion.js'),
   bau: () => import('../worlds/03-wittgenfeld/motion.js'),
+  kanzlei: () => import('../worlds/04-haas-sternfeld/motion.js'),
 };
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {
