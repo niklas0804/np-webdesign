@@ -1,13 +1,13 @@
 # Stand der Website np-webdesign.de (Übergabe)
 
-Stand: 7. Oktober 2026 · Branch `claude/phase-1` (Commit 8a33157) · Inhaber: Niklas Prüfling, NP Webdesign, Schwandorf
+Stand: 8. Oktober 2026 · Branch `claude/phase-1`, am 8. Oktober 2026 per Fast-Forward nach `main` übernommen · Inhaber: Niklas Prüfling, NP Webdesign, Schwandorf
 
 ## 1. Worum es geht
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.
 
 ## 2. Repository und Branches
 - `main`: enthält die alte Live-Seite (Wurzelordner: `index.html`, `impressum.html`, `datenschutz.html`, `css/`, `js/`) samt Phase-0-Korrekturen (PR #1, gemergt). Unverändert seit Phase 0.
-- `claude/phase-1`: der gesamte Relaunch im Ordner `relaunch/`. **Noch nicht in `main` gemergt, kein Pull Request angelegt.** Niklas will das im Nachgang entscheiden.
+- `claude/phase-1`: Arbeitsbranch des Relaunchs, inhaltlich identisch mit `main`. Kein Pull Request nötig. Der Relaunch geht nicht automatisch live: zum Ansehen `relaunch/dist` bzw. `relaunch/deploy/np-webdesign-test.zip` bei Hostinger hochladen.
 - Die Altseite im Wurzelordner ist unverändert bis auf die E-Mail-Adresse (`kontakt@np-webdesign.de`). Sie zeigt noch die alten Preise 899 €/1.799 €.
 - `CNAME` wurde von Niklas auf dem Branch gelöscht (Umzug auf Hostinger, kein GitHub Pages mehr).
 
@@ -44,7 +44,7 @@ Alle zehn Weltpaletten sind in `src/config/journey.js` ersetzt (Welt 01 Weizengo
 3. `api/config.php` mit IONOS-SMTP-Zugangsdaten auf dem Server anlegen; danach Testanfrage senden.
 4. Markenrecherche der Studiennamen (DPMAregister, EUIPO).
 5. Rechtsprüfung: Liste in `relaunch/docs/rechtspruefung.md` (Hostinger-Unterauftragnehmer inkl. AWS/Google Cloud, Standardvertragsklauseln, Formular, Einwilligungsbanner/Matomo, Badge, Aussagen, Lizenzen, BFSG).
-6. Entscheidung: Pull Request `claude/phase-1` → `main` und Livegang (Altseite wird ersetzt); Preise der Altseite angleichen?
+6. Livegang: `relaunch/dist` bei Hostinger hochladen (Altseite wird ersetzt); Preise der Altseite angleichen?
 7. Bildmaterial und Demo-Code der Studien, falls später gewünscht.
 
 **Entwicklung:**
