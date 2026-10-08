@@ -238,3 +238,9 @@ html[data-mode='desktop'] .t-final-wrap, html[data-mode='mobile'] .t-final-wrap 
 .t-final-in { width: min(1280px, 100%); margin: 0 auto; }
 .t-final { margin: 0; color: var(--text); }
 .t-final span { display: inline-block; }
+
+/* t05 · Welt 04 → Welt 05: Die rote Linie verlängert sich und biegt sich zur elfenbeinfarbenen Zierlinie; Reinweiß wird British Racing Green. */
+.t-zl { display: none; }
+.transition[data-variant='zierlinie'] .t-thread { display: none !important; }
+html[data-mode='desktop'] .t-zl, html[data-mode='mobile'] .t-zl { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
+.t-zl path { fill: none; stroke: var(--from-accent, var(--np-orange)); stroke-width: 4; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: .62; }

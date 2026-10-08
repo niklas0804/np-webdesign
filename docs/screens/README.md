@@ -1,12 +1,12 @@
-# Bildschirmfotos (Stand Phase 2, Welt 04)
+# Bildschirmfotos (Stand Phase 2, Welt 05)
 
 Desktop 1440×900 (`*-desktop.png`) und Mobil 390×844 (`*-mobile.png`), erzeugt mit `scripts/screenshots.cjs` aus dem Produktions-Build (`dist`).
-Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshots.cjs` (mit `ONLY='welt04'` nur passende Aufnahmen).
+Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshots.cjs` (mit `ONLY='welt05'` nur passende Aufnahmen, ohne etwas zu löschen).
 
 | Nr. | Moment |
 | --- | --- |
 | `01-hero` | Hero (Opening fertig) |
-| `02-werkplan` | Werkplan mit den vier Studien (echte Vorschaubilder) und leerem Zentrum |
+| `02-werkplan` | Werkplan mit den fünf Studien (echte Vorschaubilder) und leerem Zentrum |
 | `03-t00-zelle-waechst` | Übergang t00: Zelle 01 wächst auf Viewport-Größe |
 | `04-welt01-einstieg` | Welt 01 Halmberg (Bäckerei): Einstieg |
 | `05-welt01-backplan` | Welt 01: Backplan und Brote |
@@ -24,13 +24,20 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | `17-welt04-einstieg` | Welt 04 Haas & Sternfeld (Kanzlei): Zeitungskopf, Schlagzeile, rote Linie |
 | `18-welt04-leitartikel` | Welt 04: dreispaltiger Leitartikel mit Initiale, Fußnoten, Marginalspalte |
 | `19-welt04-register` | Welt 04: Themenregister und Bildplatzhalter |
-| `20-uebergang-welt04-arbeitsweise` | Standard-Übergang Reinweiß → Leinen |
-| `21-zwischenspiel2-arbeitsweise` | Zwischenspiel II: Arbeitsweise |
-| `22-uebergang-arbeitsweise-ueber-mich` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
-| `23-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
-| `24-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
-| `25-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 05), Einladung |
-| `26-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
-| `27-kontakt` | Kontakt mit Formular und Live-Vorschau |
+| `20-t05-zierlinie-gerade` | Übergang t05: Die rote Linie verlängert sich |
+| `21-t05-zierlinie-kurve` | Übergang t05: Sie biegt sich zur Zierlinie, Reinweiß wird Racing Green |
+| `22-welt05-einstieg` | Welt 05 Chromwerk (Oldtimer-Werkstatt): Titel, Zierlinie, Kopfbild-Platzhalter |
+| `23-welt05-querfahrt-anfang` | Welt 05: Querfahrt, Anfang der Bildstrecke |
+| `24-welt05-querfahrt-mitte` | Welt 05: Querfahrt, Mitte mit Lichtreflex (Desktop); mobil wischbare Leiste |
+| `25-welt05-datenblatt` | Welt 05: Datenblatt und Ablauf in Kapiteln |
+| `26-welt05-vorher-nachher` | Welt 05: Vorher-Nachher-Regler |
+| `27-uebergang-welt05-arbeitsweise` | Standard-Übergang Racing Green → Leinen (bis Welt 06 gebaut ist) |
+| `28-zwischenspiel2-arbeitsweise` | Zwischenspiel II: Arbeitsweise |
+| `29-uebergang-arbeitsweise-ueber-mich` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
+| `30-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
+| `31-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
+| `32-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 06), Einladung |
+| `33-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
+| `34-kontakt` | Kontakt mit Formular und Live-Vorschau |
 
 Hinweis: Die Standard-Übergänge zwischen gleich hellen Abschnitten zeigen nur den orangen Faden auf Leinen, weil Anfang und Ende dieselbe Farbe haben.

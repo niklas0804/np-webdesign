@@ -61,6 +61,14 @@ html[data-mode='desktop'] .f-grow, html[data-mode='mobile'] .f-grow {
   html[data-mode='mobile'] .f-grid[data-count='4'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 5; }
 }
 
+/* Fünf Studien: wie im Werkplan */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='5'] { max-width: 1100px; }
+  html[data-mode='desktop'] .f-grid[data-count='5'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
+  html[data-mode='desktop'] .f-grid[data-count='5'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
+  html[data-mode='desktop'] .f-grid[data-count='5'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
+}
+
 @media (min-width: 1024px) {
   html[data-mode='desktop'] .f-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
   html[data-mode='desktop'] .f-center { aspect-ratio: auto; grid-column: 1 / 2; min-height: 200px; }

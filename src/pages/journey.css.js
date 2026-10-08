@@ -18,6 +18,7 @@ export function GET() {
     }
     if (r.kind === 'transition') desktop.push(`${sel}{--from:${r.fromGround};--to:${r.toGround}${r.fromAccent ? `;--from-accent:${r.fromAccent}` : ''}${r.toAccent ? `;--to-accent:${r.toAccent}` : ''}}`);
     else if (r.ground) desktop.push(`${sel}{--ground:${r.ground}}`);
+    if (r.scene) { desktop.push(`${sel}{--scene:${r.scene.d}}`); mobile.push(`${sel}{--scene:${r.scene.m}}`); }
   }
   const worlds = WORLDS.map((w) =>
     `[data-world="${w.nr}"]{--ground:${w.palette.ground};--text:${w.palette.text};--accent:${w.palette.accent};--accent2:${w.palette.accent2}${w.palette.accent3 ? `;--accent3:${w.palette.accent3}` : ''}}`);

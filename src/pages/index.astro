@@ -20,6 +20,7 @@ import World01 from '../worlds/01-halmberg/World.astro';
 import World02 from '../worlds/02-messingstuhl/World.astro';
 import World03 from '../worlds/03-wittgenfeld/World.astro';
 import World04 from '../worlds/04-haas-sternfeld/World.astro';
+import World05 from '../worlds/05-chromwerk/World.astro';
 import Warum from '../components/Warum.astro';
 import Arbeitsweise from '../components/Arbeitsweise.astro';
 import UeberMich from '../components/UeberMich.astro';
@@ -44,7 +45,7 @@ const jsonLd = [
 ];
 
 // Weltmodule: gebaute Welten ersetzen den Platzhalter (Blueprint N, Weltmodul-Vertrag)
-const worldModules = { '01': World01, '02': World02, '03': World03, '04': World04 };
+const worldModules = { '01': World01, '02': World02, '03': World03, '04': World04, '05': World05 };
 const interludes = { warum: Warum, arbeitsweise: Arbeitsweise, 'ueber-mich': UeberMich };
 ---
 <Base

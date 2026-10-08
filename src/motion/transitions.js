@@ -43,6 +43,8 @@ export function initTransitions() {
       goldlinie(tl, sec, wipe, thread);
     } else if (sec.dataset.variant === 'pruefstempel') {
       pruefstempel(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'zierlinie') {
+      zierlinie(tl, sec, wipe);
     } else if (sec.dataset.variant === 'nblende') {
       nblende(tl, sec, wipe);
     } else {
@@ -173,4 +175,20 @@ function nblende(tl, sec, wipe) {
     .set(finZ, { autoAlpha: 1 }, 0.92)
     .set(kzZ, { autoAlpha: 0 }, 0.92)
     .to([wrap, kz], { autoAlpha: 0, duration: 0.08 }, 0.94);
+}
+
+/**
+ * Welt 04 → Welt 05: Die rote Linie unter der Schlagzeile verlängert sich über die Breite und biegt sich zur Zierlinie der
+ * Karosserie; dabei wechselt sie von Siegelrot zu Elfenbein, Reinweiß wird British Racing Green (Blueprint F, Übergang 6).
+ * Pfad-Morph von gerade zu Kurve ohne Plugin: gleiche Befehlsfolge, GSAP rechnet die Zahlen um. Nur Strichlänge, Pfad, Farbe, Transform.
+ */
+function zierlinie(tl, sec, wipe) {
+  const path = $('[data-t-zl]', sec);
+  const kurve = 'M40 250 C300 250 380 118 560 122 S860 200 1000 140';
+  const to = getComputedStyle(sec).getPropertyValue('--to-accent').trim() || '#EFE6D2';
+  tl.fromTo(path, { strokeDashoffset: 0.62 }, { strokeDashoffset: 0, duration: 0.3, ease: 'power2.out' }, 0.02)
+    .to(path, { attr: { d: kurve }, duration: 0.4, ease: 'power2.inOut' }, 0.3)
+    .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: 'power2.inOut' }, 0.3)
+    .to(path, { stroke: to, duration: 0.3, ease: 'none' }, 0.5)
+    .to(path, { autoAlpha: 0, duration: 0.1 }, 0.9);
 }

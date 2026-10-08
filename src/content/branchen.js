@@ -246,6 +246,61 @@ export const BRANCHEN = {
     cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Sorgfalt zeigt und passende Mandate anbahnt.', subject: 'Projektanfrage Kanzlei-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Kanzlei oder Steuerberatung.\n\nMein Projekt:\n\nViele Grüße' },
   },
 
+  'kfz-werkstatt': {
+    slug: 'kfz-werkstatt',
+    world: '05',
+    title: 'Website-Konzept Oldtimer-Werkstatt',
+    description: 'Beispielkonzept: Wie eine Website für eine Oldtimer-Werkstatt mit Bewegung, Studiofotografie und einem Vorher-Nachher-Regler Handwerk und Vertrauen zeigt.',
+    eyebrow: 'Beispielkonzept · Oldtimer-Werkstatt',
+    h1: 'Ein Oldtimer ist <em>Bewegung.</em>',
+    lead: 'Ein Website-Konzept für eine Oldtimer-Werkstatt: eine Bildstrecke, die quer durchs Fahrzeug fährt, ein Datenblatt statt Werbesprache und ein Regler, der den Wert der Arbeit zeigt.',
+    meta: [['Branche', 'Oldtimer-Werkstatt'], ['Leistung', 'Konzept, Animation, Interaktion, Entwicklung'], ['Schwerpunkt', 'Bewegung & Bildsprache'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: [
+      'Viele Werkstätten für Oldtimer und Youngtimer leben von Empfehlungen und von Fotos auf Social-Media-Kanälen. Eine eigene Website zeigt oft nur Leistungsliste und Telefonnummer, obwohl das eigentliche Argument sichtbar wäre: was aus einem Fahrzeug geworden ist.',
+      'Wer einen Oldtimer in die Hände eines Betriebs gibt, vertraut ihm etwas an, das Geld und Gefühl zugleich wert ist. <strong>Die Website muss Sorgfalt und Können zeigen, bevor das erste Gespräch stattfindet.</strong>',
+      'Das Konzept setzt deshalb auf Bewegung und Fotografie: Eine Bildstrecke fährt beim Scrollen seitwärts durch das Fahrzeug, ein Datenblatt nennt Zahlen statt Versprechen, und ein Vorher-Nachher-Regler macht 1.000 Stunden Arbeit in einer Geste sichtbar.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Handwerk.</em>', items: [
+      ['Qualität der Arbeit sichtbar machen', 'Beweisführung'], ['Mehr qualifizierte Anfragen für Restaurierungen', 'Conversion'], ['Leistungen und Ablauf verständlich darstellen', 'Struktur'],
+      ['Emotionale Nähe zum Fahrzeug erzeugen', 'Marke'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First'] ] },
+    design: { h2: 'Gestaltung, die <em>nach Werkstatt und Lack aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Grüner Lack, Chrom, Elfenbein', 'Ein tiefes Grün als Grund, Chrom für den Text und Elfenbein für die Zierlinie. Die Farbwelt stammt vom Fahrzeug, nicht aus einem Baukasten.'],
+      ['02 · Typografie', 'Breit und technisch', 'Eine breite, technische Versalienschrift für Titel und Kapitel, dazu eine schlichte Systemschrift für den Text. Das hält die Seite schnell und die Zahlen lesbar.'],
+      ['03 · Nutzerführung', 'Zeigen, dann erklären', 'Erst die Bilder, dann das Datenblatt, dann der Ablauf in Kapiteln. Wer sich entscheiden will, findet den Weg zur Anfrage an jeder Stelle.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Am Desktop fährt die Bildstrecke gepinnt seitwärts, auf dem Smartphone ist sie eine wischbare Leiste mit Einrasten. Beide Wege zeigen dieselben Inhalte.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Die Querfahrt folgt dem Scrollen. Mit „Bewegung reduzieren“ entfällt der Pin, und die Seite bleibt vollständig bedienbar.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Externe Dienste würden bei einer produktiven Umsetzung passend zur tatsächlichen Nutzung geprüft und dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Bilder in passender Größe, eine kleine Schriftdatei und klar ausgezeichnete Leistungen schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.'] ],
+    nutzen: [
+      ['Vertrauen durch Beweise', 'Ein Vorher-Nachher-Regler und ein Datenblatt belegen die Arbeit, statt sie zu behaupten.'],
+      ['Passendere Anfragen', 'Ablauf, Dauer und Aufwand sind vorab klar; wer anfragt, weiß, worauf er sich einlässt.'],
+      ['Emotion mit Substanz', 'Studiofotos wecken Lust auf das Fahrzeug, das Datenblatt liefert die Zahlen dazu.'],
+      ['Wiedererkennbare Marke', 'Lackgrün, Chrom und die Zierlinie ergeben einen eigenständigen Auftritt.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als Betrieb mit Anspruch.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Leistungsliste statt Beweis.', li: ['Wenige oder unscharfe Fotos', 'Leistungen ohne Ablauf und Aufwand', 'Referenzen nur auf Social Media', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Handwerk zeigt.', li: ['Bildstrecke und Studiofotografie', 'Datenblatt und Ablauf in Kapiteln', 'Vorher-Nachher als Beweis', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Oldtimer-Werkstatt-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut.', items: [
+      'Leistungen, Öffnungszeiten, Adresse und Anfahrt stehen ohne Klick auf der Startseite und stimmen überall überein: Website, Google-Profil, Verzeichnisse.',
+      'Die Fotos zeigen eigene Arbeiten; Fahrzeughalter haben der Veröffentlichung zugestimmt, Kennzeichen sind unkenntlich gemacht.',
+      'Ablauf und Aufwand einer Restaurierung sind verständlich beschrieben, ohne feste Preise zu versprechen, die sich nicht halten lassen.',
+      'Vorher-Nachher-Bilder haben denselben Ausschnitt und denselben Kamerastandpunkt, damit der Vergleich ehrlich bleibt.',
+      'Ein kurzer, klarer Weg zur Anfrage mit den Angaben, die das Erstgespräch braucht (Fahrzeug, Baujahr, Zustand).',
+      'Die Seite lädt auf dem Smartphone schnell, auch bei schwachem Netz, und bleibt ohne Animation vollständig bedienbar.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Sind Bildstrecke und Regler nur Show?', 'Beides hat eine Aufgabe: Die Strecke zeigt Sorgfalt im Detail, der Regler beweist das Ergebnis. Wer Bewegung nicht mag, schaltet sie ab; dann stehen alle Bilder untereinander da.'],
+      ['Brauche ich Studiofotos?', 'Für diesen Auftritt lohnen sie sich, denn die Bilder tragen die Aussage. Ich erstelle ein Briefing mit Motiven, Licht und Ausschnitt; aufgenommen wird von Ihnen oder einem Fotografen, die Bildrechte klären wir vorher.'],
+      ['Kann ich neue Projekte selbst einstellen?', 'Das legen wir im Konzept fest. Für Projekte, die regelmäßig dazukommen, planen wir von Anfang an einen einfachen Weg ein. Ein Redaktionssystem gehört zum Premium-Paket.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Ihr Handwerk in Bewegung zeigt und passende Restaurierungsprojekte anzieht.', subject: 'Projektanfrage Werkstatt-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Werkstatt.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
 };
 
 export const BRANCHEN_LIST = Object.values(BRANCHEN);

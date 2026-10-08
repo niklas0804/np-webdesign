@@ -64,7 +64,8 @@ export const WORLDS = [
     built: true, source: 'neu', leistung: 'Texte und Inhaltsstruktur' },
   { nr: '05', slug: 'kfz-werkstatt', name: 'Chromwerk', branche: 'Oldtimer-Werkstatt', anchor: 'oldtimer', branchPage: '/branchenloesungen/kfz-werkstatt',
     palette: pal('#13382B', '#E8EAED', '#EFE6D2', '#8C939B', { accent2Use: 'lines' }), // British Racing Green · Chrom · Elfenbein · Chromgrau (nur Linien und große Schrift)
-    built: false, source: 'neu', leistung: 'Animation und Interaktion' },
+    notiz: 'Ein Oldtimer ist Bewegung. Darum fährt diese Seite quer.',
+    built: true, source: 'neu', leistung: 'Animation und Interaktion' },
   { nr: '06', slug: 'beratung-coaching', name: 'Jana Ahrens', branche: 'Coaching', anchor: 'coaching', branchPage: '/branchenloesungen/beratung-coaching',
     palette: pal('#DCD1EA', '#35292A', '#8A5470', '#F1C9B5', { accentUse: 'large', accent2Use: 'fill', accent3: '#C9B6D9' }), // Flieder · Dunkelbraun · Malve (nur große Schrift/Grafik) · Kugelverlauf Pfirsich → Flieder (nur Fläche)
     built: false, source: 'demo', leistung: 'Nutzerführung' },
@@ -113,6 +114,7 @@ export const TEXT = {
 export const TRANSITION_VARIANTS = {
   'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
+  'welt-04>welt-05': 'zierlinie', // Die rote Linie unter der Schlagzeile wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird British Racing Green
   'warum>welt-04': 'nblende', // N-Blende: diagonal von Nacht zu Reinweiß, „Kein Zufall.“ fließt in „Nichts dem Zufall überlassen.“
   'welt-03>warum': 'pruefstempel', // Prüfstempel wird NP-Siegel, der Ring öffnet sich als P-Iris (Kreisblende) in die Nacht
 };
@@ -135,6 +137,8 @@ export const journey = (() => {
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
     { id: 'warum', kind: 'interlude', anchor: 'warum', title: 'Warum individuell', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
     { id: 'welt-04', kind: 'world', world: '04', d: 200, m: 160 },
+    // scene: Länge der gepinnten Querfahrt (Desktop); mobil ist die Bildstrecke eine wischbare Leiste ohne Pin
+    { id: 'welt-05', kind: 'world', world: '05', d: 240, m: 180, scene: { d: 260, m: 0 } },
     { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', title: 'Arbeitsweise', d: 160, m: 160, ground: MASTER.leinen, tone: 'light', pin: true },
     { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
     // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)

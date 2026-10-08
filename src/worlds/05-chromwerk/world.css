@@ -1,0 +1,113 @@
+/* Welt 05 · Chromwerk (Blueprint F). Palette aus /journey.css: --ground British Racing Green, --text Chrom, --accent Elfenbein, --accent2 Chromgrau (nur Linien und große Schrift).
+   Schrift: Michroma (breit, technisch) nur für Versalien-Display, auf Versalien reduziert (scripts/subset-michroma.py, 4 KB); Fließtext in der Systemschrift. */
+@font-face { font-family: 'Michroma NP'; src: url('/fonts/michroma-05.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root { --mich: 'Michroma NP', 'Eurostile', 'Bank Gothic', 'Arial Black', Arial, sans-serif; }
+.world.w05 {
+  --w05-soft: color-mix(in srgb, var(--text) 78%, var(--ground));
+  --w05-rule: color-mix(in srgb, var(--accent2) 70%, transparent);
+  padding: 0 0 var(--block);
+  background: var(--ground);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  min-height: calc(var(--len) * 1svh);
+}
+.w05 :focus-visible { outline-color: var(--accent); }
+.w05 p { max-width: none; }
+.w05 > section, .w05 > header, .w05 > div { max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+.w05 > .w05-fahrt { max-width: none; padding-inline: 0; }
+
+/* Michroma: nur Versalien mit weiter Laufweite */
+.w05-title, .w05-h, .w05-kapitel, .w05-nr, .w05-table th, .w05-ab-t, .w05-vn-label, .w05-demo, .w05-vn-range-l, .w05-table caption {
+  font-family: var(--mich); text-transform: uppercase; letter-spacing: .16em; font-weight: 400;
+}
+
+/* ---------- Kopf ---------- */
+.w05-head { padding-top: calc(var(--frame-top) + var(--s9)); padding-bottom: var(--s7); }
+.w05-kapitel { font-size: .6875rem; color: var(--w05-soft); margin: 0 0 var(--s4); }
+.w05-title { font-size: clamp(1.5rem, 7.2vw, 6.5rem); line-height: 1.05; letter-spacing: .2em; margin: 0 -.2em 0 0; color: var(--text); }
+.w05-sub { margin: var(--s4) 0 0; color: var(--accent); font-size: clamp(1rem, 1.5vw, 1.25rem); letter-spacing: .04em; }
+.w05-zier { display: block; width: 100%; height: clamp(40px, 6vw, 80px); margin: var(--s5) 0 var(--s4); overflow: visible; }
+.w05-zier path { fill: none; stroke: var(--accent); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.w05-lead { font-size: clamp(1.125rem, 1.5vw, 1.375rem); line-height: 1.5; max-width: 46ch; color: var(--w05-soft); margin: 0; }
+.w05-kopf { padding-top: var(--s5); }
+
+/* ---------- Querfahrt ---------- */
+.w05-fahrt { padding-top: var(--s9); }
+.w05-fahrt-kopf { max-width: 1280px; margin-inline: auto; padding: 0 var(--gutter) var(--s6); display: grid; gap: var(--s2); }
+.w05-h { font-size: clamp(1.125rem, 2.2vw, 1.75rem); line-height: 1.2; margin: 0; color: var(--text); }
+.w05-hint { margin: 0; color: var(--w05-soft); }
+/* Grundzustand (mobil, ruhig, ohne JavaScript): eine wischbare Leiste mit Einrasten */
+.w05-strip-wrap { overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 var(--gutter) var(--s4); scrollbar-color: var(--accent2) transparent; }
+/* Mobile Browser weiten sonst die Seitenbreite auf die Leiste aus (Layout-Viewport 1098 statt 390); Paint-Containment hält sie im Rahmen */
+html:not([data-mode='desktop']) .w05-strip-wrap { contain: paint; }
+.w05-strip { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--s6); width: max-content; }
+.w05-band { width: min(84vw, 1100px); scroll-snap-align: center; display: grid; gap: var(--s3); align-content: start; }
+.w05-nr { font-size: .75rem; color: var(--accent); margin: 0; display: flex; align-items: center; gap: var(--s3); }
+.w05-nr::after { content: ''; flex: 1; height: 1px; background: var(--w05-rule); }
+.w05-cap { margin: 0; color: var(--w05-soft); max-width: 52ch; }
+.w05-cap strong { color: var(--accent); font-weight: 600; }
+.w05-reflex { display: none; }
+
+/* Desktop: gepinnte Querfahrt, vertikales Scrollen fährt die Strecke seitwärts */
+html[data-mode='desktop'] .w05-fahrt { height: calc((100 + var(--scene)) * 1svh); padding-top: 0; }
+html[data-mode='desktop'] .w05-fahrt-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--frame-top) + var(--s4)); padding-bottom: var(--s8); }
+html[data-mode='desktop'] .w05-strip-wrap { overflow: visible; scroll-snap-type: none; padding-bottom: 0; will-change: auto; }
+html[data-mode='desktop'] .w05-strip { gap: var(--s8); }
+html[data-mode='desktop'] .w05-band { width: min(64vw, 1000px); scroll-snap-align: none; }
+html[data-mode='desktop'] .w05-reflex { display: block; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(100deg, transparent 36%, color-mix(in srgb, #fff 9%, transparent) 47%, color-mix(in srgb, #fff 16%, transparent) 50%, color-mix(in srgb, #fff 9%, transparent) 53%, transparent 64%); }
+
+/* ---------- Datenblatt und Ablauf ---------- */
+.w05-daten { padding-top: var(--s10); }
+.w05-daten-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s8) var(--s9); margin-top: var(--s6); }
+.w05-table { width: 100%; border-collapse: collapse; }
+.w05-table caption { text-align: left; font-size: .6875rem; color: var(--w05-soft); padding-bottom: var(--s3); }
+.w05-table th, .w05-table td { text-align: left; padding: var(--s4) 0; border-top: 1px solid var(--w05-rule); vertical-align: baseline; }
+.w05-table tr:last-child th, .w05-table tr:last-child td { border-bottom: 1px solid var(--w05-rule); }
+.w05-table th { font-size: .6875rem; color: var(--w05-soft); width: 46%; padding-right: var(--s4); overflow-wrap: anywhere; }
+.w05-table td { overflow-wrap: anywhere; }
+.w05-table td { font-size: 1.125rem; font-variant-numeric: lining-nums tabular-nums; color: var(--accent); }
+.w05-ablauf { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s5); align-content: start; }
+.w05-ablauf li { display: grid; grid-template-columns: 3.5rem 1fr; gap: var(--s4); align-items: baseline; border-top: 1px solid var(--w05-rule); padding-top: var(--s4); }
+.w05-ablauf .w05-nr { display: block; }
+.w05-ablauf .w05-nr::after { display: none; }
+.w05-ab-t { margin: 0 0 var(--s1); font-size: .8125rem; color: var(--text); }
+.w05-ab-x { margin: 0; color: var(--w05-soft); }
+.w05-demo { margin: var(--s5) 0 0; font-size: .625rem; color: var(--w05-soft); text-transform: none; letter-spacing: .08em; font-family: var(--mono); }
+
+/* ---------- Vorher-Nachher ---------- */
+.w05-vn-wrap { padding-top: var(--s10); }
+.w05-vn-text { margin-top: var(--s3); }
+.w05-vn { margin-top: var(--s6); display: grid; gap: var(--s4); }
+.w05-vn-stage { display: grid; gap: var(--s5); }
+.w05-vn-pane { position: relative; display: grid; gap: var(--s2); }
+.w05-vn-label { font-size: .6875rem; color: var(--accent); }
+.w05-vn-range, .w05-vn-handle { display: none; }
+/* Mit JavaScript: beide Bilder liegen übereinander, das Vorher-Bild wird vom Regler beschnitten */
+html[data-js] .w05-vn-stage { display: block; position: relative; touch-action: pan-y; cursor: ew-resize; --vn: 50; }
+html[data-js] .w05-vn-pane { position: absolute; inset: 0; display: block; }
+html[data-js] .w05-vn-nachher { position: relative; inset: auto; }
+html[data-js] .w05-vn-vorher { clip-path: inset(0 calc(100% - var(--vn) * 1%) 0 0); }
+html[data-js] .w05-vn-pane .foto-platzhalter { height: 100%; }
+html[data-js] .w05-vn-pane .fp-frame { height: 100%; background-color: var(--ground); }
+html[data-js] .w05-vn-label { position: absolute; z-index: 2; top: var(--s3); background: var(--ground); padding: 2px 8px; border: 1px solid var(--accent); }
+html[data-js] .w05-vn-vorher .w05-vn-label { left: var(--s3); }
+html[data-js] .w05-vn-nachher .w05-vn-label { right: var(--s3); }
+html[data-js] .w05-vn-handle { display: block; position: absolute; z-index: 3; top: 0; bottom: 0; left: calc(var(--vn) * 1%); width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
+html[data-js] .w05-vn-handle::after { content: ''; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: var(--ground); border: 2px solid var(--accent); }
+html[data-js] .w05-vn-range { display: grid; gap: var(--s2); }
+.w05-vn-range-l { font-size: .625rem; color: var(--w05-soft); }
+.w05-vn-range input { width: 100%; height: 44px; accent-color: var(--accent); background: transparent; cursor: pointer; }
+
+.w05-note { margin-top: var(--s10); display: flex; justify-content: flex-start; }
+.w05-note .note { margin: 0; }
+.w05 > .credit { margin: var(--s8) auto 0; padding-inline: var(--gutter); max-width: 1280px; }
+
+@media (min-width: 1024px) {
+  .w05-daten-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+}
+@media (max-width: 599px) { html[data-js] .w05-vn-pane .fp-frame { aspect-ratio: auto; min-height: 21rem; } }
+@media (max-width: 599px) { .w05-table th { width: 50%; font-size: .625rem; letter-spacing: .1em; } .w05-ablauf li { grid-template-columns: 2.5rem 1fr; } }

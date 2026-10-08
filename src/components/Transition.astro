@@ -40,6 +40,11 @@ const { row } = Astro.props;
         </div>
       </>
     )}
+    {row.variant === 'zierlinie' && (
+      <svg class="t-zl" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path data-t-zl d="M40 250 C300 250 380 250 560 250 S860 250 1000 250" pathLength="1" />
+      </svg>
+    )}
     {row.variant === 'nblende' && (
       <>
         <svg class="t-n-outline" data-t-outline viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,100 0,0 26,0 74,66 74,0 100,0 100,100 74,100 26,34 26,100" pathLength="1" /></svg>

@@ -118,3 +118,8 @@ In `public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erz
 - Die Seite `/branchenloesungen/kanzlei` spricht Rechtsanwälte und Steuerberater an. Für diese Berufe gelten berufsrechtliche Grenzen für Werbung. Bitte prüfen, ob Aussagen wie „Urteilsvermögen“, „Sorgfalt“ und „Mandate anbahnen“ in Text, Checkliste und FAQ unbedenklich sind.
 - Die Studie Haas & Sternfeld ist fiktiv. Prüfen, ob der Name Verwechslungsgefahr mit einer bestehenden Kanzlei oder Steuerberatung birgt (Markenrecherche macht Niklas selbst vor dem Livegang, Namen bleiben vorerst).
 - Beträge, Fristen und Gesetzesbezüge in der Studie sind Beispielwerte und ausdrücklich keine Rechtsauskunft; die Marginalie 1 sagt das. Bitte prüfen, ob der Hinweis ausreicht.
+
+## Nachtrag Phase 2: Branchenseite Oldtimer-Werkstatt (Welt 05)
+
+- Die Studie Chromwerk und das Beispielfahrzeug sind fiktiv; Fahrzeugdaten sind erfunden und nennen keinen Hersteller. Bitte prüfen, ob der Name Verwechslungsgefahr mit einem bestehenden Betrieb birgt (Markenrecherche macht Niklas selbst vor dem Livegang).
+- Die Checkliste der Branchenseite nennt Fahrzeughalter-Zustimmung, unkenntlich gemachte Kennzeichen und Markenrechte an Emblemen. Bitte auf Vollständigkeit prüfen. Die Foto-Platzhalter schließen erkennbare Hersteller-Logos aus.

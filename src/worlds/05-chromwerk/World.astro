@@ -1,0 +1,103 @@
+---
+/**
+ * Welt 05 · Chromwerk · Oldtimer-Werkstatt (Blueprint F). Studie, fiktives Unternehmen.
+ * Premium Automotive, aber ehrliche Werkstatt: grüner Lack, Chrom, Fahrt. Kinoformat.
+ * Hauptanimation „Querfahrt“: vertikales Scrollen schiebt die Bildstrecke seitwärts (Desktop gepinnt, ein Lichtreflex wandert mit,
+ * bei schnellem Scrollen neigt sich die Strecke um bis zu 4°). Mobil und ruhig: eine wischbare Leiste. Vorher-Nachher-Schieber mit Maus,
+ * Touch und Pfeiltasten. Fotos stehen als Bildplatzhalter, nichts ist gezeichnet.
+ * Ohne JavaScript: Strecke als scrollbare Leiste, Vorher und Nachher untereinander.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { UNTERZEILE, KOPFTEXT, STRECKE, DATENBLATT, ABLAUF, VORHER_NACHHER } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '05');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 05 / ${total} · Oldtimer-Werkstatt · Studie`;
+---
+<section id={w.anchor} class="world w05" data-section={row.id} data-world="05" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`05 / ${total}`} aria-labelledby="w05-title">
+
+  <header class="w05-head">
+    <p class="w05-kapitel">Kapitel 00 · Studie, fiktives Unternehmen</p>
+    <h2 id="w05-title" class="w05-title">Chromwerk</h2>
+    <p class="w05-sub">{UNTERZEILE}</p>
+    <svg class="w05-zier" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path data-zier d="M40 62 C300 62 380 18 560 22 S860 50 1000 30" pathLength="1" />
+    </svg>
+    <p class="w05-lead">{KOPFTEXT}</p>
+  </header>
+
+  <div class="w05-kopf"><BildPlatzhalter id="w05-kopf" /></div>
+
+  <!-- Querfahrt: die Bildstrecke fährt seitwärts -->
+  <section class="w05-fahrt" aria-labelledby="w05-fahrt-h" data-fahrt>
+    <div class="w05-fahrt-stage">
+      <div class="w05-fahrt-kopf">
+        <h3 id="w05-fahrt-h" class="w05-h">Querfahrt</h3>
+        <p class="w05-hint">Vier Stationen einer Restaurierung, von vorn nach hinten.</p>
+      </div>
+      <div class="w05-strip-wrap" data-strip-wrap tabindex="0" role="region" aria-label="Bildstrecke der Querfahrt, seitlich wischen oder mit den Pfeiltasten scrollen">
+        <ol class="w05-strip" data-strip>
+          {STRECKE.map((s) => (
+            <li class="w05-band">
+              <p class="w05-nr"><span class="visually-hidden">Kapitel </span>{s.nr}</p>
+              <BildPlatzhalter id={s.foto} />
+              <p class="w05-cap"><strong>{s.titel}.</strong> {s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="w05-reflex" aria-hidden="true" data-reflex></div>
+    </div>
+  </section>
+
+  <!-- Datenblatt und Ablauf -->
+  <section class="w05-daten" aria-labelledby="w05-daten-h">
+    <h3 id="w05-daten-h" class="w05-h">Datenblatt</h3>
+    <div class="w05-daten-grid">
+      <table class="w05-table">
+        <caption>{DATENBLATT.titel}</caption>
+        <tbody>
+          {DATENBLATT.zeilen.map(([k, v]) => <tr><th scope="row">{k}</th><td>{v}</td></tr>)}
+        </tbody>
+      </table>
+      <ol class="w05-ablauf" aria-label="Ablauf einer Restaurierung in fünf Kapiteln">
+        {ABLAUF.map(([nr, t, text]) => (
+          <li><span class="w05-nr" aria-hidden="true">{nr}</span><div><p class="w05-ab-t">{t}</p><p class="w05-ab-x">{text}</p></div></li>
+        ))}
+      </ol>
+    </div>
+    <p class="w05-demo">{DATENBLATT.hinweis}</p>
+  </section>
+
+  <!-- Vorher-Nachher-Schieber (Demo) -->
+  <section class="w05-vn-wrap" aria-labelledby="w05-vn-h">
+    <h3 id="w05-vn-h" class="w05-h">{VORHER_NACHHER.titel}</h3>
+    <p class="w05-lead w05-vn-text">{VORHER_NACHHER.text}</p>
+    <div class="w05-vn" data-vn>
+      <div class="w05-vn-stage" data-vn-stage>
+        <div class="w05-vn-pane w05-vn-nachher">
+          <span class="w05-vn-label">Nachher</span>
+          <BildPlatzhalter id="w05-nachher" />
+        </div>
+        <div class="w05-vn-pane w05-vn-vorher" data-vn-vorher>
+          <span class="w05-vn-label">Vorher</span>
+          <BildPlatzhalter id="w05-vorher" />
+        </div>
+        <span class="w05-vn-handle" aria-hidden="true" data-vn-handle></span>
+      </div>
+      <label class="w05-vn-range">
+        <span class="w05-vn-range-l">{VORHER_NACHHER.regler}</span>
+        <input type="range" min="0" max="100" step="1" value="50" data-vn-range aria-valuetext="50 Prozent Vorher">
+      </label>
+    </div>
+    <p class="w05-demo">Demo · Beispielbilder folgen, der Regler sendet nichts</p>
+  </section>
+
+  <div class="w05-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Oldtimer-Werkstätten" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>
