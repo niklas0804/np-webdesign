@@ -1,4 +1,4 @@
-# Bildschirmfotos (Stand Phase 2, Welten 06 und 07)
+# Bildschirmfotos (Stand Phase 2, Welten 08 und 09)
 
 Desktop 1440×900 (`*-desktop.png`) und Mobil 390×844 (`*-mobile.png`), erzeugt mit `scripts/screenshots.cjs` aus dem Produktions-Build (`dist`).
 Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshots.cjs` (mit `ONLY='welt07'` nur passende Aufnahmen, ohne etwas zu löschen).

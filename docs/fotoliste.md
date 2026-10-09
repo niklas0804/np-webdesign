@@ -1,9 +1,27 @@
 # Fotoliste: was Niklas besorgen muss
 
 Erzeugt mit `node scripts/list-photos.mjs` aus `src/content/fotos.js`. Auf der Seite stehen für jedes Foto ein klar markierter Bildplatzhalter mit Motivbeschreibung.
-Offen: **11** Fotos.
+Offen: **21** Fotos.
 
 Allgemein: keine erkennbaren Personen (erfundene Betriebe, keine Gesichter für fiktive Menschen), keine lesbaren Firmennamen oder Schilder, Nutzungs- und Abbildungsrechte vorab klären, Dateiformat JPG oder PNG in voller Größe, ich erzeuge daraus AVIF/WebP in den Breiten aus Blueprint O.
+
+## Welt 01 · Halmberg (Bäckerei)
+
+### Landbrot mit Schnitten (`w01-brot-gross`)
+
+- **Motiv:** Ein rundes Landbrot mit dunkler Kruste und eingeschnittenem Muster, frisch aus dem Ofen, schräges Licht (Fensterlicht von links), Mehlstaub auf dem Holzbrett. Warm entwickelt, sichtbares Korn. Keine Personen, keine Stockfoto-Anmutung.
+- **Format:** quer 4:3, mindestens 2400 × 1800 px (zugeschnitten wird in Laibform)
+- **Einsatz:** Welt 01, großes Bild neben dem Titel; später Branchenseite Bäckerei
+- **Alternativtext:** Rundes Landbrot mit dunkler Kruste und eingeschnittenem Muster auf einem Holzbrett
+- **Rechte:** eigene Aufnahme aus der Backstube; Rechte an Brettern, Etiketten und Hintergrund klären
+
+### Roggenlaib mit Krume (`w01-brot-klein`)
+
+- **Motiv:** Ein ovaler Roggenlaib, angeschnitten, die Krume im Gegenlicht sichtbar, Mehlstaub in der Luft. Makroaufnahme mit geringer Schärfentiefe, warm entwickelt.
+- **Format:** quer 4:3, mindestens 1800 × 1350 px
+- **Einsatz:** Welt 01, kleines Bild links unten überlappend
+- **Alternativtext:** Angeschnittener Roggenlaib mit offener Krume im Gegenlicht
+- **Rechte:** eigene Aufnahme aus der Backstube
 
 ## Welt 04 · Haas & Sternfeld (Kanzlei)
 
@@ -98,4 +116,72 @@ Allgemein: keine erkennbaren Personen (erfundene Betriebe, keine Gesichter für 
 - **Einsatz:** Welt 07, Bauteil drehen per Ziehen oder Scrollen (mobil mit 6 der 12 Ansichten)
 - **Alternativtext:** Gefrästes Bauteil auf einem Drehteller aus wechselnden Blickwinkeln
 - **Rechte:** eigene Aufnahme eines selbst gefertigten Teils; nichts von Kunden abbilden
+
+## Welt 08 · Praxis am Weiher (Physiotherapie)
+
+### Heller Behandlungsraum (`w08-raum`)
+
+- **Motiv:** Ein heller, aufgeräumter Behandlungsraum mit Liege, großem Fenster und Blick ins Grüne oder aufs Wasser, weiches Tageslicht, helle Holz- und Mintfarben. Keine Personen, keine lesbaren Schilder.
+- **Format:** quer 3:2, mindestens 2400 × 1600 px
+- **Einsatz:** Welt 08, Bild neben den Behandlungskarten
+- **Alternativtext:** Heller Behandlungsraum mit Liege und großem Fenster
+- **Rechte:** eigene Aufnahme in den eigenen Räumen; keine Personen im Bild
+
+### Hände bei der Behandlung (`w08-haende`)
+
+- **Motiv:** Zwei Hände bei einer Behandlung an Schulter oder Rücken, Ausschnitt ohne erkennbares Gesicht und ohne Tätowierungen, helles Licht, ruhige Farben. Nur mit schriftlicher Einwilligung der abgebildeten Personen.
+- **Format:** hoch 4:5, mindestens 1600 × 2000 px
+- **Einsatz:** Welt 08, neben dem Buchungsmodul oder den Behandlungskarten
+- **Alternativtext:** Hände bei einer Behandlung am Rücken, ohne Gesicht
+- **Rechte:** Einwilligung der abgebildeten Personen schriftlich einholen; keine Stockfotos mit unklaren Rechten
+
+### Der Weiher (`w08-weiher`)
+
+- **Motiv:** Eine ruhige Wasserfläche bei Tageslicht, Schilf am Rand, flaches Licht, dahinter Bäume. Aufnahmeort muss frei zugänglich sein oder die Erlaubnis liegt vor. Dasselbe Motiv wie das Foto „See in der Abenddämmerung“ aus Welt 09, gleicher Standpunkt.
+- **Format:** sehr breit 21:9, mindestens 2560 × 1100 px, identischer Standpunkt wie „See am Abend“
+- **Einsatz:** Welt 08, Abschluss der Welt und Anfang des Übergangs zum See
+- **Alternativtext:** Ruhiger Weiher mit Schilf bei Tageslicht
+- **Rechte:** eigene Aufnahme; Aufnahmeort und Eigentümer klären
+
+## Welt 09 · Gut Weidenstein (Landgasthof)
+
+### See am Abend (`w09-see-abend`)
+
+- **Motiv:** Ein See am frühen Abend, tiefstehende Sonne, warmes Licht auf dem Wasser, Schilf und Steg im Vordergrund. Dasselbe Motiv wie das Foto „Weiher“ aus Welt 08, gleicher Standpunkt. Natürliches Licht, nicht stark bearbeitet.
+- **Format:** quer 16:9, mindestens 2560 × 1440 px, identischer Standpunkt wie „Weiher“
+- **Einsatz:** Welt 09, Vollbild am Anfang der Welt und erstes Bild der Tageszeit-Überblendung
+- **Alternativtext:** Ein See am frühen Abend mit warmem Licht auf dem Wasser
+- **Rechte:** eigene Aufnahme; Aufnahmeort und Eigentümer klären
+
+### See in der Dämmerung (`w09-see-daemmerung`)
+
+- **Motiv:** Derselbe Standpunkt wie „See am Abend“, 30 bis 40 Minuten später: Himmel violett und rosa, Wasser spiegelt, erste Lichter am Ufer. Ohne Personen.
+- **Format:** quer 16:9, mindestens 2560 × 1440 px, identischer Standpunkt
+- **Einsatz:** Welt 09, zweites Bild der Tageszeit-Überblendung
+- **Alternativtext:** Derselbe See in der Dämmerung mit violettem Himmel
+- **Rechte:** eigene Aufnahme, gleicher Standpunkt wie das Abendbild
+
+### See bei Nacht (`w09-see-nacht`)
+
+- **Motiv:** Derselbe Standpunkt, blaue Stunde bis Nacht: dunkles Wasser, ein erleuchtetes Fenster am Haus gegenüber oder am Steg. Ohne Personen.
+- **Format:** quer 16:9, mindestens 2560 × 1440 px, identischer Standpunkt (Stativ, Langzeitbelichtung)
+- **Einsatz:** Welt 09, drittes Bild der Tageszeit-Überblendung
+- **Alternativtext:** Derselbe See bei Nacht mit einem erleuchteten Fenster
+- **Rechte:** eigene Aufnahme, gleicher Standpunkt wie das Abendbild
+
+### Zimmer mit Fensterblick (`w09-zimmer`)
+
+- **Motiv:** Ein Gästezimmer mit Fensterblick auf den See, Leinenbettwäsche, Holzboden, natürliches Abendlicht. Keine Personen, keine Logos auf Textilien.
+- **Format:** quer 3:2, mindestens 2400 × 1600 px
+- **Einsatz:** Welt 09, neben den Zimmerkarten
+- **Alternativtext:** Gästezimmer mit großem Fenster und Blick auf einen See
+- **Rechte:** eigene Aufnahme im eigenen Haus; keine Personen
+
+### Tellerdetail (`w09-teller`)
+
+- **Motiv:** Nahaufnahme eines angerichteten Tellers (z. B. Fisch mit Gemüse) auf Holztisch, geringe Schärfentiefe, warmes Kerzenlicht. Keine Personen, kein Besteck mit Logo.
+- **Format:** quadratisch 1:1, mindestens 1800 × 1800 px
+- **Einsatz:** Welt 09, neben der Speisekarte
+- **Alternativtext:** Nahaufnahme eines angerichteten Tellers bei Kerzenlicht
+- **Rechte:** eigene Aufnahme aus der eigenen Küche
 

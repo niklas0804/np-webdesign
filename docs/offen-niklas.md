@@ -10,15 +10,15 @@ Diese Liste wird bei jedem Schritt fortgeschrieben. Erledigtes bleibt als „erl
 - [ ] **Rechtsprüfung** mit `docs/rechtspruefung.md` (inklusive der Nachträge zu den Branchenseiten Kanzlei, Oldtimer-Werkstatt und weiteren).
 - [ ] **Einwilligungsbanner und Matomo:** erst nach der Antwort des Rechtsprüfers bauen.
 - [ ] **GitHub Pages abschalten** (Settings → Pages), damit nichts Halbes veröffentlicht wird.
-- [ ] **Werbeaussagen der Branchenseiten:** Kanzlei/Steuerberater (Berufsrecht) und Medizin/Physio (Heilmittelwerbung) prüfen lassen, sobald diese Seiten stehen.
+- [ ] **Werbeaussagen der Branchenseiten:** Kanzlei/Steuerberater (Berufsrecht), Physio (Heilmittelwerbung, Gesundheitsdaten bei echter Buchung) und Gastro/Hotel (Preisangaben, Allergene) prüfen lassen; die Punkte stehen in `docs/rechtspruefung.md`.
 
 ## Inhalte und Bilder
 - [ ] **Fotos besorgen:** siehe `docs/fotoliste.md` (wird mit jeder Welt länger). Rechte und Abbildungsrechte vorab klären, keine erkennbaren Personen, keine Herstellerlogos.
-- [ ] **Frage zu Welt 01:** Das gezeichnete Laib-Motiv durch einen Foto-Platzhalter ersetzen? (Die Zeichnung ist von dir abgenommen, bleibt bis zu deiner Antwort.)
+- [x] **Welt 01:** Laib-Zeichnung durch Foto-Platzhalter ersetzt (entschieden am 9. Oktober 2026); die Fotos stehen in `docs/fotoliste.md`.
 - [ ] **Bäckerei-Branchenseite** inhaltlich prüfen (neu geschrieben, nicht aus deinen Vorlagen). Ebenso die neuen Seiten Kanzlei, Oldtimer-Werkstatt und die folgenden.
 - [ ] **Werdegang** („Ich komme aus der Technik …“) nach eigener Prüfung anpassen.
-- [ ] **Name Welt 07:** In der Blueprint heißt die Studie NAABTEC, auf der Seite steht der früher umbenannte Name TORQUEL. Bleibt es dabei?
-- [ ] **Demo-Code der Welten 02, 03 und 06:** Der Originalcode deiner alten Demos lag mir nie vor; die drei Welten sind Entwürfe nach der Blueprint. Wenn du die Originale nutzen willst, bitte liefern.
+- [x] **Name Welt 07:** bleibt TORQUEL (entschieden am 9. Oktober 2026).
+- [x] **Demo-Code der Welten 02, 03 und 06:** liegt nicht vor (bestätigt am 9. Oktober 2026), die drei Welten bleiben Entwürfe nach der Blueprint.
 - [ ] **Social-Vorschaubilder** ansehen (`public/images/social/`); sie entstehen aus den gebauten Seiten.
 
 ## Tests, die nur du machen kannst

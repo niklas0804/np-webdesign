@@ -4,7 +4,11 @@
  * dahinter wischt die neue Welt herein. Länge kommt aus der Reise-Konfiguration.
  * Ruhige Variante: nur der Faden als feine Linie, kein Pin.
  */
+import BildPlatzhalter from './BildPlatzhalter.astro';
 const { row } = Astro.props;
+const TAGE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+// Beispielmonat: 31 Tage, der erste ist ein Mittwoch; der gebuchte Termin ist der 17.
+const ZELLEN = Array.from({ length: 35 }, (_, i) => { const tag = i - 2 + 1; return tag >= 1 && tag <= 31 ? tag : null; });
 ---
 <section class="transition" data-section={row.id} data-from-tone={row.fromTone} data-to-tone={row.toTone}
          data-from-ground={row.fromGround} data-to-ground={row.toGround} data-from-id={row.from} data-to-id={row.to} data-variant={row.variant || undefined} aria-hidden="true">
@@ -39,6 +43,29 @@ const { row } = Astro.props;
           </svg>
         </div>
       </>
+    )}
+    {row.variant === 'messraster' && (
+      <div class="t-cal" data-world="08" data-t-cal>
+        {TAGE.map((d) => <span class="t-cal-head" data-t-head>{d}</span>)}
+        {ZELLEN.map((n) => <span class={`t-cal-cell${n === 17 ? ' is-termin' : ''}${n === null ? ' is-leer' : ''}`} data-t-cell data-termin={n === 17 ? '' : undefined}>{n}</span>)}
+      </div>
+    )}
+    {row.variant === 'wasser' && (
+      <div class="t-ws" data-t-ws>
+        <div class="t-ws-frame" data-t-wsframe>
+          <div class="t-ws-a" data-world="08" data-t-wsa><BildPlatzhalter id="w08-weiher" /></div>
+          <div class="t-ws-b" data-world="09" data-t-wsb><BildPlatzhalter id="w09-see-abend" /></div>
+        </div>
+        <svg class="t-ws-line" viewBox="0 0 1000 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path data-t-wsline d="M0 6 C120 0 240 12 360 6 S600 0 720 6 S900 12 1000 6" pathLength="1" /></svg>
+      </div>
+    )}
+    {row.variant === 'fenster' && (
+      <div class="t-fn" data-t-fn>
+        <div class="t-fn-window" data-world="09" data-t-window>
+          <span class="t-fn-licht" data-t-licht></span>
+          <span class="t-fn-steg t-fn-steg-v"></span><span class="t-fn-steg t-fn-steg-h"></span>
+        </div>
+      </div>
     )}
     {row.variant === 'scheinwerfer' && (
       <div class="t-lampwrap" data-world="06" data-t-lampwrap>

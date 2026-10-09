@@ -1,0 +1,96 @@
+/* Welt 08 · Praxis am Weiher (Blueprint F). Palette aus /journey.css: --ground Mint, --text Tiefgrün, --accent Salbei (4,8:1), --accent2 Hellmint (nur Flächen).
+   Schrift: Atkinson Hyperlegible Next 400 und 700, für Lesbarkeit entwickelt (11,4 KB). Grundtext 19 px, Klickflächen mindestens 48 px.
+   „Große Schrift“ und „Hoher Kontrast“ überschreiben nur die Größe und die Farbvariablen dieser Welt. */
+@font-face { font-family: 'Atkinson NP'; src: url('/fonts/atkinson-08.woff2') format('woff2-variations'); font-weight: 400 700; font-style: normal; font-display: swap; }
+
+.world.w08 {
+  --w08-size: 1.1875rem;
+  --w08-card: color-mix(in srgb, var(--ground) 55%, #fff);
+  --w08-line: color-mix(in srgb, var(--text) 38%, transparent);
+  padding: 0 var(--gutter) var(--block);
+  background: var(--ground);
+  color: var(--text);
+  font-family: 'Atkinson NP', 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: var(--w08-size);
+  line-height: 1.6;
+  min-height: calc(var(--len) * 1svh);
+}
+/* Hoher Kontrast: Schwarz auf Weiß, Akzent nur dunkel */
+.world.w08[data-contrast] { --ground: #fff; --text: #000; --accent: #0b3d2c; --accent2: #fff; --w08-card: #fff; --w08-line: #000; }
+.world.w08[data-large] { --w08-size: 1.5rem; }
+.w08 > * { max-width: 1180px; margin-inline: auto; }
+.w08 :focus-visible { outline: 4px solid var(--text); outline-offset: 3px; }
+.w08 p { max-width: none; }
+.w08 small { font-size: .8em; opacity: .85; }
+.w08-h { font-size: 1.6em; font-weight: 700; line-height: 1.2; margin: 0 0 .6em; }
+.w08-demo { margin: 1em 0 0; font-family: var(--mono); font-size: var(--fs-mono-xs); color: var(--np-mass); letter-spacing: .02em; }
+.world.w08[data-contrast] .w08-demo { color: #000; }
+
+/* ---------- Kopf ---------- */
+.w08-hero { padding-top: calc(var(--frame-top) + var(--s9)); padding-bottom: var(--s6); max-width: 760px; margin-inline: 0; }
+.w08 > .w08-hero { margin-inline: auto; max-width: 1180px; }
+.w08-hero > * { max-width: 760px; }
+.w08-kicker { font-size: .875em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 0 0 var(--s3); }
+.w08-title { font-size: clamp(2.5rem, 6.4vw, 5rem); font-weight: 700; line-height: 1.05; letter-spacing: -.01em; margin: 0; }
+.w08-satz { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; line-height: 1.25; color: var(--accent); margin: var(--s4) 0 var(--s3); text-wrap: balance; }
+.w08-unter { font-size: 1.1em; margin: 0 0 var(--s5); }
+.w08-wasser { display: block; width: 100%; max-width: 760px; height: 24px; margin: 0 0 var(--s5); }
+.w08-wasser path { fill: none; stroke: var(--accent); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.w08-schalter { display: flex; flex-wrap: wrap; gap: var(--s3); }
+html:not([data-js]) .w08-schalter { display: none; }
+.w08-sw { min-height: 52px; padding: 0 var(--s5); border: 2px solid var(--text); background: transparent; color: var(--text); font: inherit; font-weight: 700; border-radius: 8px; cursor: pointer; transition: background var(--dur-s), color var(--dur-s); }
+.w08-sw:hover { background: var(--w08-card); }
+.w08-sw[aria-pressed='true'] { background: var(--text); color: var(--ground); }
+
+/* ---------- Layout: eine klare Spalte plus Seitenleiste ---------- */
+.w08-layout { display: grid; gap: var(--s8); padding-top: var(--s7); }
+.w08-main { display: grid; gap: var(--s9); min-width: 0; }
+.w08-block { min-width: 0; }
+.w08-karten { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s4); }
+.w08-karte { background: var(--w08-card); border: 2px solid var(--w08-line); border-radius: 12px; padding: var(--s5); }
+.w08-karte-name { margin: 0; font-size: 1.25em; font-weight: 700; }
+.w08-karte-dauer { margin: .2em 0 .5em; color: var(--accent); font-weight: 700; }
+.world.w08[data-contrast] .w08-karte-dauer { color: #000; }
+.w08-karte-text { margin: 0; }
+.w08-bilder { display: grid; gap: var(--s4); }
+.w08-liste { margin: 0; display: grid; border-top: 2px solid var(--text); }
+.w08-liste > div { display: grid; gap: .2em var(--s5); padding: var(--s4) 0; border-bottom: 1px solid var(--w08-line); }
+.w08-liste dt { font-weight: 700; } .w08-liste dd { margin: 0; }
+.w08 .fp-frame { border-color: var(--text); }
+
+/* ---------- Terminbuchung ---------- */
+.w08-buchung { background: var(--w08-card); border: 2px solid var(--text); border-radius: 16px; padding: var(--s5); display: grid; gap: var(--s5); }
+.w08-buchung .w08-h { margin: 0; }
+.w08-feld { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: var(--s2); }
+.w08-feld legend { font-weight: 700; font-size: 1.1em; padding: 0; margin-bottom: var(--s2); display: flex; align-items: center; gap: var(--s3); }
+.w08-nr { display: inline-grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; background: var(--text); color: var(--ground); font-size: .85em; }
+.w08-raster { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+.w08-opt { position: relative; display: block; }
+.w08-opt input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer; }
+.w08-opt span { display: flex; align-items: center; min-height: 52px; padding: .4em var(--s4); border: 2px solid var(--text); border-radius: 8px; background: var(--ground); font-weight: 700; transition: background var(--dur-s), color var(--dur-s); gap: .5em; flex-wrap: wrap; }
+.w08-opt:hover span { background: var(--w08-card); }
+.w08-opt input:checked + span { background: var(--text); color: var(--ground); }
+.w08-opt input:focus-visible + span { outline: 4px solid var(--accent); outline-offset: 3px; box-shadow: 0 0 0 2px var(--ground); }
+.world.w08[data-contrast] .w08-opt input:focus-visible + span { outline-color: #000; }
+html:not([data-js]) .w08-opt input { position: static; opacity: 1; width: auto; height: auto; margin-right: .5em; }
+html:not([data-js]) .w08-opt { display: flex; align-items: center; min-height: 48px; }
+html:not([data-js]) .w08-opt span { border: 0; background: none; min-height: 0; padding: 0; }
+html:not([data-js]) .w08-send { display: none; }
+.w08-send { min-height: 56px; padding: 0 var(--s6); border: 2px solid var(--text); border-radius: 8px; background: var(--accent); color: #fff; font: inherit; font-weight: 700; cursor: pointer; transition: background var(--dur-s), color var(--dur-s); }
+.world.w08[data-contrast] .w08-send { background: #000; color: #fff; }
+.w08-send:hover, .w08-send:focus-visible { background: var(--text); }
+.w08-send:disabled { opacity: .55; cursor: not-allowed; }
+.w08-confirm { margin: 0; min-height: 0; font-weight: 700; }
+.w08-confirm:empty { display: none; }
+
+.w08-weiher { padding-top: var(--s10); }
+.w08-note { margin-top: var(--s10); display: flex; }
+.w08-note .note { margin: 0; }
+.w08 > .credit { margin-top: var(--s8); }
+@media (min-width: 700px) { .w08-karten { grid-template-columns: repeat(2, minmax(0, 1fr)); } .w08-bilder { grid-template-columns: 3fr 2fr; align-items: start; } .w08-liste > div { grid-template-columns: 14rem 1fr; } }
+@media (min-width: 1024px) {
+  .w08-layout { grid-template-columns: minmax(0, 7fr) minmax(320px, 4fr); gap: var(--s9); align-items: start; }
+  .w08-side { position: sticky; top: calc(var(--frame-top) + var(--s5)); }
+}
+@media (max-width: 1023px) { .w08-side { order: -1; } }

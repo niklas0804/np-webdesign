@@ -16,7 +16,7 @@ export function GET() {
       desktop.push(`${sel}{--len:${r.d}}`);
       mobile.push(`${sel}{--len:${r.m}}`);
     }
-    if (r.kind === 'transition') desktop.push(`${sel}{--from:${r.fromGround};--to:${r.toGround}${r.fromAccent ? `;--from-accent:${r.fromAccent}` : ''}${r.toAccent ? `;--to-accent:${r.toAccent}` : ''}}`);
+    if (r.kind === 'transition') desktop.push(`${sel}{--from:${r.fromGround};--to:${r.toGround}${r.fromAccent ? `;--from-accent:${r.fromAccent}` : ''}${r.toAccent ? `;--to-accent:${r.toAccent}` : ''}${r.fromText ? `;--from-text:${r.fromText}` : ''}${r.toText ? `;--to-text:${r.toText}` : ''}}`);
     else if (r.ground) desktop.push(`${sel}{--ground:${r.ground}}`);
     if (r.scene) { desktop.push(`${sel}{--scene:${r.scene.d}}`); mobile.push(`${sel}{--scene:${r.scene.m}}`); }
   }

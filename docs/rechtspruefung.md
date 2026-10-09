@@ -131,3 +131,11 @@ In `public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erz
 - Welt 07 (Industrie): Kennzahlen, Toleranzen und das Messprotokoll sind erfundene Beispielwerte und als solche gekennzeichnet. Bitte prüfen, ob die Kennzeichnung („Demo · Beispielwerte, erfundenes Teil“) genügt und ob die Aussagen der Branchenseite zu Zertifikaten und Normen unbedenklich sind (es werden keine genannt).
 - Die Demo-Anfrage mit Dateiauswahl liest und überträgt keine Datei. Bei einer echten Umsetzung wäre der Upload von Zeichnungen (vertrauliche Unterlagen) in der Datenschutzerklärung zu beschreiben.
 - Namen der Studien TORQUEL und Jana Ahrens: Markenrecherche macht Niklas selbst vor dem Livegang.
+
+## Nachtrag Phase 2: Branchenseiten Physiotherapie (Welt 08) und Gastronomie/Hotel (Welt 09)
+
+- Physiotherapie: Bitte prüfen, ob Behandlungsbeschreibungen („nach ärztlicher Verordnung“) und alle Aussagen der Branchenseite und der Checkliste mit dem Heilmittelwerbegesetz vereinbar sind. Die Studie macht keine Heilversprechen und nennt keine Erfolge.
+- Die Terminbuchung der Studie ist eine Demo ohne Versand. Bei einer echten Umsetzung würde sie Gesundheitsdaten berühren (Art. 9 DSGVO): Rechtsgrundlage, Einwilligung und Datenschutzerklärung wären vorab zu klären. Die Branchenseite weist darauf hin.
+- Gastronomie/Hotel: Beispielpreise sind als solche gekennzeichnet. Bitte prüfen, ob Preisangabenverordnung (Endpreise inklusive Umsatzsteuer, Hinweis auf Kurtaxe), Allergen- und Zusatzstoffkennzeichnung und die Hinweise auf der Branchenseite ausreichen.
+- Fotos mit Personen (Hände bei der Behandlung, Gäste) nur mit schriftlicher Einwilligung; die Platzhalter beschreiben nur Motive ohne erkennbare Gesichter.
+- Namen der Studien Praxis am Weiher und Gut Weidenstein: Markenrecherche macht Niklas selbst vor dem Livegang.

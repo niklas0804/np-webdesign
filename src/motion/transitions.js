@@ -15,7 +15,7 @@ export function initTransitions() {
     let half = null;
     // Wann der Rahmen seine Farbe wechselt: bei der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat;
     // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
-    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55 }[sec.dataset.variant] ?? 0.5;
+    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55, messraster: 0.45, wasser: 0.5, fenster: 0.55 }[sec.dataset.variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -43,6 +43,12 @@ export function initTransitions() {
       goldlinie(tl, sec, wipe, thread);
     } else if (sec.dataset.variant === 'pruefstempel') {
       pruefstempel(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'messraster') {
+      messraster(tl, sec);
+    } else if (sec.dataset.variant === 'wasser') {
+      wasser(tl, sec);
+    } else if (sec.dataset.variant === 'fenster') {
+      fenster(tl, sec);
     } else if (sec.dataset.variant === 'scheinwerfer') {
       scheinwerfer(tl, sec, wipe);
     } else if (sec.dataset.variant === 'kreise') {
@@ -254,4 +260,70 @@ function strahl(tl, sec, wipe) {
     .to(dots, { opacity: 0, duration: 0.15 }, 0.55);
   if (glow && mode === 'desktop') tl.fromTo(glow, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.45);
   tl.to([beam, glow].filter(Boolean), { autoAlpha: 0, duration: 0.1 }, 0.92);
+}
+
+/**
+ * Welt 07 → Welt 08: Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als gebuchter Termin;
+ * Stahlschiefer wird Mint (Blueprint F, Übergang 10). Die Zellen kommen verstreut und finden ihre Plätze (Transform, Deckkraft, Farbe).
+ */
+function messraster(tl, sec) {
+  const cal = $('[data-t-cal]', sec);
+  const cells = $$('[data-t-cell]', sec);
+  const heads = $$('[data-t-head]', sec);
+  const termin = $('[data-termin]', sec);
+  const bg = $('.t-stage', sec);
+  const css = (n, d) => getComputedStyle(sec).getPropertyValue(n).trim() || d;
+  const to = css('--to-accent', '#2F6B57'); const toText = css('--to-text', '#1E2D2A');
+  const toGround = css('--to', '#CDE8DA'); const fromGround = css('--from', '#2B3642');
+  const r = gsap.utils.random;
+  gsap.set(cal, { xPercent: -50, yPercent: -50 });
+  // Zufällige Startlagen einmal festlegen (stabil beim Zurückscrollen)
+  const start = cells.map(() => ({ x: r(-45, 45, 1) * (window.innerWidth / 100), y: r(-40, 40, 1) * (window.innerHeight / 100), rotation: r(-30, 30, 1) }));
+  tl.fromTo(cells, { x: (i) => start[i].x, y: (i) => start[i].y, rotation: (i) => start[i].rotation, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.5, stagger: { each: 0.008, from: 'random' }, ease: 'power3.out' }, 0.04)
+    .fromTo(heads, { opacity: 0 }, { opacity: 1, duration: 0.12, stagger: 0.02 }, 0.45)
+    .fromTo(bg, { backgroundColor: fromGround }, { backgroundColor: toGround, duration: 0.35, ease: 'none' }, 0.4)
+    .to(cells, { borderColor: to, color: toText, duration: 0.3, ease: 'none' }, 0.45)
+    .to(heads, { color: toText, duration: 0.3, ease: 'none' }, 0.45)
+    .fromTo(termin, { scale: 1 }, { scale: 1.12, backgroundColor: to, color: '#fff', duration: 0.14, ease: 'back.out(2)' }, 0.75)
+    .to(termin, { scale: 1, duration: 0.08 }, 0.89)
+    .to(cal, { autoAlpha: 0, duration: 0.08 }, 0.94);
+}
+
+/**
+ * Welt 08 → Welt 09: Das Bild des Weihers zoomt aus und wird zum See in der Abenddämmerung (Blueprint F, Übergang 11, länger: 80/50 vh).
+ * Die Fotos stehen als Bildplatzhalter, nichts ist gezeichnet; Mint kippt in Dämmerungsviolett, die Wasserlinie zieht sich auf.
+ */
+function wasser(tl, sec) {
+  const frame = $('[data-t-wsframe]', sec);
+  const a = $('[data-t-wsa]', sec);
+  const b = $('[data-t-wsb]', sec);
+  const line = $('[data-t-wsline]', sec);
+  const bg = $('.t-stage', sec);
+  const css = (n, d) => getComputedStyle(sec).getPropertyValue(n).trim() || d;
+  tl.fromTo(frame, { scale: 1.3, transformOrigin: '50% 60%' }, { scale: 1, duration: 0.7, ease: 'power2.out' }, 0)
+    .fromTo(line, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.3, ease: 'power2.inOut' }, 0.2)
+    .to(a, { opacity: 0, duration: 0.3, ease: 'none' }, 0.4)
+    .to(b, { opacity: 1, duration: 0.3, ease: 'none' }, 0.4)
+    .fromTo(bg, { backgroundColor: css('--from', '#CDE8DA') }, { backgroundColor: css('--to', '#2A1F33'), duration: 0.4, ease: 'none' }, 0.35)
+    .to(line, { opacity: 0, duration: 0.1 }, 0.85)
+    .to(frame, { autoAlpha: 0, duration: 0.1 }, 0.92);
+}
+
+/**
+ * Welt 09 → Zwischenspiel III: Die Kamera fährt auf ein erleuchtetes Fenster zu; sein Rahmen wird zur Maske für das Porträt
+ * (Blueprint F, Übergang 12). Das Fenster geht an, wächst über den Viewport und füllt sich mit dem Leinen der nächsten Seite.
+ */
+function fenster(tl, sec) {
+  const win = $('[data-t-window]', sec);
+  const licht = $('[data-t-licht]', sec);
+  const bg = $('.t-stage', sec);
+  const toGround = getComputedStyle(sec).getPropertyValue('--to').trim() || '#F0EBE3';
+  const cover = () => Math.max(window.innerWidth / win.offsetWidth, window.innerHeight / win.offsetHeight) * 1.25;
+  gsap.set(win, { xPercent: -50, yPercent: -50 });
+  tl.fromTo(win, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0)
+    .fromTo(licht, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.in' }, 0.14)
+    .fromTo(win, { scale: 1 }, { scale: cover, duration: 0.5, ease: 'power2.in', immediateRender: false }, 0.36)
+    .to(licht, { backgroundColor: toGround, backgroundImage: 'none', duration: 0.2, ease: 'none' }, 0.7)
+    .to(bg, { backgroundColor: toGround, duration: 0.15, ease: 'none' }, 0.82)
+    .to(win, { autoAlpha: 0, duration: 0.08 }, 0.94);
 }

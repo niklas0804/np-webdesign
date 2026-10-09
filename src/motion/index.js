@@ -20,6 +20,8 @@ const WORLD_MODULES = {
   oldtimer: () => import('../worlds/05-chromwerk/motion.js'),
   coaching: () => import('../worlds/06-jana-ahrens/motion.js'),
   industrie: () => import('../worlds/07-torquel/motion.js'),
+  physiotherapie: () => import('../worlds/08-praxis-am-weiher/motion.js'),
+  landgasthof: () => import('../worlds/09-gut-weidenstein/motion.js'),
 };
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {
