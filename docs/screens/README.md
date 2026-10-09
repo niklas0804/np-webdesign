@@ -6,7 +6,7 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | Nr. | Moment |
 | --- | --- |
 | `01-hero` | Hero (Opening fertig) |
-| `02-werkplan` | Werkplan mit den sieben Studien (echte Vorschaubilder) und leerem Zentrum |
+| `02-werkplan` | Werkplan mit den neun Studien (echte Vorschaubilder) und leerem Zentrum |
 | `03-t00-zelle-waechst` | Übergang t00: Zelle 01 wächst auf Viewport-Größe |
 | `04-welt01-einstieg` | Welt 01 Halmberg (Bäckerei): Einstieg |
 | `05-welt01-backplan` | Welt 01: Backplan und Brote |
@@ -46,11 +46,22 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | `39-welt07-scan` | Welt 07: Laserlinie scannt, das Messprotokoll entsteht dahinter |
 | `40-welt07-dreher` | Welt 07: Bauteil drehen (Bildplatzhalter, 12 Ansichten, mobil 6) |
 | `41-welt07-anfrage` | Welt 07: Zeichnung anfragen (Demo) |
-| `42-uebergang-welt07-ueber-mich` | Standard-Übergang Stahlschiefer → Leinen (bis Welt 08 und 09 gebaut sind) |
-| `43-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
-| `44-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
-| `45-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 08), Einladung |
-| `46-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
-| `47-kontakt` | Kontakt mit Formular und Live-Vorschau |
+| `42-t09-messraster-streut` | Übergang t09: Die Messraster-Zellen verstreut |
+| `43-t09-messraster-kalender` | Übergang t09: Die Zellen sind zum Monatskalender geordnet, der Termin leuchtet, Stahlschiefer wird Mint |
+| `44-welt08-einstieg` | Welt 08 Praxis am Weiher (Physiotherapie): Titel, Wasserlinie, Schalter „Große Schrift“ und „Hoher Kontrast“ |
+| `45-welt08-buchung` | Welt 08: Behandlungen und Terminbuchung in drei Schritten (Demo) |
+| `46-t10-wasser-weiher` | Übergang t10: Der Weiher (Bildplatzhalter) zoomt aus, die Wasserlinie zieht sich auf |
+| `47-t10-wasser-see` | Übergang t10: Der See in der Abenddämmerung, Mint kippt in Dämmerungsviolett |
+| `48-welt09-einstieg` | Welt 09 Gut Weidenstein (Landgasthof): Titel und fixierte Buchungsleiste |
+| `49-welt09-abend` | Welt 09: Tageszeit Abend (erstes Bild der Überblendung) |
+| `50-welt09-nacht` | Welt 09: Tageszeit Nacht, die Farbschicht hat abgekühlt |
+| `51-welt09-speisekarte` | Welt 09: Speisekarte Mittag und Abend als schmale Spalte |
+| `52-t11-fenster-licht` | Übergang t11: Das Fenster geht an |
+| `53-t11-fenster-waechst` | Übergang t11: Das Fenster wächst über den Viewport, sein Rahmen wird zur Maske für das Porträt |
+| `54-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
+| `55-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
+| `56-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 10), Einladung |
+| `57-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
+| `58-kontakt` | Kontakt mit Formular und Live-Vorschau |
 
 Hinweis: Die Standard-Übergänge zwischen gleich hellen Abschnitten zeigen nur den orangen Faden auf Leinen, weil Anfang und Ende dieselbe Farbe haben.
