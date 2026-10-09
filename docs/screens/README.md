@@ -1,4 +1,4 @@
-# Bildschirmfotos (Stand Phase 2, Welten 08 und 09)
+# Bildschirmfotos (Stand Phase 2, alle zehn Welten)
 
 Desktop 1440×900 (`*-desktop.png`) und Mobil 390×844 (`*-mobile.png`), erzeugt mit `scripts/screenshots.cjs` aus dem Produktions-Build (`dist`).
 Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshots.cjs` (mit `ONLY='welt07'` nur passende Aufnahmen, ohne etwas zu löschen).
@@ -6,7 +6,7 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | Nr. | Moment |
 | --- | --- |
 | `01-hero` | Hero (Opening fertig) |
-| `02-werkplan` | Werkplan mit den neun Studien (echte Vorschaubilder) und leerem Zentrum |
+| `02-werkplan` | Werkplan mit den zehn Studien (echte Vorschaubilder) und leerem Zentrum |
 | `03-t00-zelle-waechst` | Übergang t00: Zelle 01 wächst auf Viewport-Größe |
 | `04-welt01-einstieg` | Welt 01 Halmberg (Bäckerei): Einstieg |
 | `05-welt01-backplan` | Welt 01: Backplan und Brote |
@@ -59,9 +59,19 @@ Neu erzeugen: `npm run build && NODE_PATH=$(npm root -g) node scripts/screenshot
 | `52-t11-fenster-licht` | Übergang t11: Das Fenster geht an |
 | `53-t11-fenster-waechst` | Übergang t11: Das Fenster wächst über den Viewport, sein Rahmen wird zur Maske für das Porträt |
 | `54-zwischenspiel3-ueber-mich` | Zwischenspiel III: Über mich |
-| `55-uebergang-ueber-mich-finale` | Standard-Übergang Leinen → Leinen (nur der orange Faden) |
-| `56-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 10), Einladung |
-| `57-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
-| `58-kontakt` | Kontakt mit Formular und Live-Vorschau |
+| `55-t12-ausziehen-farben` | Übergang t12: Stufe 1, die Farben der Über-mich-Seite fallen |
+| `56-t12-ausziehen-schrift` | Übergang t12: Stufe 2, die Schrift fällt auf Times |
+| `57-t12-ausziehen-abstaende` | Übergang t12: Stufe 3, die Abstände fallen |
+| `58-t12-ausziehen-layout` | Übergang t12: Stufe 4, das Layout fällt in den Dokumentfluss |
+| `59-welt10-einstieg` | Welt 10 NP Labor: der Rohbau, alles Browser-Standard, das Bild fehlt mit Absicht |
+| `60-welt10-geruest` | Welt 10: Rohbau-Schalter, das Gerüst der Welt 01 mit Tag-Etiketten |
+| `61-welt10-bruch` | Welt 10: der Bruch mit Überlagerung, Drehung und Riesenschrift |
+| `62-welt10-ende` | Welt 10: am Ende wird der blaue Standardlink orange |
+| `63-t13-rohbau-liste` | Übergang t13: die Rohliste mit blauen Links in Times |
+| `64-t13-rohbau-ordnet` | Übergang t13: Links werden orange, die Blöcke wandern zu Werkplan-Zellen |
+| `65-t13-rohbau-werkplan` | Übergang t13: die zehn Zellen stehen als Werkplan |
+| `66-finale` | Finale: Werkplan, Logo als Signatur, leeres Zentrum (Welt 11), Einladung |
+| `67-finale-sprung-in-kontakt` | Finale: leere Zelle wächst in den Kontakt |
+| `68-kontakt` | Kontakt mit Formular und Live-Vorschau |
 
 Hinweis: Die Standard-Übergänge zwischen gleich hellen Abschnitten zeigen nur den orangen Faden auf Leinen, weil Anfang und Ende dieselbe Farbe haben.

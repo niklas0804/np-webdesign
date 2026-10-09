@@ -22,6 +22,7 @@ const WORLD_MODULES = {
   industrie: () => import('../worlds/07-torquel/motion.js'),
   physiotherapie: () => import('../worlds/08-praxis-am-weiher/motion.js'),
   landgasthof: () => import('../worlds/09-gut-weidenstein/motion.js'),
+  labor: () => import('../worlds/10-np-labor/motion.js'),
 };
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {

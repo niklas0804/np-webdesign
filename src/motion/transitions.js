@@ -3,7 +3,7 @@
  * dahinter wischt die neue Welt herein. Eine Szene pro Übergang, gepinnt und scrollgesteuert.
  * Der Zähler springt in der Mitte der Szene (Markenregel 4).
  */
-import { gsap, $, $$, mode } from './base.js';
+import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 import { setTone, setSection } from './rahmen.js';
 
 export function initTransitions() {
@@ -15,7 +15,7 @@ export function initTransitions() {
     let half = null;
     // Wann der Rahmen seine Farbe wechselt: bei der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat;
     // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
-    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55, messraster: 0.45, wasser: 0.5, fenster: 0.55 }[sec.dataset.variant] ?? 0.5;
+    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55, messraster: 0.45, wasser: 0.5, fenster: 0.55, ausziehen: 0.5, rohbau: 0.5 }[sec.dataset.variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -43,6 +43,10 @@ export function initTransitions() {
       goldlinie(tl, sec, wipe, thread);
     } else if (sec.dataset.variant === 'pruefstempel') {
       pruefstempel(tl, sec, wipe);
+    } else if (sec.dataset.variant === 'ausziehen') {
+      ausziehen(tl, sec);
+    } else if (sec.dataset.variant === 'rohbau') {
+      rohbau(tl, sec);
     } else if (sec.dataset.variant === 'messraster') {
       messraster(tl, sec);
     } else if (sec.dataset.variant === 'wasser') {
@@ -326,4 +330,59 @@ function fenster(tl, sec) {
     .to(licht, { backgroundColor: toGround, backgroundImage: 'none', duration: 0.2, ease: 'none' }, 0.7)
     .to(bg, { backgroundColor: toGround, duration: 0.15, ease: 'none' }, 0.82)
     .to(win, { autoAlpha: 0, duration: 0.08 }, 0.94);
+}
+
+/**
+ * Zwischenspiel III → Welt 10: Die Seite zieht sich aus. Vier Stufen an festen Scroll-Schwellen (Klassenwechsel, kein Tween):
+ * Farben, Schrift, Abstände, Layout (Blueprint F, Übergang 13, länger: 100/70 vh). Rückwärts bauen sich die Stufen wieder auf.
+ */
+function ausziehen(tl, sec) {
+  const ex = $('[data-t-ex]', sec);
+  const label = $('[data-t-exstep]', sec);
+  const names = ['Zwischenspiel III', 'Farben fallen', 'Schrift fällt', 'Abstände fallen', 'Layout fällt'];
+  const marks = [0.18, 0.4, 0.62, 0.82];
+  let last = -1;
+  tl.fromTo(ex, { opacity: 1 }, { opacity: 1, duration: 1 }, 0); // hält die Szene über die ganze Strecke
+  ScrollTrigger.create({
+    trigger: sec, start: 'top top', end: 'bottom bottom',
+    onUpdate: (self) => {
+      const step = marks.filter((m) => self.progress >= m).length;
+      if (step === last) return;
+      last = step;
+      for (let i = 1; i <= 4; i += 1) ex.classList.toggle(`is-s${i}`, step >= i);
+      label.textContent = `Stufe ${step} von 4 · ${names[step]}`;
+    },
+  });
+}
+
+/**
+ * Welt 10 → Finale: Die Rohelemente (blaue Links in Times) bekommen NP-Stil zurück: Links werden orange, Times wird Archivo, und die Blöcke
+ * ordnen sich zum Werkplan, den das Finale als Nächstes zeigt (Blueprint F, Übergang 14, lang: 140/90 vh). Positionen aus der Messung.
+ */
+function rohbau(tl, sec) {
+  const stage = $('.t-stage', sec);
+  const rb = $('[data-t-rb]', sec);
+  const grid = $('[data-t-rbgrid]', sec);
+  const items = $$('[data-t-rbi]', sec);
+  const raws = $$('[data-t-raw]', sec);
+  const nps = $$('[data-t-np]', sec);
+  const center = $('[data-t-rbcenter]', sec);
+  const orange = getComputedStyle(document.documentElement).getPropertyValue('--orange-text').trim() || '#A34A0D';
+  const leinen = getComputedStyle(document.documentElement).getPropertyValue('--leinen').trim() || '#F0EBE3';
+  const rawPos = (i, axis) => () => {
+    const sr = stage.getBoundingClientRect(); const gr = grid.getBoundingClientRect();
+    const r = items[i].getBoundingClientRect(); // Messung im Endzustand (Transform steht bei Szenenbeginn auf 0)
+    const left = gr.left; const top = sr.top + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--frame-top')) + 72 + i * 30;
+    return axis === 'x' ? left - r.left : top - r.top;
+  };
+  gsap.set(raws, { color: '#0000EE' });
+  // 0–25 %: die Rohliste steht da (blau, Times); 25–45 %: Links werden orange, Times wird Archivo (Wechsel der Schrift in der Mitte)
+  items.forEach((it, i) => tl.fromTo(it, { x: rawPos(i, 'x'), y: rawPos(i, 'y') }, { x: 0, y: 0, duration: 0.45, ease: 'power3.inOut' }, 0.4 + i * 0.015));
+  tl.to(raws, { color: orange, duration: 0.18, ease: 'none' }, 0.2)
+    .set(raws, { fontFamily: 'Archivo NP, sans-serif', fontStretch: '70%', fontWeight: 800, letterSpacing: '-.02em' }, 0.34)
+    .to(raws, { autoAlpha: 0, duration: 0.14, ease: 'none' }, 0.55)
+    .to(nps, { opacity: 1, duration: 0.2, ease: 'none', stagger: 0.01 }, 0.5)
+    .fromTo(center, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.78)
+    .to(rb, { backgroundColor: leinen, duration: 0.3, ease: 'none' }, 0.62)
+    .to(rb, { autoAlpha: 0, duration: 0.08 }, 0.94);
 }

@@ -265,9 +265,9 @@ html[data-mode='desktop'] .t-glow { display: block; position: absolute; left: 0;
   background: radial-gradient(ellipse 60% 50% at 50% 50%, color-mix(in srgb, var(--to-accent, #F2C230) 34%, transparent), transparent 70%); }
 
 /* t09 · Welt 07 → Welt 08: Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als Termin; Stahlschiefer wird Mint. */
-.t-cal, .t-ws, .t-fn { display: none; }
-.transition[data-variant='messraster'] .t-wipe, .transition[data-variant='wasser'] .t-wipe, .transition[data-variant='fenster'] .t-wipe { display: none !important; }
-.transition[data-variant='messraster'] .t-thread, .transition[data-variant='wasser'] .t-thread, .transition[data-variant='fenster'] .t-thread { display: none !important; }
+.t-cal, .t-ws, .t-fn, .t-ex, .t-rb { display: none; }
+.transition:is([data-variant='messraster'], [data-variant='wasser'], [data-variant='fenster'], [data-variant='ausziehen'], [data-variant='rohbau']) .t-wipe { display: none !important; }
+.transition:is([data-variant='messraster'], [data-variant='wasser'], [data-variant='fenster'], [data-variant='ausziehen'], [data-variant='rohbau']) .t-thread { display: none !important; }
 html[data-mode='desktop'] .t-cal, html[data-mode='mobile'] .t-cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; position: absolute; left: 50%; top: 50%; width: min(88vw, 760px); z-index: 2; pointer-events: none; font-family: var(--mono); }
 .t-cal-head { text-align: center; font-size: var(--fs-mono-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--from-text, #E6EAEE); opacity: 0; padding-bottom: 4px; }
 .t-cal-cell { aspect-ratio: 1.25; display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px 6px; border: 1.5px solid var(--from-accent, #F2C230); color: var(--from-text, #E6EAEE); font-size: .75rem; background: transparent; }
@@ -287,3 +287,41 @@ html[data-mode='desktop'] .t-fn, html[data-mode='mobile'] .t-fn { display: block
 .t-fn-licht { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at 50% 70%, var(--text) 0%, color-mix(in srgb, var(--text) 88%, var(--ground)) 65%, color-mix(in srgb, var(--text) 72%, var(--ground)) 100%); }
 .t-fn-steg { position: absolute; background: var(--ground); opacity: .85; }
 .t-fn-steg-v { left: 50%; top: 0; bottom: 0; width: 6px; margin-left: -3px; } .t-fn-steg-h { top: 38%; left: 0; right: 0; height: 6px; }
+
+/* t12 · Zwischenspiel III → Welt 10: Die Seite zieht sich aus. Farben, Schrift, Abstände und Layout fallen in vier Stufen (Klassenwechsel an Scroll-Schwellen). */
+:where(html[data-mode='desktop'], html[data-mode='mobile']) .t-ex { display: grid; place-items: center; position: absolute; inset: 0; z-index: 2; background: var(--leinen); color: var(--tinte); font-family: var(--sans); overflow: hidden; transition: background 220ms, color 220ms; }
+.t-ex-step { position: absolute; right: var(--gutter); bottom: var(--s6); text-align: right; margin: 0; color: inherit; opacity: .8; }
+.t-ex-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: var(--s8); align-items: center; width: min(1100px, 88vw); }
+.t-ex-fig { aspect-ratio: 4 / 5; max-width: 340px; width: 100%; background: var(--sand); border: 1.5px solid var(--tinte); }
+.t-ex-h { margin: 0 0 var(--s5); font-size: clamp(2rem, 4.5vw, 3.75rem); font-weight: 800; letter-spacing: -.02em; line-height: 1; font-stretch: 90%; }
+.t-ex-p { margin: 0 0 var(--s4); font-size: 1.25rem; line-height: 1.5; max-width: 52ch; }
+.t-ex-link { color: var(--orange-text); font-weight: 700; text-decoration: underline; margin-right: var(--s4); }
+.t-ex-btn { display: inline-block; padding: 14px 28px; background: var(--np-orange); color: var(--nacht); font-weight: 700; }
+@media (max-width: 700px) { .t-ex-grid { grid-template-columns: 1fr; gap: var(--s5); } .t-ex-fig { max-width: 160px; } }
+/* Stufe 1: Farben fallen, übrig bleiben Weiß, Schwarz und Linkblau */
+.t-ex.is-s1 { background: #fff; color: #000; }
+.t-ex.is-s1 .t-ex-fig { background: #ddd; border-color: #000; }
+.t-ex.is-s1 .t-ex-link { color: #0000EE; }
+.t-ex.is-s1 .t-ex-btn { background: #efefef; color: #000; border: 2px outset #767676; padding: 4px 10px; font-weight: 400; }
+/* Stufe 2: Schrift fällt auf Times */
+.t-ex.is-s2 { font-family: 'Times New Roman', Times, serif; }
+.t-ex.is-s2 .t-ex-h { font-weight: 700; letter-spacing: 0; font-stretch: 100%; font-size: 1.5rem; line-height: 1.2; }
+.t-ex.is-s2 .t-ex-p { font-size: 1rem; line-height: normal; }
+.t-ex.is-s2 .t-ex-link { font-weight: 400; }
+/* Stufe 3: Abstände fallen auf die des Browsers */
+.t-ex.is-s3 .t-ex-grid { gap: 0; }
+.t-ex.is-s3 .t-ex-h { margin: .83em 0; } .t-ex.is-s3 .t-ex-p { margin: 1em 0; }
+.t-ex.is-s3 .t-ex-fig { border-width: 1px; }
+/* Stufe 4: Layout fällt in den Dokumentfluss, Blöcke untereinander, oben links */
+.t-ex.is-s4 { place-items: start; padding: calc(var(--frame-top) + var(--s8)) var(--gutter) 0; }
+.t-ex.is-s4 .t-ex-grid { display: block; width: 100%; }
+.t-ex.is-s4 .t-ex-fig { display: none; }
+/* t13 · Welt 10 → Finale: Die Rohelemente bekommen NP-Stil zurück, Links werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan. */
+html[data-mode='desktop'] .t-rb, html[data-mode='mobile'] .t-rb { display: grid; place-items: center; position: absolute; inset: 0; z-index: 2; padding: calc(var(--frame-top) + var(--s4)) var(--gutter) var(--s9); background: #fff; }
+.t-rb-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--col-gap); width: 100%; max-width: 1280px; }
+.t-rb-i { position: relative; min-width: 0; }
+.t-rb-raw { position: absolute; left: 0; top: 0; white-space: nowrap; font: 16px/1.2 'Times New Roman', Times, serif; color: #0000EE; text-decoration: underline; z-index: 1; }
+.t-rb-np { display: block; opacity: 0; }
+.t-rb-center { aspect-ratio: 16 / 10; display: grid; place-items: center; background: var(--sand); border: 1px solid var(--haarlinie); opacity: 0; }
+.t-rb-center .wp-center-logo { height: 40px; width: auto; color: var(--tinte); }
+@media (max-width: 1023px) { .t-rb-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); } .t-rb-raw { font-size: 14px; } }

@@ -5,6 +5,9 @@
  * Ruhige Variante: nur der Faden als feine Linie, kein Pin.
  */
 import BildPlatzhalter from './BildPlatzhalter.astro';
+import WorldStill from './WorldStill.astro';
+import Logo from './Logo.astro';
+import { builtWorlds } from '../config/journey.js';
 const { row } = Astro.props;
 const TAGE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 // Beispielmonat: 31 Tage, der erste ist ein Mittwoch; der gebuchte Termin ist der 17.
@@ -43,6 +46,35 @@ const ZELLEN = Array.from({ length: 35 }, (_, i) => { const tag = i - 2 + 1; ret
           </svg>
         </div>
       </>
+    )}
+    {row.variant === 'ausziehen' && (
+      <div class="t-ex" data-t-ex>
+        <p class="t-ex-step mono" data-t-exstep aria-hidden="true">Stufe 0 von 4 · Zwischenspiel III</p>
+        <div class="t-ex-grid">
+          <div class="t-ex-fig"></div>
+          <div class="t-ex-text">
+            <p class="t-ex-h">Ich bin Niklas Prüfling.</p>
+            <p class="t-ex-p">NP Webdesign ist mein Studio in Schwandorf. Ich komme aus der Technik und bringe die Haltung mit: erst verstehen, wie etwas funktionieren muss, dann bauen.</p>
+            <p class="t-ex-p"><span class="t-ex-link">Mehr über meine Arbeitsweise</span> <span class="t-ex-btn">Projekt anfragen</span></p>
+          </div>
+        </div>
+      </div>
+    )}
+    {row.variant === 'rohbau' && (
+      <div class="t-rb" data-t-rb>
+        <ol class="t-rb-grid" data-t-rbgrid>
+          {builtWorlds.map((w) => (
+            <li class="t-rb-i" data-world={w.nr} data-t-rbi>
+              <span class="t-rb-raw" data-t-raw>Welt {w.nr} · {w.name}</span>
+              <span class="wp-frame t-rb-np" data-t-np>
+                <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
+                <span class="wp-still"><WorldStill nr={w.nr} /></span>
+              </span>
+            </li>
+          ))}
+          <li class="t-rb-center" data-t-rbcenter><Logo class="wp-center-logo" /></li>
+        </ol>
+      </div>
     )}
     {row.variant === 'messraster' && (
       <div class="t-cal" data-world="08" data-t-cal>

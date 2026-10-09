@@ -84,7 +84,8 @@ export const WORLDS = [
     built: true, source: 'neu', leistung: 'Conversion-Struktur' },
   { nr: '10', slug: 'labor', name: 'NP Labor', branche: 'Labor', anchor: 'labor', branchPage: '/',
     palette: pal('#FFFFFF', '#000000', '#0000EE', '#551A8B', { accent2Use: 'text' }), // Weiß · Schwarz · Linkblau · Besucht
-    built: false, source: 'neu', leistung: 'Sauberer Code, keine Baukasten-Abhängigkeit' },
+    notiz: 'Alles, was Sie gesehen haben, besteht aus diesem Rohmaterial. Kein Baukasten, keine Vorlage.',
+    built: true, source: 'neu', leistung: 'Sauberer Code, keine Baukasten-Abhängigkeit' },
 ];
 
 /**
@@ -120,6 +121,8 @@ export const TRANSITION_VARIANTS = {
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
   'welt-05>welt-06': 'scheinwerfer', // Der runde Scheinwerfer glüht warm auf, wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus
   'welt-06>arbeitsweise': 'kreise', // Die konzentrischen Kreise rollen sich zu einer Linie mit sechs Stationen ab
+  'ueber-mich>welt-10': 'ausziehen', // Zwischenspiel III zieht sich aus: Farben, Schrift, Abstände, Layout fallen in vier Stufen
+  'welt-10>finale': 'rohbau', // Die Rohelemente bekommen NP-Stil: Links werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan
   'welt-07>welt-08': 'messraster', // Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als Termin, Stahlschiefer wird Mint
   'welt-08>welt-09': 'wasser', // Das Bild des Weihers zoomt aus und wird zum See in der Abenddämmerung, Mint kippt in Dämmerungsviolett
   'welt-09>ueber-mich': 'fenster', // Die Kamera fährt auf ein erleuchtetes Fenster zu, sein Rahmen wird zur Maske für das Porträt
@@ -132,7 +135,11 @@ export const TRANSITION_VARIANTS = {
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
 export const TRANSITION_DEFAULT = { desktop: 60, mobile: 40 };
 /** Längere Übergänge (Blueprint F): Weiher → See */
-export const TRANSITION_LENGTH = { 'welt-08>welt-09': { desktop: 80, mobile: 50 } };
+export const TRANSITION_LENGTH = {
+  'welt-08>welt-09': { desktop: 80, mobile: 50 },
+  'ueber-mich>welt-10': { desktop: 100, mobile: 70 },
+  'welt-10>finale': { desktop: 140, mobile: 90 },
+};
 
 /**
  * Reihenfolge der Reise in dieser Bauphase (Blueprint T.3, gekürzt auf die gebauten Teile).
@@ -158,6 +165,7 @@ export const journey = (() => {
     // scene: Länge der gepinnten Bildüberblendung (Blueprint F: 120vh plus Verweilen); die langsamste Welt der Reise
     { id: 'welt-09', kind: 'world', world: '09', d: 320, m: 240, scene: { d: 240, m: 170 } },
     { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
+    { id: 'welt-10', kind: 'world', world: '10', d: 280, m: 220 },
     // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)
     { id: 'finale', kind: 'finale', anchor: 'finale', d: 200, m: 140, ground: MASTER.leinen, tone: 'light' },
     { id: 'kontakt', kind: 'contact', anchor: 'kontakt', d: 150, m: 200, ground: MASTER.leinen, tone: 'light' },

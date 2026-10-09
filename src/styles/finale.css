@@ -102,6 +102,20 @@ html[data-mode='desktop'] .f-grow, html[data-mode='mobile'] .f-grow {
   html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-still { top: 12px; }
 }
 
+/* Zehn Studien: wie im Werkplan */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='10'] { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite { grid-column: 2 / 6; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
+}
+@media (max-width: 1023px) {
+  html[data-mode='mobile'] .f-grid[data-count='10'] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-bar i { width: 3px; height: 3px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-still { top: 12px; }
+}
+
 @media (min-width: 1024px) {
   html[data-mode='desktop'] .f-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
   html[data-mode='desktop'] .f-center { aspect-ratio: auto; grid-column: 1 / 2; min-height: 200px; }

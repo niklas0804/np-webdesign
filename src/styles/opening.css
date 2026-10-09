@@ -213,6 +213,13 @@
   .werkplan:is([data-count='8'], [data-count='9'], [data-count='10']) .wp-still { top: 12px; }
 }
 
+/* Zehn Studien: fünf Spalten, zwei volle Reihen, das Zentrum links in der dritten Reihe neben der Aussage. */
+@media (min-width: 1024px) {
+  .werkplan[data-count='10'] .wp-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
+  .werkplan[data-count='10'] .wp-statement { grid-column: 2 / 6; }
+}
+@media (max-width: 1023px) { .werkplan[data-count='10'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; } }
+
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
   height: calc((100 + var(--expansion) + var(--plan) + var(--grow)) * 1svh);
