@@ -1,0 +1,96 @@
+/* Welt 09 · Gut Weidenstein (Blueprint F). Palette aus /journey.css: --ground Dämmerungsviolett, --text Leinenweiß, --accent Schilf, --accent2 Wasser (nur Linien).
+   Schrift: Cormorant, variabel 300–500, auf benutzte Zeichen reduziert (17,7 KB): Display 300 und 500 sehr groß, Text 500 ab 20 px mit Zeilenhöhe 1,6. */
+@font-face { font-family: 'Cormorant NP'; src: url('/fonts/cormorant-09.woff2') format('woff2-variations'); font-weight: 300 500; font-style: normal; font-display: swap; }
+
+.world.w09 {
+  --w09-soft: color-mix(in srgb, var(--text) 82%, var(--ground));
+  --w09-line: color-mix(in srgb, var(--accent2) 80%, transparent);
+  --w09-card: color-mix(in srgb, var(--ground) 90%, #fff);
+  padding: 0 var(--gutter) var(--block);
+  background: var(--ground);
+  color: var(--text);
+  font-family: 'Cormorant NP', 'Cormorant Garamond', Garamond, 'Palatino Linotype', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  min-height: calc(var(--len) * 1svh);
+  position: relative;
+}
+.w09 > * { max-width: 1180px; margin-inline: auto; }
+.w09 :focus-visible { outline-color: var(--accent); outline-width: 3px; }
+.w09 p { max-width: none; }
+.w09 .mono { font-family: var(--mono); }
+.w09-h { font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 300; line-height: 1.1; margin: 0 0 var(--s6); letter-spacing: .01em; }
+.w09-demo { margin: var(--s4) 0 0; font-family: var(--mono); font-size: var(--fs-mono-xs); color: var(--w09-soft); letter-spacing: .02em; }
+.w09 .fp-frame { border-color: var(--text); }
+
+/* ---------- Kopf ---------- */
+.w09-hero { padding-top: calc(var(--frame-top) + var(--s10)); padding-bottom: var(--s9); }
+.w09-kicker { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 var(--s5); }
+.w09-title { font-size: clamp(3.5rem, 12vw, 11rem); font-weight: 300; line-height: .95; letter-spacing: -.01em; margin: 0; }
+.w09-satz { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.25; max-width: 24ch !important; margin: var(--s6) 0 0; color: var(--w09-soft); text-wrap: balance; }
+
+/* ---------- Tageszeit: Überblendung ---------- */
+.w09 > .w09-tag { max-width: none; margin-inline: calc(var(--gutter) * -1); }
+.w09-layer-wrap { position: relative; }
+.w09-layer { margin: 0; padding: 0 var(--gutter); display: grid; gap: var(--s3); padding-block: var(--s6); }
+.w09-ins { max-width: 38ch; font-size: 1.25rem; color: var(--w09-soft); }
+.w09-ins-n { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .3em; }
+.w09-tint { display: none; }
+/* gepinnt (Desktop und mobil): die drei Bilder liegen übereinander und blenden mit dem Scrollen über */
+html[data-mode='desktop'] .w09-tag, html[data-mode='mobile'] .w09-tag { height: calc((100 + var(--scene)) * 1svh); }
+html[data-mode='desktop'] .w09-tag-stage, html[data-mode='mobile'] .w09-tag-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+html[data-mode='desktop'] .w09-layer-wrap, html[data-mode='mobile'] .w09-layer-wrap { height: 100%; }
+html[data-mode='desktop'] .w09-layer, html[data-mode='mobile'] .w09-layer { position: absolute; inset: 0; padding: calc(var(--frame-top) + var(--s4)) var(--gutter) var(--s9); align-content: stretch; grid-template-rows: 1fr auto; visibility: hidden; opacity: 0; }
+html[data-mode='desktop'] .w09-layer[data-layer='0'], html[data-mode='mobile'] .w09-layer[data-layer='0'] { visibility: visible; opacity: 1; }
+html[data-mode='desktop'] .w09-layer .foto-platzhalter, html[data-mode='mobile'] .w09-layer .foto-platzhalter { height: 100%; }
+html[data-mode='desktop'] .w09-layer .fp-frame, html[data-mode='mobile'] .w09-layer .fp-frame { height: 100%; aspect-ratio: auto; }
+html[data-mode='desktop'] .w09-ins, html[data-mode='mobile'] .w09-ins { position: relative; z-index: 2; background: color-mix(in srgb, var(--ground) 88%, transparent); padding: var(--s3) var(--s4); justify-self: start; }
+/* Farbtemperatur: warm am Abend, kühl und dunkel in der Nacht (nur Deckkraft, ein Verlauf über allen Bildern) */
+html[data-mode='desktop'] .w09-tint, html[data-mode='mobile'] .w09-tint { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ground) 70%, transparent), color-mix(in srgb, #0d0814 82%, transparent)); }
+
+/* ---------- Zimmer ---------- */
+.w09-zimmer, .w09-speise { padding-top: var(--s10); }
+.w09-zimmer-grid, .w09-speise-grid { display: grid; gap: var(--s7); align-items: start; }
+.w09-karten { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s4); }
+.w09-karte { border: 1px solid var(--w09-line); background: var(--w09-card); padding: var(--s5); }
+.w09-karte-name { margin: 0; font-size: 1.75rem; font-weight: 500; line-height: 1.15; }
+.w09-karte-text { margin: var(--s2) 0; color: var(--w09-soft); }
+.w09-karte-preis { margin: 0; color: var(--accent); font-size: 1.375rem; } .w09-karte-preis small { font-size: .75em; color: var(--w09-soft); }
+
+/* ---------- Speisekarte: schmale Spalte ---------- */
+.w09-speise-spalte { max-width: 520px; }
+.w09-tabs { display: flex; gap: var(--s5); border-bottom: 1px solid var(--w09-line); margin-bottom: var(--s5); }
+html:not([data-js]) .w09-tabs { display: none; }
+.w09-tab { position: relative; min-height: 52px; padding: 0; background: none; border: 0; color: var(--w09-soft); font: inherit; font-size: 1.5rem; font-weight: 500; cursor: pointer; }
+.w09-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform var(--dur-m) var(--ease-out); }
+.w09-tab[aria-selected='true'] { color: var(--text); } .w09-tab[aria-selected='true']::after { transform: scaleX(1); }
+html[data-js] .w09-karte-panel[hidden] { display: none; }
+.w09-karte-zeit { margin: 0 0 var(--s4); font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+html:not([data-js]) .w09-karte-panel { margin-bottom: var(--s6); }
+.w09-gerichte { margin: 0; }
+.w09-gericht { display: flex; align-items: baseline; gap: var(--s3); padding: var(--s3) 0; }
+.w09-gericht dt { flex: 0 1 auto; font-size: 1.375rem; }
+.w09-gericht::before { content: ''; order: 1; flex: 1; min-width: 20px; border-bottom: 1px dotted var(--w09-line); transform: translateY(-4px); }
+.w09-gericht dt { order: 0; } .w09-gericht dd { order: 2; margin: 0; color: var(--accent); font-variant-numeric: lining-nums; white-space: nowrap; }
+.w09-speise-bild { max-width: 420px; }
+
+.w09-note { margin-top: var(--s10); display: flex; }
+.w09-note .note { margin: 0; }
+.w09 > .credit { margin-top: var(--s8); margin-bottom: calc(var(--s10) + 40px); }
+
+/* ---------- fixierte Buchungsleiste ---------- */
+.w09-bar { position: sticky; bottom: 60px; z-index: 4; max-width: 980px; margin: 0 auto; padding: var(--s3) var(--s4); display: flex; flex-wrap: wrap; align-items: end; gap: var(--s3) var(--s4);
+  background: color-mix(in srgb, var(--ground) 94%, #fff); border: 1px solid var(--accent); }
+.w09-bar-t { flex: 1 1 100%; margin: 0; font-size: 1.125rem; font-weight: 500; color: var(--accent); }
+.w09-bar-f { display: grid; gap: 2px; font-size: .9375rem; flex: 1 1 140px; min-width: 0; }
+.w09-bar-f span { font-family: var(--mono); font-size: var(--fs-mono-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--w09-soft); }
+.w09-bar-f input, .w09-bar-f select { min-height: 48px; width: 100%; box-sizing: border-box; padding: 0 var(--s3); background: var(--ground); color: var(--text); border: 1px solid var(--w09-line); font: inherit; font-size: 1.125rem; border-radius: 0; color-scheme: dark; }
+.w09-bar-f input:focus-visible, .w09-bar-f select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.w09-bar-b { min-height: 48px; padding: 0 var(--s6); background: var(--accent); color: var(--ground); border: 0; font: inherit; font-size: 1.125rem; font-weight: 500; letter-spacing: .04em; cursor: pointer; box-shadow: inset 0 0 0 2px var(--accent); transition: background var(--dur-s), color var(--dur-s); }
+.w09-bar-b:hover, .w09-bar-b:focus-visible { background: transparent; color: var(--accent); }
+.w09-bar-c { flex: 1 1 100%; margin: 0; font-size: 1rem; color: var(--text); } .w09-bar-c:empty { display: none; }
+@media (max-width: 1023px) { .w09-bar { bottom: 76px; } .w09-bar-t { display: none; } }
+
+@media (min-width: 700px) { .w09-zimmer-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } .w09-speise-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); } }

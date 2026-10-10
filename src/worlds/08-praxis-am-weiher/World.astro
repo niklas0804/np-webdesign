@@ -1,0 +1,101 @@
+---
+/**
+ * Welt 08 · Praxis am Weiher · Physiotherapie (Blueprint F). Studie, fiktives Unternehmen.
+ * Ruhig, hell, freundlich, barrierearm: Eine klare Inhaltsspalte plus Seitenleiste mit Terminbuchung, Klickflächen mindestens 48 px.
+ * Hauptanimation bewusst zurückhaltend (kurze Einblendungen, Deckkraft und 8 px). Terminbuchung als Demo vollständig per Tastatur.
+ * Schalter „Große Schrift“ und „Hoher Kontrast“ wirken nur in dieser Welt und werden nicht gespeichert.
+ * Ohne JavaScript: alle Inhalte stehen im Text, die Buchung zeigt ihre Auswahl als Formular, die Schalter fehlen.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { KICKER, SATZ, UNTER, BEHANDLUNGEN, TAGE, ZEITEN, OEFFNUNG, ANFAHRT } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '08');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 08 / ${total} · Physiotherapie · Studie`;
+---
+<section id={w.anchor} class="world w08" data-section={row.id} data-world="08" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`08 / ${total}`} aria-labelledby="w08-title" data-w08>
+
+  <header class="w08-hero">
+    <p class="w08-kicker">{KICKER}</p>
+    <h2 id="w08-title" class="w08-title">Praxis am Weiher</h2>
+    <p class="w08-satz">{SATZ}</p>
+    <p class="w08-unter">{UNTER}</p>
+    <svg class="w08-wasser" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 12 C50 2 100 22 150 12 S250 2 300 12 S400 22 450 12 S550 2 600 12" /></svg>
+    <div class="w08-schalter" role="group" aria-label="Darstellung dieser Studie" data-schalter>
+      <button class="w08-sw" type="button" aria-pressed="false" data-sw="large">Große Schrift</button>
+      <button class="w08-sw" type="button" aria-pressed="false" data-sw="contrast">Hoher Kontrast</button>
+    </div>
+  </header>
+
+  <div class="w08-layout">
+    <div class="w08-main">
+      <section class="w08-block" aria-labelledby="w08-beh-h" data-block>
+        <h3 id="w08-beh-h" class="w08-h">Behandlungen</h3>
+        <ul class="w08-karten">
+          {BEHANDLUNGEN.map((b) => (
+            <li class="w08-karte"><p class="w08-karte-name">{b.name}</p><p class="w08-karte-dauer">{b.dauer}</p><p class="w08-karte-text">{b.text}</p></li>
+          ))}
+        </ul>
+        <p class="w08-demo">Demo · erfundene Praxis, Beispielangaben, keine Heilversprechen</p>
+      </section>
+
+      <div class="w08-bilder" data-block>
+        <BildPlatzhalter id="w08-raum" />
+        <BildPlatzhalter id="w08-haende" />
+      </div>
+
+      <section class="w08-block" aria-labelledby="w08-anfahrt-h" data-block>
+        <h3 id="w08-anfahrt-h" class="w08-h">Anfahrt und Parken</h3>
+        <dl class="w08-liste">
+          {ANFAHRT.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+        <p class="w08-demo">Demo · Beispielangaben</p>
+      </section>
+
+      <section class="w08-block" aria-labelledby="w08-zeiten-h" data-block>
+        <h3 id="w08-zeiten-h" class="w08-h">Öffnungszeiten</h3>
+        <dl class="w08-liste">
+          {OEFFNUNG.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+        <p class="w08-demo">Demo · Beispielzeiten</p>
+      </section>
+    </div>
+
+    <aside class="w08-side" aria-labelledby="w08-buchung-h">
+      <form class="w08-buchung" data-buchung novalidate>
+        <h3 id="w08-buchung-h" class="w08-h">Termin buchen</h3>
+        <fieldset class="w08-feld">
+          <legend><span class="w08-nr" aria-hidden="true">1</span> Behandlung</legend>
+          {BEHANDLUNGEN.map((b) => (
+            <label class="w08-opt"><input type="radio" name="behandlung" value={b.name} data-opt><span>{b.name} <small>{b.dauer}</small></span></label>
+          ))}
+        </fieldset>
+        <fieldset class="w08-feld">
+          <legend><span class="w08-nr" aria-hidden="true">2</span> Tag</legend>
+          <div class="w08-raster">
+            {TAGE.map((t) => <label class="w08-opt"><input type="radio" name="tag" value={t} data-opt><span>{t}</span></label>)}
+          </div>
+        </fieldset>
+        <fieldset class="w08-feld">
+          <legend><span class="w08-nr" aria-hidden="true">3</span> Uhrzeit</legend>
+          <div class="w08-raster">
+            {ZEITEN.map((z) => <label class="w08-opt"><input type="radio" name="zeit" value={z} data-opt><span>{z}</span></label>)}
+          </div>
+        </fieldset>
+        <button class="w08-send" type="submit" data-send>Termin vormerken (Demo)</button>
+        <p class="w08-confirm" data-confirm role="status" aria-live="polite"></p>
+        <p class="w08-demo">Demo · Beispielzeiten, es wird nichts gesendet</p>
+      </form>
+    </aside>
+  </div>
+
+  <div class="w08-weiher" data-block><BildPlatzhalter id="w08-weiher" /></div>
+
+  <div class="w08-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Physiotherapie-Praxen" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>

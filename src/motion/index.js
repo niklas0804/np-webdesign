@@ -16,6 +16,13 @@ const WORLD_MODULES = {
   baeckerei: () => import('../worlds/01-halmberg/motion.js'),
   barbershop: () => import('../worlds/02-messingstuhl/motion.js'),
   bau: () => import('../worlds/03-wittgenfeld/motion.js'),
+  kanzlei: () => import('../worlds/04-haas-sternfeld/motion.js'),
+  oldtimer: () => import('../worlds/05-chromwerk/motion.js'),
+  coaching: () => import('../worlds/06-jana-ahrens/motion.js'),
+  industrie: () => import('../worlds/07-torquel/motion.js'),
+  physiotherapie: () => import('../worlds/08-praxis-am-weiher/motion.js'),
+  landgasthof: () => import('../worlds/09-gut-weidenstein/motion.js'),
+  labor: () => import('../worlds/10-np-labor/motion.js'),
 };
 function loadWorlds() {
   Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {

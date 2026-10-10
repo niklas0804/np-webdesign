@@ -6,7 +6,7 @@
  */
 import { WORLDS, builtWorlds } from '../../config/journey.js';
 import { BROTE, BACKPLAN, ZEITEN, BON_NR } from './data.js';
-import Laib from './Laib.astro';
+import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
 import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
 import './world.css';
 
@@ -27,12 +27,12 @@ const counter = `Welt 01 / ${total} · Bäckerei · Studie`;
       <p class="mass mass-type" aria-hidden="true"><span>Fraunces 650 · opsz 144 · SOFT 100 · WONK 1</span></p>
     </div>
     <div class="w01-hero-art" aria-hidden="false">
-      <figure class="w01-loaf w01-loaf-big" data-aufgehen>
-        <Laib form="rund" label="Illustration: runder Laib Landbrot mit Schnitten, noch ohne Foto" />
-      </figure>
-      <figure class="w01-loaf w01-loaf-small" data-aufgehen>
-        <Laib form="oval" label="Illustration: ovaler Roggenlaib mit schrägen Schnitten" />
-      </figure>
+      <div class="w01-loaf w01-loaf-ph w01-loaf-big" data-aufgehen>
+        <BildPlatzhalter id="w01-brot-gross" />
+      </div>
+      <div class="w01-loaf w01-loaf-ph w01-loaf-small" data-aufgehen>
+        <BildPlatzhalter id="w01-brot-klein" />
+      </div>
       <p class="mass mass-dim" aria-hidden="true"><span>Laib · 4 : 3 · Kruste #3B2618</span></p>
     </div>
   </div>

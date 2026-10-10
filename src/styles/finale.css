@@ -52,6 +52,70 @@ html[data-mode='desktop'] .f-grow, html[data-mode='mobile'] .f-grow {
   background-size: 32px 32px; background-position: -1px -1px;
 }
 
+/* Vier Studien: wie im Werkplan (Spalten und Zentrum) */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  html[data-mode='desktop'] .f-grid[data-count='4'] .f-invite { grid-column: 2 / 5; }
+}
+@media (max-width: 1023px) {
+  html[data-mode='mobile'] .f-grid[data-count='4'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 5; }
+}
+
+/* Fünf Studien: wie im Werkplan */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='5'] { max-width: 1100px; }
+  html[data-mode='desktop'] .f-grid[data-count='5'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
+  html[data-mode='desktop'] .f-grid[data-count='5'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
+  html[data-mode='desktop'] .f-grid[data-count='5'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
+}
+
+/* Sechs und sieben Studien: wie im Werkplan */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='6'] { max-width: 980px; }
+  html[data-mode='desktop'] .f-grid[data-count='6'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
+  html[data-mode='desktop'] .f-grid[data-count='7'] { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
+  html[data-mode='desktop'] .f-grid[data-count='7'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
+  html[data-mode='desktop'] .f-grid[data-count='7'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
+  html[data-mode='desktop'] .f-grid[data-count='7'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
+}
+@media (max-width: 1023px) {
+  html[data-mode='mobile'] .f-grid[data-count='6'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 4; }
+  html[data-mode='mobile'] .f-grid:is([data-count='6'], [data-count='7']) { gap: var(--s3); }
+}
+
+/* Acht und neun Studien: wie im Werkplan */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='8'] { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
+  html[data-mode='desktop'] .f-grid[data-count='8'] .f-invite { grid-column: 2 / 5; }
+  html[data-mode='desktop'] .f-grid[data-count='9'] { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
+  html[data-mode='desktop'] .f-grid[data-count='9'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
+  html[data-mode='desktop'] .f-grid[data-count='9'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
+  html[data-mode='desktop'] .f-grid[data-count='9'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
+  html[data-mode='desktop'] .f-grid[data-count='8'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
+}
+@media (max-width: 1023px) {
+  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
+  html[data-mode='mobile'] .f-grid[data-count='8'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; }
+  html[data-mode='mobile'] .f-grid[data-count='9'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 3; }
+  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
+  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-bar i { width: 3px; height: 3px; }
+  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-still { top: 12px; }
+}
+
+/* Zehn Studien: wie im Werkplan */
+@media (min-width: 1024px) {
+  html[data-mode='desktop'] .f-grid[data-count='10'] { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite { grid-column: 2 / 6; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
+}
+@media (max-width: 1023px) {
+  html[data-mode='mobile'] .f-grid[data-count='10'] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-bar i { width: 3px; height: 3px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-still { top: 12px; }
+}
+
 @media (min-width: 1024px) {
   html[data-mode='desktop'] .f-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
   html[data-mode='desktop'] .f-center { aspect-ratio: auto; grid-column: 1 / 2; min-height: 200px; }

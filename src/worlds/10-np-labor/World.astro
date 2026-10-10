@@ -1,0 +1,84 @@
+---
+/**
+ * Welt 10 · NP Labor · Rohbau (Blueprint F). NPs eigene Spielwiese: die nackte Website.
+ * Erst ungestyltes HTML wie 1995 (Browser-Standards Times, Arial, Courier, 0 KB, `all: revert`), dann radikal experimentell:
+ * überlagert, gedreht, riesig; alles bleibt innerhalb der Sektion beschnitten. Am Ende bekommen die Rohelemente NP-Stil zurück:
+ * der blaue Standardlink wird orange, Times wird Archivo.
+ * Hauptanimation: die Archivo-Buchstaben dehnen sich über die Breitenachse mit der Scrollgeschwindigkeit; Elemente rasten ins 8-px-Raster ein.
+ * Interaktion: „Rohbau-Schalter“ zeigt das Gerüst der Welt 01 mit sichtbaren Tag-Etiketten. Das einzige Bild fehlt absichtlich.
+ * Ohne JavaScript: das Gerüst steht offen da, alle Bedienelemente sind die des Browsers.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { KURZ, GERUEST, BESCHREIBUNG } from './data.js';
+import Knoten from './Knoten.astro';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '10');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 10 / ${total} · Labor · NP`;
+---
+<section id={w.anchor} class="world w10" data-section={row.id} data-world="10" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`10 / ${total}`} aria-labelledby="w10-title" data-w10>
+
+  <!-- 1 · Der Rohbau: ungestyltes HTML, alles Browser-Standard -->
+  <div class="w10-roh" data-roh>
+    <h2 id="w10-title">NP Labor</h2>
+    <p>Das ist eine Website ohne Gestaltung. {KURZ}</p>
+
+    <h3>Links</h3>
+    <p><a href="#w10-links">Ein Link, wie ihn jeder Browser zeichnet</a>. Blau und unterstrichen, ohne dass jemand etwas entschieden hätte. <a class="w10-besucht" href="#w10-links">Ein besuchter Link</a> wäre lila.</p>
+    <p id="w10-links">Zum Schluss, weiter unten, wird der blaue Link orange. Das ist NPs Handschrift.</p>
+
+    <h3>Bedienelemente</h3>
+    <p>Jedes Bedienelement beginnt so.</p>
+    <form data-roh-form novalidate>
+      <p>
+        <button type="button" data-roh-btn>Ein Button</button>{' '}
+        <label><input type="checkbox" data-roh-check> Eine Checkbox</label>{' '}
+        <label>Eine Auswahlliste <select data-roh-select><option>Erste Option</option><option>Zweite Option</option><option>Dritte Option</option></select></label>
+      </p>
+      <p><output data-roh-status>Noch nichts bedient.</output></p>
+    </form>
+
+    <h3>Bild</h3>
+    <p>Dieses Bild fehlt mit Absicht. Sein Alternativtext steht an seiner Stelle:</p>
+    <p><img alt="Hier stünde ein Foto, wenn es eins bräuchte."></p>
+
+    <hr>
+    <h3>Liste, Zitat, Tabelle</h3>
+    <ul><li>Ein Listenpunkt</li><li>Noch ein Listenpunkt</li></ul>
+    <blockquote>Ein Zitat bekommt vom Browser einen Einzug, mehr nicht.</blockquote>
+    <table border="1"><caption>Eine Tabelle</caption><tr><th>Element</th><th>Browser-Standard</th></tr><tr><td>Text</td><td>Times, 16 px</td></tr><tr><td>Link</td><td>Blau, unterstrichen</td></tr></table>
+  </div>
+
+  <!-- 2 · Rohbau-Schalter: das Gerüst einer früheren Welt -->
+  <section class="w10-geruest" aria-labelledby="w10-geruest-h">
+    <h3 id="w10-geruest-h">Rohbau-Schalter</h3>
+    <p>So sieht semantisches HTML aus: Das Gerüst der Welt 01 mit seinen Überschriften-Ebenen. {BESCHREIBUNG}</p>
+    <button class="w10-schalter" type="button" aria-pressed="true" data-schalter>Gerüst ausblenden</button>
+    <div class="w10-skelett is-offen" data-skelett aria-hidden="true">
+      {GERUEST.map((n) => <Knoten n={n} />)}
+    </div>
+  </section>
+
+  <!-- 3 · Der Bruch: überlagert, gedreht, riesig -->
+  <section class="w10-bruch" aria-labelledby="w10-bruch-h" data-bruch>
+    <h3 id="w10-bruch-h" class="w10-b-h">Dann der Bruch</h3>
+    <p class="w10-b-a" data-snap>Dieselben Elemente, jetzt mit Absicht.</p>
+    <p class="w10-b-b" data-snap>Überlagert</p>
+    <p class="w10-b-c" data-snap>Gedreht</p>
+    <p class="w10-riese" data-riese aria-hidden="true">LABOR</p>
+    <p class="w10-b-d" data-snap>Alles bleibt in der Sektion, nichts läuft über den Rand.</p>
+  </section>
+
+  <!-- 4 · Ende: NP-Stil -->
+  <section class="w10-ende" aria-labelledby="w10-ende-h" data-ende>
+    <h3 id="w10-ende-h" class="w10-e-h">Zum Schluss: NP</h3>
+    <p class="w10-e-t">Der blaue Standardlink wird orange. <a class="w10-np-link" href="#kontakt">Projekt anfragen</a></p>
+  </section>
+
+  <div class="w10-note"><Werkstattnotiz world={w} /></div>
+  <p class="mono credit">NP Labor · NP Webdesign · Gestaltung und Code: NP Webdesign</p>
+</section>

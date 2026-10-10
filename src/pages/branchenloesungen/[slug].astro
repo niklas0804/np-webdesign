@@ -24,7 +24,7 @@ const jsonLd = [
 ];
 const titleFull = `${b.title} – NP Webdesign`;
 ---
-<Page title={titleFull} description={b.description} path={path} bare jsonLd={jsonLd}>
+<Page title={titleFull} description={b.description} path={path} bare jsonLd={jsonLd} image={`/images/social/branche-${b.slug}.jpg`}>
   <header class="bs-hero">
     <div class="bs-wrap bs-hero-grid">
       <div>
@@ -44,11 +44,13 @@ const titleFull = `${b.title} – NP Webdesign`;
     </div>
   </header>
 
-  {b.visual && (
+  {(world.built || b.visual) && (
     <section class="bs-visual" aria-label="Das entwickelte Branchenkonzept">
       <div class="bs-wrap">
         <figure>
-          <div class="bs-frame" role="img" aria-label={b.visual.alt}><p class="mono">[PLATZHALTER: Screenshot {b.visual.file}]</p></div>
+          {world.built
+            ? <div class="bs-frame bs-shot"><img src={`/images/branche/welt-${world.nr}-1200.webp`} width="1200" height="750" loading="lazy" decoding="async" alt={`Erster Bildschirm der Studie ${world.name} (${world.branche}): Überschrift, Kernaussage und Schlüsselmotiv der entwickelten Website`}></div>
+            : <div class="bs-frame" role="img" aria-label={b.visual.alt}><p class="mono">[PLATZHALTER: Screenshot {b.visual.file}]</p></div>}
           <figcaption class="bs-caption"><span>Das entwickelte Branchenkonzept</span><span>Studie · fiktives Unternehmen — alle gezeigten Unternehmensdaten sind frei erfunden.</span></figcaption>
         </figure>
       </div>

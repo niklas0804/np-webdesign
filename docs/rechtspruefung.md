@@ -112,3 +112,30 @@ In `public/.htaccess` hinterlegt (noch nicht auf dem Server getestet): HTTPS erz
 3. Kann die Zusage „innerhalb von 2 Werktagen“ so stehen bleiben?
 4. Ist das Hostinger-Badge ohne Kennzeichnung zulässig?
 5. Ist die Kennzeichnung der erfundenen Studien-Unternehmen ausreichend, um Verwechslungen zu vermeiden?
+
+## Nachtrag Phase 2: Branchenseite Kanzlei und Steuerberatung (Welt 04)
+
+- Die Seite `/branchenloesungen/kanzlei` spricht Rechtsanwälte und Steuerberater an. Für diese Berufe gelten berufsrechtliche Grenzen für Werbung. Bitte prüfen, ob Aussagen wie „Urteilsvermögen“, „Sorgfalt“ und „Mandate anbahnen“ in Text, Checkliste und FAQ unbedenklich sind.
+- Die Studie Haas & Sternfeld ist fiktiv. Prüfen, ob der Name Verwechslungsgefahr mit einer bestehenden Kanzlei oder Steuerberatung birgt (Markenrecherche macht Niklas selbst vor dem Livegang, Namen bleiben vorerst).
+- Beträge, Fristen und Gesetzesbezüge in der Studie sind Beispielwerte und ausdrücklich keine Rechtsauskunft; die Marginalie 1 sagt das. Bitte prüfen, ob der Hinweis ausreicht.
+
+## Nachtrag Phase 2: Branchenseite Oldtimer-Werkstatt (Welt 05)
+
+- Die Studie Chromwerk und das Beispielfahrzeug sind fiktiv; Fahrzeugdaten sind erfunden und nennen keinen Hersteller. Bitte prüfen, ob der Name Verwechslungsgefahr mit einem bestehenden Betrieb birgt (Markenrecherche macht Niklas selbst vor dem Livegang).
+- Die Checkliste der Branchenseite nennt Fahrzeughalter-Zustimmung, unkenntlich gemachte Kennzeichen und Markenrechte an Emblemen. Bitte auf Vollständigkeit prüfen. Die Foto-Platzhalter schließen erkennbare Hersteller-Logos aus.
+
+## Nachtrag Phase 2: Branchenseiten Beratung/Coaching (Welt 06) und Industrie (Welt 07)
+
+- Welt 06 zeigt nur erfundene Haltungssätze einer fiktiven Beraterin, keine Kundenstimmen und keine Bewertungen. Bitte prüfen, ob die Kennzeichnung („Studie · erfundene Aussagen“) ausreicht. Die Texte der Branchenseite stammen unverändert aus Niklas’ Vorlage.
+- Beratung und Coaching: Bitte prüfen, ob Aussagen zur Wirkung des Coachings (Selbsttest „Drei Fragen“) heilkundliche oder therapeutische Erwartungen wecken könnten. Der Selbsttest ist eine Demo, speichert nichts und trifft keine Aussage über Personen.
+- Welt 07 (Industrie): Kennzahlen, Toleranzen und das Messprotokoll sind erfundene Beispielwerte und als solche gekennzeichnet. Bitte prüfen, ob die Kennzeichnung („Demo · Beispielwerte, erfundenes Teil“) genügt und ob die Aussagen der Branchenseite zu Zertifikaten und Normen unbedenklich sind (es werden keine genannt).
+- Die Demo-Anfrage mit Dateiauswahl liest und überträgt keine Datei. Bei einer echten Umsetzung wäre der Upload von Zeichnungen (vertrauliche Unterlagen) in der Datenschutzerklärung zu beschreiben.
+- Namen der Studien TORQUEL und Jana Ahrens: Markenrecherche macht Niklas selbst vor dem Livegang.
+
+## Nachtrag Phase 2: Branchenseiten Physiotherapie (Welt 08) und Gastronomie/Hotel (Welt 09)
+
+- Physiotherapie: Bitte prüfen, ob Behandlungsbeschreibungen („nach ärztlicher Verordnung“) und alle Aussagen der Branchenseite und der Checkliste mit dem Heilmittelwerbegesetz vereinbar sind. Die Studie macht keine Heilversprechen und nennt keine Erfolge.
+- Die Terminbuchung der Studie ist eine Demo ohne Versand. Bei einer echten Umsetzung würde sie Gesundheitsdaten berühren (Art. 9 DSGVO): Rechtsgrundlage, Einwilligung und Datenschutzerklärung wären vorab zu klären. Die Branchenseite weist darauf hin.
+- Gastronomie/Hotel: Beispielpreise sind als solche gekennzeichnet. Bitte prüfen, ob Preisangabenverordnung (Endpreise inklusive Umsatzsteuer, Hinweis auf Kurtaxe), Allergen- und Zusatzstoffkennzeichnung und die Hinweise auf der Branchenseite ausreichen.
+- Fotos mit Personen (Hände bei der Behandlung, Gäste) nur mit schriftlicher Einwilligung; die Platzhalter beschreiben nur Motive ohne erkennbare Gesichter.
+- Namen der Studien Praxis am Weiher und Gut Weidenstein: Markenrecherche macht Niklas selbst vor dem Livegang.

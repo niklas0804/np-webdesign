@@ -17,6 +17,7 @@ export function initInterludes() {
         onUpdate: (self) => tilt(gsap.utils.clamp(-4, 4, self.getVelocity() / -400)),
         onLeave: () => tilt(0), onLeaveBack: () => tilt(0),
       });
+      ScrollTrigger.addEventListener('scrollEnd', () => tilt(0));
     }
   }
 

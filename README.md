@@ -1,7 +1,7 @@
 # NP Webdesign · Relaunch „Die Journey“
 
 Statische Astro-Seite (Blueprint Abschnitt N/T). Kein UI-Framework, kein WebGL, kein Lottie, keine Fremdserver.
-Die laufende Seite im Repo-Wurzelverzeichnis bleibt bis zum Umzug unberührt.
+Der Quellcode liegt im Wurzelverzeichnis; die fertige Seite entsteht beim Bauen (`dist/`, im Branch `deploy`).
 
 ## Befehle
 
@@ -12,7 +12,13 @@ npm run build      # erzeugt dist/ (nur Dateien, nichts Inline)
 npm run preview    # dist/ lokal ansehen
 
 # Datenschutz- und Qualitäts-Abnahme (Blueprint Q2 / T.4), braucht Playwright mit Chromium
-NODE_PATH=$(npm root -g) node ../tools/check-site.cjs dist
+NODE_PATH=$(npm root -g) node tools/check-site.cjs dist
+# Barrierefreiheit (axe-core, WCAG 2.2 AA) an Startseite, jeder Welt und allen Unterseiten
+AXE=/pfad/zu/axe.min.js NODE_PATH=$(npm root -g) node tools/axe-check.cjs
+
+# Vorschaubilder (Werkplan, Finale, Branchenseiten, Social 1200×630) aus der gebauten Seite rendern.
+# Nach jeder sichtbaren Änderung an einer Welt neu ausführen; ImageMagick und Playwright nötig. Die Bilder liegen im Repo.
+npm run build && NODE_PATH=$(npm root -g) node scripts/render-previews.cjs
 ```
 
 ## Aufbau
@@ -51,8 +57,15 @@ Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src
 | 01 Halmberg | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
 | 02 Messingstuhl | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t01 (Bon wird Wartemarke) |
 | 03 Wittgenfeld Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
+| 04 Haas & Sternfeld | gebaut nach Blueprint (Phase 2, Welt 1 von 3); Eingangs-Übergang N-Blende (Warum → 04, „Kein Zufall.“ wird „Nichts dem Zufall überlassen.“); Zeitungs-Satzspiegel mit dreispaltigem Leitartikel, Initiale, Fußnoten als Marginalien (Tastatur und Touch), Themenregister, Bildplatzhalter |
+| 05 Chromwerk | gebaut nach Blueprint (Phase 2, Welt 2 von 3); Eingangs-Übergang Zierlinie (rote Linie wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird Racing Green, Pfad-Morph ohne Plugin); Querfahrt (Desktop gepinnt, Lichtreflex, Neigung bis 4°; mobil wischbare Leiste), Datenblatt, Ablauf in Kapiteln, Vorher-Nachher-Regler (Maus, Touch, Pfeiltasten); alle Fotos als Bildplatzhalter |
+| 06 Jana Ahrens | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang Scheinwerfer (Ring, warmes Glas, wächst zur Farbkugel), Ausgang Kreise → Linie mit sechs Stationen; Kugel atmet mit dem Scrollen, „Drei Fragen“ färben sie (Demo, nichts gespeichert), Haltungssätze statt Kundenstimmen, Erstgespräch in zwei Klicks (Demo) |
+| 07 TORQUEL | gebaut nach Blueprint (Name in der Blueprint: NAABTEC); Eingangs-Übergang Strahl (Prozessstrahl glüht auf, wird Laserlinie, Grund wird Stahlschiefer); Kennzahlen zählen hoch, Laserlinie scannt und das Messprotokoll mit Toleranzanzeige entsteht dahinter, Bauteil drehen (12 Ansichten, mobil 6, als Bildplatzhalter), Anfrage für Zeichnungen (Demo) |
+| 08 Praxis am Weiher | gebaut nach Blueprint; Eingangs-Übergang Messraster → Kalender (Zellen ordnen sich, eine leuchtet als Termin), Atkinson Hyperlegible Next, Buchung in drei Schritten per Tastatur (Demo), Schalter „Große Schrift“ und „Hoher Kontrast“ nur in der Welt, Bewegung nur kurze Einblendungen |
+| 09 Gut Weidenstein | gebaut nach Blueprint; Eingangs-Übergang Wasser (80/50 vh: Weiher-Platzhalter zoomt aus und wird zum See, Mint kippt in Dämmerungsviolett), Ausgang Fenster (erleuchtetes Fenster wächst und wird zum Rahmen des Porträts); gepinnte Überblendung dreier Seebilder mit abkühlender Farbschicht, Speisekarte Mittag/Abend als Reiter, fixierte Buchungsleiste (Demo), Cormorant |
+| 10 NP Labor | gebaut nach Blueprint; Eingangs-Übergang Ausziehen (Zwischenspiel III verliert in vier Stufen Farben, Schrift, Abstände, Layout), Ausgang Rohbau (Rohlinks werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan); erst ungestyltes HTML (`all: revert`, Times, Arial, Courier, 0 KB), Rohbau-Schalter für das Gerüst der Welt 01 mit sichtbaren Tag-Etiketten, Bruch mit Überlagerung, 90°-Drehung und Riesenschrift (Breitenachse folgt der Scrollgeschwindigkeit, Elemente rasten ins 8-px-Raster), am Ende wird der blaue Standardlink orange; das einzige Bild fehlt absichtlich |
 
-Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB) und `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB).
+Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB), `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB), `scripts/subset-figtree-geist.py` (Welt 06 Figtree 9,9 KB, Welt 07 Geist 11,5 KB plus Geist Mono 8 KB, Welt 08 Atkinson 11,4 KB, Welt 09 Cormorant 17,7 KB), `scripts/subset-michroma.py` (Welt 05, eine Datei, 4,3 KB, nur Versalien) und `scripts/subset-newsreader.py` (Welt 04, zwei Dateien, 30,6 KB: Display opsz 72 / 500 und Text opsz 16 / 400–600; eine Datei mit beiden Achsen wäre 47 KB groß, Kapitälchen entstehen im Browser, weil die Schrift keine echten mitbringt).
 Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/finale.css`) ist eine gepinnte Bühne mit Zoom, Einladung und Sprung in den Kontakt; ruhig und ohne JavaScript bleibt nur die Einladung. Seine Länge steht in `journey.js` (200/140 vh statt 120/100 im Blueprint, weil Rückzoom und Sprung dazukommen).
 Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`.
 
@@ -79,3 +92,7 @@ Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, Freigabe d
 - Das Postfach liegt bei IONOS, die Website bei Hostinger. Empfohlen: in `config.php` den Eintrag `smtp` setzen (Vorlage liegt bei), dann geht die Anfrage über das IONOS-Postfach selbst (STARTTLS, Anmeldung) und Absender und SPF passen zusammen. Ohne `smtp` nutzt der Endpunkt `mail()` von Hostinger; dann SPF-Eintrag der Domain für Hostinger prüfen.
 - Nach dem Hochladen einmal eine Testanfrage senden.
 - Lokal testen: `php -S 127.0.0.1:8098 -t dist` (mit `sendmail_path` auf ein Skript, das die Mail in eine Datei schreibt).
+
+## Bilder und Platzhalter
+
+Wo eine Welt ein Foto braucht, steht ein klar markierter **Bildplatzhalter** mit Motivbeschreibung (`src/components/BildPlatzhalter.astro`), nie eine gezeichnete Ersatzgrafik. Die Einträge stehen in `src/content/fotos.js`; `node scripts/list-photos.mjs` erzeugt daraus `docs/fotoliste.md` (was Niklas besorgen muss). Die Vorschaubilder im Werkplan, im Finale, auf den Branchenseiten und für Social Media dagegen sind echte Aufnahmen der gebauten Seite (`scripts/render-previews.cjs`).

@@ -20,10 +20,13 @@ export function init() {
     const ctx = gsap.context(() => {
       // Aufgehen: Skalierung 0,96 auf 1, Ecken runden wie Teig (Maske, keine Layout-Animation)
       $$('[data-aufgehen]', root).forEach((el, i) => {
+        const platzhalter = !!$('.foto-platzhalter', el);
+        // Aufgehen mit Foto: Ecken runden wie Teig; solange es nur einen Platzhalter gibt, wächst er nur (die Maske würde den Text anschneiden)
         gsap.fromTo(el,
-          { scale: 0.96, clipPath: 'inset(0% round 6%)' },
-          { scale: 1, clipPath: 'inset(0% round 46%)', ease: 'power2.out', immediateRender: true,
+          platzhalter ? { scale: 0.96 } : { scale: 0.96, clipPath: 'inset(0% round 6%)' },
+          { scale: 1, ...(platzhalter ? {} : { clipPath: 'inset(0% round 46%)' }), ease: 'power2.out', immediateRender: true,
             scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 38%', scrub: true } });
+        if (platzhalter) return;
         // Parallax: höchstens 15 % der Bildhöhe (Mobile 8 %), nie Text
         const max = mode === 'desktop' ? 15 : 8;
         gsap.fromTo($('svg', el), { yPercent: max * (i ? 0.6 : -0.6) }, { yPercent: max * (i ? -0.6 : 0.6), ease: 'none',

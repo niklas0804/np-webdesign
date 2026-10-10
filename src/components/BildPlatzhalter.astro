@@ -1,0 +1,19 @@
+---
+/**
+ * Klar markierter Bildplatzhalter mit Motivbeschreibung (statt einer gezeichneten Ersatzgrafik).
+ * Der Eintrag steht in src/content/fotos.js; dort stehen Motiv, Format, Einsatz und Rechte-Hinweis.
+ * Ist `status` 'da', gehört stattdessen ein echtes <img> in das Weltmodul.
+ */
+import { FOTOS } from '../content/fotos.js';
+const { id, class: cls = '' } = Astro.props;
+const f = FOTOS[id];
+if (!f) throw new Error(`Bildplatzhalter: Eintrag „${id}“ fehlt in src/content/fotos.js`);
+---
+<figure class={`foto-platzhalter ${cls}`} data-foto={id}>
+  <div class="fp-frame" data-ratio={f.ratio}>
+    <p class="fp-tag">Bildplatzhalter · Foto folgt</p>
+    <p class="fp-titel">{f.titel}</p>
+    <p class="fp-motiv"><span class="fp-k">Motiv:</span> {f.motiv}</p>
+    <p class="fp-meta"><span class="fp-k">Format:</span> {f.format}</p>
+  </div>
+</figure>

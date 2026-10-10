@@ -9,7 +9,7 @@
  */
 
 /** Aktuelle Bauphase (Blueprint T.4). Der Werkplan und die Claim-Texte passen sich an. */
-export const PHASE = 1;
+export const PHASE = 2;
 
 import { contrast, luminance } from './color.js';
 
@@ -60,25 +60,32 @@ export const WORLDS = [
     built: true, source: 'demo', leistung: 'Konzeption und Seitenstruktur' },
   { nr: '04', slug: 'kanzlei', name: 'Haas & Sternfeld', branche: 'Kanzlei', anchor: 'kanzlei', branchPage: '/branchenloesungen/kanzlei',
     palette: pal('#FFFFFF', '#111111', '#A3122A', '#6E6E66', { accent2Use: 'text' }), // Reinweiß · Schwarz · Siegelrot · Grau (Linien und Meta)
-    built: false, source: 'neu', leistung: 'Texte und Inhaltsstruktur' },
+    notiz: 'Eine Kanzlei verkauft Urteilsvermögen. Darum führt hier die Typografie.',
+    built: true, source: 'neu', leistung: 'Texte und Inhaltsstruktur' },
   { nr: '05', slug: 'kfz-werkstatt', name: 'Chromwerk', branche: 'Oldtimer-Werkstatt', anchor: 'oldtimer', branchPage: '/branchenloesungen/kfz-werkstatt',
     palette: pal('#13382B', '#E8EAED', '#EFE6D2', '#8C939B', { accent2Use: 'lines' }), // British Racing Green · Chrom · Elfenbein · Chromgrau (nur Linien und große Schrift)
-    built: false, source: 'neu', leistung: 'Animation und Interaktion' },
+    notiz: 'Ein Oldtimer ist Bewegung. Darum fährt diese Seite quer.',
+    built: true, source: 'neu', leistung: 'Animation und Interaktion' },
   { nr: '06', slug: 'beratung-coaching', name: 'Jana Ahrens', branche: 'Coaching', anchor: 'coaching', branchPage: '/branchenloesungen/beratung-coaching',
     palette: pal('#DCD1EA', '#35292A', '#8A5470', '#F1C9B5', { accentUse: 'large', accent2Use: 'fill', accent3: '#C9B6D9' }), // Flieder · Dunkelbraun · Malve (nur große Schrift/Grafik) · Kugelverlauf Pfirsich → Flieder (nur Fläche)
-    built: false, source: 'demo', leistung: 'Nutzerführung' },
+    notiz: 'Beratung beginnt mit Vertrauen. Darum ist hier nichts laut — und der Weg zur Anfrage ist zwei Klicks kurz.',
+    built: true, source: 'demo', leistung: 'Nutzerführung' },
   { nr: '07', slug: 'industrie', name: 'TORQUEL', branche: 'Industrie', anchor: 'industrie', branchPage: '/branchenloesungen/industrie',
     palette: pal('#2B3642', '#E6EAEE', '#F2C230', '#5A6A78', { accent2Use: 'dekor' }), // Stahlschiefer · Hellgrau · Signalgelb · Rastergrau (nur Dekor)
-    built: false, source: 'neu', leistung: 'Performance und Technik' },
+    notiz: 'Einkäufer prüfen genau. Darum ist hier jede Zahl auffindbar und die Seite schnell.',
+    built: true, source: 'neu', leistung: 'Performance und Technik' },
   { nr: '08', slug: 'physiotherapie', name: 'Praxis am Weiher', branche: 'Physiotherapie', anchor: 'physiotherapie', branchPage: '/branchenloesungen/physiotherapie',
     palette: pal('#CDE8DA', '#1E2D2A', '#2F6B57', '#CFE6DC', { accent2Use: 'fill' }), // Mint · Tannengrün · Salbei · Hellmint (nur Fläche)
-    built: false, source: 'neu', leistung: 'Barrierefreiheit und Terminbuchung' },
+    notiz: 'Patienten sind nicht immer fit. Darum ist hier alles groß, klar und mit der Tastatur bedienbar.',
+    built: true, source: 'neu', leistung: 'Barrierefreiheit und Terminbuchung' },
   { nr: '09', slug: 'gastronomie-hotel', name: 'Gut Weidenstein', branche: 'Landgasthof', anchor: 'landgasthof', branchPage: '/branchenloesungen/gastronomie-hotel',
     palette: pal('#2A1F33', '#ECE6DA', '#A9BC93', '#6F8796', { accent2Use: 'lines' }), // Dämmerungsviolett · Elfenbein · Schilf · Wasser (nur Linien)
-    built: false, source: 'neu', leistung: 'Conversion-Struktur' },
+    notiz: 'Gäste buchen ein Gefühl. Darum kommt die Anfrage erst, wenn es da ist — und dann ohne Hürde.',
+    built: true, source: 'neu', leistung: 'Conversion-Struktur' },
   { nr: '10', slug: 'labor', name: 'NP Labor', branche: 'Labor', anchor: 'labor', branchPage: '/',
     palette: pal('#FFFFFF', '#000000', '#0000EE', '#551A8B', { accent2Use: 'text' }), // Weiß · Schwarz · Linkblau · Besucht
-    built: false, source: 'neu', leistung: 'Sauberer Code, keine Baukasten-Abhängigkeit' },
+    notiz: 'Alles, was Sie gesehen haben, besteht aus diesem Rohmaterial. Kein Baukasten, keine Vorlage.',
+    built: true, source: 'neu', leistung: 'Sauberer Code, keine Baukasten-Abhängigkeit' },
 ];
 
 /**
@@ -112,11 +119,27 @@ export const TEXT = {
 export const TRANSITION_VARIANTS = {
   'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
+  'welt-05>welt-06': 'scheinwerfer', // Der runde Scheinwerfer glüht warm auf, wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus
+  'welt-06>arbeitsweise': 'kreise', // Die konzentrischen Kreise rollen sich zu einer Linie mit sechs Stationen ab
+  'ueber-mich>welt-10': 'ausziehen', // Zwischenspiel III zieht sich aus: Farben, Schrift, Abstände, Layout fallen in vier Stufen
+  'welt-10>finale': 'rohbau', // Die Rohelemente bekommen NP-Stil: Links werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan
+  'welt-07>welt-08': 'messraster', // Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als Termin, Stahlschiefer wird Mint
+  'welt-08>welt-09': 'wasser', // Das Bild des Weihers zoomt aus und wird zum See in der Abenddämmerung, Mint kippt in Dämmerungsviolett
+  'welt-09>ueber-mich': 'fenster', // Die Kamera fährt auf ein erleuchtetes Fenster zu, sein Rahmen wird zur Maske für das Porträt
+  'arbeitsweise>welt-07': 'strahl', // Der Prozessstrahl glüht auf und wird zur Laserlinie, der Grund wechselt zu Stahlschiefer
+  'welt-04>welt-05': 'zierlinie', // Die rote Linie unter der Schlagzeile wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird British Racing Green
+  'warum>welt-04': 'nblende', // N-Blende: diagonal von Nacht zu Reinweiß, „Kein Zufall.“ fließt in „Nichts dem Zufall überlassen.“
   'welt-03>warum': 'pruefstempel', // Prüfstempel wird NP-Siegel, der Ring öffnet sich als P-Iris (Kreisblende) in die Nacht
 };
 
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
 export const TRANSITION_DEFAULT = { desktop: 60, mobile: 40 };
+/** Längere Übergänge (Blueprint F): Weiher → See */
+export const TRANSITION_LENGTH = {
+  'welt-08>welt-09': { desktop: 80, mobile: 50 },
+  'ueber-mich>welt-10': { desktop: 100, mobile: 70 },
+  'welt-10>finale': { desktop: 140, mobile: 90 },
+};
 
 /**
  * Reihenfolge der Reise in dieser Bauphase (Blueprint T.3, gekürzt auf die gebauten Teile).
@@ -132,8 +155,17 @@ export const journey = (() => {
     { id: 'welt-02', kind: 'world', world: '02', d: 140, m: 120 },
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
     { id: 'warum', kind: 'interlude', anchor: 'warum', title: 'Warum individuell', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
+    { id: 'welt-04', kind: 'world', world: '04', d: 200, m: 160 },
+    // scene: Länge der gepinnten Querfahrt (Desktop); mobil ist die Bildstrecke eine wischbare Leiste ohne Pin
+    { id: 'welt-05', kind: 'world', world: '05', d: 240, m: 180, scene: { d: 260, m: 0 } },
+    { id: 'welt-06', kind: 'world', world: '06', d: 230, m: 190 },
     { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', title: 'Arbeitsweise', d: 160, m: 160, ground: MASTER.leinen, tone: 'light', pin: true },
+    { id: 'welt-07', kind: 'world', world: '07', d: 260, m: 200 },
+    { id: 'welt-08', kind: 'world', world: '08', d: 240, m: 200 },
+    // scene: Länge der gepinnten Bildüberblendung (Blueprint F: 120vh plus Verweilen); die langsamste Welt der Reise
+    { id: 'welt-09', kind: 'world', world: '09', d: 320, m: 240, scene: { d: 240, m: 170 } },
     { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
+    { id: 'welt-10', kind: 'world', world: '10', d: 280, m: 220 },
     // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)
     { id: 'finale', kind: 'finale', anchor: 'finale', d: 200, m: 140, ground: MASTER.leinen, tone: 'light' },
     { id: 'kontakt', kind: 'contact', anchor: 'kontakt', d: 150, m: 200, ground: MASTER.leinen, tone: 'light' },
@@ -142,6 +174,7 @@ export const journey = (() => {
 
   const groundOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.ground : s.ground);
   const accentOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.accent : null);
+  const textOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.text : null);
   const toneOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.tone : s.tone);
 
   // Übergänge zwischen den Abschnitten einfügen (nicht vor/nach dem Opening-Ende zum FAQ: dort keine Inszenierung)
@@ -153,8 +186,8 @@ export const journey = (() => {
     out.push({
       id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
       fromGround: groundOf(s), toGround: groundOf(next), fromTone: toneOf(s), toTone: toneOf(next),
-      fromAccent: accentOf(s), toAccent: accentOf(next),
-      d: TRANSITION_DEFAULT.desktop, m: TRANSITION_DEFAULT.mobile,
+      fromAccent: accentOf(s), toAccent: accentOf(next), fromText: textOf(s), toText: textOf(next),
+      d: (TRANSITION_LENGTH[`${s.id}>${next.id}`] || TRANSITION_DEFAULT).desktop, m: (TRANSITION_LENGTH[`${s.id}>${next.id}`] || TRANSITION_DEFAULT).mobile,
       variant: TRANSITION_VARIANTS[`${s.id}>${next.id}`] || null,
     });
   });

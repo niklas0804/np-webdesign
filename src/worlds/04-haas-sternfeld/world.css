@@ -1,0 +1,115 @@
+/* Welt 04 · Haas & Sternfeld (Blueprint F). Palette aus /journey.css: --ground Reinweiß, --text Druckschwarz, --accent Siegelrot, --accent2 Grau (Linien und Meta).
+   Schrift: Newsreader in zwei Dateien (scripts/subset-newsreader.py): Display opsz 72 / 500 und Text opsz 16 / 400–600. Rubriken in Kapitälchen
+   (vom Browser aus den Versalien erzeugt; die Schrift bringt keine echten mit). Rot erscheint sparsam: Linie, Fußnotenzahlen, Hover im Register. */
+@font-face { font-family: 'Newsreader Display NP'; src: url('/fonts/newsreader-04-display.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Newsreader Text NP'; src: url('/fonts/newsreader-04-text.woff2') format('woff2-variations'); font-weight: 400 600; font-style: normal; font-display: swap; }
+
+:root {
+  --np-disp: 'Newsreader Display NP', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
+  --np-text: 'Newsreader Text NP', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
+}
+.world.w04 {
+  --w04-rule: color-mix(in srgb, var(--accent2) 45%, transparent);
+  padding: 0 var(--gutter) var(--block);
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--np-text);
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  min-height: calc(var(--len) * 1svh);
+}
+.w04 > * { max-width: 1280px; margin-inline: auto; }
+.w04 :focus-visible { outline-color: var(--text); }
+.w04 .mono { font-family: var(--mono); }
+.w04 p { max-width: none; }
+
+/* Kapitälchen für Rubriken */
+.w04-rubrik { font-family: var(--np-text); font-weight: 600; font-variant-caps: all-small-caps; letter-spacing: .12em; font-size: 1.0625rem; margin: 0; color: var(--text); }
+.w04-rubrik-s { color: var(--accent2); margin-bottom: var(--s3); }
+.w04-h { font-family: var(--np-disp); font-weight: 500; font-size: clamp(1.75rem, 3.2vw, 3rem); line-height: 1.08; letter-spacing: -.005em; margin: 0 0 var(--s5); max-width: 22ch; text-wrap: balance; }
+.w04-h-s { font-size: clamp(1.5rem, 2.2vw, 2rem); margin-bottom: var(--s3); }
+
+/* ---------- Zeitungskopf ---------- */
+.w04-head { padding-top: calc(var(--frame-top) + var(--s5)); }
+.w04-bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s2) var(--s5); border-top: 3px solid var(--text); border-bottom: 1px solid var(--text); padding: var(--s3) 0; }
+.w04-name { font-family: var(--np-disp); font-weight: 500; font-size: clamp(1.375rem, 2.4vw, 2rem); letter-spacing: -.005em; line-height: 1.1; margin: 0; }
+.w04-meta { font-family: var(--np-text); font-variant-caps: all-small-caps; letter-spacing: .12em; font-size: 1rem; color: var(--accent2); margin: 0; }
+.w04-themen { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s2) 0; margin: 0; padding: var(--s2) 0; border-bottom: 1px solid var(--w04-rule); font-variant-caps: all-small-caps; letter-spacing: .14em; font-size: 1rem; color: var(--accent2); font-weight: 600; }
+.w04-themen span + span::before { content: ''; display: inline-block; width: 1px; height: .9em; background: var(--w04-rule); margin: 0 var(--s5); vertical-align: -.05em; }
+
+/* ---------- Schlagzeile mit roter Linie ---------- */
+.w04-front { min-height: calc(100svh - var(--frame-top) - 150px); display: flex; flex-direction: column; justify-content: center; padding: var(--s7) 0; }
+.w04-headline { font-family: var(--np-disp); font-weight: 500; font-size: clamp(2.75rem, 8vw, 8rem); line-height: 1.0; letter-spacing: -.02em; margin: 0; max-width: 12ch; text-wrap: balance; }
+.w04-line { display: block; width: min(100%, 12ch); width: clamp(160px, 38vw, 560px); height: 5px; background: var(--accent); margin: var(--s5) 0 var(--s6); transform-origin: left center; }
+.w04-lead { font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.4; max-width: 36ch; margin: 0; }
+
+/* ---------- Leitartikel, drei Spalten, Marginalien ---------- */
+.w04-paper { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s7) var(--col-gap); padding-top: var(--s9); border-top: 1px solid var(--text); }
+.w04-cols { column-gap: var(--s6); column-rule: 1px solid var(--w04-rule); text-align: left; hyphens: manual; }
+.w04-p { margin: 0 0 var(--s4); break-inside: auto; }
+.w04-p-first { margin-top: 0; }
+.w04-initial { float: left; font-family: var(--np-disp); font-weight: 500; font-size: 5.1em; line-height: .76; padding: .06em .09em 0 0; color: var(--text); transform-origin: 0 0; }
+.w04-fn { font-size: .75em; line-height: 0; vertical-align: baseline; position: relative; top: -.5em; margin-left: 1px; }
+.w04-fn-btn { position: relative; font: inherit; font-weight: 600; line-height: 1; color: var(--accent); min-width: 1.1em; padding: 0 2px; background: none; border: 0; cursor: pointer; text-decoration: underline dotted 1px; text-underline-offset: .25em; }
+.w04-fn-btn::after { content: ''; position: absolute; inset: -14px -10px; }
+.w04-fn-btn[aria-expanded='true'] { background: var(--accent); color: var(--ground); text-decoration: none; }
+html:not([data-js]) .w04-fn-btn { cursor: default; pointer-events: none; text-decoration: none; }
+.w04-margins { display: grid; gap: var(--s5); align-content: start; font-size: .9375rem; line-height: 1.45; color: var(--accent2); }
+.w04-margin { margin: 0; padding-top: var(--s3); border-top: 1px solid var(--accent2); }
+.w04-margin-nr { color: var(--accent); font-weight: 600; margin-right: .5em; }
+.w04-margin.is-open { color: var(--text); border-top: 2px solid var(--accent); }
+/* Mit JavaScript sind die Anmerkungen zu, bis eine Zahl sie öffnet */
+html[data-js] .w04-margin:not(.is-open) { display: none; }
+.w04-hint { display: none; margin: 0; padding-top: var(--s3); border-top: 1px solid var(--w04-rule); }
+html[data-js] .w04-margins:not([data-open]) .w04-hint { display: block; }
+
+/* ---------- Bildplatzhalter ---------- */
+.w04-photo { padding-top: var(--s9); }
+.w04 .fp-frame { border-color: var(--text); }
+
+/* ---------- Zitat ---------- */
+.w04-quote { margin: var(--s9) auto 0; padding: var(--s6) 0; border-top: 3px solid var(--text); border-bottom: 1px solid var(--text); text-align: center; }
+.w04-quote blockquote { margin: 0 auto; max-width: 26ch; }
+.w04-quote blockquote p { margin: 0; font-family: var(--np-disp); font-weight: 500; font-size: clamp(1.75rem, 3.4vw, 3.25rem); line-height: 1.12; letter-spacing: -.01em; text-wrap: balance; }
+.w04-quote blockquote p::before { content: '„'; color: var(--accent); }
+.w04-quote blockquote p::after { content: '“'; color: var(--accent); }
+.w04-quote figcaption { margin-top: var(--s4); font-variant-caps: all-small-caps; letter-spacing: .12em; font-size: 1rem; color: var(--accent2); font-weight: 600; }
+
+/* ---------- Themenregister ---------- */
+.w04-register-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s7) var(--col-gap); padding-top: var(--s9); }
+.w04-register ol { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--text); }
+.w04-register li { border-bottom: 1px solid var(--w04-rule); }
+.w04-register a { display: flex; align-items: baseline; gap: var(--s3); min-height: 64px; padding: var(--s4) 0; color: var(--text); text-decoration: none; }
+.w04-reg-name { font-family: var(--np-disp); font-weight: 500; font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.1; transition: color var(--dur-s) var(--ease-out); }
+.w04-reg-dots { flex: 1; min-width: 24px; border-bottom: 2px dotted var(--accent2); transform: translateY(-.35em); transition: border-color var(--dur-s) var(--ease-out); }
+.w04-reg-seite { font-variant-numeric: lining-nums tabular-nums; font-weight: 600; font-size: 1.25rem; }
+.w04-register a:hover .w04-reg-name, .w04-register a:focus-visible .w04-reg-name { color: var(--accent); }
+.w04-register a:hover .w04-reg-dots, .w04-register a:focus-visible .w04-reg-dots { border-color: var(--accent); }
+
+.w04-themenliste { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s7) var(--s6); padding-top: var(--s9); }
+.w04-thema { border-top: 2px solid var(--text); padding-top: var(--s4); scroll-margin-top: calc(var(--frame-top) + var(--s5)); transition: border-color var(--dur-s) var(--ease-out); }
+.w04-thema:target, .w04-thema.is-picked { border-top-color: var(--accent); }
+.w04-thema:focus { outline: none; }
+.w04-thema .w04-p { margin-bottom: var(--s4); }
+.w04-fragen { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s2); font-size: 1.0625rem; color: var(--accent2); }
+.w04-fragen li { padding-left: 1.4em; position: relative; }
+.w04-fragen li::before { content: '–'; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+
+.w04-note { margin-top: var(--s10); display: flex; justify-content: flex-start; }
+.w04-note .note { margin: 0; }
+.w04 > .credit { margin-top: var(--s8); }
+
+/* ---------- breit: Satzspiegel mit zwölf Spalten ---------- */
+@media (min-width: 700px) { .w04-cols { column-count: 2; } }
+@media (min-width: 1024px) {
+  .w04-paper { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .w04-article { grid-column: 1 / 10; }
+  .w04-margins { grid-column: 10 / 13; padding-left: var(--s5); border-left: 1px solid var(--w04-rule); }
+  .w04-cols { column-count: 3; }
+  .w04-register-wrap { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
+  .w04-register { grid-column: 1 / 8; }
+  .w04-photo-s { grid-column: 9 / 13; }
+  .w04-themenliste { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) { .w04-photo-s { max-width: 420px; } .w04-margins { padding-top: var(--s2); } }

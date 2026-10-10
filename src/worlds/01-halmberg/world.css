@@ -44,6 +44,11 @@
 .w01-hero-art { position: relative; min-height: 46svh; }
 .w01-loaf { margin: 0; clip-path: inset(0 round 46%); }
 .w01-loaf svg { width: 100%; height: auto; }
+/* Bildplatzhalter statt Zeichnung: keine ovale Maske, sie würde den Text anschneiden; die Laibform kommt mit dem Foto zurück */
+.w01-loaf-ph { clip-path: none; background: var(--ground); }
+.w01-loaf-ph .fp-frame { padding: var(--s4); }
+.w01-loaf-small .fp-frame { padding: var(--s3); }
+.w01-loaf-small .fp-motiv { display: none; }
 .w01-loaf-big { width: min(100%, 780px); margin-left: auto; }
 .w01-loaf-small { position: absolute; width: 46%; max-width: 330px; left: 0; bottom: -6%; }
 
@@ -143,4 +148,3 @@ html:not([data-js]) .w01-bon { display: none; }
 .w01 > .credit { margin-top: var(--s8); }
 
 /* Zwetschgen auf der Illustration folgen dem Akzent */
-.laib-plum { fill: var(--accent); }

@@ -25,6 +25,8 @@
 /* Bild */
 .bs-visual { padding: var(--s9) 0 0; }
 .bs-frame { aspect-ratio: 1659 / 1186; max-height: 70svh; background: var(--kalk); border: 1px solid var(--haarlinie); display: grid; place-items: center; text-align: center; padding: var(--s6); }
+.bs-shot { aspect-ratio: 1200 / 750; max-height: none; padding: 0; display: block; overflow: hidden; }
+.bs-shot img { display: block; width: 100%; height: auto; }
 .bs-frame .mono { color: var(--tinte); text-transform: none; letter-spacing: .02em; max-width: 44ch; border: 1px dashed currentColor; padding: var(--s3) var(--s4); }
 .bs-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s5); margin-top: var(--s3); color: var(--stein); font-size: var(--fs-small); }
 

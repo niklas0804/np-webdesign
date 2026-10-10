@@ -1,0 +1,6 @@
+---
+/** Gerüst-Knoten für den Rohbau-Schalter: echte Tags mit sichtbarem Etikett (data-tag); das ganze Gerüst ist für Hilfstechnik verborgen, die Beschreibung steht als Text daneben. */
+const { n } = Astro.props;
+const Tag = n.tag;
+---
+<Tag data-tag={n.tag}>{n.text}{n.kinder && n.kinder.map((k) => <Astro.self n={k} />)}</Tag>

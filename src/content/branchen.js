@@ -191,6 +191,213 @@ export const BRANCHEN = {
     ],
     cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen professionellen Webauftritt, der Ihre Positionierung schärft und mehr Erstgespräche bringt.', subject: 'Projektanfrage Beratung-Coaching-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Praxis.\n\nMein Projekt:\n\nViele Grüße' },
   },
+  kanzlei: {
+    slug: 'kanzlei',
+    world: '04',
+    title: 'Website-Konzept Kanzlei und Steuerberatung',
+    description: 'Beispielkonzept: Wie eine Website für Kanzlei und Steuerberatung mit Typografie, klarer Struktur und verständlichen Texten Urteilsvermögen zeigt und Mandate anbahnt.',
+    eyebrow: 'Beispielkonzept · Kanzlei und Steuerberatung',
+    h1: 'Eine Kanzlei verkauft <em>Urteilsvermögen.</em>',
+    lead: 'Ein Website-Konzept für Kanzlei und Steuerberatung: Typografie wie in einer guten Wirtschaftszeitung, ein Themenregister statt Leistungsfloskeln und Texte, die man ohne Wörterbuch versteht.',
+    meta: [['Branche', 'Kanzlei und Steuerberatung'], ['Leistung', 'Konzept, Texte, Inhaltsstruktur, Entwicklung'], ['Schwerpunkt', 'Typografie & Verständlichkeit'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: [
+      'Viele Kanzleien und Steuerberatungen zeigen sich online mit einer Liste von Rechtsgebieten, einem Foto vom Besprechungstisch und dem Satz, man sei „kompetent und engagiert“. Das stimmt vermutlich, unterscheidet aber niemanden von den Kollegen nebenan.',
+      'Dabei verkaufen diese Betriebe kein Produkt, sondern Urteilsvermögen — und das lässt sich nicht behaupten, sondern nur zeigen. <strong>Die Website muss Sorgfalt erkennen lassen, bevor das erste Gespräch stattfindet.</strong>',
+      'Das Konzept setzt deshalb auf Typografie und Text: ein ruhiger Satzspiegel, ein einziger Farbakzent, Fußnoten für Details und ein Themenregister, das Besucher direkt zu ihrer Frage führt. Das Layout nimmt die Haltung der Beratung vorweg.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Verständlichkeit.</em>', items: [
+      ['Sorgfalt und Seriosität sichtbar machen', 'Vertrauen'], ['Mehr passende Mandatsanfragen', 'Conversion'], ['Themen und Zuständigkeiten sofort auffindbar', 'Struktur'],
+      ['Komplexes verständlich erklären', 'Inhalt'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First'] ] },
+    design: { h2: 'Gestaltung, die <em>nach Sorgfalt aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Schwarz auf Weiß, ein Rot', 'Reinweißer Grund, druckschwarze Schrift und genau ein Rot für die Linie unter der Schlagzeile. Wo alles ruhig ist, fällt das Wichtige auf.'],
+      ['02 · Typografie', 'Zeitungssatz mit Haltung', 'Eine Serifenschrift für Schlagzeile und Fließtext, Kapitälchen für Rubriken, ein dreispaltiger Leitartikel mit Initiale und Randnotizen für die Details.'],
+      ['03 · Nutzerführung', 'Vom Thema zur Frage', 'Ein Themenregister führt wie ein Inhaltsverzeichnis zu Erbrecht, Gesellschaftsrecht und Steuern. Jede Rubrik nennt typische Fragen, damit Besucher sich wiederfinden.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Der Satzspiegel wechselt von drei Spalten auf zwei und eine. Randnotizen rücken unter den Text, ohne dass etwas verloren geht.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Die Zeilen setzen sich wie Druckzeilen, die rote Linie zieht sich auf. Das ist Rhythmus, keine Show; mit „Bewegung reduzieren“ steht alles sofort da.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Externe Dienste würden bei einer produktiven Umsetzung passend zur tatsächlichen Nutzung geprüft und dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Schlanke Schriftdateien, semantische Überschriften und ein klar gegliedertes Themenregister schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.'] ],
+    nutzen: [
+      ['Sorgfalt auf den ersten Blick', 'Ein ruhiger, präziser Auftritt zeigt die Arbeitsweise, bevor jemand anruft.'],
+      ['Passendere Anfragen', 'Das Themenregister und typische Fragen führen Besucher zu der Rubrik, die zu ihrem Anliegen passt.'],
+      ['Weniger Erklärbedarf im Erstgespräch', 'Verständliche Texte beantworten die häufigsten Fragen vorab.'],
+      ['Wiedererkennbare Marke', 'Satzspiegel, Schrift und das eine Rot ergeben einen eigenständigen Auftritt, der sich von Standardseiten abhebt.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als moderne, vertrauenswürdige Beratung.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Rechtsgebiete in einer Liste.', li: ['Austauschbare Floskeln statt klarer Aussagen', 'Zuständigkeiten schwer zu finden', 'Fachsprache ohne Erklärung', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Sorgfalt zeigt.', li: ['Typografie als Ausdruck der Haltung', 'Themenregister als Wegweiser', 'Verständliche Texte mit Randnotizen', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Kanzlei-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut. Sie ersetzt keine berufsrechtliche Prüfung.', items: [
+      'Berufsbezeichnung, zuständige Kammer, berufsrechtliche Regelungen und weitere Pflichtangaben stehen vollständig im Impressum. Was genau gilt, klärt der Betrieb mit seiner Kammer.',
+      'Aussagen zu Leistungen und Erfolgen sind berufsrechtlich zulässig und belegbar; Werbeaussagen prüft der Betrieb vor der Veröffentlichung.',
+      'Themen und Zuständigkeiten sind ohne Fachwörter beschrieben und von der Startseite aus mit einem Klick erreichbar.',
+      'Ein kurzer, klarer Weg zum Erstgespräch: ein Formular, das nur abfragt, was gebraucht wird, und eine verständliche Datenschutzinformation dazu.',
+      'Mandantendaten gehören nicht in ein Kontaktformular ohne Verschlüsselung; die Seite weist darauf hin und nennt einen sicheren Weg für Unterlagen.',
+      'Die Seite lädt auf dem Smartphone schnell, auch bei schwachem Netz.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Darf eine Kanzlei oder Steuerberatung mit solchen Aussagen werben?', 'Für Rechtsanwälte und Steuerberater gelten berufsrechtliche Grenzen für Werbung. Ich gestalte Struktur, Texte und Auftritt; ob eine Aussage zulässig ist, prüft der Betrieb mit seiner Kammer oder einer fachkundigen Stelle, bevor die Seite online geht.'],
+      ['Kann die Kanzlei Fachbeiträge selbst veröffentlichen?', 'Das legen wir im Konzept fest. Für Beiträge, die regelmäßig erscheinen, planen wir von Anfang an einen einfachen Weg ein. Ein Redaktionssystem gehört zum Premium-Paket.'],
+      ['Warum kein Foto vom Team?', 'Ein gutes Teamfoto ist ein Gewinn, aber kein Muss. Es wird nur verwendet, wenn die abgebildeten Personen einwilligen und die Rechte geklärt sind. Bis dahin tragen Typografie, Texte und Architektur den Auftritt.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Sorgfalt zeigt und passende Mandate anbahnt.', subject: 'Projektanfrage Kanzlei-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Kanzlei oder Steuerberatung.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
+  'kfz-werkstatt': {
+    slug: 'kfz-werkstatt',
+    world: '05',
+    title: 'Website-Konzept Oldtimer-Werkstatt',
+    description: 'Beispielkonzept: Wie eine Website für eine Oldtimer-Werkstatt mit Bewegung, Studiofotografie und einem Vorher-Nachher-Regler Handwerk und Vertrauen zeigt.',
+    eyebrow: 'Beispielkonzept · Oldtimer-Werkstatt',
+    h1: 'Ein Oldtimer ist <em>Bewegung.</em>',
+    lead: 'Ein Website-Konzept für eine Oldtimer-Werkstatt: eine Bildstrecke, die quer durchs Fahrzeug fährt, ein Datenblatt statt Werbesprache und ein Regler, der den Wert der Arbeit zeigt.',
+    meta: [['Branche', 'Oldtimer-Werkstatt'], ['Leistung', 'Konzept, Animation, Interaktion, Entwicklung'], ['Schwerpunkt', 'Bewegung & Bildsprache'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: [
+      'Viele Werkstätten für Oldtimer und Youngtimer leben von Empfehlungen und von Fotos auf Social-Media-Kanälen. Eine eigene Website zeigt oft nur Leistungsliste und Telefonnummer, obwohl das eigentliche Argument sichtbar wäre: was aus einem Fahrzeug geworden ist.',
+      'Wer einen Oldtimer in die Hände eines Betriebs gibt, vertraut ihm etwas an, das Geld und Gefühl zugleich wert ist. <strong>Die Website muss Sorgfalt und Können zeigen, bevor das erste Gespräch stattfindet.</strong>',
+      'Das Konzept setzt deshalb auf Bewegung und Fotografie: Eine Bildstrecke fährt beim Scrollen seitwärts durch das Fahrzeug, ein Datenblatt nennt Zahlen statt Versprechen, und ein Vorher-Nachher-Regler macht 1.000 Stunden Arbeit in einer Geste sichtbar.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Handwerk.</em>', items: [
+      ['Qualität der Arbeit sichtbar machen', 'Beweisführung'], ['Mehr qualifizierte Anfragen für Restaurierungen', 'Conversion'], ['Leistungen und Ablauf verständlich darstellen', 'Struktur'],
+      ['Emotionale Nähe zum Fahrzeug erzeugen', 'Marke'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First'] ] },
+    design: { h2: 'Gestaltung, die <em>nach Werkstatt und Lack aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Grüner Lack, Chrom, Elfenbein', 'Ein tiefes Grün als Grund, Chrom für den Text und Elfenbein für die Zierlinie. Die Farbwelt stammt vom Fahrzeug, nicht aus einem Baukasten.'],
+      ['02 · Typografie', 'Breit und technisch', 'Eine breite, technische Versalienschrift für Titel und Kapitel, dazu eine schlichte Systemschrift für den Text. Das hält die Seite schnell und die Zahlen lesbar.'],
+      ['03 · Nutzerführung', 'Zeigen, dann erklären', 'Erst die Bilder, dann das Datenblatt, dann der Ablauf in Kapiteln. Wer sich entscheiden will, findet den Weg zur Anfrage an jeder Stelle.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Am Desktop fährt die Bildstrecke gepinnt seitwärts, auf dem Smartphone ist sie eine wischbare Leiste mit Einrasten. Beide Wege zeigen dieselben Inhalte.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Die Querfahrt folgt dem Scrollen. Mit „Bewegung reduzieren“ entfällt der Pin, und die Seite bleibt vollständig bedienbar.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Externe Dienste würden bei einer produktiven Umsetzung passend zur tatsächlichen Nutzung geprüft und dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Bilder in passender Größe, eine kleine Schriftdatei und klar ausgezeichnete Leistungen schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.'] ],
+    nutzen: [
+      ['Vertrauen durch Beweise', 'Ein Vorher-Nachher-Regler und ein Datenblatt belegen die Arbeit, statt sie zu behaupten.'],
+      ['Passendere Anfragen', 'Ablauf, Dauer und Aufwand sind vorab klar; wer anfragt, weiß, worauf er sich einlässt.'],
+      ['Emotion mit Substanz', 'Studiofotos wecken Lust auf das Fahrzeug, das Datenblatt liefert die Zahlen dazu.'],
+      ['Wiedererkennbare Marke', 'Lackgrün, Chrom und die Zierlinie ergeben einen eigenständigen Auftritt.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als Betrieb mit Anspruch.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Leistungsliste statt Beweis.', li: ['Wenige oder unscharfe Fotos', 'Leistungen ohne Ablauf und Aufwand', 'Referenzen nur auf Social Media', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Handwerk zeigt.', li: ['Bildstrecke und Studiofotografie', 'Datenblatt und Ablauf in Kapiteln', 'Vorher-Nachher als Beweis', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Oldtimer-Werkstatt-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut.', items: [
+      'Leistungen, Öffnungszeiten, Adresse und Anfahrt stehen ohne Klick auf der Startseite und stimmen überall überein: Website, Google-Profil, Verzeichnisse.',
+      'Die Fotos zeigen eigene Arbeiten; Fahrzeughalter haben der Veröffentlichung zugestimmt, Kennzeichen sind unkenntlich gemacht.',
+      'Ablauf und Aufwand einer Restaurierung sind verständlich beschrieben, ohne feste Preise zu versprechen, die sich nicht halten lassen.',
+      'Vorher-Nachher-Bilder haben denselben Ausschnitt und denselben Kamerastandpunkt, damit der Vergleich ehrlich bleibt.',
+      'Ein kurzer, klarer Weg zur Anfrage mit den Angaben, die das Erstgespräch braucht (Fahrzeug, Baujahr, Zustand).',
+      'Die Seite lädt auf dem Smartphone schnell, auch bei schwachem Netz, und bleibt ohne Animation vollständig bedienbar.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Sind Bildstrecke und Regler nur Show?', 'Beides hat eine Aufgabe: Die Strecke zeigt Sorgfalt im Detail, der Regler beweist das Ergebnis. Wer Bewegung nicht mag, schaltet sie ab; dann stehen alle Bilder untereinander da.'],
+      ['Brauche ich Studiofotos?', 'Für diesen Auftritt lohnen sie sich, denn die Bilder tragen die Aussage. Ich erstelle ein Briefing mit Motiven, Licht und Ausschnitt; aufgenommen wird von Ihnen oder einem Fotografen, die Bildrechte klären wir vorher.'],
+      ['Kann ich neue Projekte selbst einstellen?', 'Das legen wir im Konzept fest. Für Projekte, die regelmäßig dazukommen, planen wir von Anfang an einen einfachen Weg ein. Ein Redaktionssystem gehört zum Premium-Paket.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Ihr Handwerk in Bewegung zeigt und passende Restaurierungsprojekte anzieht.', subject: 'Projektanfrage Werkstatt-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Werkstatt.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
+  industrie: {
+    slug: 'industrie',
+    world: '07',
+    title: 'Website-Konzept Industrie und Präzisionsfertigung',
+    description: 'Beispielkonzept: Wie eine Website für Fertigung und Zulieferer mit Messprotokoll, schneller Technik und auffindbaren Zahlen Einkäufer überzeugt und Anfragen für Zeichnungen erleichtert.',
+    eyebrow: 'Beispielkonzept · Industrie und Präzisionsfertigung',
+    h1: 'Einkäufer prüfen genau. Die Seite <em>auch.</em>',
+    lead: 'Ein Website-Konzept für einen Fertigungsbetrieb: ein Messprotokoll statt Werbesprache, jede Zahl auffindbar, ein drehbares Bauteil und ein Anfrageweg für Zeichnungen.',
+    meta: [['Branche', 'Industrie, Zulieferer, Fertigung'], ['Leistung', 'Konzept, Performance, Technik, Entwicklung'], ['Schwerpunkt', 'Belegbare Zahlen & Geschwindigkeit'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: [
+      'Viele Fertigungsbetriebe und Zulieferer zeigen sich online mit einem Maschinenpark als Bilderreihe, ein paar Zertifikatslogos und dem Satz, man liefere „höchste Qualität“. Einkäufer und Konstrukteure suchen etwas anderes: Toleranzen, Materialien, Losgrößen, Lieferzeiten.',
+      'Wer Zeichnungen anfragt, vergleicht mehrere Anbieter in kurzer Zeit. <strong>Die Website muss belegen, was ein Betrieb kann, und das Wichtigste in Sekunden auffindbar machen.</strong>',
+      'Das Konzept setzt deshalb auf Daten statt Behauptungen: Kennzahlen, ein Messprotokoll mit Toleranzanzeige, ein drehbares Bauteil als Bildfolge und ein Anfrageformular, das die Angaben für ein Angebot gleich mitnimmt.',
+    ],
+    ziele: { h2: 'Klarer Fokus auf <em>Belegbarkeit.</em>', items: [
+      ['Fähigkeiten mit Zahlen belegen', 'Beweisführung'], ['Mehr qualifizierte Anfragen mit Zeichnung', 'Conversion'], ['Technische Daten schnell auffindbar', 'Struktur'],
+      ['Sehr kurze Ladezeiten', 'Performance'], ['Saubere Grundlage für Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First'] ] },
+    design: { h2: 'Gestaltung, die <em>nach Messtechnik aussieht.</em>', items: [
+      ['01 · Farbwelt', 'Stahlschiefer und Signalgelb', 'Ein kühler, dunkler Grund, helle Schrift und ein einziges Signalgelb für Messwerte und die Laserlinie. Das Raster bleibt als feine Struktur im Hintergrund sichtbar.'],
+      ['02 · Typografie', 'Klar, technisch, tabellentauglich', 'Eine neutrale Groteskschrift für Text und eine Mono-Schrift für Daten. Ziffern stehen tabellarisch, damit Werte in Spalten sauber untereinander stehen.'],
+      ['03 · Nutzerführung', 'Von der Zahl zur Anfrage', 'Kennzahlen, Messprotokoll und Bauteil führen zum Anfragewerkzeug. Wer eine Zeichnung hat, soll sie in wenigen Schritten senden können.'] ] },
+    tech: [
+      ['Responsive Design', 'Auf jedem Gerät klar', 'Tabellen bleiben lesbar, auf dem Smartphone entfallen nachrangige Spalten, und die Bildfolge des Bauteils zeigt sechs statt zwölf Ansichten.'],
+      ['GSAP-Animationen', 'Bewegung mit Funktion', 'Die Laserlinie erklärt, wie das Protokoll entsteht. Mit „Bewegung reduzieren“ steht alles sofort da, und jede Zahl bleibt auffindbar.'],
+      ['Datenschutz', 'Bewusst reduziert', 'Das Konzept vermeidet unnötige Tracking- und Marketing-Skripte. Hochgeladene Zeichnungen würden bei einer produktiven Umsetzung verschlüsselt übertragen und der Umgang damit in der Datenschutzerklärung dokumentiert.'],
+      ['Performance & SEO', 'Saubere Grundlage', 'Kleine Schriftdateien, Bildfolgen erst bei Bedarf und semantische Tabellen schaffen eine gute Basis für schnelle Ladezeiten und die Suche nach Fertigungsleistungen.'] ],
+    nutzen: [
+      ['Vertrauen durch Zahlen', 'Toleranzen, Losgrößen und Lieferzeiten stehen offen da, statt hinter Kontaktformularen.'],
+      ['Schnellere Angebote', 'Die Anfrage nimmt Material, Stückzahl und Zeichnung gleich mit; Rückfragen werden seltener.'],
+      ['Weniger unpassende Anfragen', 'Wer die Möglichkeiten sieht, fragt gezielter an.'],
+      ['Eigenständige Wirkung', 'Messraster, Laserlinie und Signalgelb unterscheiden den Auftritt von Standardseiten der Branche.'],
+      ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit bei der Suche nach Fertigungsleistungen.'],
+      ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als moderner, verlässlicher Zulieferer.'] ],
+    vergleich: [
+      { eyebrow: 'Typischer Ausgangspunkt', h3: 'Maschinenpark statt Beleg.', li: ['Bilder von Maschinen statt Kennzahlen', 'Toleranzen und Materialien schwer zu finden', 'Anfrage nur per E-Mail ohne Struktur', 'Mobile Darstellung nur mitgedacht'] },
+      { eyebrow: 'NP Webdesign Konzept', h3: 'Ein Auftritt, der Zahlen zeigt.', li: ['Kennzahlen und Messprotokoll', 'Bauteil drehbar als Bildfolge', 'Anfrage mit Zeichnung und Stückzahl', 'Responsive Nutzung von Anfang an'] },
+    ],
+    checkliste: { h2: 'Was eine Fertigungs-Website <em>leisten muss.</em>', intro: 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut.', items: [
+      'Fertigungsverfahren, Materialien, Toleranzen und Losgrößen stehen auf einer Seite, die ohne Anmeldung erreichbar ist.',
+      'Zertifikate und Normen werden nur genannt, wenn sie aktuell gültig und belegbar sind; Logos nur mit Berechtigung.',
+      'Kundennamen und Referenzen erscheinen nur mit schriftlicher Freigabe der Kunden; Zeichnungen und Bauteile Dritter werden nicht abgebildet.',
+      'Der Weg zur Anfrage nennt, welche Unterlagen gebraucht werden (Zeichnung, Material, Stückzahl, Termin).',
+      'Hochgeladene Zeichnungen werden verschlüsselt übertragen; die Seite sagt, wie mit vertraulichen Unterlagen umgegangen wird.',
+      'Die Seite lädt auch auf dem Smartphone in der Halle schnell und bleibt ohne Animation vollständig bedienbar.',
+      'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.',
+    ] },
+    faq: [
+      ['Sind Kennzahlen auf der Website nicht riskant?', 'Nur, wenn sie nicht stimmen. Ich nehme ausschließlich Werte auf, die Sie belegen können, und markiere Beispielwerte in Studien deutlich als solche.'],
+      ['Wie werden Zeichnungen sicher übertragen?', 'Bei einer produktiven Umsetzung läuft der Upload verschlüsselt über Ihren eigenen Server, mit Hinweisen zur Vertraulichkeit. In der Studie ist die Anfrage eine Demo und sendet nichts.'],
+      ['Brauchen wir ein 3D-Modell des Bauteils?', 'Nein. Eine Bildfolge aus zwölf Fotos reicht und ist schneller als jede 3D-Ansicht. Ich erstelle ein Briefing mit Ausschnitt, Licht und Winkel; aufgenommen wird von Ihnen oder einem Fotografen.'],
+    ],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der Ihre Fähigkeiten belegt und Anfragen mit Zeichnung erleichtert.', subject: 'Projektanfrage Industrie-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meinen Fertigungsbetrieb.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
+  'physiotherapie': {
+    slug: 'physiotherapie',
+    world: '08',
+    title: 'Website-Konzept Physiotherapie',
+    description: 'Beispielkonzept: Wie eine Website für eine Physiotherapie-Praxis mit großer Schrift, Tastaturbedienung und einfacher Terminbuchung für alle Patienten nutzbar wird.',
+    eyebrow: 'Beispielkonzept · Physiotherapie',
+    h1: 'Patienten sind nicht immer fit. Die Website <em>darf es sein.</em>',
+    lead: 'Ein Website-Konzept für eine Physiotherapie-Praxis: Barrierefreiheit als Gestaltungsprinzip, ein Buchungsmodul in drei Schritten und Schalter für große Schrift und hohen Kontrast.',
+    meta: [['Branche', 'Physiotherapie und Heilmittel'], ['Leistung', 'Konzept, Barrierefreiheit, Terminbuchung, Entwicklung'], ['Schwerpunkt', 'Barrierefreiheit & Buchung'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: ['Viele Praxen verlassen sich bei Terminen auf Telefon und einen Buchungsdienst, der als Fremdkomponente eingebunden wird. Wer schlecht sieht, motorisch eingeschränkt oder schlicht erschöpft ist, scheitert oft an kleinen Schaltflächen, zu schwachen Kontrasten oder an Formularen, die sich nur mit der Maus bedienen lassen.', 'Dabei besteht die Zielgruppe einer Praxis zu großen Teilen aus Menschen, die genau darauf angewiesen sind. <strong>Die Website muss barrierearm sein, bevor sie schön ist.</strong>', 'Das Konzept setzt deshalb auf eine große, klare Schrift, Klickflächen ab 48 Pixel, vollständige Tastaturbedienung und eine Terminbuchung in drei Schritten. Schalter für große Schrift und hohen Kontrast sind direkt in der Seite, ohne Einstellungen im Browser suchen zu müssen.'],
+    ziele: {'h2': 'Klarer Fokus auf <em>Zugänglichkeit.</em>', 'items': [['Für alle Patienten bedienbar', 'Barrierefreiheit'], ['Mehr Online-Buchungen', 'Conversion'], ['Behandlungen und Zeiten klar auffindbar', 'Struktur'], ['Weniger Rückfragen am Telefon', 'Entlastung'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First']]},
+    design: {'h2': 'Gestaltung, die <em>niemanden ausschließt.</em>', 'items': [['01 · Farbwelt', 'Ruhiges Mint, tiefes Grün', 'Ein heller, ruhiger Grund mit dunkler Schrift in hohem Kontrast. Der Akzent ist kräftig genug für Text. Auf Wunsch schaltet die Seite auf Schwarz auf Weiß.'], ['02 · Typografie', 'Für Lesbarkeit entwickelt', 'Eine Schrift, die Verwechslungen ähnlicher Zeichen vermeidet, im Grundtext mit 19 bis 20 Pixeln. Die Schalter für „Große Schrift“ vergrößern sie weiter, ohne dass etwas bricht.'], ['03 · Nutzerführung', 'Drei Schritte zum Termin', 'Behandlung, Tag, Uhrzeit: jede Auswahl ist eine große Fläche, alles geht mit der Tastatur, und die Bestätigung wird laut angesagt.']]},
+    tech: [['Responsive Design', 'Auf jedem Gerät klar', 'Layout und Bedienflächen passen sich an, ohne dass etwas kleiner wird als nötig. Zoom bis 200 Prozent bleibt nutzbar.'], ['GSAP-Animationen', 'Bewegung nur als Hilfe', 'Kurze Einblendungen, sonst nichts. Wer „Bewegung reduzieren“ eingestellt hat, sieht gar keine Bewegung.'], ['Datenschutz', 'Bewusst reduziert', 'Das Konzept bindet keinen externen Buchungsdienst ein. Bei einer echten Umsetzung würde die Buchung über den eigenen Server laufen und die Verarbeitung von Gesundheitsdaten datenschutzrechtlich geprüft und dokumentiert.'], ['Performance & SEO', 'Saubere Grundlage', 'Eine kleine Schriftdatei, semantische Überschriften und klar ausgezeichnete Öffnungszeiten schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.']],
+    nutzen: [['Zugang für alle', 'Große Schrift, hoher Kontrast und Tastaturbedienung erreichen auch Menschen, die andere Seiten abbrechen.'], ['Weniger Anrufe', 'Die Buchung in drei Schritten nimmt der Rezeption Routineanfragen ab.'], ['Vertrauen durch Ruhe', 'Eine ruhige, klare Seite passt zu einer Praxis, die Sicherheit geben will.'], ['Eigenständige Marke', 'Mint, Wasserlinie und ein klarer Aufbau unterscheiden den Auftritt von Standardseiten.'], ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'], ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als moderne, zugewandte Praxis.']],
+    vergleich: [{'eyebrow': 'Typischer Ausgangspunkt', 'h3': 'Kleine Schrift, Fremdbuchung.', 'li': ['Schwache Kontraste und kleine Schaltflächen', 'Buchung über eine Fremdkomponente', 'Formulare nur mit der Maus bedienbar', 'Mobile Darstellung nur mitgedacht']}, {'eyebrow': 'NP Webdesign Konzept', 'h3': 'Eine Seite, die für alle funktioniert.', 'li': ['Große Schrift und hoher Kontrast auf Knopfdruck', 'Eigene Buchung in drei Schritten', 'Vollständig per Tastatur bedienbar', 'Responsive Nutzung von Anfang an']}],
+    checkliste: {'h2': 'Was eine Praxis-Website <em>leisten muss.</em>', 'intro': 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut. Sie ersetzt keine rechtliche Prüfung.', 'items': ['Behandlungen, Öffnungszeiten, Anfahrt und Parkmöglichkeiten stehen ohne Klick auf der Startseite und stimmen überall überein.', 'Der Zugang ist beschrieben: Stufen, Aufzug, Behindertenparkplätze, Haltestelle.', 'Alle Bedienelemente sind mit der Tastatur erreichbar und mindestens 48 Pixel groß.', 'Texte und Kontraste sind so gewählt, dass sie auch bei Sehschwäche lesbar sind (WCAG 2.2, Stufe AA).', 'Aussagen zu Behandlungen versprechen keine Heilung und erfüllen die Vorgaben der Heilmittelwerbung; der Betrieb lässt sie vor der Veröffentlichung prüfen.', 'Eine Terminanfrage fragt nur ab, was gebraucht wird; Gesundheitsdaten gehören nicht in ein einfaches Kontaktformular, und die Datenschutzinformation erklärt, was passiert.', 'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.']},
+    faq: [['Muss eine Praxis-Website barrierefrei sein?', 'Das hängt von Betrieb und Rechtslage ab; eine Pflicht ist nicht in jedem Fall gegeben. Für die Zielgruppe einer Praxis ist Barrierefreiheit aber ein echter Vorteil, und die Umsetzung nach WCAG 2.2 AA ist der anerkannte Maßstab.'], ['Kann die Praxis Termine online vergeben?', 'Ja. In der Studie ist die Buchung eine Demo. Bei einer echten Umsetzung läuft sie über Ihren eigenen Server, sodass keine Daten an einen Fremddienst gehen. Die rechtliche Einordnung von Gesundheitsdaten prüfen wir vorher.'], ['Dürfen auf der Seite Behandlungserfolge stehen?', 'Für Heilmittel gelten enge Grenzen für Werbeaussagen. Ich gestalte Struktur und Texte; welche Aussagen zulässig sind, klärt der Betrieb mit einer fachkundigen Stelle, bevor die Seite online geht.']],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der für alle Patienten funktioniert und die Terminvergabe entlastet.', subject: 'Projektanfrage Praxis-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für meine Praxis.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
+  'gastronomie-hotel': {
+    slug: 'gastronomie-hotel',
+    world: '09',
+    title: 'Website-Konzept Landgasthof und Hotel',
+    description: 'Beispielkonzept: Wie eine Website für Landgasthof und Hotel mit Bildstrecke, Speisekarte und fixierter Buchungsleiste Gefühl vermittelt und Anfragen ohne Hürde ermöglicht.',
+    eyebrow: 'Beispielkonzept · Landgasthof und Hotel',
+    h1: 'Gäste buchen ein <em>Gefühl.</em>',
+    lead: 'Ein Website-Konzept für einen Landgasthof mit Hotel am See: Bilder, die den Tag vom Abend bis in die Nacht erzählen, eine Speisekarte in einer schmalen Spalte und eine Anfrage, die immer erreichbar ist.',
+    meta: [['Branche', 'Gastronomie und Hotellerie'], ['Leistung', 'Konzept, Conversion-Struktur, Entwicklung'], ['Schwerpunkt', 'Atmosphäre & Anfrage'], ['Umsetzung', 'Responsive HTML, CSS & GSAP']],
+    visual: null, // Konzeptbild kommt aus der gebauten Welt (public/images/branche)
+    ausgangssituation: ['Viele Gasthöfe und Hotels zeigen auf der Website eine Bildergalerie, ein PDF mit der Speisekarte und ein Buchungsportal eines Drittanbieters. Das Gefühl, das Gäste suchen, geht dabei verloren, und die Anfrage ist ein Sprung auf eine fremde Seite.', 'Dabei buchen Gäste kein Zimmer und keinen Tisch, sondern einen Abend am See, ein Frühstück am Fenster, einen Ort, an dem Zeit vergeht. <strong>Die Anfrage darf erst kommen, wenn das Gefühl da ist, und dann muss sie ohne Hürde möglich sein.</strong>', 'Das Konzept erzählt deshalb einen Tag: Bilder blenden langsam vom Abend in die Nacht, die Farbe der Seite kühlt dabei ab. Die Speisekarte steht als schmale Spalte mit Reitern für Mittag und Abend, und eine Leiste am unteren Rand hält Datum und Personenzahl jederzeit bereit.'],
+    ziele: {'h2': 'Klarer Fokus auf <em>Stimmung und Anfrage.</em>', 'items': [['Atmosphäre vor der Buchung vermitteln', 'Marke'], ['Mehr Zimmer- und Tischanfragen', 'Conversion'], ['Speisekarte ohne PDF lesbar', 'Struktur'], ['Anfrage jederzeit erreichbar', 'UX'], ['Saubere Grundlage für lokale Auffindbarkeit', 'SEO'], ['Überzeugende mobile Nutzung', 'Mobile First']]},
+    design: {'h2': 'Gestaltung, die <em>nach Abendlicht aussieht.</em>', 'items': [['01 · Farbwelt', 'Dämmerungsviolett, Leinen, Schilf', 'Ein dunkler, warmer Grund, Leinenweiß für die Schrift und ein Schilfgrün als Akzent. Eine Farbschicht wandert vom Abend zur Nacht und kühlt die Seite ab.'], ['02 · Typografie', 'Ruhig und großzügig', 'Eine feine Serifenschrift, sehr groß für Titel und in lesbarer Größe für den Text. Viel Abstand, kleine Textinseln, Vollbild-Bilder.'], ['03 · Nutzerführung', 'Erst das Gefühl, dann die Anfrage', 'Die Seite erzählt, zeigt Zimmer und Karte, und die Buchungsleiste ist die ganze Zeit da, ohne zu drängen.']]},
+    tech: [['Responsive Design', 'Auf jedem Gerät klar', 'Die Buchungsleiste sitzt auf dem Smartphone über der Navigation; die Speisekarte bleibt eine schmale, gut lesbare Spalte.'], ['GSAP-Animationen', 'Die langsamste Welt', 'Bildüberblendungen über 120 Prozent der Bildschirmhöhe, an das Scrollen gebunden. Mit „Bewegung reduzieren“ stehen die Bilder untereinander.'], ['Datenschutz', 'Bewusst reduziert', 'Das Konzept bindet keine Karte, kein Video und keinen Buchungsdienst von Dritten ein. Bei einer echten Umsetzung würde die Anfrage über Ihren eigenen Server laufen.'], ['Performance & SEO', 'Saubere Grundlage', 'Bilder in passender Größe, eine Schriftdatei und eine echte, indexierbare Speisekarte statt eines PDFs schaffen eine gute Basis für schnelle Ladezeiten und die lokale Suche.']],
+    nutzen: [['Gefühl vor dem Besuch', 'Bilder und Ruhe vermitteln, wie sich ein Aufenthalt anfühlt.'], ['Mehr Anfragen', 'Die immer erreichbare Leiste senkt die Hürde, Datum und Personen anzugeben.'], ['Speisekarte, die gefunden wird', 'Gerichte als Text sind lesbar, suchbar und auf dem Smartphone nutzbar.'], ['Eigenständige Marke', 'Dämmerung, Schilf und Fenster ergeben einen unverwechselbaren Auftritt.'], ['Bessere Auffindbarkeit', 'Eine saubere technische Grundlage unterstützt die Sichtbarkeit in der lokalen Suche.'], ['Zeitgemäße Außenwirkung', 'Der digitale Auftritt unterstützt die Positionierung als Haus mit Anspruch.']],
+    vergleich: [{'eyebrow': 'Typischer Ausgangspunkt', 'h3': 'Galerie, PDF, Fremdportal.', 'li': ['Bildergalerie ohne Dramaturgie', 'Speisekarte als PDF', 'Buchung auf einer fremden Seite', 'Mobile Darstellung nur mitgedacht']}, {'eyebrow': 'NP Webdesign Konzept', 'h3': 'Ein Auftritt, der einen Abend erzählt.', 'li': ['Bildüberblendung vom Abend zur Nacht', 'Speisekarte als Text mit Reitern', 'Anfrage in der Seite, ohne Umweg', 'Responsive Nutzung von Anfang an']}],
+    checkliste: {'h2': 'Was eine Gasthof-Website <em>leisten muss.</em>', 'intro': 'Eine kurze Checkliste für den Start, unabhängig davon, wer die Seite baut.', 'items': ['Öffnungszeiten, Küchenzeiten, Ruhetage und Anfahrt stehen ohne Klick auf der Startseite und stimmen überall überein: Website, Google-Profil, Verzeichnisse.', 'Die Speisekarte steht als Text auf der Seite, nicht nur als PDF; Preise sind aktuell, Allergene und Zusatzstoffe sind nach den geltenden Regeln gekennzeichnet.', 'Fotos zeigen die eigenen Räume und Gerichte; Gäste und Mitarbeitende sind nur mit Einwilligung zu sehen.', 'Zimmerpreise werden mit „ab“ und dem Hinweis auf Nebenkosten (z. B. Kurtaxe) angegeben, soweit das für Ihr Haus gilt.', 'Eine Anfrage fragt nur Datum, Personen und Kontaktweg ab; die Datenschutzinformation erklärt, was damit geschieht.', 'Die Seite lädt auch bei schwachem Netz schnell, und die Buchungsleiste verdeckt auf dem Smartphone keine Inhalte.', 'Karten, Videos und Social-Feeds laden nicht ungefragt Inhalte von Dritten, sondern erst nach einem Klick oder als normaler Link.']},
+    faq: [['Brauchen wir weiter ein Buchungsportal?', 'Das entscheiden Sie. Das Konzept zeigt, wie eine Anfrage direkt über die eigene Seite laufen kann. Portale können zusätzlich bestehen bleiben, die Seite ist dann der Ort, an dem Gäste direkt und ohne Provision anfragen.'], ['Warum keine Speisekarte als PDF?', 'Ein Text auf der Seite ist schneller, lesbar auf dem Smartphone, durchsuchbar und lässt sich leichter pflegen. Wer ein PDF möchte, bekommt es zusätzlich als Download.'], ['Wie entstehen die Bilder?', 'Ich erstelle ein Briefing: dieselbe Perspektive vom Abend bis in die Nacht, Zimmer mit Fensterblick, Tellerdetails. Aufgenommen wird von Ihnen oder einem Fotografen; die Bildrechte klären wir vorher.']],
+    cta: { ...COMMON.cta, text: 'Gemeinsam entwickeln wir einen Webauftritt, der ein Gefühl vermittelt und Anfragen ohne Hürde ermöglicht.', subject: 'Projektanfrage Gasthof-Website', body: 'Hallo Niklas,\n\nich interessiere mich für eine Website für mein Haus.\n\nMein Projekt:\n\nViele Grüße' },
+  },
+
 };
 
 export const BRANCHEN_LIST = Object.values(BRANCHEN);

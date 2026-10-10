@@ -8,19 +8,20 @@
 import { builtWorlds, TEXT } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Logo from './Logo.astro';
+import WorldStill from './WorldStill.astro';
 const { row } = Astro.props;
 ---
 <section id={row.anchor} class="finale" data-section={row.id} data-ground={row.ground} data-tone="light"
          data-counter={`${TEXT.nextWorld} · Ihr Unternehmen`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title" data-finale>
   <div class="f-stage" data-f-stage>
     <div class="f-plan" data-f-plan>
-      <div class="wp-grid f-grid" data-f-grid>
+      <div class="wp-grid f-grid" data-f-grid data-count={builtWorlds.length}>
         <div class="f-cells" aria-hidden="true">
           {builtWorlds.map((w) => (
             <div class="f-cell" data-world={w.nr}>
               <span class="wp-frame">
                 <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
-                <span class="wp-still"></span>
+                <span class="wp-still"><WorldStill nr={w.nr} /></span>
               </span>
             </div>
           ))}

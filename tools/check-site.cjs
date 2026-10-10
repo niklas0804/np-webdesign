@@ -24,7 +24,9 @@ const { chromium } = require('playwright');
 
 const ROOT = path.resolve(process.argv[2] || path.join(__dirname, '..'));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.txt': 'text/plain', '.xml': 'application/xml', '.json': 'application/json', '.jpg': 'image/jpeg', '.png': 'image/png', '.mp4': 'video/mp4' };
-const VIEWPORTS = [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobil', width: 390, height: 844 }, { name: 'schmal', width: 320, height: 640 }];
+const VIEWPORTS = [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobil', width: 390, height: 844 }, { name: 'schmal', width: 320, height: 640 },
+  // Handy mit Touch und normaler Bewegung: Modus „mobile“ mit gepinnten Szenen (fing die Seitenbreite der Bildstrecke in Welt 05)
+  { name: 'handy-touch', width: 390, height: 844, touch: true }, { name: 'handy-schmal-touch', width: 320, height: 640, touch: true }];
 /* Elemente, die ohne JavaScript sichtbar sein müssen (nur geprüft, wenn vorhanden) */
 const NOJS_VISIBLE = ['h1', '.hero-title', '.hero-sub', '.hero-lead', '.pkg', '.pstep', '.krow', '.contact-box', '.faq-answer p', '.ueber-title', '.fact',
   '.wp-cell', '.wp-statement h2', '.world-title', '.statement', '.step', '.faq-item summary', '.note', '.window-frame', '.finale h2', '.kontakt h2'];
@@ -89,7 +91,7 @@ async function run() {
 
     for (const vp of VIEWPORTS) {
       const label = `${file} [${vp.name} ${vp.width}px]`;
-      const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, reducedMotion: vp.name === 'desktop' ? 'no-preference' : 'reduce' });
+      const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, reducedMotion: vp.name === 'desktop' || vp.touch ? 'no-preference' : 'reduce', ...(vp.touch ? { hasTouch: true, isMobile: true } : {}) });
       const page = await ctx.newPage();
       const external = new Set();
       page.on('request', (r) => {

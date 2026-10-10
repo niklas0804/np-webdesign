@@ -1,0 +1,110 @@
+---
+/**
+ * Welt 07 · TORQUEL · Präzisionsfertigung (Blueprint F). Studie, fiktives Unternehmen.
+ * Hightech aus der Oberpfalz: dunkel, kühl, exakt. Sichtbares 8-px-Raster, Koordinatenachsen, Messprotokoll.
+ * Hauptanimation: eine Laserlinie scannt horizontal, dahinter entsteht das Messprotokoll; die Kennzahlen zählen einmal hoch.
+ * Interaktion: Bauteil drehen per Ziehen, Scrollen, Regler, Tasten (12 Ansichten als Bildfolge, kein WebGL; hier als Bildplatzhalter).
+ * Leistung im Einsatz: Performance und Technik. Anfrage für Zeichnungen ist eine Demo und sendet nichts.
+ * Ohne JavaScript: alle Werte stehen fertig im Text, Regler und Sendeknopf fehlen.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { KICKER, UNTER, KENNZAHLEN, PROTOKOLL, MATERIALIEN, BAUTEIL, f } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '07');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 07 / ${total} · Industrie · Studie`;
+const pos = (z) => Math.max(-1, Math.min(1, (z.ist - z.soll) / z.tol));
+---
+<section id={w.anchor} class="world w07" data-section={row.id} data-world="07" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`07 / ${total}`} aria-labelledby="w07-title">
+  <div class="w07-axes" aria-hidden="true"><span class="w07-ax-x"></span><span class="w07-ax-y"></span></div>
+
+  <header class="w07-hero">
+    <p class="w07-kicker">{KICKER}</p>
+    <h2 id="w07-title" class="w07-title">{w.name}</h2>
+    <p class="w07-unter">{UNTER}</p>
+    <dl class="w07-kennzahlen">
+      {KENNZAHLEN.map((k) => (
+        <div class="w07-kz">
+          <dt>{k.label}</dt>
+          <dd><span class="w07-num" data-count data-zahl={k.zahl} data-dec={k.dec} data-pre={k.pre}>{k.pre}{f(k.zahl, k.dec)}</span>{k.einheit && <span class="w07-einheit"> {k.einheit}</span>}</dd>
+        </div>
+      ))}
+    </dl>
+  </header>
+
+  <!-- Laserscan: dahinter entsteht das Messprotokoll -->
+  <section class="w07-scan" aria-labelledby="w07-scan-h" data-scan>
+    <h3 id="w07-scan-h" class="w07-h">Scan und Messprotokoll</h3>
+    <div class="w07-scan-grid">
+      <div class="w07-scan-bild">
+        <BildPlatzhalter id="w07-makro" />
+        <span class="w07-laser" aria-hidden="true" data-laser></span>
+      </div>
+      <table class="w07-table" data-protokoll>
+        <caption>{PROTOKOLL.titel}</caption>
+        <thead><tr><th scope="col">Merkmal</th><th scope="col">Soll</th><th scope="col">Toleranz</th><th scope="col">Ist</th><th scope="col"><span class="visually-hidden">Lage im Toleranzband</span></th></tr></thead>
+        <tbody>
+          {PROTOKOLL.zeilen.map((z) => (
+            <tr data-row>
+              <th scope="row">{z.merkmal}</th>
+              <td>{f(z.soll, z.dec)} {z.einheit}</td>
+              <td>± {f(z.tol, z.dec)}</td>
+              <td class="w07-ist">{f(z.ist, z.dec)}</td>
+              <td class="w07-tolcell">
+                <svg class="w07-tol" viewBox="0 0 100 10" role="img" aria-label={`Im Toleranzband bei ${Math.round(Math.abs(pos(z)) * 100)} Prozent der Toleranz`}>
+                  <rect x="0" y="3" width="100" height="4" class="w07-tol-band" />
+                  <line x1="50" y1="0" x2="50" y2="10" class="w07-tol-mitte" />
+                  <rect x={50 + pos(z) * 46 - 2} y="0" width="4" height="10" class="w07-tol-marke" />
+                </svg>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="w07-demo">{PROTOKOLL.hinweis}</p>
+  </section>
+
+  <!-- Bauteil drehen -->
+  <section class="w07-dreher" aria-labelledby="w07-dreher-h" data-dreher data-ansichten={BAUTEIL.ansichten} data-schritt={BAUTEIL.schritt}>
+    <h3 id="w07-dreher-h" class="w07-h">Bauteil drehen</h3>
+    <p class="w07-lead">Ziehen, scrollen oder den Regler benutzen: zwölf Ansichten im Abstand von 30 Grad. Mobil sind es sechs.</p>
+    <div class="w07-dreher-bild" data-dreher-stage>
+      <BildPlatzhalter id="w07-bauteil" />
+      <div class="w07-winkel" aria-hidden="true">
+        <span class="w07-winkel-kreis"><span class="w07-winkel-zeiger" data-zeiger></span></span>
+        <span class="w07-winkel-text" data-winkel-text>Ansicht 01 von 12 · 0°</span>
+      </div>
+    </div>
+    <div class="w07-dreher-bedien">
+      <button class="w07-btn" type="button" data-prev aria-label="Eine Ansicht zurück">←</button>
+      <label class="w07-range"><span class="visually-hidden">Ansicht wählen</span><input type="range" min="0" max={BAUTEIL.ansichten - 1} step="1" value="0" data-range aria-valuetext="Ansicht 1 von 12, 0 Grad"></label>
+      <button class="w07-btn" type="button" data-next aria-label="Eine Ansicht vor">→</button>
+    </div>
+    <p class="w07-demo">Demo · die Bildfolge kommt mit den Fotos, die Bedienung funktioniert schon</p>
+  </section>
+
+  <!-- Anfrage für Zeichnungen (Demo) -->
+  <section class="w07-anfrage" aria-labelledby="w07-anfrage-h">
+    <h3 id="w07-anfrage-h" class="w07-h">Zeichnung anfragen</h3>
+    <form class="w07-form" data-form novalidate>
+      <label class="w07-feld"><span>Bezeichnung des Bauteils</span><input type="text" name="bezeichnung" autocomplete="off" placeholder="z. B. Lagerbock A-12"></label>
+      <label class="w07-feld"><span>Material</span>
+        <select name="material">{MATERIALIEN.map((m) => <option>{m}</option>)}</select>
+      </label>
+      <label class="w07-feld"><span>Stückzahl</span><input type="number" name="stueck" min="1" max="5000" value="50" inputmode="numeric"></label>
+      <label class="w07-feld"><span>Zeichnung (nur Demo, wird nicht hochgeladen)</span><input type="file" name="zeichnung" accept=".pdf,.dxf,.step,.stp" data-datei></label>
+      <button class="w07-send" type="submit">Angebot anfragen (Demo)</button>
+      <p class="w07-confirm" data-confirm role="status" aria-live="polite" hidden></p>
+    </form>
+    <p class="w07-demo">Demo · es wird nichts gesendet und keine Datei übertragen</p>
+  </section>
+
+  <div class="w07-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Industrie und Fertigung" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+</section>

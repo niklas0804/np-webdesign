@@ -1,0 +1,59 @@
+/* Welt 10 · NP Labor (Blueprint F). Palette aus /journey.css: --ground Weiß, --text Schwarz, --accent Linkblau, --accent2 Besucht-Lila; am Ende NP-Orange.
+   Schriften: erst Browser-Standards (Times, Arial, Courier: 0 KB), zum Schluss Archivo in Extrembreiten (wdth 62 bis 125, schon geladen). */
+.world.w10 {
+  padding: calc(var(--frame-top) + var(--s8)) var(--gutter) var(--block);
+  background: #fff;
+  color: #000;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  line-height: normal;
+  min-height: calc(var(--len) * 1svh);
+  position: relative;
+}
+.w10 :focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+
+/* 1 · Rohbau: alles, was die Seite sonst gestaltet, wird zurückgenommen; der Browser zeichnet seine eigenen Standards. */
+.w10-roh, .w10-roh * { all: revert; }
+.w10-roh { display: block; }
+.w10-roh img { display: inline; }
+.w10-roh a.w10-besucht { color: #551A8B; }
+/* Am Ende bekommen die Rohelemente NP-Stil zurück (Klasse is-np, gesetzt von der Bewegung): Links orange, Times wird Archivo. */
+.w10-roh, .w10-roh * { transition: color var(--dur-m) var(--ease-out); }
+.w10.is-np .w10-roh a, .w10.is-np .w10-roh a.w10-besucht { color: var(--orange-text); text-decoration-thickness: 2px; }
+.w10.is-np .w10-roh h2, .w10.is-np .w10-roh h3 { font-family: var(--sans); font-stretch: 85%; letter-spacing: -.02em; }
+.w10.is-np .w10-roh { font-family: var(--sans); }
+
+/* 2 · Gerüst der Welt 01 mit sichtbaren Etiketten */
+.w10-geruest { margin-top: 2em; border-top: 1px solid #000; padding-top: 1em; font-family: 'Times New Roman', Times, serif; }
+.w10-geruest h3 { font-size: 1.17em; font-weight: bold; margin: 0 0 .5em; }
+.w10-geruest p { margin: 0 0 1em; max-width: 70ch; }
+.w10-schalter { font: inherit; padding: 4px 10px; border: 2px outset buttonborder; background: buttonface; color: buttontext; cursor: pointer; }
+.w10-skelett { margin-top: 1em; font-family: 'Courier New', Courier, monospace; }
+.w10-skelett:not(.is-offen) { display: none; }
+.w10-skelett [data-tag] { display: block; margin: .3em 0 .3em .5em; padding: .15em .4em .15em 1em; border-left: 2px solid #000; }
+.w10-skelett h2 { font: bold 1.5em 'Times New Roman', Times, serif; } .w10-skelett h3 { font: bold 1.17em 'Times New Roman', Times, serif; }
+.w10-skelett li { list-style: none; } .w10-skelett dt { font-weight: bold; } .w10-skelett dd { margin-left: 1em; }
+.w10-skelett [data-tag]::before { content: '<' attr(data-tag) '>'; display: inline-block; margin-right: .6em; padding: 0 .3em; background: #000; color: #fff; font: 12px 'Courier New', Courier, monospace; vertical-align: middle; }
+html:not([data-js]) .w10-skelett { display: block; }
+
+/* 3 · Der Bruch: überlagert, gedreht, riesig, alles innerhalb der Sektion beschnitten */
+.w10-bruch { position: relative; margin-top: 4em; min-height: 120svh; overflow: clip; isolation: isolate; border-top: 4px solid #000; padding: 1em 0; font-family: var(--sans); }
+.w10-b-h { font-family: var(--sans); font-weight: 850; font-stretch: 75%; font-size: clamp(1.5rem, 4vw, 3rem); letter-spacing: -.02em; text-transform: uppercase; margin: 0; }
+.w10-bruch p { margin: 0; }
+.w10-b-a { position: absolute; left: 2%; top: 14%; font-size: clamp(1.5rem, 3.5vw, 3rem); font-weight: 700; max-width: 14ch; line-height: 1; z-index: 2; }
+.w10-b-b { position: absolute; left: 6%; top: 17%; font-size: clamp(4rem, 14vw, 13rem); font-weight: 850; font-stretch: 62%; text-transform: uppercase; line-height: .85; color: #0000EE; z-index: 1; }
+.w10-b-c { position: absolute; right: 0; top: 4%; writing-mode: vertical-rl; transform: rotate(180deg); font-size: clamp(2rem, 6vw, 5rem); font-weight: 850; font-stretch: 62%; text-transform: uppercase; line-height: 1; letter-spacing: .02em; }
+.w10-riese { position: absolute; left: -1%; bottom: 14%; margin: 0; font-size: clamp(5rem, 24vw, 24rem); font-weight: 900; font-variation-settings: 'wdth' 75; font-stretch: 75%; line-height: .8; letter-spacing: -.04em; white-space: nowrap; color: #000; z-index: 0; user-select: none; }
+.w10-b-d { position: absolute; left: 2%; bottom: 3%; font-family: 'Courier New', Courier, monospace; font-size: 1rem; max-width: 46ch; background: #fff; padding: .4em .6em; border: 1px solid #000; z-index: 3; }
+
+/* 4 · Ende */
+.w10-ende { margin-top: 4em; padding: 2em 0; border-top: 1px solid #000; font-family: var(--sans); }
+.w10-e-h { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 850; font-stretch: 85%; letter-spacing: -.03em; line-height: .95; margin: 0 0 .4em; text-transform: uppercase; }
+.w10-e-t { font-size: clamp(1.25rem, 2.2vw, 1.75rem); margin: 0; }
+.w10-np-link { color: var(--orange-text); font-weight: 700; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: .15em; }
+.w10-np-link:hover { color: #000; }
+
+.w10-note { margin-top: 4em; display: flex; }
+.w10-note .note { margin: 0; }
+.w10 > .credit { margin-top: 3em; color: #000; }
+@media (max-width: 700px) { .w10-b-a { top: 18%; } .w10-b-b { top: 26%; } .w10-b-c { top: 2%; } .w10-riese { bottom: 18%; } .w10-b-d { bottom: 2%; } }

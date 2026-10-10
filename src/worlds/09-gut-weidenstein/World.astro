@@ -1,0 +1,88 @@
+---
+/**
+ * Welt 09 · Gut Weidenstein · Landgasthof und Hotel am See (Blueprint F). Studie, fiktives Unternehmen.
+ * Stille Eleganz: Abendlicht über dem See, Luxus durch Ruhe. Die langsamste Welt: Bildüberblendungen über 120 vh, die Tageszeit wandert
+ * als Farbtemperatur-Schicht von Abend zu Nacht. Vollbild-Landschaften als Bildplatzhalter, Text in kleinen Inseln, Speisekarte als schmale Spalte.
+ * Interaktion: Zimmer- und Tischanfrage als Demo (Datum, Personen), die Speisekarte wechselt zwischen Mittag und Abend.
+ * Ohne JavaScript: alle Bilder untereinander, beide Karten sichtbar, die fixierte Leiste steht am Ende des Abschnitts.
+ */
+import { WORLDS, builtWorlds } from '../../config/journey.js';
+import { KICKER, SATZ, ZEITEN, ZIMMER, KARTE, PERSONEN } from './data.js';
+import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
+import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
+import './world.css';
+
+const { row } = Astro.props;
+const w = WORLDS.find((x) => x.nr === '09');
+const total = String(builtWorlds.length).padStart(2, '0');
+const counter = `Welt 09 / ${total} · Landgasthof · Studie`;
+---
+<section id={w.anchor} class="world w09" data-section={row.id} data-world="09" data-ground={w.palette.ground} data-tone={w.palette.tone}
+         data-counter={counter} data-counter-short={`09 / ${total}`} aria-labelledby="w09-title" data-w09>
+
+  <header class="w09-hero">
+    <p class="w09-kicker">{KICKER}</p>
+    <h2 id="w09-title" class="w09-title">Gut Weidenstein</h2>
+    <p class="w09-satz">{SATZ}</p>
+  </header>
+
+  <!-- Die Tageszeit wandert: drei Bilder überblenden sich, eine Farbschicht kühlt ab -->
+  <section class="w09-tag" aria-labelledby="w09-tag-h" data-tag>
+    <h3 id="w09-tag-h" class="visually-hidden">Ein Tag am See, vom Abend bis in die Nacht</h3>
+    <div class="w09-tag-stage" data-tag-stage>
+      <div class="w09-layer-wrap">
+        {ZEITEN.map((z, i) => (
+          <figure class="w09-layer" data-layer={i}><BildPlatzhalter id={z.foto} /><figcaption class="w09-ins"><span class="w09-ins-n">{z.name}</span> {z.text}</figcaption></figure>
+        ))}
+        <div class="w09-tint" aria-hidden="true" data-tint></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w09-zimmer" aria-labelledby="w09-zimmer-h">
+    <h3 id="w09-zimmer-h" class="w09-h">Zimmer</h3>
+    <div class="w09-zimmer-grid">
+      <div class="w09-zimmer-bild"><BildPlatzhalter id="w09-zimmer" /></div>
+      <ul class="w09-karten">
+        {ZIMMER.map((z) => <li class="w09-karte"><p class="w09-karte-name">{z.name}</p><p class="w09-karte-text">{z.text}</p><p class="w09-karte-preis">{z.preis} <small>pro Nacht, Beispielpreis</small></p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="w09-speise" aria-labelledby="w09-speise-h" data-speise>
+    <h3 id="w09-speise-h" class="w09-h">Speisekarte</h3>
+    <div class="w09-speise-grid">
+      <div class="w09-speise-spalte">
+        <div class="w09-tabs" role="tablist" aria-label="Speisekarte wählen" data-karte-tabs>
+          {Object.entries(KARTE).map(([key, k], i) => (
+            <button class="w09-tab" type="button" role="tab" id={`w09-tab-${key}`} aria-controls={`w09-karte-${key}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-karte-tab={key}>{k.titel}</button>
+          ))}
+        </div>
+        {Object.entries(KARTE).map(([key, k], i) => (
+          <div class="w09-karte-panel" role="tabpanel" id={`w09-karte-${key}`} aria-labelledby={`w09-tab-${key}`} tabindex="0" data-karte-panel={key}>
+            <p class="w09-karte-zeit">{k.titel} · {k.zeit}</p>
+            <dl class="w09-gerichte">
+              {k.posten.map(([n, p]) => <div class="w09-gericht"><dt>{n}</dt><dd><span class="visually-hidden">Preis: </span>{p}</dd></div>)}
+            </dl>
+          </div>
+        ))}
+        <p class="w09-demo">Demo · Beispielgerichte und -preise, Allergenhinweise folgen im echten Betrieb</p>
+      </div>
+      <div class="w09-speise-bild"><BildPlatzhalter id="w09-teller" /></div>
+    </div>
+  </section>
+
+  <div class="w09-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Gastronomie und Hotel" /></div>
+  <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>
+
+  <!-- fixierte Buchungsleiste: bleibt in der Welt am unteren Rand (Demo) -->
+  <form class="w09-bar" data-bar novalidate aria-label="Zimmer- oder Tischanfrage, Demo">
+    <p class="w09-bar-t">Zimmer oder Tisch anfragen</p>
+    <label class="w09-bar-f"><span>Datum</span><input type="date" name="datum" data-datum></label>
+    <label class="w09-bar-f"><span>Personen</span>
+      <select name="personen" data-personen>{PERSONEN.map((n) => <option value={n} selected={n === 2}>{n}</option>)}</select>
+    </label>
+    <button class="w09-bar-b" type="submit">Anfrage vormerken</button>
+    <p class="w09-bar-c" data-bar-confirm role="status" aria-live="polite"></p>
+  </form>
+</section>

@@ -5,9 +5,9 @@ import '../styles/page.css';
 import Logo from '../components/Logo.astro';
 import PartnerBadge from '../components/PartnerBadge.astro';
 import { SITE } from '../config/site.js';
-const { title, description, path, noindex = false, wide = false, bare = false, jsonLd = null } = Astro.props;
+const { title, description, path, noindex = false, wide = false, bare = false, jsonLd = null, image = undefined } = Astro.props;
 ---
-<Base title={title} description={description} path={path} noindex={noindex} jsonLd={jsonLd}>
+<Base title={title} description={description} path={path} noindex={noindex} jsonLd={jsonLd} image={image}>
   <div class="skiplinks"><a href="#main">Zum Inhalt springen</a></div>
   <header class="page-head">
     <div class="page-head-inner">
