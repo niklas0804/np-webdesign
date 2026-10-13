@@ -12,6 +12,18 @@
 .frame > .crop, .frame > .frame-ruler, .frame > .frame-progress, .frame > .frame-counter { pointer-events: none; }
 .frame-ruler .ruler-tick { pointer-events: auto; }
 
+/* Kopfzeile auf dem Handy und im ruhigen Modus: schmale Fläche in der Grundfarbe der Welt (--strip, setzt rahmen.js),
+   damit nie Inhalt unter Monogramm, Zähler und Menü läuft. Beim Abwärtsscrollen blendet sie samt Inhalt nach oben aus,
+   beim Aufwärtsscrollen kommt sie zurück (Blueprint J). Lesbarkeit geht vor der Regel „kein Hintergrundbalken“. */
+.frame-strip { display: none; }
+html:not([data-mode='desktop']) .frame-strip {
+  display: block; position: absolute; left: 0; right: 0; top: 0; height: 60px; pointer-events: none;
+  background: var(--strip, var(--leinen)); border-bottom: 1px solid color-mix(in srgb, var(--np-ink) 16%, transparent);
+}
+html:not([data-mode='desktop']) :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transition: transform var(--dur-s) var(--ease-out); }
+html:not([data-mode='desktop'])[data-header='hidden'] :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transform: translateY(-96px); }
+@media (prefers-reduced-motion: reduce) { html:not([data-mode='desktop']) :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transition: none; } }
+
 /* Monogramm oben links */
 .frame-logo {
   position: absolute;

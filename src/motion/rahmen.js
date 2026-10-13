@@ -13,6 +13,7 @@ export function setSection(sec) {
   currentKey = key;
 
   root.dataset.tone = sec.dataset.tone || 'light';
+  if (sec.dataset.ground) root.style.setProperty('--strip', sec.dataset.ground);
 
   const counter = $('[data-frame-counter]');
   const short = $('[data-frame-counter-short]');
@@ -55,6 +56,22 @@ export function initRahmen() {
     end: 'max',
     onToggle: (self) => { heroPast = self.isActive; updateBar(); },
   });
+
+  // Kopfzeile (Handy, ruhiger Modus): beim Abwärtsscrollen aus, beim Aufwärtsscrollen ein (Blueprint J)
+  if (mode !== 'desktop') {
+    let last = window.scrollY;
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (self) => {
+        const y = self.scroll();
+        const d = y - last;
+        if (y < 90) { root.dataset.header = 'shown'; last = y; return; }
+        if (Math.abs(d) < 6) return; // kleine Zuckungen zählen nicht
+        root.dataset.header = d > 0 && !document.body.hasAttribute('data-menu-open') ? 'hidden' : 'shown';
+        last = y;
+      },
+    });
+  }
 
   // Lineal und Fortschritt
   const fill = $('[data-ruler-fill]');

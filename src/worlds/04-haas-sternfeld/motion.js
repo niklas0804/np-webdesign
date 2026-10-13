@@ -5,6 +5,7 @@
  * Ruhig und ohne JavaScript: alles steht fertig im Text. `init` liefert die Aufräum-Funktion.
  */
 import { gsap, ScrollTrigger, $, $$, mode } from '../../motion/base.js';
+import { SplitText } from 'gsap/SplitText';
 
 export function init() {
   const root = $('.w04');
@@ -17,8 +18,8 @@ export function init() {
 
   if (animated) {
     let ctx;
-    // SplitText erst bei Bedarf laden (Modul der Welt, nicht im Kern)
-    import('gsap/SplitText').then(({ SplitText }) => {
+    // SplitText gehört zum Modul der Welt (nicht zum Kern) und ist synchron da: kein spätes Umbrechen nach dem ersten Messen
+    {
       gsap.registerPlugin(SplitText);
       const reduce = mode === 'mobile';
       const fire = (trigger, start = 'top 82%') => ({ trigger, start, once: true });
@@ -53,8 +54,7 @@ export function init() {
         // Register und Rubriken setzen sich als ruhige Einblendung
         gsap.from($$('.w04-register li', root), { autoAlpha: 0, y: 14, duration: 0.6, stagger: 0.1, ease: 'power2.out', scrollTrigger: fire($('.w04-register', root), 'top 85%') });
       }, root);
-      ScrollTrigger.refresh();
-    });
+    }
     cleanups.push(() => ctx && ctx.revert());
   }
 

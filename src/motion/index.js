@@ -11,7 +11,12 @@ import { initFinale } from './finale.js';
 
 watchMode();
 
-/** Weltmodule: Bewegung und Bedienung laden erst 1,5 Bildschirmhöhen vor der Welt (Blueprint N, Ladestrategie) */
+/**
+ * Weltmodule: Alle Module sind klein (je 1–3 KB) und werden beim Start in Dokumentreihenfolge geladen und eingerichtet.
+ * Früher luden sie erst 1,5 Bildschirmhöhen vor der Welt und riefen danach ScrollTrigger.refresh() auf – das verschob
+ * die Seite um bis zu 377 px, mitten im Scrollen (docs/troubleshooting-uebergaenge.md, Ursache 4).
+ * Nur schwere Dateien (Bilder) laden nach, mit festen Maßen.
+ */
 const WORLD_MODULES = {
   baeckerei: () => import('../worlds/01-halmberg/motion.js'),
   barbershop: () => import('../worlds/02-messingstuhl/motion.js'),
@@ -24,14 +29,10 @@ const WORLD_MODULES = {
   landgasthof: () => import('../worlds/09-gut-weidenstein/motion.js'),
   labor: () => import('../worlds/10-np-labor/motion.js'),
 };
-function loadWorlds() {
-  Object.entries(WORLD_MODULES).forEach(([anchor, load]) => {
-    const el = document.getElementById(anchor);
-    if (!el) return;
-    let started = false;
-    const go = async () => { if (started) return; started = true; const m = await load(); m.init(); ScrollTrigger.refresh(); };
-    ScrollTrigger.create({ trigger: el, start: 'top bottom+=150%', end: 'bottom top', onToggle: (self) => { if (self.isActive) go(); } });
-  });
+async function initWorlds() {
+  const entries = Object.entries(WORLD_MODULES).filter(([anchor]) => document.getElementById(anchor));
+  const modules = await Promise.all(entries.map(([, load]) => load()));
+  modules.forEach((m) => m.init());
 }
 
 async function boot() {
@@ -50,15 +51,17 @@ async function boot() {
   initFit();
   initKontakt();
 
+  // Alles wird vor dem ersten Messen eingerichtet; danach genau ein Refresh, nie mehr während des Scrollens
   initRahmen();
   if (pinned) {
     initOpening();
-    initTransitions();
     initFinale();
   }
   initInterludes();
-  loadWorlds();
+  await initWorlds();
+  if (pinned) initTransitions();
 
+  ScrollTrigger.sort();
   ScrollTrigger.refresh();
   root.setAttribute('data-ready', '');
 }

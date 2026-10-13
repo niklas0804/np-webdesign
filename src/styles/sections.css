@@ -27,12 +27,25 @@
 .world[data-tone='dark'] .note-link:hover { color: var(--glut); }
 .credit { color: inherit; opacity: .8; margin-top: var(--s7); font-size: var(--fs-mono-xs); }
 
-/* ---------- Übergänge ---------- */
-/* Ruhig und ohne JavaScript: nur der orange Faden als feine Linie */
+/* ---------- Übergänge ----------
+ * Ruhig und ohne JavaScript: nur der orange Faden als feine Linie.
+ * Gepinnte Modi (Zielarchitektur, docs/troubleshooting-uebergaenge.md): Die Bühne liegt UNTER den Welten.
+ *   – Der Übergang ragt 100 svh in die letzte Seite der alten Welt hinein (margin-top) und 100 svh in die erste der neuen (margin-bottom).
+ *   – Die Bühne klebt (sticky) vom Moment an, in dem die alte Welt mit ihrem letzten Bildschirm den Viewport füllt, und ist dort verdeckt.
+ *   – Die alte Welt zieht nach oben weg und DECKT DIE BÜHNE AUF; --len svh lang steht die Bühne frei; dann schiebt sich die neue Welt von unten darüber.
+ *   – Es gibt also nie einen Bildschirm, den nur die Bühne in Grundfarbe füllt: davor und danach ist echter Inhalt zu sehen.
+ * Der Abstand zwischen alter und neuer Welt im Dokument ist (100 + --len) svh, so viel wie zuvor.
+ */
 .transition { height: 1.5px; background: var(--np-orange); position: relative; z-index: 2; }
 .t-stage, .t-wipe, .t-thread { display: none; }
 
-html[data-mode='desktop'] .transition, html[data-mode='mobile'] .transition { height: calc((100 + var(--len)) * 1svh); background: var(--from); }
+html[data-mode='desktop'] .transition, html[data-mode='mobile'] .transition {
+  height: calc((300 + var(--len)) * 1svh);
+  margin-block: calc(-100 * 1svh);
+  background: none; z-index: 0; pointer-events: none;
+}
+/* Welten und Zwischenspiele liegen über der Bühne und decken sie mit eigenem Grund ab */
+html[data-mode='desktop'] main > section:not(.transition), html[data-mode='mobile'] main > section:not(.transition) { position: relative; z-index: 1; }
 html[data-mode='desktop'] .t-stage, html[data-mode='mobile'] .t-stage { display: block; position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--from); }
 html[data-mode='desktop'] .t-wipe, html[data-mode='mobile'] .t-wipe { display: block; position: absolute; inset: 0; background: var(--to); transform: translateY(100%); }
 html[data-mode='desktop'] .t-thread, html[data-mode='mobile'] .t-thread { display: block; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: var(--np-orange); transform: scaleX(0); transform-origin: left; }

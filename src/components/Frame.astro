@@ -1,11 +1,12 @@
 ---
-/** Der NP-Rahmen: fest am Viewport, über jeder Welt (Blueprint C, J). Keine Hintergrundbalken. */
+/** Der NP-Rahmen: fest am Viewport, über jeder Welt (Blueprint C, J). Auf dem Handy trägt die Kopfzeile eine schmale Fläche in der Grundfarbe der Welt und blendet beim Abwärtsscrollen aus (Blueprint J). */
 import { builtWorlds } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Logo from './Logo.astro';
 const total = String(builtWorlds.length).padStart(2, '0');
 ---
 <div class="frame">
+  <span class="frame-strip" aria-hidden="true"></span>
   <a class="frame-logo" href="/#werkplan" aria-label="NP Webdesign – zum Werkplan">
     <Logo class="frame-logo-mark" />
   </a>

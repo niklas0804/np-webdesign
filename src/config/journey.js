@@ -177,12 +177,13 @@ export const journey = (() => {
   const textOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.text : null);
   const toneOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.tone : s.tone);
 
-  // Übergänge zwischen den Abschnitten einfügen (nicht vor/nach dem Opening-Ende zum FAQ: dort keine Inszenierung)
+  // Übergänge zwischen den Abschnitten einfügen. Keiner nach dem Opening (t00 läuft auf dessen Bühne), keiner vor dem FAQ
+  // (dort keine Inszenierung) und keiner nach dem Finale: Das Finale wächst selbst in den Kontakt hinein (Blueprint L).
   const out = [];
   seq.forEach((s, i) => {
     out.push(s);
     const next = seq[i + 1];
-    if (!next || next.kind === 'faq' || s.kind === 'opening') return;
+    if (!next || next.kind === 'faq' || s.kind === 'opening' || s.kind === 'finale') return;
     out.push({
       id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
       fromGround: groundOf(s), toGround: groundOf(next), fromTone: toneOf(s), toTone: toneOf(next),

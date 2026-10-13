@@ -17,12 +17,19 @@ export function initTransitions() {
     // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
     const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55, messraster: 0.45, wasser: 0.5, fenster: 0.55, ausziehen: 0.5, rohbau: 0.5 }[sec.dataset.variant] ?? 0.5;
 
+    // Bühne und Bereich: Der Übergang beginnt, wenn die alte Welt noch LEAD svh oben deckt, und endet, wenn die neue
+    // schon LEAD svh von unten deckt. Dazwischen steht die Bühne frei (--len svh). 1 svh = Höhe der Bühne / 100.
+    const stage = $('.t-stage', sec);
+    const unit = () => stage.offsetHeight / 100;
+    const len = () => parseFloat(getComputedStyle(sec).getPropertyValue('--len')) || 60;
+    const LEAD = 30;
+    const range = { start: () => `top+=${(100 - LEAD) * unit()} top`, end: () => `top+=${(100 + len() + LEAD) * unit()} top` };
+
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: sec,
-        start: 'top top',
-        end: 'bottom bottom',
+        ...range,
         scrub: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -44,7 +51,7 @@ export function initTransitions() {
     } else if (sec.dataset.variant === 'pruefstempel') {
       pruefstempel(tl, sec, wipe);
     } else if (sec.dataset.variant === 'ausziehen') {
-      ausziehen(tl, sec);
+      ausziehen(tl, sec, range);
     } else if (sec.dataset.variant === 'rohbau') {
       rohbau(tl, sec);
     } else if (sec.dataset.variant === 'messraster') {
@@ -336,7 +343,7 @@ function fenster(tl, sec) {
  * Zwischenspiel III → Welt 10: Die Seite zieht sich aus. Vier Stufen an festen Scroll-Schwellen (Klassenwechsel, kein Tween):
  * Farben, Schrift, Abstände, Layout (Blueprint F, Übergang 13, länger: 100/70 vh). Rückwärts bauen sich die Stufen wieder auf.
  */
-function ausziehen(tl, sec) {
+function ausziehen(tl, sec, range) {
   const ex = $('[data-t-ex]', sec);
   const label = $('[data-t-exstep]', sec);
   const names = ['Zwischenspiel III', 'Farben fallen', 'Schrift fällt', 'Abstände fallen', 'Layout fällt'];
@@ -344,7 +351,7 @@ function ausziehen(tl, sec) {
   let last = -1;
   tl.fromTo(ex, { opacity: 1 }, { opacity: 1, duration: 1 }, 0); // hält die Szene über die ganze Strecke
   ScrollTrigger.create({
-    trigger: sec, start: 'top top', end: 'bottom bottom',
+    trigger: sec, ...range,
     onUpdate: (self) => {
       const step = marks.filter((m) => self.progress >= m).length;
       if (step === last) return;
