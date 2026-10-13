@@ -155,7 +155,9 @@ Stand von `claude/phase-3`. „Leerstrecke“ heißt: mehr als 10 % Bildschirmh�
 | Schritte mit Text unter Rahmenelementen | 756 | **0** | 982 | **0** | 600 | **0** |
 | Zähler falsch | 0 | 0 | 0 | 0 | 0 | 0 |
 | Hin- ≠ Rückweg in Übergängen | 24 | **1** | 23 | **0** | 0 | 0 |
-| Schnelles Wischen: leer / Überdeckung / Abweichung | 1 / 10 / 3 | **0 / 0 / 0** | 1 / 10 / 3 | **0 / 0 / 1** | 13 / 10 / 1 | **4 ¹ / 0 / 0** |
+| Schnelles Wischen: leer / Überdeckung / Abweichung zum selben Punkt langsam angefahren ² | 1 / 10 / 0 | **0 / 0 / 0** | 1 / 10 / 2 | **0 / 0 / 1** | 13 / 10 / 0 | **4 ¹ / 0 / 0** |
+
+² Eigener Lauf mit dem endgültigen Vergleichsverfahren (einmal 300 px zurück, dann in einem Schritt zur selben Position). Handy: 75–102 Stopps je Ansicht.
 
 ¹ Alle verbleibenden Leerstrecken liegen in Übergängen, die in Teil B entfallen: `welt-03>warum`, `welt-06>arbeitsweise`, `arbeitsweise>welt-07`,
 `welt-10>finale` (Zwischenspiele und Labor werden entfernt). Die Übergänge, die bleiben (Bon, Goldlinie, Zierlinie, Scheinwerfer, Messraster, Wasser), haben in allen
