@@ -24,6 +24,8 @@ export function init() {
       $$('[data-count]', root).forEach((el) => {
         const end = Number(el.dataset.zahl); const dec = Number(el.dataset.dec); const pre = el.dataset.pre || '';
         const s = { v: 0 };
+        // Breite des Endwerts festhalten, damit das Hochzählen nichts umbricht und nichts verschiebt (Layout-Shift)
+        el.style.display = 'inline-block'; el.style.minWidth = el.getBoundingClientRect().width + 'px';
         el.textContent = pre + fmt(0, dec);
         ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => gsap.to(s, { v: end, duration: 1.4, ease: 'power2.out', onUpdate: () => { el.textContent = pre + fmt(s.v, dec); } }) });
       });
