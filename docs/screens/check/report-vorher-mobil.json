@@ -1,0 +1,647 @@
+{
+ "label": "vorher",
+ "blankStd": 3,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "mobil",
+   "mode": "mobile",
+   "total": 69726,
+   "stepPx": 42,
+   "steps": 1662,
+   "stdMin": 0,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     20
+    ],
+    [
+     2,
+     20
+    ],
+    [
+     3,
+     20
+    ],
+    [
+     4,
+     21
+    ],
+    [
+     6,
+     21
+    ],
+    [
+     10,
+     29
+    ],
+    [
+     20,
+     82
+    ]
+   ],
+   "blankRuns": [
+    {
+     "y0": 64722,
+     "y1": 65520,
+     "steps": 20,
+     "vhs": 1,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 20,
+     "meanColor": "235"
+    },
+    {
+     "y0": 65730,
+     "y1": 66024,
+     "steps": 8,
+     "vhs": 0.4,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 8,
+     "meanColor": "235"
+    }
+   ],
+   "blankInTransition": [
+    {
+     "y0": 64722,
+     "y1": 65520,
+     "steps": 20,
+     "vhs": 1,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 20,
+     "meanColor": "235"
+    },
+    {
+     "y0": 65730,
+     "y1": 66024,
+     "steps": 8,
+     "vhs": 0.4,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 8,
+     "meanColor": "235"
+    }
+   ],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 756,
+    "first": [
+     {
+      "y": 2856,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-menu-btn",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-counter-short",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 5
+     },
+     {
+      "y": 2898,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-short",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 2940,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-short",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-logo",
+        "cls": "w01-sub"
+       }
+      ],
+      "n": 4
+     },
+     {
+      "y": 2982,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-logo",
+        "cls": "w01-sub"
+       },
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-counter-short",
+        "cls": "w01-sub"
+       }
+      ],
+      "n": 2
+     },
+     {
+      "y": 3024,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-counter-short",
+        "cls": ""
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 3108,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-counter-short",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Landbrot mit Schnitten",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 3150,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Landbrot mit Schnitten",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       },
+       {
+        "text": "Motiv:",
+        "frame": "frame-logo",
+        "cls": "fp-k"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       }
+      ],
+      "n": 6
+     },
+     {
+      "y": 3192,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       }
+      ],
+      "n": 7
+     },
+     {
+      "y": 3234,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       }
+      ],
+      "n": 6
+     },
+     {
+      "y": 3276,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Format:",
+        "frame": "frame-logo",
+        "cls": "fp-k"
+       },
+       {
+        "text": "quer 4:3, mindestens 2400 × 1800 px (zug",
+        "frame": "frame-menu-btn",
+        "cls": "fp-meta"
+       },
+       {
+        "text": "quer 4:3, mindestens 2400 × 1800 px (zug",
+        "frame": "frame-counter-short",
+        "cls": "fp-meta"
+       },
+       {
+        "text": "quer 4:3, mindestens 2400 × 1800 px (zug",
+        "frame": "frame-logo",
+        "cls": "fp-meta"
+       },
+       {
+        "text": "quer 4:3, mindestens 2400 × 1800 px (zug",
+        "frame": "frame-counter-short",
+        "cls": "fp-meta"
+       }
+      ],
+      "n": 5
+     },
+     {
+      "y": 3318,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       }
+      ],
+      "n": 2
+     },
+     {
+      "y": 3360,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Roggenlaib mit Krume",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       },
+       {
+        "text": "Roggenlaib mit Krume",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       },
+       {
+        "text": "Laib · 4 : 3 · Kruste #3B2618",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "Laib · 4 : 3 · Kruste #3B2618",
+        "frame": "frame-counter-short",
+        "cls": ""
+       }
+      ],
+      "n": 5
+     }
+    ]
+   },
+   "backDiffs": [
+    {
+     "y": 378,
+     "diff": 10.4,
+     "section": "opening",
+     "i": 9
+    },
+    {
+     "y": 420,
+     "diff": 39.2,
+     "section": "opening",
+     "i": 10
+    },
+    {
+     "y": 462,
+     "diff": 27.9,
+     "section": "opening",
+     "i": 11
+    },
+    {
+     "y": 504,
+     "diff": 19.2,
+     "section": "opening",
+     "i": 12
+    },
+    {
+     "y": 546,
+     "diff": 11.9,
+     "section": "opening",
+     "i": 13
+    },
+    {
+     "y": 588,
+     "diff": 7.7,
+     "section": "opening",
+     "i": 14
+    },
+    {
+     "y": 630,
+     "diff": 11.5,
+     "section": "opening",
+     "i": 15
+    },
+    {
+     "y": 6468,
+     "diff": 7.4,
+     "section": "welt-02",
+     "i": 154
+    },
+    {
+     "y": 60648,
+     "diff": 14,
+     "section": "welt-10",
+     "i": 1444
+    },
+    {
+     "y": 62160,
+     "diff": 6.5,
+     "section": "t-welt-10-finale",
+     "i": 1480
+    },
+    {
+     "y": 62202,
+     "diff": 6.4,
+     "section": "t-welt-10-finale",
+     "i": 1481
+    },
+    {
+     "y": 64596,
+     "diff": 7.5,
+     "section": "finale",
+     "i": 1538
+    },
+    {
+     "y": 64638,
+     "diff": 7.8,
+     "section": "finale",
+     "i": 1539
+    },
+    {
+     "y": 64680,
+     "diff": 7.4,
+     "section": "finale",
+     "i": 1540
+    },
+    {
+     "y": 64722,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1541
+    },
+    {
+     "y": 64764,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1542
+    },
+    {
+     "y": 64806,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1543
+    },
+    {
+     "y": 64848,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1544
+    },
+    {
+     "y": 64890,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1545
+    },
+    {
+     "y": 64932,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1546
+    },
+    {
+     "y": 64974,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1547
+    },
+    {
+     "y": 65016,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1548
+    },
+    {
+     "y": 65058,
+     "diff": 7.2,
+     "section": "finale",
+     "i": 1549
+    },
+    {
+     "y": 65100,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1550
+    },
+    {
+     "y": 65142,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1551
+    },
+    {
+     "y": 65184,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1552
+    },
+    {
+     "y": 65226,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1553
+    },
+    {
+     "y": 65268,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1554
+    },
+    {
+     "y": 65310,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1555
+    },
+    {
+     "y": 65352,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1556
+    },
+    {
+     "y": 65394,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1557
+    },
+    {
+     "y": 65436,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1558
+    },
+    {
+     "y": 65478,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1559
+    },
+    {
+     "y": 65520,
+     "diff": 7.2,
+     "section": "t-finale-kontakt",
+     "i": 1560
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 1
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-vorher-mobil.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-vorher-mobil.jpg"
+   }
+  }
+ ]
+}

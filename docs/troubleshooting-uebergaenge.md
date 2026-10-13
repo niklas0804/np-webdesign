@@ -139,7 +139,7 @@ Die bestehenden Szenen laufen in der neuen Geometrie unverändert weiter, nur ü
   Trägt die Kopfzeile eine deckende Fläche (`.frame-strip`), ist Text dahinter verdeckt und zählt nicht.
 - **Zähler**: Der angezeigte Weltzähler muss zum Abschnitt bei 55 % der Bildschirmhöhe passen (ohne ±8 % Toleranz an den Grenzen).
 - **Zurückscrollen**: dieselben Positionen von unten; mittlere Abweichung zum Hinweg über 6 (von 255) gilt als Zustandsfehler.
-- **Schnelles Wischen**: Touch-Geste über CDP `Input.synthesizeScrollGesture` (4.500 px/s, 62 % Bildschirmhöhe je Wisch, ohne Fling), am Desktop große Radschritte; nach jedem Stopp dieselben Prüfungen und Vergleich mit dem langsamen Weg.
+- **Schnelles Wischen**: Touch-Wisch mit Fling über CDP (`Input.dispatchTouchEvent`: 55 % Bildschirmhöhe in ~130 ms; `Input.synthesizeScrollGesture` bewegt mit Typ „touch“ in Headless-Chromium nichts), am Desktop große Radschritte; nach jedem Stopp dieselben Prüfungen und Vergleich mit dem langsamen Weg.
 - **Leistung** (`--perf`): vierfache CPU-Drosselung, gleichmäßiges Durchscrollen, Long Tasks über 50 ms und Layout-Shifts.
 - Ausgabe: `docs/screens/check/uebergaenge-<label>-<ansicht>.jpg` (Übergänge im 10-%-Raster), `befunde-<label>-<ansicht>.jpg` (alle markierten Bilder), `report-<label>-<ansicht>.json`.
 

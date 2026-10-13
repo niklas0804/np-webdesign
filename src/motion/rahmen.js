@@ -57,8 +57,8 @@ export function initRahmen() {
     onToggle: (self) => { heroPast = self.isActive; updateBar(); },
   });
 
-  // Kopfzeile (Handy, ruhiger Modus): beim Abwärtsscrollen aus, beim Aufwärtsscrollen ein (Blueprint J)
-  if (mode !== 'desktop') {
+  // Kopfzeile: beim Abwärtsscrollen aus, beim Aufwärtsscrollen ein (Blueprint J)
+  {
     let last = window.scrollY;
     ScrollTrigger.create({
       start: 0, end: 'max',

@@ -46,7 +46,7 @@ html[data-mode='desktop'] .transition, html[data-mode='mobile'] .transition {
 }
 /* Welten und Zwischenspiele liegen über der Bühne und decken sie mit eigenem Grund ab */
 html[data-mode='desktop'] main > section:not(.transition), html[data-mode='mobile'] main > section:not(.transition) { position: relative; z-index: 1; }
-html[data-mode='desktop'] .t-stage, html[data-mode='mobile'] .t-stage { display: block; position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--from); }
+html[data-mode='desktop'] .t-stage, html[data-mode='mobile'] .t-stage { display: block; position: sticky; top: 0; height: 100svh; height: 100lvh; overflow: hidden; background: var(--from); }
 html[data-mode='desktop'] .t-wipe, html[data-mode='mobile'] .t-wipe { display: block; position: absolute; inset: 0; background: var(--to); transform: translateY(100%); }
 html[data-mode='desktop'] .t-thread, html[data-mode='mobile'] .t-thread { display: block; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: var(--np-orange); transform: scaleX(0); transform-origin: left; }
 

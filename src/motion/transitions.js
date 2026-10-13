@@ -6,6 +6,18 @@
 import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 import { setTone, setSection } from './rahmen.js';
 
+/** 1 svh in Pixeln. Die Bühne selbst ist 100 lvh hoch (deckt auch bei eingefahrener Adressleiste), die Ränder rechnen mit svh. */
+let probe = null;
+function svhUnit() {
+  if (!probe) {
+    probe = document.createElement('div');
+    probe.setAttribute('aria-hidden', 'true');
+    probe.style.cssText = 'position:absolute;left:0;top:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+    document.body.append(probe);
+  }
+  return probe.offsetHeight / 100;
+}
+
 export function initTransitions() {
   $$('.transition').forEach((sec) => {
     const thread = $('.t-thread', sec);
@@ -19,8 +31,7 @@ export function initTransitions() {
 
     // Bühne und Bereich: Der Übergang beginnt, wenn die alte Welt noch LEAD svh oben deckt, und endet, wenn die neue
     // schon LEAD svh von unten deckt. Dazwischen steht die Bühne frei (--len svh). 1 svh = Höhe der Bühne / 100.
-    const stage = $('.t-stage', sec);
-    const unit = () => stage.offsetHeight / 100;
+    const unit = svhUnit;
     const len = () => parseFloat(getComputedStyle(sec).getPropertyValue('--len')) || 60;
     const LEAD = 30;
     const range = { start: () => `top+=${(100 - LEAD) * unit()} top`, end: () => `top+=${(100 + len() + LEAD) * unit()} top` };

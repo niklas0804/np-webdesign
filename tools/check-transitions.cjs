@@ -257,16 +257,21 @@ async function run(browser, base, view) {
   if (WITH_FAST) {
     await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(500);
     const cdp = await ctx.newCDPSession(page);
-    const dist = Math.round(vh * 0.62);
+    const dist = Math.round(vh * (view.touch ? 0.55 : 0.62));
     let guard = 0;
     while (guard++ < 400) {
       const before = await page.evaluate(() => Math.round(scrollY));
       if (view.touch) {
-        await cdp.send('Input.synthesizeScrollGesture', { x: Math.round(view.width / 2), y: Math.round(vh * 0.8), yDistance: -dist, speed: 4500, gestureSourceType: 'touch', preventFling: true });
+        // Schneller Wisch mit Fling. (Input.synthesizeScrollGesture mit Typ „touch“ bewegt in Headless-Chromium nichts, Typ „mouse“ ist ein Radschritt;
+        // deshalb echte Touch-Ereignisse über CDP: Finger zieht in ~130 ms um `dist` nach oben, danach läuft der Fling aus.)
+        const x = Math.round(view.width / 2), y0 = Math.round(vh * 0.85), N = 8;
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y: y0, id: 1 }] });
+        for (let k = 1; k <= N; k++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x, y: Math.round(y0 - (dist * k) / N), id: 1 }] }); await page.waitForTimeout(16); }
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
       } else {
         await page.mouse.move(view.width / 2, vh / 2); await page.mouse.wheel(0, dist * 1.6);
       }
-      let last = -1; for (let k = 0; k < 20; k++) { await page.waitForTimeout(90); const y = await page.evaluate(() => Math.round(scrollY)); if (y === last) break; last = y; }
+      let last = -1; for (let k = 0; k < 40; k++) { await page.waitForTimeout(90); const y = await page.evaluate(() => Math.round(scrollY)); if (y === last) break; last = y; }
       const st = await page.evaluate(`(${PAGE_STATE})()`);
       const png = await shot(true); const a = await analyzeShot(png);
       fast.samples++;

@@ -12,17 +12,21 @@
 .frame > .crop, .frame > .frame-ruler, .frame > .frame-progress, .frame > .frame-counter { pointer-events: none; }
 .frame-ruler .ruler-tick { pointer-events: auto; }
 
-/* Kopfzeile auf dem Handy und im ruhigen Modus: schmale Fläche in der Grundfarbe der Welt (--strip, setzt rahmen.js),
-   damit nie Inhalt unter Monogramm, Zähler und Menü läuft. Beim Abwärtsscrollen blendet sie samt Inhalt nach oben aus,
-   beim Aufwärtsscrollen kommt sie zurück (Blueprint J). Lesbarkeit geht vor der Regel „kein Hintergrundbalken“. */
-.frame-strip { display: none; }
-html:not([data-mode='desktop']) .frame-strip {
+/* Kopfzeile: schmale Fläche in der Grundfarbe der Welt (--strip, setzt rahmen.js), damit nie Inhalt unter Monogramm, Menü und Zähler läuft.
+   Beim Abwärtsscrollen blendet sie samt Inhalt nach oben aus, beim Aufwärtsscrollen kommt sie zurück (Blueprint J).
+   Lesbarkeit geht vor der Regel „kein Hintergrundbalken“ (Auftrag 11. Oktober, A4.5). Gilt in allen Modi; ohne JavaScript bleibt sie stehen. */
+.frame-strip {
   display: block; position: absolute; left: 0; right: 0; top: 0; height: 60px; pointer-events: none;
   background: var(--strip, var(--leinen)); border-bottom: 1px solid color-mix(in srgb, var(--np-ink) 16%, transparent);
 }
-html:not([data-mode='desktop']) :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transition: transform var(--dur-s) var(--ease-out); }
-html:not([data-mode='desktop'])[data-header='hidden'] :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transform: translateY(-96px); }
-@media (prefers-reduced-motion: reduce) { html:not([data-mode='desktop']) :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transition: none; } }
+@media (min-width: 1024px) { .frame-strip { height: 64px; } }
+:is(.frame-strip, .frame-logo, .frame-right) { transition: transform var(--dur-s) var(--ease-out); }
+html[data-header='hidden'] :is(.frame-strip, .frame-logo, .frame-right) { transform: translateY(-96px); }
+/* Zähler: auf dem Handy oben in der Mitte (blendet mit aus); am Desktop unten links als Etikett mit Grundfarbe, damit Text dahinter nicht darunter läuft */
+.frame-counter { transition: transform var(--dur-s) var(--ease-out); }
+@media (max-width: 1023px) { html[data-header='hidden'] .frame-counter { transform: translateY(-96px); } }
+@media (min-width: 1024px) { .frame-counter span.frame-counter-long { background: var(--strip, var(--leinen)); padding: 6px 12px 6px 0; box-shadow: 8px 0 0 var(--strip, var(--leinen)), -12px 0 0 var(--strip, var(--leinen)); } }
+@media (prefers-reduced-motion: reduce) { :is(.frame-strip, .frame-logo, .frame-right, .frame-counter) { transition: none; } }
 
 /* Monogramm oben links */
 .frame-logo {

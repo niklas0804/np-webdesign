@@ -1,0 +1,1066 @@
+{
+ "label": "vorher",
+ "blankStd": 3,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "desktop",
+   "mode": "desktop",
+   "total": 73425,
+   "stepPx": 45,
+   "steps": 1633,
+   "stdMin": 0,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     63
+    ],
+    [
+     2,
+     71
+    ],
+    [
+     3,
+     80
+    ],
+    [
+     4,
+     90
+    ],
+    [
+     6,
+     142
+    ],
+    [
+     10,
+     220
+    ],
+    [
+     20,
+     529
+    ]
+   ],
+   "blankRuns": [
+    {
+     "y0": 270,
+     "y1": 405,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "218"
+    },
+    {
+     "y0": 2610,
+     "y1": 2880,
+     "steps": 7,
+     "vhs": 0.35,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "197"
+    },
+    {
+     "y0": 5895,
+     "y1": 6075,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": "t-welt-01-welt-02",
+     "inTransitionSteps": 5,
+     "meanColor": "197"
+    },
+    {
+     "y0": 6660,
+     "y1": 7020,
+     "steps": 9,
+     "vhs": 0.45,
+     "transition": "t-welt-01-welt-02",
+     "inTransitionSteps": 9,
+     "meanColor": "16"
+    },
+    {
+     "y0": 8325,
+     "y1": 8415,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "18"
+    },
+    {
+     "y0": 9900,
+     "y1": 10350,
+     "steps": 11,
+     "vhs": 0.55,
+     "transition": "t-welt-02-welt-03",
+     "inTransitionSteps": 11,
+     "meanColor": "17"
+    },
+    {
+     "y0": 15345,
+     "y1": 15705,
+     "steps": 9,
+     "vhs": 0.45,
+     "transition": "t-welt-03-warum",
+     "inTransitionSteps": 9,
+     "meanColor": "18"
+    },
+    {
+     "y0": 17235,
+     "y1": 17460,
+     "steps": 6,
+     "vhs": 0.3,
+     "transition": "t-warum-welt-04",
+     "inTransitionSteps": 6,
+     "meanColor": "18"
+    },
+    {
+     "y0": 17775,
+     "y1": 17865,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-warum-welt-04",
+     "inTransitionSteps": 3,
+     "meanColor": "253"
+    },
+    {
+     "y0": 18000,
+     "y1": 18405,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": "t-warum-welt-04",
+     "inTransitionSteps": 10,
+     "meanColor": "255"
+    },
+    {
+     "y0": 23085,
+     "y1": 23490,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": "t-welt-04-welt-05",
+     "inTransitionSteps": 10,
+     "meanColor": "255"
+    },
+    {
+     "y0": 23715,
+     "y1": 24075,
+     "steps": 9,
+     "vhs": 0.45,
+     "transition": "t-welt-04-welt-05",
+     "inTransitionSteps": 9,
+     "meanColor": "49"
+    },
+    {
+     "y0": 31185,
+     "y1": 31500,
+     "steps": 8,
+     "vhs": 0.4,
+     "transition": "t-welt-05-welt-06",
+     "inTransitionSteps": 8,
+     "meanColor": "47"
+    },
+    {
+     "y0": 31950,
+     "y1": 31950,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-05-welt-06",
+     "inTransitionSteps": 1,
+     "meanColor": "47"
+    },
+    {
+     "y0": 36675,
+     "y1": 37080,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 10,
+     "meanColor": "212"
+    },
+    {
+     "y0": 37350,
+     "y1": 38340,
+     "steps": 23,
+     "vhs": 1.15,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 22,
+     "meanColor": "235"
+    },
+    {
+     "y0": 39330,
+     "y1": 40050,
+     "steps": 17,
+     "vhs": 0.85,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 17,
+     "meanColor": "234"
+    },
+    {
+     "y0": 40320,
+     "y1": 40410,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 3,
+     "meanColor": "53"
+    },
+    {
+     "y0": 45090,
+     "y1": 45090,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-07-welt-08",
+     "inTransitionSteps": 1,
+     "meanColor": "136"
+    },
+    {
+     "y0": 45360,
+     "y1": 45585,
+     "steps": 6,
+     "vhs": 0.3,
+     "transition": "t-welt-07-welt-08",
+     "inTransitionSteps": 6,
+     "meanColor": "225"
+    },
+    {
+     "y0": 50535,
+     "y1": 50535,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-08-welt-09",
+     "inTransitionSteps": 1,
+     "meanColor": "35"
+    },
+    {
+     "y0": 57330,
+     "y1": 57510,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": "t-welt-09-ueber-mich",
+     "inTransitionSteps": 5,
+     "meanColor": "35"
+    },
+    {
+     "y0": 58005,
+     "y1": 58140,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": "t-welt-09-ueber-mich",
+     "inTransitionSteps": 4,
+     "meanColor": "235"
+    },
+    {
+     "y0": 60750,
+     "y1": 61200,
+     "steps": 11,
+     "vhs": 0.55,
+     "transition": "t-ueber-mich-welt-10",
+     "inTransitionSteps": 11,
+     "meanColor": "254"
+    },
+    {
+     "y0": 64935,
+     "y1": 65745,
+     "steps": 19,
+     "vhs": 0.95,
+     "transition": "t-welt-10-finale",
+     "inTransitionSteps": 19,
+     "meanColor": "254"
+    },
+    {
+     "y0": 67275,
+     "y1": 67320,
+     "steps": 2,
+     "vhs": 0.1,
+     "transition": "t-welt-10-finale",
+     "inTransitionSteps": 1,
+     "meanColor": "236"
+    },
+    {
+     "y0": 69120,
+     "y1": 70740,
+     "steps": 37,
+     "vhs": 1.85,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 37,
+     "meanColor": "235"
+    }
+   ],
+   "blankInTransition": [
+    {
+     "y0": 5895,
+     "y1": 6075,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": "t-welt-01-welt-02",
+     "inTransitionSteps": 5,
+     "meanColor": "197"
+    },
+    {
+     "y0": 6660,
+     "y1": 7020,
+     "steps": 9,
+     "vhs": 0.45,
+     "transition": "t-welt-01-welt-02",
+     "inTransitionSteps": 9,
+     "meanColor": "16"
+    },
+    {
+     "y0": 9900,
+     "y1": 10350,
+     "steps": 11,
+     "vhs": 0.55,
+     "transition": "t-welt-02-welt-03",
+     "inTransitionSteps": 11,
+     "meanColor": "17"
+    },
+    {
+     "y0": 15345,
+     "y1": 15705,
+     "steps": 9,
+     "vhs": 0.45,
+     "transition": "t-welt-03-warum",
+     "inTransitionSteps": 9,
+     "meanColor": "18"
+    },
+    {
+     "y0": 17235,
+     "y1": 17460,
+     "steps": 6,
+     "vhs": 0.3,
+     "transition": "t-warum-welt-04",
+     "inTransitionSteps": 6,
+     "meanColor": "18"
+    },
+    {
+     "y0": 17775,
+     "y1": 17865,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-warum-welt-04",
+     "inTransitionSteps": 3,
+     "meanColor": "253"
+    },
+    {
+     "y0": 18000,
+     "y1": 18405,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": "t-warum-welt-04",
+     "inTransitionSteps": 10,
+     "meanColor": "255"
+    },
+    {
+     "y0": 23085,
+     "y1": 23490,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": "t-welt-04-welt-05",
+     "inTransitionSteps": 10,
+     "meanColor": "255"
+    },
+    {
+     "y0": 23715,
+     "y1": 24075,
+     "steps": 9,
+     "vhs": 0.45,
+     "transition": "t-welt-04-welt-05",
+     "inTransitionSteps": 9,
+     "meanColor": "49"
+    },
+    {
+     "y0": 31185,
+     "y1": 31500,
+     "steps": 8,
+     "vhs": 0.4,
+     "transition": "t-welt-05-welt-06",
+     "inTransitionSteps": 8,
+     "meanColor": "47"
+    },
+    {
+     "y0": 36675,
+     "y1": 37080,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 10,
+     "meanColor": "212"
+    },
+    {
+     "y0": 37350,
+     "y1": 38340,
+     "steps": 23,
+     "vhs": 1.15,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 22,
+     "meanColor": "235"
+    },
+    {
+     "y0": 39330,
+     "y1": 40050,
+     "steps": 17,
+     "vhs": 0.85,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 17,
+     "meanColor": "234"
+    },
+    {
+     "y0": 40320,
+     "y1": 40410,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 3,
+     "meanColor": "53"
+    },
+    {
+     "y0": 45360,
+     "y1": 45585,
+     "steps": 6,
+     "vhs": 0.3,
+     "transition": "t-welt-07-welt-08",
+     "inTransitionSteps": 6,
+     "meanColor": "225"
+    },
+    {
+     "y0": 57330,
+     "y1": 57510,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": "t-welt-09-ueber-mich",
+     "inTransitionSteps": 5,
+     "meanColor": "35"
+    },
+    {
+     "y0": 58005,
+     "y1": 58140,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": "t-welt-09-ueber-mich",
+     "inTransitionSteps": 4,
+     "meanColor": "235"
+    },
+    {
+     "y0": 60750,
+     "y1": 61200,
+     "steps": 11,
+     "vhs": 0.55,
+     "transition": "t-ueber-mich-welt-10",
+     "inTransitionSteps": 11,
+     "meanColor": "254"
+    },
+    {
+     "y0": 64935,
+     "y1": 65745,
+     "steps": 19,
+     "vhs": 0.95,
+     "transition": "t-welt-10-finale",
+     "inTransitionSteps": 19,
+     "meanColor": "254"
+    },
+    {
+     "y0": 69120,
+     "y1": 70740,
+     "steps": 37,
+     "vhs": 1.85,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 37,
+     "meanColor": "235"
+    }
+   ],
+   "blankElsewhere": [
+    {
+     "y0": 270,
+     "y1": 405,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "218"
+    },
+    {
+     "y0": 2610,
+     "y1": 2880,
+     "steps": 7,
+     "vhs": 0.35,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "197"
+    },
+    {
+     "y0": 8325,
+     "y1": 8415,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "18"
+    }
+   ],
+   "overlaps": {
+    "steps": 609,
+    "first": [
+     {
+      "y": 675,
+      "section": "opening",
+      "hits": [
+       {
+        "text": "03 · Wittgenfeld Bau · Bauunternehmen",
+        "frame": "frame-menu-btn",
+        "cls": "wp-caption mono"
+       },
+       {
+        "text": "03 · Wittgenfeld Bau · Bauunternehmen",
+        "frame": "btn",
+        "cls": "wp-caption mono"
+       },
+       {
+        "text": "03 · Wittgenfeld Bau · Bauunternehmen",
+        "frame": "frame-live",
+        "cls": "wp-caption mono"
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 765,
+      "section": "opening",
+      "hits": [
+       {
+        "text": "Studie 03",
+        "frame": "frame-live",
+        "cls": "wp-bar-label mono"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3060,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-counter-long",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-long",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 2
+     },
+     {
+      "y": 3105,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-long",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3150,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-long",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3195,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-long",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-counter-long",
+        "cls": "w01-sub"
+       }
+      ],
+      "n": 2
+     },
+     {
+      "y": 3240,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-counter-long",
+        "cls": "w01-sub"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3690,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Backplan",
+        "frame": "frame-counter-long",
+        "cls": "w01-h"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3735,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Backplan",
+        "frame": "frame-counter-long",
+        "cls": "w01-h"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3780,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-counter-long",
+        "cls": "w01-lead"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3825,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-counter-long",
+        "cls": "w01-lead"
+       }
+      ],
+      "n": 1
+     },
+     {
+      "y": 3870,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "backDiffs": [
+    {
+     "y": 540,
+     "diff": 9.4,
+     "section": "opening",
+     "i": 12
+    },
+    {
+     "y": 585,
+     "diff": 20.4,
+     "section": "opening",
+     "i": 13
+    },
+    {
+     "y": 630,
+     "diff": 31.8,
+     "section": "opening",
+     "i": 14
+    },
+    {
+     "y": 675,
+     "diff": 24.1,
+     "section": "opening",
+     "i": 15
+    },
+    {
+     "y": 720,
+     "diff": 21.1,
+     "section": "opening",
+     "i": 16
+    },
+    {
+     "y": 765,
+     "diff": 19.2,
+     "section": "opening",
+     "i": 17
+    },
+    {
+     "y": 810,
+     "diff": 17.7,
+     "section": "opening",
+     "i": 18
+    },
+    {
+     "y": 855,
+     "diff": 11.6,
+     "section": "opening",
+     "i": 19
+    },
+    {
+     "y": 900,
+     "diff": 11.4,
+     "section": "opening",
+     "i": 20
+    },
+    {
+     "y": 945,
+     "diff": 9.1,
+     "section": "opening",
+     "i": 21
+    },
+    {
+     "y": 63270,
+     "diff": 13,
+     "section": "welt-10",
+     "i": 1406
+    },
+    {
+     "y": 63360,
+     "diff": 9.8,
+     "section": "welt-10",
+     "i": 1408
+    },
+    {
+     "y": 63450,
+     "diff": 19.3,
+     "section": "welt-10",
+     "i": 1410
+    },
+    {
+     "y": 63495,
+     "diff": 7.9,
+     "section": "welt-10",
+     "i": 1411
+    },
+    {
+     "y": 63540,
+     "diff": 18.3,
+     "section": "welt-10",
+     "i": 1412
+    },
+    {
+     "y": 63585,
+     "diff": 15.2,
+     "section": "welt-10",
+     "i": 1413
+    },
+    {
+     "y": 63720,
+     "diff": 26.8,
+     "section": "welt-10",
+     "i": 1416
+    },
+    {
+     "y": 63765,
+     "diff": 30.7,
+     "section": "welt-10",
+     "i": 1417
+    },
+    {
+     "y": 63810,
+     "diff": 29.5,
+     "section": "welt-10",
+     "i": 1418
+    },
+    {
+     "y": 63832,
+     "diff": 21.4,
+     "section": "welt-10",
+     "i": 1419
+    },
+    {
+     "y": 63900,
+     "diff": 17.7,
+     "section": "welt-10",
+     "i": 1420
+    },
+    {
+     "y": 63945,
+     "diff": 19.1,
+     "section": "welt-10",
+     "i": 1421
+    },
+    {
+     "y": 63990,
+     "diff": 15.4,
+     "section": "welt-10",
+     "i": 1422
+    },
+    {
+     "y": 64035,
+     "diff": 15.9,
+     "section": "welt-10",
+     "i": 1423
+    },
+    {
+     "y": 64080,
+     "diff": 12.9,
+     "section": "welt-10",
+     "i": 1424
+    }
+   ],
+   "fast": {
+    "blank": [
+     {
+      "y": 17859,
+      "section": "t-warum-welt-04",
+      "std": 19.6
+     },
+     {
+      "y": 23217,
+      "section": "t-welt-04-welt-05",
+      "std": 6.9
+     },
+     {
+      "y": 31254,
+      "section": "t-welt-05-welt-06",
+      "std": 6.9
+     },
+     {
+      "y": 37505,
+      "section": "t-welt-06-arbeitsweise",
+      "std": 0
+     },
+     {
+      "y": 45542,
+      "section": "t-welt-07-welt-08",
+      "std": 5.4
+     },
+     {
+      "y": 58044,
+      "section": "t-welt-09-ueber-mich",
+      "std": 0
+     },
+     {
+      "y": 60723,
+      "section": "t-ueber-mich-welt-10",
+      "std": 15.3
+     },
+     {
+      "y": 65188,
+      "section": "t-welt-10-finale",
+      "std": 14
+     },
+     {
+      "y": 69653,
+      "section": "t-finale-kontakt",
+      "std": 0
+     },
+     {
+      "y": 70546,
+      "section": "t-finale-kontakt",
+      "std": 5.8
+     }
+    ],
+    "overlap": [
+     {
+      "y": 4464,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Nr. 07",
+        "frame": "frame-counter-long",
+        "cls": "w01-bon-nr"
+       }
+      ]
+     },
+     {
+      "y": 5357,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Nr. 07",
+        "frame": "frame-logo",
+        "cls": "w01-bon-nr"
+       },
+       {
+        "text": "Noch nichts auf dem Bon. Wählen Sie im B",
+        "frame": "frame-logo",
+        "cls": "w01-bon-empty"
+       },
+       {
+        "text": "6:00 bis 13:00 Uhr",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "6:00 bis 13:00 Uhr",
+        "frame": "btn",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 12501,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "3,40",
+        "frame": "frame-live",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 13394,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "Leistungen als Bauteile",
+        "frame": "frame-logo",
+        "cls": "w03-h"
+       }
+      ]
+     },
+     {
+      "y": 14287,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "Demo · Beispielzeichnung einer fiktiven ",
+        "frame": "frame-logo",
+        "cls": "w03-demo mono"
+       }
+      ]
+     },
+     {
+      "y": 16073,
+      "section": "warum",
+      "hits": [
+       {
+        "text": "Kein Zufall.",
+        "frame": "frame-counter-long",
+        "cls": "statement statement-accent is-fit"
+       }
+      ]
+     },
+     {
+      "y": 16966,
+      "section": "warum",
+      "hits": [
+       {
+        "text": "Kein Zufall.",
+        "frame": "frame-logo",
+        "cls": "statement statement-accent is-fit"
+       },
+       {
+        "text": "Kein Zufall.",
+        "frame": "frame-menu-btn",
+        "cls": "statement statement-accent is-fit"
+       },
+       {
+        "text": "Kein Zufall.",
+        "frame": "btn",
+        "cls": "statement statement-accent is-fit"
+       },
+       {
+        "text": "Kein Zufall.",
+        "frame": "frame-live",
+        "cls": "statement statement-accent is-fit"
+       }
+      ]
+     },
+     {
+      "y": 18752,
+      "section": "welt-04",
+      "hits": [
+       {
+        "text": "Erbfolge, Gesellschaftsverträge und Steu",
+        "frame": "frame-counter-long",
+        "cls": "w04-lead"
+       }
+      ]
+     },
+     {
+      "y": 24110,
+      "section": "t-welt-04-welt-05",
+      "hits": [
+       {
+        "text": "Chromwerk",
+        "frame": "frame-counter-long",
+        "cls": "w05-title"
+       }
+      ]
+     },
+     {
+      "y": 25003,
+      "section": "welt-05",
+      "hits": [
+       {
+        "text": "Chromwerk",
+        "frame": "frame-menu-btn",
+        "cls": "w05-title"
+       },
+       {
+        "text": "Chromwerk",
+        "frame": "btn",
+        "cls": "w05-title"
+       },
+       {
+        "text": "Chromwerk",
+        "frame": "frame-live",
+        "cls": "w05-title"
+       }
+      ]
+     }
+    ],
+    "diff": [
+     {
+      "y": 892,
+      "diff": 11.8,
+      "section": "opening"
+     },
+     {
+      "y": 16073,
+      "diff": 8.1,
+      "section": "warum"
+     },
+     {
+      "y": 63402,
+      "diff": 20.4,
+      "section": "welt-10"
+     },
+     {
+      "y": 73225,
+      "diff": 9.5,
+      "section": "faq"
+     }
+    ],
+    "samples": 83
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-vorher-desktop.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-vorher-desktop.jpg"
+   }
+  }
+ ]
+}

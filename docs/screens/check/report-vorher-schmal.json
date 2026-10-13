@@ -1,0 +1,643 @@
+{
+ "label": "vorher",
+ "blankStd": 3,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "schmal",
+   "mode": "mobile",
+   "total": 64036,
+   "stepPx": 33,
+   "steps": 1942,
+   "stdMin": 0,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     20
+    ],
+    [
+     2,
+     21
+    ],
+    [
+     3,
+     21
+    ],
+    [
+     4,
+     21
+    ],
+    [
+     6,
+     24
+    ],
+    [
+     10,
+     31
+    ],
+    [
+     20,
+     77
+    ]
+   ],
+   "blankRuns": [
+    {
+     "y0": 59301,
+     "y1": 59961,
+     "steps": 21,
+     "vhs": 1.04,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 21,
+     "meanColor": "237"
+    },
+    {
+     "y0": 60126,
+     "y1": 60357,
+     "steps": 8,
+     "vhs": 0.4,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 8,
+     "meanColor": "235"
+    }
+   ],
+   "blankInTransition": [
+    {
+     "y0": 59301,
+     "y1": 59961,
+     "steps": 21,
+     "vhs": 1.04,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 21,
+     "meanColor": "237"
+    },
+    {
+     "y0": 60126,
+     "y1": 60357,
+     "steps": 8,
+     "vhs": 0.4,
+     "transition": "t-finale-kontakt",
+     "inTransitionSteps": 8,
+     "meanColor": "235"
+    }
+   ],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 982,
+    "first": [
+     {
+      "y": 2211,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-menu-btn",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-counter-short",
+        "cls": "w01-kicker"
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 2244,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-menu-btn",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-counter-short",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 6
+     },
+     {
+      "y": 2277,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-short",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 4
+     },
+     {
+      "y": 2310,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-short",
+        "cls": "w01-title"
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 2343,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Halmberg",
+        "frame": "frame-logo",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-menu-btn",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Halmberg",
+        "frame": "frame-counter-short",
+        "cls": "w01-title"
+       },
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-logo",
+        "cls": "w01-sub"
+       }
+      ],
+      "n": 4
+     },
+     {
+      "y": 2376,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-logo",
+        "cls": "w01-sub"
+       },
+       {
+        "text": "Brot, das Zeit hatte.",
+        "frame": "frame-counter-short",
+        "cls": "w01-sub"
+       }
+      ],
+      "n": 2
+     },
+     {
+      "y": 2409,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-counter-short",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-logo",
+        "cls": ""
+       }
+      ],
+      "n": 4
+     },
+     {
+      "y": 2442,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "Fraunces 650 · opsz 144 · SOFT 100 · WON",
+        "frame": "frame-logo",
+        "cls": ""
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 2508,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-counter-short",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Landbrot mit Schnitten",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       }
+      ],
+      "n": 3
+     },
+     {
+      "y": 2541,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Landbrot mit Schnitten",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       },
+       {
+        "text": "Landbrot mit Schnitten",
+        "frame": "frame-counter-short",
+        "cls": "fp-titel"
+       },
+       {
+        "text": "Motiv:",
+        "frame": "frame-logo",
+        "cls": "fp-k"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       }
+      ],
+      "n": 4
+     },
+     {
+      "y": 2574,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Motiv:",
+        "frame": "frame-logo",
+        "cls": "fp-k"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       }
+      ],
+      "n": 8
+     },
+     {
+      "y": 2607,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-menu-btn",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-counter-short",
+        "cls": "fp-motiv"
+       },
+       {
+        "text": "Ein rundes Landbrot mit dunkler Kruste u",
+        "frame": "frame-logo",
+        "cls": "fp-motiv"
+       }
+      ],
+      "n": 9
+     }
+    ]
+   },
+   "backDiffs": [
+    {
+     "y": 297,
+     "diff": 10.3,
+     "section": "opening",
+     "i": 9
+    },
+    {
+     "y": 330,
+     "diff": 34.6,
+     "section": "opening",
+     "i": 10
+    },
+    {
+     "y": 363,
+     "diff": 34.3,
+     "section": "opening",
+     "i": 11
+    },
+    {
+     "y": 396,
+     "diff": 23,
+     "section": "opening",
+     "i": 12
+    },
+    {
+     "y": 429,
+     "diff": 14.6,
+     "section": "opening",
+     "i": 13
+    },
+    {
+     "y": 462,
+     "diff": 9.7,
+     "section": "opening",
+     "i": 14
+    },
+    {
+     "y": 495,
+     "diff": 14.4,
+     "section": "opening",
+     "i": 15
+    },
+    {
+     "y": 55869,
+     "diff": 6.9,
+     "section": "welt-10",
+     "i": 1693
+    },
+    {
+     "y": 56067,
+     "diff": 7.4,
+     "section": "welt-10",
+     "i": 1699
+    },
+    {
+     "y": 56133,
+     "diff": 7.2,
+     "section": "welt-10",
+     "i": 1701
+    },
+    {
+     "y": 57321,
+     "diff": 8.2,
+     "section": "t-welt-10-finale",
+     "i": 1737
+    },
+    {
+     "y": 57354,
+     "diff": 6.2,
+     "section": "t-welt-10-finale",
+     "i": 1738
+    },
+    {
+     "y": 59235,
+     "diff": 9.6,
+     "section": "finale",
+     "i": 1795
+    },
+    {
+     "y": 59268,
+     "diff": 9.8,
+     "section": "finale",
+     "i": 1796
+    },
+    {
+     "y": 59301,
+     "diff": 9.1,
+     "section": "finale",
+     "i": 1797
+    },
+    {
+     "y": 59334,
+     "diff": 9,
+     "section": "finale",
+     "i": 1798
+    },
+    {
+     "y": 59367,
+     "diff": 9,
+     "section": "finale",
+     "i": 1799
+    },
+    {
+     "y": 59400,
+     "diff": 9,
+     "section": "finale",
+     "i": 1800
+    },
+    {
+     "y": 59433,
+     "diff": 9,
+     "section": "finale",
+     "i": 1801
+    },
+    {
+     "y": 59466,
+     "diff": 9,
+     "section": "finale",
+     "i": 1802
+    },
+    {
+     "y": 59499,
+     "diff": 9,
+     "section": "finale",
+     "i": 1803
+    },
+    {
+     "y": 59532,
+     "diff": 9,
+     "section": "finale",
+     "i": 1804
+    },
+    {
+     "y": 59565,
+     "diff": 9,
+     "section": "finale",
+     "i": 1805
+    },
+    {
+     "y": 59598,
+     "diff": 9,
+     "section": "finale",
+     "i": 1806
+    },
+    {
+     "y": 59631,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1807
+    },
+    {
+     "y": 59664,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1808
+    },
+    {
+     "y": 59697,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1809
+    },
+    {
+     "y": 59730,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1810
+    },
+    {
+     "y": 59763,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1811
+    },
+    {
+     "y": 59796,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1812
+    },
+    {
+     "y": 59829,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1813
+    },
+    {
+     "y": 59862,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1814
+    },
+    {
+     "y": 59895,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1815
+    },
+    {
+     "y": 59928,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1816
+    },
+    {
+     "y": 59961,
+     "diff": 9,
+     "section": "t-finale-kontakt",
+     "i": 1817
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 1
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-vorher-schmal.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-vorher-schmal.jpg"
+   }
+  }
+ ]
+}
