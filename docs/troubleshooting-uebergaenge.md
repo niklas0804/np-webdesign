@@ -145,4 +145,59 @@ Die bestehenden Szenen laufen in der neuen Geometrie unverändert weiter, nur ü
 
 ## 6 · Vorher / Nachher
 
-(Zahlen werden nach den Läufen eingetragen.)
+Gleiche Schwellen und gleiche Schritte (5 % der Bildschirmhöhe) für beide Stände. „Vorher“ ist der Build von `main` (PR #2), „Nachher“ der aktuelle
+Stand von `claude/phase-3`. „Leerstrecke“ heißt: mehr als 10 % Bildschirmhöhe am Stück fast einfarbig, solange die Übergangsbühne sichtbar ist.
+
+| Messung | 390 × 844 vorher | nachher | 375 × 667 vorher | nachher | 1440 × 900 vorher | nachher |
+| --- | --- | --- | --- | --- | --- | --- |
+| Leerstrecken in Übergängen | 2 | **1** ¹ | 2 | **0** | 21 | **5** ¹ |
+| Längste Leerstrecke (Bildschirmhöhen) | 1,05 | 0,15 | 1,04 | – | 1,25 | 1,25 ¹ |
+| Schritte mit Text unter Rahmenelementen | 756 | **0** | 982 | **0** | 600 | **0** |
+| Zähler falsch | 0 | 0 | 0 | 0 | 0 | 0 |
+| Hin- ≠ Rückweg in Übergängen | 24 | **1** | 23 | **0** | 0 | 0 |
+| Schnelles Wischen: leer / Überdeckung / Abweichung | 1 / 10 / 3 | **0 / 0 / 0** | 1 / 10 / 3 | **0 / 0 / 1** | 13 / 10 / 1 | **4 ¹ / 0 / 0** |
+
+¹ Alle verbleibenden Leerstrecken liegen in Übergängen, die in Teil B entfallen: `welt-03>warum`, `welt-06>arbeitsweise`, `arbeitsweise>welt-07`,
+`welt-10>finale` (Zwischenspiele und Labor werden entfernt). Die Übergänge, die bleiben (Bon, Goldlinie, Zierlinie, Scheinwerfer, Messraster, Wasser), haben in allen
+drei Ansichten keine Leerstrecke mehr. Außerhalb von Übergängen bleiben kurze Leerstellen im Einstieg (Hero 0,25 vh, Wachstum der Zelle 0,5 vh am Desktop) und am Ende
+des Finales (0,2–0,25 vh). Beides sind Szenen, die Teil C ersetzt.
+
+Weitere Zahlen:
+
+- **Leistung** (vierfache CPU-Drosselung, gleichmäßiges Durchscrollen der ganzen Seite): Long Tasks über 50 ms **24 → 17** (Handy), **25 → 18** (Desktop);
+  längster Block **681 ms → 294 ms**. **Das Ziel „keine Long Tasks über 50 ms“ ist damit nicht erreicht.** Der Rest verteilt sich über die ganze Seite
+  (auch außerhalb der Übergänge) und stammt aus Weltmodulen und Rendern der Szenen; das gehört in die Optimierung von Teil D (Lighthouse).
+- **Layout-Shift** beim Scrollen: **0,32 → 0,26** (Handy), **0,26 → 0,19** (Desktop). Die verbleibenden Verschiebungen kommen aus dem Zwischenspiel III
+  (`.t-ex`, absichtliches „Auseinanderfallen“ der Seite) und Welt 10 (`w10-bruch`), beides entfällt in Teil B. Die Verschiebung in Welt 07 (Kennzahlen zählten hoch und
+  brachen dabei um) ist behoben, ebenso die Seitenverschiebung durch nachladende Module (A2.4).
+- **Seitenverschiebung durch Nachladen** (A2.4): vorher +268 px / +302 px nach dem ersten Weltmodul, danach −377 px / −252 px; nachher keine (alle Module beim Start, ein Refresh).
+- `tools/check-site.cjs` (14 Seiten × 5 Ansichten, ohne JavaScript): bestanden. `tools/axe-check.cjs`: 0 Verstöße.
+
+Kontaktbögen (im Ordner `docs/screens/check/`):
+
+| Datei | Inhalt |
+| --- | --- |
+| `uebergaenge-vorher-mobil.jpg`, `-schmal`, `-desktop` | alle Übergänge im 10-%-Raster, Stand vorher |
+| `uebergaenge-nachher-mobil.jpg`, `-schmal`, `-desktop` | dasselbe, Stand nachher |
+| `befunde-vorher-*.jpg` / `befunde-nachher-*.jpg` | alle markierten Bilder (leer, Überdeckung, Hin ≠ Rück), rot umrandet |
+| `report-vorher-*.json` / `report-nachher-*.json` | alle Messwerte |
+
+## 7 · Zusätzlich gefunden und behoben
+
+- **Hin ≠ Rück (Hysterese).** `invalidateOnRefresh` lässt ScrollTrigger bei jedem Refresh die Animation zurücksetzen (`animation.revert().invalidate()`)
+  und nur Tweens mit *ausdrücklichem* `immediateRender` neu rendern (Quelle: GSAP-Code, `ScrollTrigger.js` um Zeile 1319). Alle Tweens, die später als bei 0 beginnen, standen danach
+  im Grundzustand des CSS, bis der Scroll sie erreichte, und sprangen dann; beim Zurückscrollen standen sie richtig. Sichtbar zum Beispiel an den Kalenderzellen
+  Welt 07 → 08: vorwärts stand der fertige Kalender da und fiel dann auseinander. Behoben mit `onRefresh: tl.progress(1).progress(p)`: einmal ganz durchspielen, damit alle Startzustände feststehen.
+- **Messraster-Übergang (Desktop).** Beim Farbwechsel des Grundes fielen Rahmenlinie und Grund in einem Grau zusammen (Kontrast ≈ 0). Rahmen und Schrift gehen jetzt über Weiß.
+- **Gewicht der Staffelstäbe.** Haarlinien auf einem 1440 × 900 großen Bildschirm gelten als leer. Goldlinie (Messingschiene 14 px), Zierlinie (10 px), Scheinwerferring (9 px),
+  Kalenderzellen (3 px mit Füllung) und die Zahl „12.400“ sind kräftiger.
+
+## 8 · Offen und nicht geprüft
+
+- **Echte Geräte.** Alles Gemessene ist Headless-Chromium. Nicht geprüft: Safari/iOS (Adressleiste, Gummiband), Chrome Android mit eingefahrener Adressleiste. Die Bühne ist deshalb
+  100 lvh hoch (deckt auch bei eingefahrener Leiste), die Ränder rechnen mit svh; ob das auf dem Telefon sauber aussieht, kann nur ein Telefon zeigen.
+- **Ein Rest bei 375 × 667:** Beim schnellen Wischen weicht ein Bild im Übergang Bon (Position 5.770 px) um 13,6 von 255 vom Bild ab, das man beim langsamen Hinscrollen sieht.
+  Der Hin-/Rückweg und alle anderen Stopps sind sauber; Ursache noch nicht gefunden (3D-Drehung des Bons mit Fling?). Wird beim Neubau des Bon-Übergangs in Teil B mitgeprüft.
+- **Kopfzeilen-Fläche.** Beim Übergang ändert sich der Grund der Bühne stufenlos; die Fläche der Kopfzeile (und am Desktop das Zähler-Etikett) hat in dieser Zeit die Farbe der alten oder
+  neuen Welt (Wechsel in der Mitte der Szene). Das ist sichtbar, wenn man mitten im Übergang aufwärts scrollt. Bewusste Entscheidung („Lesbarkeit geht vor“), aber ein Kompromiss.
+- **Long Tasks** siehe oben, Ziel nicht erreicht.

@@ -1,6 +1,6 @@
 {
  "label": "vorher",
- "blankStd": 3,
+ "blankStd": 10,
  "step": 0.05,
  "views": [
   {
@@ -45,6 +45,24 @@
     ]
    ],
    "blankRuns": [
+    {
+     "y0": 33594,
+     "y1": 33594,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 1,
+     "meanColor": "126"
+    },
+    {
+     "y0": 38016,
+     "y1": 38016,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-07-welt-08",
+     "inTransitionSteps": 1,
+     "meanColor": "129"
+    },
     {
      "y0": 59301,
      "y1": 59961,
@@ -414,223 +432,623 @@
      }
     ]
    },
+   "counterBad": [],
    "backDiffs": [
     {
      "y": 297,
      "diff": 10.3,
      "section": "opening",
+     "transition": null,
      "i": 9
     },
     {
      "y": 330,
      "diff": 34.6,
      "section": "opening",
+     "transition": null,
      "i": 10
     },
     {
      "y": 363,
      "diff": 34.3,
      "section": "opening",
+     "transition": null,
      "i": 11
     },
     {
      "y": 396,
      "diff": 23,
      "section": "opening",
+     "transition": null,
      "i": 12
     },
     {
      "y": 429,
      "diff": 14.6,
      "section": "opening",
+     "transition": null,
      "i": 13
     },
     {
      "y": 462,
      "diff": 9.7,
      "section": "opening",
+     "transition": null,
      "i": 14
     },
     {
      "y": 495,
      "diff": 14.4,
      "section": "opening",
+     "transition": null,
      "i": 15
     },
     {
-     "y": 55869,
-     "diff": 6.9,
+     "y": 55770,
+     "diff": 6.5,
      "section": "welt-10",
+     "transition": null,
+     "i": 1690
+    },
+    {
+     "y": 55869,
+     "diff": 7.4,
+     "section": "welt-10",
+     "transition": null,
      "i": 1693
     },
     {
-     "y": 56067,
-     "diff": 7.4,
+     "y": 55968,
+     "diff": 6.7,
      "section": "welt-10",
-     "i": 1699
+     "transition": null,
+     "i": 1696
+    },
+    {
+     "y": 56001,
+     "diff": 16.9,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1697
     },
     {
      "y": 56133,
      "diff": 7.2,
      "section": "welt-10",
+     "transition": null,
      "i": 1701
+    },
+    {
+     "y": 56199,
+     "diff": 7.3,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1703
     },
     {
      "y": 57321,
      "diff": 8.2,
-     "section": "t-welt-10-finale",
+     "section": null,
+     "transition": "t-welt-10-finale",
      "i": 1737
     },
     {
      "y": 57354,
      "diff": 6.2,
-     "section": "t-welt-10-finale",
+     "section": null,
+     "transition": "t-welt-10-finale",
      "i": 1738
     },
     {
      "y": 59235,
      "diff": 9.6,
      "section": "finale",
+     "transition": null,
      "i": 1795
     },
     {
      "y": 59268,
      "diff": 9.8,
      "section": "finale",
+     "transition": null,
      "i": 1796
     },
     {
      "y": 59301,
      "diff": 9.1,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1797
     },
     {
      "y": 59334,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1798
     },
     {
      "y": 59367,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1799
     },
     {
      "y": 59400,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1800
     },
     {
      "y": 59433,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1801
     },
     {
      "y": 59466,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1802
     },
     {
      "y": 59499,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1803
     },
     {
      "y": 59532,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1804
     },
     {
      "y": 59565,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1805
     },
     {
      "y": 59598,
      "diff": 9,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1806
     },
     {
      "y": 59631,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1807
     },
     {
      "y": 59664,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1808
     },
     {
      "y": 59697,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1809
     },
     {
      "y": 59730,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1810
     },
     {
      "y": 59763,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1811
     },
     {
      "y": 59796,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1812
     },
     {
      "y": 59829,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1813
     },
     {
      "y": 59862,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1814
     },
     {
      "y": 59895,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1815
     },
     {
      "y": 59928,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1816
     },
     {
      "y": 59961,
      "diff": 9,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1817
     }
    ],
    "fast": {
-    "blank": [],
-    "overlap": [],
-    "diff": [],
-    "samples": 1
+    "blank": [
+     {
+      "y": 59641,
+      "section": "t-finale-kontakt",
+      "std": 0
+     }
+    ],
+    "overlap": [
+     {
+      "y": 2200,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-logo",
+        "cls": "w01-kicker"
+       },
+       {
+        "text": "Handwerksbäckerei · Backstube ab fünf Uh",
+        "frame": "frame-menu-btn",
+        "cls": "w01-kicker"
+       }
+      ]
+     },
+     {
+      "y": 2962,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-logo",
+        "cls": "w01-lead"
+       },
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-menu-btn",
+        "cls": "w01-lead"
+       },
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-logo",
+        "cls": "w01-lead"
+       },
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-menu-btn",
+        "cls": "w01-lead"
+       },
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-counter-short",
+        "cls": "w01-lead"
+       },
+       {
+        "text": "Was wann aus dem Ofen kommt. Tippen Sie ",
+        "frame": "frame-logo",
+        "cls": "w01-lead"
+       }
+      ]
+     },
+     {
+      "y": 3642,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Vorbestellung · Demo",
+        "frame": "frame-logo",
+        "cls": "w01-bon-head mono"
+       },
+       {
+        "text": "Vorbestellung · Demo",
+        "frame": "frame-counter-short",
+        "cls": "w01-bon-head mono"
+       },
+       {
+        "text": "Nr. 07",
+        "frame": "frame-logo",
+        "cls": "w01-bon-nr"
+       }
+      ]
+     },
+     {
+      "y": 6018,
+      "section": "welt-02",
+      "hits": [
+       {
+        "text": "Messingstuhl",
+        "frame": "frame-counter-short",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 6618,
+      "section": "welt-02",
+      "hits": [
+       {
+        "text": "Haar",
+        "frame": "frame-logo",
+        "cls": "w02-sub"
+       }
+      ]
+     },
+     {
+      "y": 7335,
+      "section": "welt-02",
+      "hits": [
+       {
+        "text": "Ein Termin kommt auch nachts rein. Wähle",
+        "frame": "frame-logo",
+        "cls": "w02-lead"
+       },
+       {
+        "text": "Ein Termin kommt auch nachts rein. Wähle",
+        "frame": "frame-menu-btn",
+        "cls": "w02-lead"
+       },
+       {
+        "text": "Ein Termin kommt auch nachts rein. Wähle",
+        "frame": "frame-counter-short",
+        "cls": "w02-lead"
+       }
+      ]
+     },
+     {
+      "y": 8036,
+      "section": "welt-02",
+      "hits": [
+       {
+        "text": "Ein Barbershop verkauft Atmosphäre. Die ",
+        "frame": "frame-logo",
+        "cls": "note-text"
+       },
+       {
+        "text": "Ein Barbershop verkauft Atmosphäre. Die ",
+        "frame": "frame-counter-short",
+        "cls": "note-text"
+       },
+       {
+        "text": "Ein Barbershop verkauft Atmosphäre. Die ",
+        "frame": "frame-logo",
+        "cls": "note-text"
+       },
+       {
+        "text": "Ein Barbershop verkauft Atmosphäre. Die ",
+        "frame": "frame-counter-short",
+        "cls": "note-text"
+       }
+      ]
+     },
+     {
+      "y": 10175,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "3,40",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 11527,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "Welt 03 · Studie · Bauunternehmen",
+        "frame": "frame-logo",
+        "cls": "mono note-head"
+       },
+       {
+        "text": "Welt 03 · Studie · Bauunternehmen",
+        "frame": "frame-menu-btn",
+        "cls": "mono note-head"
+       },
+       {
+        "text": "Welt 03 · Studie · Bauunternehmen",
+        "frame": "frame-counter-short",
+        "cls": "mono note-head"
+       }
+      ]
+     },
+     {
+      "y": 13702,
+      "section": null,
+      "hits": [
+       {
+        "text": "Gefunden werden, wo Sie arbeiten:",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "Gefunden werden, wo Sie arbeiten:",
+        "frame": "frame-counter-short",
+        "cls": ""
+       }
+      ]
+     }
+    ],
+    "diff": [
+     {
+      "y": 2200,
+      "diff": 16.7,
+      "section": "welt-01",
+      "transition": null
+     },
+     {
+      "y": 2962,
+      "diff": 10,
+      "section": "welt-01",
+      "transition": null
+     },
+     {
+      "y": 3642,
+      "diff": 11.7,
+      "section": "welt-01",
+      "transition": null
+     },
+     {
+      "y": 5105,
+      "diff": 11.5,
+      "section": null,
+      "transition": "t-welt-01-welt-02"
+     },
+     {
+      "y": 5666,
+      "diff": 6.7,
+      "section": "welt-02",
+      "transition": "t-welt-01-welt-02"
+     },
+     {
+      "y": 6018,
+      "diff": 14.1,
+      "section": "welt-02",
+      "transition": null
+     },
+     {
+      "y": 9447,
+      "diff": 10.1,
+      "section": "welt-03",
+      "transition": null
+     },
+     {
+      "y": 10175,
+      "diff": 12.5,
+      "section": "welt-03",
+      "transition": null
+     },
+     {
+      "y": 11527,
+      "diff": 9.2,
+      "section": "welt-03",
+      "transition": "t-welt-03-warum"
+     },
+     {
+      "y": 15797,
+      "diff": 29.7,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 16460,
+      "diff": 20.5,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 17883,
+      "diff": 7,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 18552,
+      "diff": 12.9,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 19262,
+      "diff": 15.1,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 21488,
+      "diff": 12.6,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 22200,
+      "diff": 15.8,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 22893,
+      "diff": 7.1,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 23604,
+      "diff": 10.2,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 26937,
+      "diff": 10.8,
+      "section": "welt-06",
+      "transition": null
+     },
+     {
+      "y": 27630,
+      "diff": 11.3,
+      "section": "welt-06",
+      "transition": null
+     }
+    ],
+    "samples": 98
    },
    "perf": null,
    "errors": [],

@@ -307,9 +307,14 @@ async function run(browser, base, view) {
       fast.samples++;
       if (isBlank(a) && st.inTransition) fast.blank.push({ y: st.y, section: st.inTransition, std: +a.std.toFixed(1) });
       if (st.hitCount) fast.overlap.push({ y: st.y, section: st.center, hits: st.hits });
-      // Vergleich mit dem langsamen Weg an der nächstgelegenen gemessenen Position (nur wenn sie ≤ 12 px entfernt liegt)
-      const j = ys.findIndex((v) => Math.abs(v - st.y) <= 12);
-      if (j >= 0) { let s = 0; const A = frames[j].thumb, B = a.thumb; for (let k = 0; k < A.length; k++) s += Math.abs(A[k] - B[k]); const d = s / A.length; if (d > DIFF_LIMIT) fast.diff.push({ y: st.y, diff: +d.toFixed(1), section: st.center, transition: st.inTransition || null }); }
+      // Vergleich mit dem langsamen Weg an genau derselben Position: einmal 300 px zurück, dann in einem Schritt wieder hin
+      if (st.inTransition) {
+        await page.evaluate((v) => scrollTo(0, v - 300), st.y); await page.waitForTimeout(WAIT);
+        await page.evaluate((v) => scrollTo(0, v), st.y); await page.waitForTimeout(WAIT);
+        const ref = await analyzeShot(await shot(true));
+        let sum = 0; const A = ref.thumb, B = a.thumb; for (let k = 0; k < A.length; k++) sum += Math.abs(A[k] - B[k]);
+        const d = sum / A.length; if (d > DIFF_LIMIT) fast.diff.push({ y: st.y, diff: +d.toFixed(1), section: st.center, transition: st.inTransition });
+      }
       if (st.y >= total - 2 || st.y === before) break;
     }
   }

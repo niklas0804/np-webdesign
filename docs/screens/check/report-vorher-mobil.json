@@ -1,6 +1,6 @@
 {
  "label": "vorher",
- "blankStd": 3,
+ "blankStd": 10,
  "step": 0.05,
  "views": [
   {
@@ -46,41 +46,50 @@
    ],
    "blankRuns": [
     {
-     "y0": 64722,
+     "y0": 41034,
+     "y1": 41034,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-07-welt-08",
+     "inTransitionSteps": 1,
+     "meanColor": "136"
+    },
+    {
+     "y0": 64680,
      "y1": 65520,
-     "steps": 20,
-     "vhs": 1,
+     "steps": 21,
+     "vhs": 1.05,
      "transition": "t-finale-kontakt",
-     "inTransitionSteps": 20,
-     "meanColor": "235"
+     "inTransitionSteps": 21,
+     "meanColor": "238"
     },
     {
      "y0": 65730,
-     "y1": 66024,
-     "steps": 8,
-     "vhs": 0.4,
+     "y1": 65982,
+     "steps": 7,
+     "vhs": 0.35,
      "transition": "t-finale-kontakt",
-     "inTransitionSteps": 8,
+     "inTransitionSteps": 7,
      "meanColor": "235"
     }
    ],
    "blankInTransition": [
     {
-     "y0": 64722,
+     "y0": 64680,
      "y1": 65520,
-     "steps": 20,
-     "vhs": 1,
+     "steps": 21,
+     "vhs": 1.05,
      "transition": "t-finale-kontakt",
-     "inTransitionSteps": 20,
-     "meanColor": "235"
+     "inTransitionSteps": 21,
+     "meanColor": "238"
     },
     {
      "y0": 65730,
-     "y1": 66024,
-     "steps": 8,
-     "vhs": 0.4,
+     "y1": 65982,
+     "steps": 7,
+     "vhs": 0.35,
      "transition": "t-finale-kontakt",
-     "inTransitionSteps": 8,
+     "inTransitionSteps": 7,
      "meanColor": "235"
     }
    ],
@@ -424,217 +433,584 @@
      }
     ]
    },
+   "counterBad": [],
    "backDiffs": [
     {
      "y": 378,
      "diff": 10.4,
      "section": "opening",
+     "transition": null,
      "i": 9
     },
     {
      "y": 420,
      "diff": 39.2,
      "section": "opening",
+     "transition": null,
      "i": 10
     },
     {
      "y": 462,
      "diff": 27.9,
      "section": "opening",
+     "transition": null,
      "i": 11
     },
     {
      "y": 504,
      "diff": 19.2,
      "section": "opening",
+     "transition": null,
      "i": 12
     },
     {
      "y": 546,
      "diff": 11.9,
      "section": "opening",
+     "transition": null,
      "i": 13
     },
     {
      "y": 588,
      "diff": 7.7,
      "section": "opening",
+     "transition": null,
      "i": 14
     },
     {
      "y": 630,
-     "diff": 11.5,
+     "diff": 10.8,
      "section": "opening",
+     "transition": null,
      "i": 15
     },
     {
      "y": 6468,
      "diff": 7.4,
      "section": "welt-02",
+     "transition": "t-welt-01-welt-02",
      "i": 154
     },
     {
-     "y": 60648,
-     "diff": 14,
+     "y": 60606,
+     "diff": 6.9,
      "section": "welt-10",
+     "transition": null,
+     "i": 1443
+    },
+    {
+     "y": 60648,
+     "diff": 14.7,
+     "section": "welt-10",
+     "transition": null,
      "i": 1444
     },
     {
      "y": 62160,
      "diff": 6.5,
-     "section": "t-welt-10-finale",
+     "section": null,
+     "transition": "t-welt-10-finale",
      "i": 1480
     },
     {
      "y": 62202,
      "diff": 6.4,
-     "section": "t-welt-10-finale",
+     "section": null,
+     "transition": "t-welt-10-finale",
      "i": 1481
     },
     {
      "y": 64596,
      "diff": 7.5,
      "section": "finale",
+     "transition": null,
      "i": 1538
     },
     {
      "y": 64638,
      "diff": 7.8,
      "section": "finale",
+     "transition": null,
      "i": 1539
     },
     {
      "y": 64680,
      "diff": 7.4,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1540
     },
     {
      "y": 64722,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1541
     },
     {
      "y": 64764,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1542
     },
     {
      "y": 64806,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1543
     },
     {
      "y": 64848,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1544
     },
     {
      "y": 64890,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1545
     },
     {
      "y": 64932,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1546
     },
     {
      "y": 64974,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1547
     },
     {
      "y": 65016,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1548
     },
     {
      "y": 65058,
      "diff": 7.2,
      "section": "finale",
+     "transition": "t-finale-kontakt",
      "i": 1549
     },
     {
      "y": 65100,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1550
     },
     {
      "y": 65142,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1551
     },
     {
      "y": 65184,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1552
     },
     {
      "y": 65226,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1553
     },
     {
      "y": 65268,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1554
     },
     {
      "y": 65310,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1555
     },
     {
      "y": 65352,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1556
     },
     {
      "y": 65394,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1557
     },
     {
      "y": 65436,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1558
     },
     {
      "y": 65478,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1559
     },
     {
      "y": 65520,
      "diff": 7.2,
-     "section": "t-finale-kontakt",
+     "section": null,
+     "transition": "t-finale-kontakt",
      "i": 1560
     }
    ],
    "fast": {
-    "blank": [],
-    "overlap": [],
-    "diff": [],
-    "samples": 1
+    "blank": [
+     {
+      "y": 65091,
+      "section": "t-finale-kontakt",
+      "std": 0
+     }
+    ],
+    "overlap": [
+     {
+      "y": 3338,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Bildplatzhalter · Foto folgt",
+        "frame": "frame-logo",
+        "cls": "fp-tag"
+       },
+       {
+        "text": "Roggenlaib mit Krume",
+        "frame": "frame-logo",
+        "cls": "fp-titel"
+       },
+       {
+        "text": "Laib · 4 : 3 · Kruste #3B2618",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 4259,
+      "section": "welt-01",
+      "hits": [
+       {
+        "text": "Hefeteig",
+        "frame": "frame-logo",
+        "cls": "w01-bread-art"
+       }
+      ]
+     },
+     {
+      "y": 5296,
+      "section": null,
+      "hits": [
+       {
+        "text": "Leistung im Einsatz: Bildkonzept und Fot",
+        "frame": "frame-logo",
+        "cls": "mono note-tag"
+       },
+       {
+        "text": "Webdesign für Bäckereien",
+        "frame": "frame-logo",
+        "cls": "link note-link"
+       }
+      ]
+     },
+     {
+      "y": 7160,
+      "section": "welt-02",
+      "hits": [
+       {
+        "text": "07",
+        "frame": "frame-counter-short",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 8080,
+      "section": "welt-02",
+      "hits": [
+       {
+        "text": "Bart",
+        "frame": "frame-logo",
+        "cls": "w02-sub"
+       }
+      ]
+     },
+     {
+      "y": 11147,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "Jede Leistung ist ein Bauteil mit Maß.",
+        "frame": "frame-logo",
+        "cls": "w03-sub"
+       },
+       {
+        "text": "Jede Leistung ist ein Bauteil mit Maß.",
+        "frame": "frame-counter-short",
+        "cls": "w03-sub"
+       },
+       {
+        "text": "Jede Leistung ist ein Bauteil mit Maß.",
+        "frame": "frame-logo",
+        "cls": "w03-sub"
+       }
+      ]
+     },
+     {
+      "y": 11596,
+      "section": "welt-03",
+      "hits": [
+       {
+        "text": "3,40",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "WITTGENFELD BAU · STUDIE · DEMO ·",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 15395,
+      "section": null,
+      "hits": [
+       {
+        "text": "Anfragen statt Absprünge:",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "Jede Seite führt zu einem nächsten Schri",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "Jede Seite führt zu einem nächsten Schri",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "Jede Seite führt zu einem nächsten Schri",
+        "frame": "frame-counter-short",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 18424,
+      "section": "welt-04",
+      "hits": [
+       {
+        "text": "was ist offen, was kostet das Nichtstun?",
+        "frame": "frame-logo",
+        "cls": ""
+       },
+       {
+        "text": "was ist offen, was kostet das Nichtstun?",
+        "frame": "frame-menu-btn",
+        "cls": ""
+       },
+       {
+        "text": "was ist offen, was kostet das Nichtstun?",
+        "frame": "frame-counter-short",
+        "cls": ""
+       },
+       {
+        "text": "2",
+        "frame": "frame-menu-btn",
+        "cls": "w04-fn-btn"
+       },
+       {
+        "text": "Wir schreiben in ganzen Sätzen. Ein",
+        "frame": "frame-logo",
+        "cls": ""
+       }
+      ]
+     },
+     {
+      "y": 20715,
+      "section": "welt-04",
+      "hits": [
+       {
+        "text": "Testament, Erbvertrag und vorweggenommen",
+        "frame": "frame-logo",
+        "cls": "w04-p"
+       },
+       {
+        "text": "Testament, Erbvertrag und vorweggenommen",
+        "frame": "frame-menu-btn",
+        "cls": "w04-p"
+       },
+       {
+        "text": "Testament, Erbvertrag und vorweggenommen",
+        "frame": "frame-logo",
+        "cls": "w04-p"
+       },
+       {
+        "text": "Testament, Erbvertrag und vorweggenommen",
+        "frame": "frame-menu-btn",
+        "cls": "w04-p"
+       },
+       {
+        "text": "Testament, Erbvertrag und vorweggenommen",
+        "frame": "frame-counter-short",
+        "cls": "w04-p"
+       },
+       {
+        "text": "Testament, Erbvertrag und vorweggenommen",
+        "frame": "frame-logo",
+        "cls": "w04-p"
+       }
+      ]
+     }
+    ],
+    "diff": [
+     {
+      "y": 6711,
+      "diff": 9.2,
+      "section": "welt-02",
+      "transition": "t-welt-01-welt-02"
+     },
+     {
+      "y": 14522,
+      "diff": 13.3,
+      "section": "warum",
+      "transition": "t-welt-03-warum"
+     },
+     {
+      "y": 17466,
+      "diff": 9.5,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 19690,
+      "diff": 9.9,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 20715,
+      "diff": 15.2,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 24307,
+      "diff": 12.8,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 25461,
+      "diff": 7.4,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 31957,
+      "diff": 6.6,
+      "section": "welt-06",
+      "transition": null
+     },
+     {
+      "y": 32893,
+      "diff": 8.9,
+      "section": "welt-06",
+      "transition": "t-welt-06-arbeitsweise"
+     },
+     {
+      "y": 38182,
+      "diff": 6.4,
+      "section": "welt-07",
+      "transition": null
+     },
+     {
+      "y": 45225,
+      "diff": 12.2,
+      "section": "welt-08",
+      "transition": null
+     },
+     {
+      "y": 58769,
+      "diff": 16.7,
+      "section": "welt-10",
+      "transition": null
+     },
+     {
+      "y": 60527,
+      "diff": 9.4,
+      "section": "welt-10",
+      "transition": null
+     },
+     {
+      "y": 60976,
+      "diff": 17.5,
+      "section": "welt-10",
+      "transition": null
+     },
+     {
+      "y": 68131,
+      "diff": 11,
+      "section": "kontakt",
+      "transition": null
+     },
+     {
+      "y": 69602,
+      "diff": 10.8,
+      "section": "footer",
+      "transition": null
+     },
+     {
+      "y": 69602,
+      "diff": 10.8,
+      "section": "footer",
+      "transition": null
+     }
+    ],
+    "samples": 79
    },
    "perf": null,
    "errors": [],
