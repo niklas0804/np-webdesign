@@ -41,6 +41,11 @@ export function initTransitions() {
       scrollTrigger: {
         trigger: sec,
         ...range,
+        // Bei jedem Refresh setzt ScrollTrigger (invalidateOnRefresh) die Animation zurück und rendert nur Tweens mit ausdrücklichem
+        // immediateRender neu. Alles andere stünde im CSS-Grundzustand, bis der Scroll den Tween erreicht, und spränge dann (gemessen:
+        // Kalenderzellen in Welt 07 → 08, vorwärts anders als rückwärts). Deshalb einmal ganz durchspielen und zurück:
+        // So stehen alle Startzustände fest, egal wie spät ein Tween beginnt.
+        onRefresh: () => { const p = tl.progress(); tl.progress(1, true).progress(p, true); },
         scrub: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {

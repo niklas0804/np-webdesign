@@ -278,7 +278,7 @@ async function run(browser, base, view) {
     backFrames.reverse();
     backFrames.forEach((b, i) => {
       const a = frames[i]; let s = 0; for (let k = 0; k < a.thumb.length; k++) s += Math.abs(a.thumb[k] - b.thumb[k]);
-      const d = s / a.thumb.length; if (d > DIFF_LIMIT) backDiffs.push({ y: a.y, diff: +d.toFixed(1), section: a.st.center, i });
+      const d = s / a.thumb.length; if (d > DIFF_LIMIT) backDiffs.push({ y: a.y, diff: +d.toFixed(1), section: a.st.center, transition: a.st.inTransition || null, i });
     });
   }
 
@@ -309,7 +309,7 @@ async function run(browser, base, view) {
       if (st.hitCount) fast.overlap.push({ y: st.y, section: st.center, hits: st.hits });
       // Vergleich mit dem langsamen Weg an der nächstgelegenen gemessenen Position (nur wenn sie ≤ 12 px entfernt liegt)
       const j = ys.findIndex((v) => Math.abs(v - st.y) <= 12);
-      if (j >= 0) { let s = 0; const A = frames[j].thumb, B = a.thumb; for (let k = 0; k < A.length; k++) s += Math.abs(A[k] - B[k]); const d = s / A.length; if (d > DIFF_LIMIT) fast.diff.push({ y: st.y, diff: +d.toFixed(1), section: st.center }); }
+      if (j >= 0) { let s = 0; const A = frames[j].thumb, B = a.thumb; for (let k = 0; k < A.length; k++) s += Math.abs(A[k] - B[k]); const d = s / A.length; if (d > DIFF_LIMIT) fast.diff.push({ y: st.y, diff: +d.toFixed(1), section: st.center, transition: st.inTransition || null }); }
       if (st.y >= total - 2 || st.y === before) break;
     }
   }
@@ -379,7 +379,7 @@ srv.listen(0, '127.0.0.1', async () => {
   for (const key of ONLY) {
     const view = VIEWS[key]; if (!view) continue;
     const r = await run(browser, base, view); report.views.push(r);
-    const n = r.blankInTransition.length + r.overlaps.steps + r.counterBad.length + r.backDiffs.length + r.fast.blank.length + r.fast.overlap.length + r.fast.diff.length + (r.perf ? r.perf.longTasks + (r.perf.clsTotal > 0.05 ? 1 : 0) : 0);
+    const n = r.blankInTransition.length + r.overlaps.steps + r.counterBad.length + r.backDiffs.filter((x) => x.transition).length + r.fast.blank.length + r.fast.overlap.length + r.fast.diff.filter((x) => x.transition).length + (r.perf ? r.perf.longTasks + (r.perf.clsTotal > 0.05 ? 1 : 0) : 0);
     bad += n;
     if (r.onlyPerf) { console.log(`  → Leistung 4× CPU: Long Tasks > 50 ms: ${r.perf.longTasks} (${r.perf.worst.map((w) => w[1] + ' ms @' + w[2] + ' px').join(', ')}), Layout-Shift gesamt ${r.perf.clsTotal}`); continue; }
     console.log(`  → Leerstrecken über ${MAX_BLANK * 100} % in Übergängen: ${r.blankInTransition.length}  (außerhalb: ${r.blankElsewhere.length}, σ-Minimum ${r.stdMin})`);
@@ -389,8 +389,9 @@ srv.listen(0, '127.0.0.1', async () => {
     r.overlaps.first.slice(0, 4).forEach((o) => console.log(`      ${o.y} px ${pad(o.section || '', 24)} ${o.hits.map((h) => `„${h.text}“→${h.frame}`).join(', ')}`));
     console.log(`  → Weltzähler: ${r.counterBad.length} Positionen mit falschem Zähler`);
     r.counterBad.slice(0, 4).forEach((c) => console.log(`      ${c.y} px ${c.section}: soll „${c.want}“, steht „${c.got}“`));
-    if (WITH_BACK) console.log(`  → Hin- gegen Rückweg: ${r.backDiffs.length} Positionen weichen ab`);
-    if (WITH_FAST) console.log(`  → Schnelles Wischen (${r.fast.samples} Stopps): leer ${r.fast.blank.length}, Überdeckung ${r.fast.overlap.length}, Abweichung zum langsamen Weg ${r.fast.diff.length}`);
+    if (WITH_BACK) console.log(`  → Hin- gegen Rückweg: ${r.backDiffs.filter((x) => x.transition).length} Positionen in Übergängen weichen ab (in Welten und Szenen mit eigenen zeitgesteuerten Einblendungen, nicht gewertet: ${r.backDiffs.filter((x) => !x.transition).length})`);
+    r.backDiffs.filter((x) => x.transition).slice(0, 4).forEach((d) => console.log(`      ${d.y} px ${d.transition}: Abweichung ${d.diff}`));
+    if (WITH_FAST) console.log(`  → Schnelles Wischen (${r.fast.samples} Stopps): leer ${r.fast.blank.length}, Überdeckung ${r.fast.overlap.length}, Abweichung zum langsamen Weg in Übergängen ${r.fast.diff.filter((x) => x.transition).length} (sonst nicht gewertet: ${r.fast.diff.filter((x) => !x.transition).length})`);
     if (r.perf) console.log(`  → Leistung 4× CPU: Long Tasks > 50 ms: ${r.perf.longTasks}, Layout-Shift gesamt ${r.perf.clsTotal}`);
     if (r.errors.length) console.log('  → Seitenfehler:', r.errors.join(' | '));
     Object.values(r.sheets).filter(Boolean).forEach((s) => console.log('    Kontaktbogen:', s));
