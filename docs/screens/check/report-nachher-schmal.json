@@ -1,0 +1,389 @@
+{
+ "label": "nachher",
+ "blankStd": 10,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "schmal",
+   "mode": "mobile",
+   "total": 62957,
+   "stepPx": 33,
+   "steps": 1909,
+   "stdMin": 0,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     20,
+     32
+    ]
+   ],
+   "blankRuns": [
+    {
+     "y0": 33594,
+     "y1": 33627,
+     "steps": 2,
+     "vhs": 0.1,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 2,
+     "meanColor": "130"
+    },
+    {
+     "y0": 59301,
+     "y1": 59400,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "237"
+    }
+   ],
+   "blankInTransition": [],
+   "blankElsewhere": [
+    {
+     "y0": 59301,
+     "y1": 59400,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "237"
+    }
+   ],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 297,
+     "diff": 10.3,
+     "section": "opening",
+     "transition": null,
+     "i": 9
+    },
+    {
+     "y": 330,
+     "diff": 34.6,
+     "section": "opening",
+     "transition": null,
+     "i": 10
+    },
+    {
+     "y": 363,
+     "diff": 34.3,
+     "section": "opening",
+     "transition": null,
+     "i": 11
+    },
+    {
+     "y": 396,
+     "diff": 23,
+     "section": "opening",
+     "transition": null,
+     "i": 12
+    },
+    {
+     "y": 429,
+     "diff": 14.6,
+     "section": "opening",
+     "transition": null,
+     "i": 13
+    },
+    {
+     "y": 462,
+     "diff": 9.7,
+     "section": "opening",
+     "transition": null,
+     "i": 14
+    },
+    {
+     "y": 495,
+     "diff": 10.2,
+     "section": "opening",
+     "transition": null,
+     "i": 15
+    },
+    {
+     "y": 55803,
+     "diff": 6.8,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1691
+    },
+    {
+     "y": 56001,
+     "diff": 16.3,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1697
+    },
+    {
+     "y": 56020,
+     "diff": 31.6,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1698
+    },
+    {
+     "y": 56053,
+     "diff": 23.2,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1699
+    },
+    {
+     "y": 56100,
+     "diff": 6.7,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1700
+    },
+    {
+     "y": 59235,
+     "diff": 9.6,
+     "section": "finale",
+     "transition": null,
+     "i": 1795
+    },
+    {
+     "y": 59268,
+     "diff": 9.8,
+     "section": "finale",
+     "transition": null,
+     "i": 1796
+    },
+    {
+     "y": 59301,
+     "diff": 9.1,
+     "section": "finale",
+     "transition": null,
+     "i": 1797
+    },
+    {
+     "y": 59334,
+     "diff": 9,
+     "section": "finale",
+     "transition": null,
+     "i": 1798
+    },
+    {
+     "y": 59367,
+     "diff": 9,
+     "section": "finale",
+     "transition": null,
+     "i": 1799
+    },
+    {
+     "y": 59400,
+     "diff": 9,
+     "section": "finale",
+     "transition": null,
+     "i": 1800
+    },
+    {
+     "y": 59433,
+     "diff": 8.9,
+     "section": "finale",
+     "transition": null,
+     "i": 1801
+    },
+    {
+     "y": 59466,
+     "diff": 7.6,
+     "section": "finale",
+     "transition": null,
+     "i": 1802
+    },
+    {
+     "y": 59499,
+     "diff": 6.9,
+     "section": "finale",
+     "transition": null,
+     "i": 1803
+    },
+    {
+     "y": 59532,
+     "diff": 7.8,
+     "section": "finale",
+     "transition": null,
+     "i": 1804
+    },
+    {
+     "y": 59565,
+     "diff": 7.9,
+     "section": "finale",
+     "transition": null,
+     "i": 1805
+    },
+    {
+     "y": 59598,
+     "diff": 9.1,
+     "section": "finale",
+     "transition": null,
+     "i": 1806
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [
+     {
+      "y": 3509,
+      "diff": 9.3,
+      "section": "welt-01",
+      "transition": null
+     },
+     {
+      "y": 5798,
+      "diff": 10.2,
+      "section": "welt-02",
+      "transition": "t-welt-01-welt-02"
+     },
+     {
+      "y": 6150,
+      "diff": 12.3,
+      "section": "welt-02",
+      "transition": null
+     },
+     {
+      "y": 8705,
+      "diff": 10.8,
+      "section": null,
+      "transition": "t-welt-02-welt-03"
+     },
+     {
+      "y": 9410,
+      "diff": 8.9,
+      "section": "welt-03",
+      "transition": null
+     },
+     {
+      "y": 10119,
+      "diff": 11.9,
+      "section": "welt-03",
+      "transition": null
+     },
+     {
+      "y": 10471,
+      "diff": 14,
+      "section": "welt-03",
+      "transition": null
+     },
+     {
+      "y": 13340,
+      "diff": 11.9,
+      "section": "warum",
+      "transition": "t-warum-welt-04"
+     },
+     {
+      "y": 14740,
+      "diff": 14.1,
+      "section": "welt-04",
+      "transition": "t-warum-welt-04"
+     },
+     {
+      "y": 15950,
+      "diff": 29.2,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 16674,
+      "diff": 18.4,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 17379,
+      "diff": 14.2,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 18801,
+      "diff": 17.5,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 19514,
+      "diff": 12,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 21607,
+      "diff": 15.7,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 23045,
+      "diff": 9.4,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 23739,
+      "diff": 12.1,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 24449,
+      "diff": 9.3,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 25860,
+      "diff": 25.1,
+      "section": null,
+      "transition": "t-welt-05-welt-06"
+     },
+     {
+      "y": 27333,
+      "diff": 9.4,
+      "section": "welt-06",
+      "transition": null
+     }
+    ],
+    "samples": 99
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-nachher-schmal.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-nachher-schmal.jpg"
+   }
+  }
+ ]
+}

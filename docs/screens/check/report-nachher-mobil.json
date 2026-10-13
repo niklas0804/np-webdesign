@@ -1,0 +1,370 @@
+{
+ "label": "nachher",
+ "blankStd": 10,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "mobil",
+   "mode": "mobile",
+   "total": 68435,
+   "stepPx": 42,
+   "steps": 1631,
+   "stdMin": 0,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     20,
+     31
+    ]
+   ],
+   "blankRuns": [
+    {
+     "y0": 36372,
+     "y1": 36456,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 3,
+     "meanColor": "141"
+    },
+    {
+     "y0": 64680,
+     "y1": 64806,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "238"
+    }
+   ],
+   "blankInTransition": [
+    {
+     "y0": 36372,
+     "y1": 36456,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 3,
+     "meanColor": "141"
+    }
+   ],
+   "blankElsewhere": [
+    {
+     "y0": 64680,
+     "y1": 64806,
+     "steps": 4,
+     "vhs": 0.2,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "238"
+    }
+   ],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 378,
+     "diff": 10.4,
+     "section": "opening",
+     "transition": null,
+     "i": 9
+    },
+    {
+     "y": 420,
+     "diff": 39.2,
+     "section": "opening",
+     "transition": null,
+     "i": 10
+    },
+    {
+     "y": 462,
+     "diff": 27.9,
+     "section": "opening",
+     "transition": null,
+     "i": 11
+    },
+    {
+     "y": 504,
+     "diff": 19.2,
+     "section": "opening",
+     "transition": null,
+     "i": 12
+    },
+    {
+     "y": 546,
+     "diff": 11.9,
+     "section": "opening",
+     "transition": null,
+     "i": 13
+    },
+    {
+     "y": 588,
+     "diff": 7.7,
+     "section": "opening",
+     "transition": null,
+     "i": 14
+    },
+    {
+     "y": 630,
+     "diff": 8.3,
+     "section": "opening",
+     "transition": null,
+     "i": 15
+    },
+    {
+     "y": 6468,
+     "diff": 7.4,
+     "section": "welt-02",
+     "transition": "t-welt-01-welt-02",
+     "i": 154
+    },
+    {
+     "y": 64596,
+     "diff": 7.5,
+     "section": "finale",
+     "transition": null,
+     "i": 1538
+    },
+    {
+     "y": 64638,
+     "diff": 7.8,
+     "section": "finale",
+     "transition": null,
+     "i": 1539
+    },
+    {
+     "y": 64680,
+     "diff": 7.4,
+     "section": "finale",
+     "transition": null,
+     "i": 1540
+    },
+    {
+     "y": 64722,
+     "diff": 7.2,
+     "section": "finale",
+     "transition": null,
+     "i": 1541
+    },
+    {
+     "y": 64764,
+     "diff": 7.2,
+     "section": "finale",
+     "transition": null,
+     "i": 1542
+    },
+    {
+     "y": 64806,
+     "diff": 7.2,
+     "section": "finale",
+     "transition": null,
+     "i": 1543
+    },
+    {
+     "y": 64848,
+     "diff": 6.9,
+     "section": "finale",
+     "transition": null,
+     "i": 1544
+    },
+    {
+     "y": 64932,
+     "diff": 6,
+     "section": "finale",
+     "transition": null,
+     "i": 1546
+    },
+    {
+     "y": 64974,
+     "diff": 6.3,
+     "section": "finale",
+     "transition": null,
+     "i": 1547
+    },
+    {
+     "y": 65016,
+     "diff": 7.2,
+     "section": "finale",
+     "transition": null,
+     "i": 1548
+    },
+    {
+     "y": 65058,
+     "diff": 7.2,
+     "section": "finale",
+     "transition": null,
+     "i": 1549
+    }
+   ],
+   "fast": {
+    "blank": [
+     {
+      "y": 36436,
+      "section": "t-arbeitsweise-welt-07",
+      "std": 6.7
+     }
+    ],
+    "overlap": [],
+    "diff": [
+     {
+      "y": 1646,
+      "diff": 6.7,
+      "section": "opening",
+      "transition": null
+     },
+     {
+      "y": 5785,
+      "diff": 16.8,
+      "section": null,
+      "transition": "t-welt-01-welt-02"
+     },
+     {
+      "y": 7149,
+      "diff": 7.2,
+      "section": "welt-02",
+      "transition": null
+     },
+     {
+      "y": 15928,
+      "diff": 7.8,
+      "section": null,
+      "transition": "t-warum-welt-04"
+     },
+     {
+      "y": 17895,
+      "diff": 10.1,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 19518,
+      "diff": 15.2,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 21372,
+      "diff": 8.1,
+      "section": "welt-04",
+      "transition": null
+     },
+     {
+      "y": 22547,
+      "diff": 8.5,
+      "section": null,
+      "transition": "t-welt-04-welt-05"
+     },
+     {
+      "y": 23779,
+      "diff": 12.3,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 24811,
+      "diff": 6.9,
+      "section": "welt-05",
+      "transition": null
+     },
+     {
+      "y": 28385,
+      "diff": 11.6,
+      "section": null,
+      "transition": "t-welt-05-welt-06"
+     },
+     {
+      "y": 29829,
+      "diff": 10.7,
+      "section": "welt-06",
+      "transition": null
+     },
+     {
+      "y": 31928,
+      "diff": 10.9,
+      "section": "welt-06",
+      "transition": null
+     },
+     {
+      "y": 42009,
+      "diff": 10.9,
+      "section": "welt-08",
+      "transition": "t-welt-07-welt-08"
+     },
+     {
+      "y": 43055,
+      "diff": 10.5,
+      "section": "welt-08",
+      "transition": null
+     },
+     {
+      "y": 43857,
+      "diff": 11.9,
+      "section": "welt-08",
+      "transition": null
+     },
+     {
+      "y": 46862,
+      "diff": 10.2,
+      "section": "welt-08",
+      "transition": "t-welt-08-welt-09"
+     },
+     {
+      "y": 58625,
+      "diff": 11.8,
+      "section": "welt-10",
+      "transition": null
+     },
+     {
+      "y": 60553,
+      "diff": 11.7,
+      "section": "welt-10",
+      "transition": null
+     },
+     {
+      "y": 65486,
+      "diff": 8.3,
+      "section": "kontakt",
+      "transition": null
+     }
+    ],
+    "samples": 75
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-nachher-mobil.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-nachher-mobil.jpg"
+   }
+  }
+ ]
+}

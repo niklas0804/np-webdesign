@@ -1,0 +1,507 @@
+{
+ "label": "nachher",
+ "blankStd": 10,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "desktop",
+   "mode": "desktop",
+   "total": 72035,
+   "stepPx": 45,
+   "steps": 1602,
+   "stdMin": 0,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     11
+    ],
+    [
+     2,
+     12
+    ],
+    [
+     3,
+     17
+    ],
+    [
+     4,
+     18
+    ],
+    [
+     6,
+     31
+    ],
+    [
+     10,
+     90
+    ],
+    [
+     20,
+     431
+    ]
+   ],
+   "blankRuns": [
+    {
+     "y0": 270,
+     "y1": 450,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "218"
+    },
+    {
+     "y0": 2610,
+     "y1": 3015,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "197"
+    },
+    {
+     "y0": 5850,
+     "y1": 5850,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-01-welt-02",
+     "inTransitionSteps": 1,
+     "meanColor": "199"
+    },
+    {
+     "y0": 6885,
+     "y1": 6885,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-01-welt-02",
+     "inTransitionSteps": 1,
+     "meanColor": "20"
+    },
+    {
+     "y0": 10305,
+     "y1": 10350,
+     "steps": 2,
+     "vhs": 0.1,
+     "transition": "t-welt-02-welt-03",
+     "inTransitionSteps": 2,
+     "meanColor": "17"
+    },
+    {
+     "y0": 14625,
+     "y1": 14625,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": "t-welt-03-warum",
+     "inTransitionSteps": 1,
+     "meanColor": "228"
+    },
+    {
+     "y0": 15615,
+     "y1": 15705,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-welt-03-warum",
+     "inTransitionSteps": 3,
+     "meanColor": "18"
+    },
+    {
+     "y0": 36585,
+     "y1": 37035,
+     "steps": 11,
+     "vhs": 0.55,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 11,
+     "meanColor": "214"
+    },
+    {
+     "y0": 37485,
+     "y1": 37710,
+     "steps": 6,
+     "vhs": 0.3,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 6,
+     "meanColor": "234"
+    },
+    {
+     "y0": 39420,
+     "y1": 40500,
+     "steps": 25,
+     "vhs": 1.25,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 25,
+     "meanColor": "235"
+    },
+    {
+     "y0": 45225,
+     "y1": 45270,
+     "steps": 2,
+     "vhs": 0.1,
+     "transition": "t-welt-07-welt-08",
+     "inTransitionSteps": 2,
+     "meanColor": "185"
+    },
+    {
+     "y0": 50130,
+     "y1": 50175,
+     "steps": 2,
+     "vhs": 0.1,
+     "transition": "t-welt-08-welt-09",
+     "inTransitionSteps": 2,
+     "meanColor": "170"
+    },
+    {
+     "y0": 66690,
+     "y1": 67320,
+     "steps": 15,
+     "vhs": 0.75,
+     "transition": "t-welt-10-finale",
+     "inTransitionSteps": 14,
+     "meanColor": "248"
+    },
+    {
+     "y0": 68895,
+     "y1": 68895,
+     "steps": 1,
+     "vhs": 0.05,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "238"
+    },
+    {
+     "y0": 69075,
+     "y1": 69255,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "242"
+    }
+   ],
+   "blankInTransition": [
+    {
+     "y0": 15615,
+     "y1": 15705,
+     "steps": 3,
+     "vhs": 0.15,
+     "transition": "t-welt-03-warum",
+     "inTransitionSteps": 3,
+     "meanColor": "18"
+    },
+    {
+     "y0": 36585,
+     "y1": 37035,
+     "steps": 11,
+     "vhs": 0.55,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 11,
+     "meanColor": "214"
+    },
+    {
+     "y0": 37485,
+     "y1": 37710,
+     "steps": 6,
+     "vhs": 0.3,
+     "transition": "t-welt-06-arbeitsweise",
+     "inTransitionSteps": 6,
+     "meanColor": "234"
+    },
+    {
+     "y0": 39420,
+     "y1": 40500,
+     "steps": 25,
+     "vhs": 1.25,
+     "transition": "t-arbeitsweise-welt-07",
+     "inTransitionSteps": 25,
+     "meanColor": "235"
+    },
+    {
+     "y0": 66690,
+     "y1": 67320,
+     "steps": 15,
+     "vhs": 0.75,
+     "transition": "t-welt-10-finale",
+     "inTransitionSteps": 14,
+     "meanColor": "248"
+    }
+   ],
+   "blankElsewhere": [
+    {
+     "y0": 270,
+     "y1": 450,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "218"
+    },
+    {
+     "y0": 2610,
+     "y1": 3015,
+     "steps": 10,
+     "vhs": 0.5,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "197"
+    },
+    {
+     "y0": 69075,
+     "y1": 69255,
+     "steps": 5,
+     "vhs": 0.25,
+     "transition": null,
+     "inTransitionSteps": 0,
+     "meanColor": "242"
+    }
+   ],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 540,
+     "diff": 9.4,
+     "section": "opening",
+     "transition": null,
+     "i": 12
+    },
+    {
+     "y": 585,
+     "diff": 20.4,
+     "section": "opening",
+     "transition": null,
+     "i": 13
+    },
+    {
+     "y": 630,
+     "diff": 31.8,
+     "section": "opening",
+     "transition": null,
+     "i": 14
+    },
+    {
+     "y": 675,
+     "diff": 24.1,
+     "section": "opening",
+     "transition": null,
+     "i": 15
+    },
+    {
+     "y": 720,
+     "diff": 21.1,
+     "section": "opening",
+     "transition": null,
+     "i": 16
+    },
+    {
+     "y": 765,
+     "diff": 19.2,
+     "section": "opening",
+     "transition": null,
+     "i": 17
+    },
+    {
+     "y": 810,
+     "diff": 17.7,
+     "section": "opening",
+     "transition": null,
+     "i": 18
+    },
+    {
+     "y": 855,
+     "diff": 11.6,
+     "section": "opening",
+     "transition": null,
+     "i": 19
+    },
+    {
+     "y": 900,
+     "diff": 11.4,
+     "section": "opening",
+     "transition": null,
+     "i": 20
+    },
+    {
+     "y": 945,
+     "diff": 9.1,
+     "section": "opening",
+     "transition": null,
+     "i": 21
+    },
+    {
+     "y": 63315,
+     "diff": 10.1,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1407
+    },
+    {
+     "y": 63360,
+     "diff": 20,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1408
+    },
+    {
+     "y": 63405,
+     "diff": 10,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1409
+    },
+    {
+     "y": 63495,
+     "diff": 14.8,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1411
+    },
+    {
+     "y": 63540,
+     "diff": 20.2,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1412
+    },
+    {
+     "y": 63630,
+     "diff": 21.4,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1414
+    },
+    {
+     "y": 63675,
+     "diff": 11.7,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1415
+    },
+    {
+     "y": 63720,
+     "diff": 21.4,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1416
+    },
+    {
+     "y": 63765,
+     "diff": 16.9,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1417
+    },
+    {
+     "y": 63810,
+     "diff": 35.1,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1418
+    },
+    {
+     "y": 63832,
+     "diff": 19.1,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1419
+    },
+    {
+     "y": 63945,
+     "diff": 12,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1421
+    },
+    {
+     "y": 63990,
+     "diff": 15.9,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1422
+    },
+    {
+     "y": 64080,
+     "diff": 13.9,
+     "section": "welt-10",
+     "transition": null,
+     "i": 1424
+    }
+   ],
+   "fast": {
+    "blank": [
+     {
+      "y": 36612,
+      "section": "t-welt-06-arbeitsweise",
+      "std": 8.6
+     },
+     {
+      "y": 37505,
+      "section": "t-welt-06-arbeitsweise",
+      "std": 9.6
+     },
+     {
+      "y": 40184,
+      "section": "t-arbeitsweise-welt-07",
+      "std": 7.1
+     },
+     {
+      "y": 66974,
+      "section": "t-welt-10-finale",
+      "std": 9.3
+     }
+    ],
+    "overlap": [],
+    "diff": [
+     {
+      "y": 892,
+      "diff": 11.9,
+      "section": "opening",
+      "transition": null
+     },
+     {
+      "y": 16073,
+      "diff": 8.1,
+      "section": "warum",
+      "transition": "t-welt-03-warum"
+     },
+     {
+      "y": 58044,
+      "diff": 11.9,
+      "section": null,
+      "transition": "t-welt-09-ueber-mich"
+     },
+     {
+      "y": 63402,
+      "diff": 20,
+      "section": "welt-10",
+      "transition": null
+     },
+     {
+      "y": 72011,
+      "diff": 12.4,
+      "section": "footer",
+      "transition": null
+     },
+     {
+      "y": 72012,
+      "diff": 13.3,
+      "section": "footer",
+      "transition": null
+     }
+    ],
+    "samples": 82
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-nachher-desktop.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-nachher-desktop.jpg"
+   }
+  }
+ ]
+}
