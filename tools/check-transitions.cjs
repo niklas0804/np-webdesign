@@ -29,8 +29,8 @@ const PAGE = opt('path', '/');
 const SECTION = opt('section', null); // nur einen Übergang prüfen (id, z. B. t-welt-01-welt-02)
 const RANGE = String(opt('range', '0,1')).split(',').map(Number); // Anteil der Seite
 const WAIT = Number(opt('wait', 110));
-const BLANK_STD = Number(opt('blank-std', 3));      // Standardabweichung der Helligkeit (0–255), darunter gilt ein Bild als leer
-const BLANK_DOM = Number(opt('blank-dom', 0.985));  // oder: so viel Anteil der Pixel in der häufigsten Farbe (≥ 98,5 % = fast einfarbig, nur Rand und Zeilen)
+const BLANK_STD = Number(opt('blank-std', 10));      // Standardabweichung der Helligkeit (0–255), darunter gilt ein Bild als leer
+const BLANK_DOM = Number(opt('blank-dom', 0.995));  // oder: so viel Anteil der Pixel in der häufigsten Farbe (≥ 99,5 %)
 const isBlank = (a) => a.std < BLANK_STD || a.dominant >= BLANK_DOM;
 const MAX_BLANK = 0.10;                              // Abnahme: Leerstrecke in Bildschirmhöhen
 const DIFF_LIMIT = Number(opt('diff', 6));           // mittlere Abweichung (0–255) zwischen Hin- und Rückweg
@@ -93,8 +93,13 @@ const PAGE_STATE = `() => {
   let inTransition = null, center = null;
   document.querySelectorAll('[data-section]').forEach((s) => {
     const r = s.getBoundingClientRect();
+    if (s.classList.contains('transition')) {
+      // Die Bühne ist sichtbar, wenn weder die alte Welt (Unterkante) noch die neue (Oberkante) den Bildschirm an dieser Stelle deckt.
+      const a = document.querySelector('[data-section="' + s.dataset.fromId + '"]'), b = document.querySelector('[data-section="' + s.dataset.toId + '"]');
+      if (a && b && a.getBoundingClientRect().bottom < vh - 1 && b.getBoundingClientRect().top > 1) inTransition = s.dataset.section;
+      return;
+    }
     if (r.bottom > 0 && r.top < vh) {
-      if (s.classList.contains('transition')) inTransition = s.dataset.section;
       if (r.top <= vh / 2 && r.bottom > vh / 2) center = s.dataset.section;
     }
   });
@@ -105,7 +110,9 @@ const PAGE_STATE = `() => {
     let o = 1; for (let e = el; e && e !== document.documentElement; e = e.parentElement) o *= parseFloat(getComputedStyle(e).opacity);
     const r = el.getBoundingClientRect(); return o > 0.1 && r.width > 0 && r.bottom > 0 && r.top < vh;
   };
-  const frameEls = ['.frame-logo', '.frame-menu-btn', '.frame-cta', '.frame-counter-long', '.frame-counter-short', '.frame-live'].map((s) => document.querySelector(s)).filter(vis);
+  const opaque = (el) => { const m = (getComputedStyle(el).backgroundColor.match(/[\\d.]+/g) || []); return m.length >= 3 && (m.length < 4 || parseFloat(m[3]) >= 0.95); };
+  // Rahmenelemente mit eigener, deckender Fläche (Zähler-Etikett am Desktop) verdecken den Text dahinter, sie überlagern ihn nicht
+  const frameEls = ['.frame-logo', '.frame-menu-btn', '.frame-cta', '.frame-counter-long', '.frame-counter-short', '.frame-live'].map((s) => document.querySelector(s)).filter(vis).filter((e) => !opaque(e));
   const rects = frameEls.map((e) => { const r = e.getBoundingClientRect(); return { n: e.className.split(' ')[0], l: r.left, t: r.top, r: r.right, b: r.bottom }; });
   // deckende Fläche der Kopfzeile?
   const strip = document.querySelector('.frame-strip');
@@ -143,6 +150,7 @@ const PAGE_STATE = `() => {
   const ce = document.querySelector('[data-frame-counter]'), cs = document.querySelector('[data-frame-counter-short]');
   const shown = ce && getComputedStyle(ce.parentElement).display !== 'none' && getComputedStyle(ce).display !== 'none' ? ce : cs;
   document.querySelectorAll('[data-section][data-counter]').forEach((s) => {
+    if (s.id === 'opening' || s.classList.contains('finale')) return; // Szenen mit eigener Übergabe (Zelle wächst in Welt 01, Finale wächst in den Kontakt)
     const r = s.getBoundingClientRect();
     if (r.top <= vh * 0.55 && r.bottom > vh * 0.55 && r.top < vh * 0.47 && r.bottom > vh * 0.63) {
       const want = shown === ce ? s.dataset.counter : s.dataset.counterShort;
