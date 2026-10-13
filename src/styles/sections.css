@@ -185,13 +185,15 @@ html[data-mode='desktop'] .t-bon3d, html[data-mode='mobile'] .t-bon3d {
 /* ---------- Übergang mit Staffelstab: Goldlinie wird Maßlinie (Welt 02 → 03) ---------- */
 .t-mass { display: none; }
 html[data-mode='desktop'] .t-mass, html[data-mode='mobile'] .t-mass { display: block; position: absolute; left: var(--gutter); right: var(--gutter); top: 50%; height: 0; }
-.t-gold, .t-blue { position: absolute; left: 0; right: 0; top: -1px; height: 2px; transform-origin: center; }
+/* Die Goldlinie ist eine Messingschiene (14 px), keine Haarlinie: Ein Übergang braucht Gewicht, sonst steht ein fast leerer Bildschirm da */
+.t-gold, .t-blue { position: absolute; left: 0; right: 0; top: -7px; height: 14px; transform-origin: center; }
+.t-blue { top: -2px; height: 4px; }
 .t-gold { background: var(--accent); }
 .t-blue { background: var(--accent); opacity: 0; }
 .t-dim { position: absolute; left: 0; right: 0; top: -20px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--accent); opacity: 0; }
 .t-arrow { position: absolute; top: 0; width: 40px; height: 40px; fill: currentColor; stroke: currentColor; stroke-width: 2; }
 .t-arrow-l { left: -6px; } .t-arrow-r { right: -6px; }
-.t-dim-value { position: relative; top: -26px; font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 1.75rem; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.t-dim-value { position: relative; top: -44px; font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: clamp(2.5rem, 6vw, 4.25rem); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
 /* Millimeterpapier schiebt sich von unten über das Dunkel */
 .transition[data-variant='goldlinie'] .t-wipe {
   background-color: var(--to);
@@ -256,14 +258,14 @@ html[data-mode='desktop'] .t-final-wrap, html[data-mode='mobile'] .t-final-wrap 
 .t-zl { display: none; }
 .transition[data-variant='zierlinie'] .t-thread { display: none !important; }
 html[data-mode='desktop'] .t-zl, html[data-mode='mobile'] .t-zl { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
-.t-zl path { fill: none; stroke: var(--from-accent, var(--np-orange)); stroke-width: 4; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: .62; }
+.t-zl path { fill: none; stroke: var(--from-accent, var(--np-orange)); stroke-width: 10; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: .62; }
 
 /* t06 · Welt 05 → Welt 06: Der Scheinwerfer glüht warm auf, wächst über den Viewport und wird zur Farbkugel (Radialverlauf, ohne Unschärfe). */
 .t-lampwrap, .t-kr, .t-st, .t-glow { display: none; }
 .transition[data-variant='scheinwerfer'] .t-wipe, .transition[data-variant='kreise'] .t-thread, .transition[data-variant='strahl'] .t-thread { display: none !important; }
-html[data-mode='desktop'] .t-lampwrap, html[data-mode='mobile'] .t-lampwrap { display: block; position: absolute; left: 50%; top: 50%; width: min(44vmin, 360px); aspect-ratio: 1; z-index: 2; pointer-events: none; }
+html[data-mode='desktop'] .t-lampwrap, html[data-mode='mobile'] .t-lampwrap { display: block; position: absolute; left: 50%; top: 50%; width: min(60vmin, 520px); aspect-ratio: 1; z-index: 2; pointer-events: none; }
 .t-lamp-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.t-lamp-ring circle { fill: none; stroke: var(--from-accent, #EFE6D2); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.t-lamp-ring circle { fill: none; stroke: var(--from-accent, #EFE6D2); stroke-width: 9; vector-effect: non-scaling-stroke; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
 .t-lamp { position: absolute; inset: 0; border-radius: 50%; opacity: 0;
   background: radial-gradient(circle at 36% 32%, #FFF4E6 0%, var(--accent2) 34%, color-mix(in srgb, var(--accent2) 40%, var(--accent3)) 66%, var(--accent3) 100%); }
 /* t07 · Welt 06 → Zwischenspiel II: Die Kreise rollen sich zu einer Linie mit sechs Stationen ab. */
@@ -283,7 +285,7 @@ html[data-mode='desktop'] .t-glow { display: block; position: absolute; left: 0;
 .transition:is([data-variant='messraster'], [data-variant='wasser'], [data-variant='fenster'], [data-variant='ausziehen'], [data-variant='rohbau']) .t-thread { display: none !important; }
 html[data-mode='desktop'] .t-cal, html[data-mode='mobile'] .t-cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; position: absolute; left: 50%; top: 50%; width: min(88vw, 760px); z-index: 2; pointer-events: none; font-family: var(--mono); }
 .t-cal-head { text-align: center; font-size: var(--fs-mono-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--from-text, #E6EAEE); opacity: 0; padding-bottom: 4px; }
-.t-cal-cell { aspect-ratio: 1.25; display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px 6px; border: 1.5px solid var(--from-accent, #F2C230); color: var(--from-text, #E6EAEE); font-size: .75rem; background: transparent; }
+.t-cal-cell { aspect-ratio: 1.25; display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px 6px; border: 3px solid var(--from-accent, #F2C230); color: var(--from-text, #E6EAEE); font-size: .875rem; font-weight: 600; background: color-mix(in srgb, var(--from-accent, #F2C230) 14%, transparent); }
 .t-cal-cell.is-leer { border-style: dashed; }
 /* t10 · Welt 08 → Welt 09: Der Weiher zoomt aus und wird zum See in der Abenddämmerung; Mint kippt in Dämmerungsviolett. */
 html[data-mode='desktop'] .t-ws, html[data-mode='mobile'] .t-ws { display: block; position: absolute; inset: 0; z-index: 2; padding: calc(var(--frame-top) + var(--s5)) var(--gutter) var(--s9); }

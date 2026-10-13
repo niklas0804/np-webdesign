@@ -120,7 +120,7 @@ function goldlinie(tl, sec, wipe, thread) {
   const mass = $('[data-t-mass]', sec);
   tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: 'power2.out' }, 0)
     .to(thread, { autoAlpha: 0, duration: 0.12 }, 0.2)
-    .fromTo(gold, { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power2.out' }, 0.08)
+    .fromTo(gold, { scaleX: 0.22 }, { scaleX: 1, duration: 0.3, ease: 'power2.out' }, 0)
     .fromTo(blue, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 0.35)
     .to(gold, { autoAlpha: 0, duration: 0.15 }, 0.35)
     .fromTo(dim, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.4)
@@ -240,7 +240,7 @@ function scheinwerfer(tl, sec, wipe) {
   gsap.set(wipe, { autoAlpha: 0 });
   gsap.set(wrap, { xPercent: -50, yPercent: -50 });
   tl.fromTo(ring, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.18, ease: 'power2.out' }, 0)
-    .fromTo(lamp, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.in' }, 0.16)
+    .fromTo(lamp, { opacity: 0.28 }, { opacity: 1, duration: 0.2, ease: 'power1.in' }, 0.12)
     .to(ring, { opacity: 0, duration: 0.12 }, 0.4)
     .fromTo(wrap, { scale: 1 }, { scale: cover, duration: 0.5, ease: 'power2.in', immediateRender: false }, 0.34)
     .to(wipe, { autoAlpha: 1, duration: 0.14 }, 0.86)
@@ -301,11 +301,14 @@ function messraster(tl, sec) {
   gsap.set(cal, { xPercent: -50, yPercent: -50 });
   // Zufällige Startlagen einmal festlegen (stabil beim Zurückscrollen)
   const start = cells.map(() => ({ x: r(-45, 45, 1) * (window.innerWidth / 100), y: r(-40, 40, 1) * (window.innerHeight / 100), rotation: r(-30, 30, 1) }));
-  tl.fromTo(cells, { x: (i) => start[i].x, y: (i) => start[i].y, rotation: (i) => start[i].rotation, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.5, stagger: { each: 0.008, from: 'random' }, ease: 'power3.out' }, 0.04)
+  tl.fromTo(cells, { x: (i) => start[i].x, y: (i) => start[i].y, rotation: (i) => start[i].rotation, opacity: 0.55 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.5, stagger: { each: 0.008, from: 'random' }, ease: 'power3.out' }, 0.04)
     .fromTo(heads, { opacity: 0 }, { opacity: 1, duration: 0.12, stagger: 0.02 }, 0.45)
     .fromTo(bg, { backgroundColor: fromGround }, { backgroundColor: toGround, duration: 0.35, ease: 'none' }, 0.4)
-    .to(cells, { borderColor: to, color: toText, duration: 0.3, ease: 'none' }, 0.45)
-    .to(heads, { color: toText, duration: 0.3, ease: 'none' }, 0.45)
+    // Beim Farbwechsel des Grundes (Mitte bei ~0,58) bleiben Rahmen und Schrift weiß, sonst fallen Linie und Grund in einem Grau zusammen
+    .to(cells, { borderColor: '#fff', color: '#fff', duration: 0.1, ease: 'none' }, 0.42)
+    .to(heads, { color: '#fff', duration: 0.1, ease: 'none' }, 0.42)
+    .to(cells, { borderColor: to, color: toText, duration: 0.12, ease: 'none' }, 0.64)
+    .to(heads, { color: toText, duration: 0.12, ease: 'none' }, 0.64)
     .fromTo(termin, { scale: 1 }, { scale: 1.12, backgroundColor: to, color: '#fff', duration: 0.14, ease: 'back.out(2)' }, 0.75)
     .to(termin, { scale: 1, duration: 0.08 }, 0.89)
     .to(cal, { autoAlpha: 0, duration: 0.08 }, 0.94);

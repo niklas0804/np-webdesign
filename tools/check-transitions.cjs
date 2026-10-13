@@ -24,7 +24,8 @@ const ONLY = String(opt('view', 'mobil,schmal,desktop')).split(',');
 const STEP = Number(opt('step', 5)) / 100;
 const WITH_FAST = !args.includes('--no-fast');
 const WITH_BACK = !args.includes('--no-back');
-const WITH_PERF = args.includes('--perf');
+const ONLY_PERF = args.includes('--only-perf'); // nur Leistungsmessung (läuft am besten allein, ohne parallele Läufe)
+const WITH_PERF = args.includes('--perf') || ONLY_PERF;
 const PAGE = opt('path', '/');
 const SECTION = opt('section', null); // nur einen Übergang prüfen (id, z. B. t-welt-01-welt-02)
 const RANGE = String(opt('range', '0,1')).split(',').map(Number); // Anteil der Seite
@@ -206,6 +207,27 @@ async function run(browser, base, view) {
     return { y: st.y, st, a, jpg: keepShot ? await jpg(png, cell.w * 2) : null };
   };
 
+  if (ONLY_PERF) {
+    const cdp = await ctx.newCDPSession(page);
+    await page.evaluate(() => { scrollTo(0, 0); }); await page.waitForTimeout(500);
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+    await page.evaluate(() => { window.__lt.length = 0; window.__cls.length = 0; });
+    const per = Math.round(vh * 0.55) / 6;
+    const res = await page.evaluate(async ({ per, total }) => {
+      await new Promise((resolve) => {
+        let y = 0; let last = performance.now();
+        const tick = (t) => { y += per * Math.min(48, t - last) / 16.7; last = t; scrollTo(0, Math.min(total, y)); if (y >= total) resolve(); else requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+      await new Promise((r) => setTimeout(r, 400));
+      return { lt: window.__lt.slice(), cls: window.__cls.slice() };
+    }, { per, total });
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+    const tlist = res.lt.filter((e) => e[1] > 50);
+    await ctx.close();
+    return { view: view.name, mode, total, onlyPerf: true, blankInTransition: [], blankElsewhere: [], overlaps: { steps: 0, first: [] }, counterBad: [], backDiffs: [], fast: { blank: [], overlap: [], diff: [], samples: 0 }, errors, sheets: {},
+      perf: { longTasks: tlist.length, worst: tlist.sort((a, b) => b[1] - a[1]).slice(0, 8), clsTotal: +res.cls.reduce((s, e) => s + e[1], 0).toFixed(4), clsEvents: res.cls.slice(0, 8) } };
+  }
   const frames = []; // Vorwärts, langsam
   const stepPx = Math.max(8, Math.round(vh * STEP));
   let y0 = Math.round(total * RANGE[0]), y1 = Math.round(total * RANGE[1]);
@@ -359,6 +381,7 @@ srv.listen(0, '127.0.0.1', async () => {
     const r = await run(browser, base, view); report.views.push(r);
     const n = r.blankInTransition.length + r.overlaps.steps + r.counterBad.length + r.backDiffs.length + r.fast.blank.length + r.fast.overlap.length + r.fast.diff.length + (r.perf ? r.perf.longTasks + (r.perf.clsTotal > 0.05 ? 1 : 0) : 0);
     bad += n;
+    if (r.onlyPerf) { console.log(`  → Leistung 4× CPU: Long Tasks > 50 ms: ${r.perf.longTasks} (${r.perf.worst.map((w) => w[1] + ' ms @' + w[2] + ' px').join(', ')}), Layout-Shift gesamt ${r.perf.clsTotal}`); continue; }
     console.log(`  → Leerstrecken über ${MAX_BLANK * 100} % in Übergängen: ${r.blankInTransition.length}  (außerhalb: ${r.blankElsewhere.length}, σ-Minimum ${r.stdMin})`);
     r.blankInTransition.forEach((b) => console.log(`      ${pad(b.transition, 34)} ${b.y0}–${b.y1} px = ${b.vhs} Bildschirmhöhen`));
     r.blankElsewhere.forEach((b) => console.log(`      (außerhalb) ${b.y0}–${b.y1} px = ${b.vhs} Bildschirmhöhen`));
