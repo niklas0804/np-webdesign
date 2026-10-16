@@ -60,7 +60,7 @@ export function initTransitions() {
     const lent = [];
     const clones = []; // { shell, el, world, pristine }
     // Wann der Rahmen seine Farbe wechselt: Anteil des freien Fensters
-    const splitW = { bon: 0.45, goldlinie: 0.5, stempel: 0.5, zierlinie: 0.5, scheinwerfer: 0.62, messkreise: 0.5, messraster: 0.45, wasser: 0.5, fensterplan: 0.5 }[variant] ?? 0.5;
+    const splitW = { nblende: 0.6, piris: 0.5, bon: 0.45, goldlinie: 0.5, stempel: 0.5, zierlinie: 0.5, scheinwerfer: 0.62, messkreise: 0.5, messraster: 0.45, wasser: 0.5, fensterplan: 0.5 }[variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -107,7 +107,7 @@ export function initTransitions() {
       dstRect: (e) => viewRect(e, tl.scrollTrigger.end),
       world: (s) => s?.dataset.world,
     };
-    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, fensterplan }[variant];
+    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, fensterplan, nblende }[variant];
     if (!(fn && fn(c))) {
       // Ohne Staffelstab: der Faden zeichnet eine Linie, dann wischt die neue Welt herein
       tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 40, ease: 'power2.out' }, 100)
@@ -421,5 +421,39 @@ function fensterplan(c) {
     // das Fenster wächst, bis es so groß ist wie im ersten Bild des Finales
     .fromTo(win, { x: () => center(c).x, y: () => center(c).y, scale: mid }, { scale: () => dr().w / sr().w, x: () => dr().cx, y: () => dr().cy, duration: len * 0.7 + 100, ease: 'power2.inOut', ...NI }, A + len * 0.2);
   // Der Grund bleibt Dämmerung: Welt 09 und der zehnte Platz haben dieselbe Farbe
+  return true;
+}
+
+/* ---------- N-Blende (Startseite: Warum → Vergleich) ---------- */
+/**
+ * Der Faden am linken Rand von S2 ist das linke Bein eines N. Die Diagonale zeichnet sich von oben links nach unten rechts, das rechte Bein
+ * steigt vom unteren Rand auf (genau über dem rechten Rand des Browserrahmens von S3). Dann wischt die Diagonale von Nacht zu Leinen:
+ * erst füllt sich das Dreieck oben rechts, dann das unten links. Das N bleibt als Faden stehen; S3 schiebt sich darüber, der rechte Strich
+ * wird dort zur Trennlinie.
+ */
+function nblende(c) {
+  const frame = $('.vg-frame', c.toSec);
+  const spine = $('.warum-faden', c.fromSec);
+  if (!frame || !spine) return false;
+  const wipe = el('t-nb-wipe'); const left = el('t-nb-leg t-nb-l'); const diag = el('t-nb-diag'); const right = el('t-nb-leg t-nb-r');
+  c.stage.append(wipe, left, diag, right);
+  const fx = () => parseFloat(getComputedStyle(spine).left) || 58;
+  const xr = () => { const r = docRect(frame); return r.x + r.w; };
+  const geom = () => {
+    const w = c.vw(); const h = c.vh(); const l = fx(); const r = xr();
+    const dx = r - l; const dy = h; const len = Math.hypot(dx, dy);
+    const ux = dx / len; const uy = dy / len;
+    wipe.style.setProperty('--W', `${w}px`); wipe.style.setProperty('--H', `${h}px`);
+    wipe.style.setProperty('--ux', String(ux)); wipe.style.setProperty('--uy', String(uy)); wipe.style.setProperty('--nx', String(uy)); wipe.style.setProperty('--ny', String(-ux));
+    left.style.left = `${l}px`; right.style.left = `${r}px`;
+    diag.style.left = `${l}px`; diag.style.width = `${len}px`;
+    gsap.set(diag, { rotation: (Math.atan2(dy, dx) * 180) / Math.PI });
+  };
+  geom();
+  ScrollTrigger.addEventListener('refresh', geom);
+  const { tl, A } = c; const len = c.len();
+  tl.fromTo(wipe, { '--a': 0 }, { '--a': 1, duration: len * 0.42, ease: 'power2.inOut', immediateRender: true }, A + len * 0.34)
+    .fromTo(diag, { scaleX: 0 }, { scaleX: 1, duration: len * 0.28, ease: 'power2.inOut', immediateRender: true }, A)
+    .fromTo(right, { scaleY: 0 }, { scaleY: 1, duration: len * 0.2, ease: 'power2.out', immediateRender: true }, A + len * 0.2);
   return true;
 }

@@ -183,14 +183,42 @@ export const journey = (() => {
 })();
 
 /**
- * Abschnitte der Startseite (Teil C ersetzt das). Hier nur Länge, Grund und Ton, damit /journey.css sie kennt.
+ * Die Startseite „Maßarbeit“ (Auftrag 11. Oktober 2026, Teil C): sieben Abschnitte, zwei Übergänge mit Staffelstab.
+ * d / m = Länge in Bildschirmhöhen (Desktop / Mobil). Gepinnte Abschnitte sind Bühne (100) plus Scrolllänge; die Übergänge
+ * liegen in den letzten und ersten 100 svh der Nachbarn, wie auf /welten (docs/troubleshooting-uebergaenge.md).
+ * label: Name im Lineal (Desktop). Eigene Zählung: Die Startseite hat keinen Weltzähler.
  */
-export const homeRows = [
-  { id: 'warum', kind: 'interlude', anchor: 'warum', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
-  { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
-  { id: 'kontakt', kind: 'contact', anchor: 'kontakt', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
-  { id: 'faq', kind: 'faq', anchor: 'faq', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
-];
+export const HOME_TRANSITIONS = {
+  'warum>vergleich': { variant: 'nblende', d: 80, m: 60 }, // die Diagonale des N wischt von Nacht zu Leinen, der Faden wird zur Trennlinie
+  'arbeitsweise>kontakt': { variant: 'piris', d: 100, m: 70 }, // die Schlaufe des Fadens wird der Bauch des P, die P-Iris öffnet den Kontakt
+};
+export const homeJourney = (() => {
+  const seq = [
+    { id: 'start', kind: 'home', anchor: 'start', label: 'Start', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
+    { id: 'warum', kind: 'home', anchor: 'warum', label: 'Warum', d: 250, m: 200, ground: MASTER.nacht, tone: 'dark' },
+    { id: 'vergleich', kind: 'home', anchor: 'vergleich', label: 'Vergleich', d: 260, m: 240, ground: MASTER.leinen, tone: 'light' },
+    { id: 'beispiele', kind: 'home', anchor: 'beispiele', label: 'Beispiele', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
+    { id: 'arbeitsweise', kind: 'home', anchor: 'arbeitsweise', label: 'Zusammenarbeit', d: 250, m: 100, ground: MASTER.leinen, tone: 'light' },
+    { id: 'kontakt', kind: 'home', anchor: 'kontakt', label: 'Kontakt', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
+    { id: 'faq', kind: 'home', anchor: 'faq', label: 'FAQ', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
+  ];
+  const out = [];
+  seq.forEach((s, i) => {
+    out.push(s);
+    const next = seq[i + 1];
+    const t = next && HOME_TRANSITIONS[`${s.id}>${next.id}`];
+    if (!t) return;
+    out.push({
+      id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
+      fromGround: s.ground, toGround: next.ground, fromTone: s.tone, toTone: next.tone,
+      fromAccent: null, toAccent: null, fromText: null, toText: null,
+      d: t.d, m: t.m, variant: t.variant,
+    });
+  });
+  return out;
+})();
+/** Abschnitte der Startseite (ohne Übergänge), nach Kennung */
+export const homeRows = homeJourney.filter((r) => r.kind === 'home');
 
 /** Welt-Eintrag zu einer Reise-Zeile */
 export const worldOf = (row) => WORLDS.find((w) => w.nr === row.world);

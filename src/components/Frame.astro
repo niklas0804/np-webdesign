@@ -1,12 +1,14 @@
 ---
 /** Der NP-Rahmen: fest am Viewport, über jeder Welt (Blueprint C, J). Auf dem Handy trägt die Kopfzeile eine schmale Fläche in der Grundfarbe der Welt und blendet beim Abwärtsscrollen aus (Blueprint J). */
-import { builtWorlds } from '../config/journey.js';
+import { builtWorlds, homeRows } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Logo from './Logo.astro';
 const total = String(builtWorlds.length).padStart(2, '0');
 /** 'welten': Weltzähler und Lineal mit den neun Welten. 'home': Startseite, Zähler und Lineal gehören dem Abschnitt (Teil C). */
 const { page = 'welten' } = Astro.props;
 const worlds = page === 'welten';
+/** Startseite: Lineal mit den sechs Abschnitten S1–S6 (ohne FAQ), Namen beim Hover (Auftrag C3) */
+const homeTicks = page === 'home' ? homeRows.filter((r) => r.id !== 'faq') : [];
 ---
 <header class="frame" data-page={page}>
   <span class="frame-strip" aria-hidden="true"></span>
@@ -36,6 +38,15 @@ const worlds = page === 'welten';
     <span class="ruler-mark" data-ruler-mark></span>
     {builtWorlds.map((w) => (
       <a class="ruler-tick" href={`/welten#${w.anchor}`} tabindex="-1" data-tick={w.nr} data-label={`${w.nr} · ${w.name}`}><span class="ruler-tick-label">{w.nr} · {w.name}</span></a>
+    ))}
+  </div>}
+
+  {page === 'home' && <div class="frame-ruler" aria-hidden="true" data-ruler>
+    <span class="ruler-track"></span>
+    <span class="ruler-fill" data-ruler-fill></span>
+    <span class="ruler-mark" data-ruler-mark></span>
+    {homeTicks.map((r, i) => (
+      <a class="ruler-tick" href={`/#${r.anchor}`} tabindex="-1" data-tick={r.id} data-label={`${String(i + 1).padStart(2, '0')} · ${r.label}`}><span class="ruler-tick-label">{String(i + 1).padStart(2, '0')} · {r.label}</span></a>
     ))}
   </div>}
   <div class="frame-progress" aria-hidden="true"><span data-progress></span></div>

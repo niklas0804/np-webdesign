@@ -1,0 +1,27 @@
+---
+/**
+ * S2 · Warum eine eigene Website (Auftrag 11. Oktober 2026, Teil C). Nacht. Drei Sätze, gepinnt, jeder auf Maß gesetzt;
+ * die Maßschicht zeichnet Bemaßungslinien an einzelne Wörter mit live gemessenen Breiten (src/motion/home/warum.js).
+ * Ruhig und ohne JavaScript: die drei Sätze untereinander als große Aussagen, ohne Pin und ohne Bemaßung.
+ */
+const { row } = Astro.props;
+const SAETZE = [
+  { text: 'Ihre Kunden suchen Sie zuerst online.', mass: ['online.'] },
+  { text: 'Dort entscheiden sie, ob sie anrufen.', mass: ['anrufen.'] },
+  { text: 'Eine Website von der Stange sieht aus wie hundert andere.', mass: ['Stange', 'hundert'] },
+];
+---
+<section id={row.anchor} class="warum on-dark" data-section={row.id} data-counter={row.label} data-ground={row.ground} data-tone={row.tone} aria-labelledby="warum-title">
+  <div class="warum-stage" data-warum-stage>
+    <span class="faden-v warum-faden" data-faden-v aria-hidden="true"></span>
+    <h2 id="warum-title" class="warum-eyebrow mono">Warum eine eigene Website</h2>
+    <ol class="warum-saetze" data-warum-saetze>
+      {SAETZE.map((s, i) => (
+        <li class="satz" data-satz data-mass={s.mass.join('|')}>
+          <p class="satz-text" data-satz-text>{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="warum-mass" aria-hidden="true" data-warum-mass></div>
+  </div>
+</section>

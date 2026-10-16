@@ -1,0 +1,115 @@
+---
+/**
+ * S3 · Gleicher Betrieb. Zwei Websites. (Auftrag 11. Oktober 2026, Teil C). Leinen.
+ * Ein Browserrahmen zeigt die Studie Halmberg zweimal: links als generische „Baukasten“-Seite, rechts als Maßarbeit (Fraunces, Weizengold, Bon).
+ * Der orange Faden ist die Trennlinie und wandert scrollgesteuert; danach lässt sie sich ziehen (echtes <input type="range">).
+ * Die Texte der Anmerkungen stehen als Liste im Dokument; die Marken im Bild sind nur Zeiger darauf. Keine Namen oder Logos echter Anbieter.
+ * Fraunces für die Maßarbeit-Seite wird erst kurz vor dem Abschnitt geladen (src/motion/home/index.js setzt data-fonts).
+ * Ruhig und ohne JavaScript: beide Fassungen untereinander, Anmerkungen als Liste.
+ */
+const { row } = Astro.props;
+const BASE = [
+  'Stockfoto, das viele nutzen',
+  'Willkommenstext ohne Inhalt',
+  'Kontakt erst ganz unten',
+  'Dieselben Bausteine wie hundert andere Seiten',
+];
+const MASS = [
+  'Eigene Bildsprache statt Stockfoto',
+  'Öffnungszeiten und Telefon sofort sichtbar',
+  'Für das Handy gebaut, nicht nur verkleinert',
+  'Schnell geladen, auch bei schwachem Netz',
+  'Klare Struktur, damit Google versteht, was Sie anbieten',
+];
+const NUTZEN = [
+  ['Vertrauen auf den ersten Blick', 'Wer Sie online findet, entscheidet in Sekunden, ob er anruft.'],
+  ['Anfragen statt Absprünge', 'Jede Seite führt zu einem nächsten Schritt.'],
+  ['Gefunden werden, wo Sie arbeiten', 'Saubere Technik und klare Inhalte für Google und Ihre Region.'],
+];
+---
+<section id={row.anchor} class="vergleich" data-section={row.id} data-counter={row.label} data-ground={row.ground} data-tone={row.tone} aria-labelledby="vergleich-title" data-vergleich>
+  <div class="vg-track" data-vg-track>
+  <div class="vg-stage" data-vg-stage>
+    <div class="vg-head">
+      <p class="kicker">Der Unterschied</p>
+      <h2 id="vergleich-title" class="vg-title">Gleicher Betrieb. Zwei Websites.</h2>
+    </div>
+
+    <div class="vg-compare" data-vg>
+      <div class="vg-frame">
+        <div class="vg-bar" aria-hidden="true"><i></i><i></i><i></i><span class="vg-url mono">Bäckerei · Studie · Demo</span></div>
+        <div class="vg-view" role="group" aria-label="Dieselbe Bäckerei, einmal als Baukasten-Seite und einmal als Maßarbeit" data-vg-view>
+
+          <!-- Baukasten: generisch, aber nicht lächerlich -->
+          <div class="vg-pane vg-base" aria-hidden="true">
+            <div class="bk-nav"><span class="bk-logo">Logo</span><span>Start</span><span>Über uns</span><span>Kontakt</span></div>
+            <div class="bk-hero">
+              <div class="bk-stock"><svg viewBox="0 0 100 60" preserveAspectRatio="none" focusable="false"><path d="M0 0 L100 60 M100 0 L0 60" /></svg><span>Stockfoto</span></div>
+              <p class="bk-welcome">Willkommen bei Bäckerei Halmberg</p>
+              <p class="bk-text">Wir freuen uns, Sie auf unserer Website begrüßen zu dürfen.</p>
+              <span class="bk-btn">Mehr erfahren</span>
+            </div>
+            <div class="bk-tiles">
+              <div class="bk-tile"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8" /></svg><b>Unser Angebot</b></div>
+              <div class="bk-tile"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="4" width="16" height="16" /></svg><b>Über uns</b></div>
+              <div class="bk-tile"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 4 L21 20 H3 Z" /></svg><b>Aktuelles</b></div>
+            </div>
+            <div class="bk-foot">Impressum · Datenschutz · Tel. 01234 56789</div>
+            {BASE.map((_, i) => <b class={`vg-marker vg-marker-base vgb${i + 1}`} data-marker-base>{i + 1}</b>)}
+          </div>
+
+          <!-- Maßarbeit: der Einstieg von Halmberg -->
+          <div class="vg-pane vg-mass" data-world="01" aria-hidden="true">
+            <div class="hm-nav"><span class="hm-brand">Halmberg</span><span class="hm-links"><span>Backplan</span><span>Öffnungszeiten</span></span></div>
+            <div class="hm-body">
+              <div class="hm-text">
+                <p class="hm-kicker">Handwerksbäckerei · Backstube ab fünf Uhr</p>
+                <p class="hm-title">Halmberg</p>
+                <p class="hm-sub">Brot, das Zeit hatte.</p>
+                <dl class="hm-hours"><dt>Montag bis Freitag</dt><dd>6:00 bis 18:00 Uhr</dd></dl>
+              </div>
+              <div class="hm-art">
+                <svg class="hm-loaf" viewBox="0 0 200 120" focusable="false">
+                  <path class="hm-loaf-body" d="M18 74 C18 38 62 18 100 18 C138 18 182 38 182 74 C182 96 150 106 100 106 C50 106 18 96 18 74 Z" />
+                  <path class="hm-loaf-score" d="M62 40 L78 74 M100 30 L108 76 M138 40 L124 74" />
+                </svg>
+                <div class="hm-bon"><span class="hm-bon-head mono">Vorbestellung · Demo</span><b class="hm-bon-nr">Nr. 07</b></div>
+              </div>
+            </div>
+            {MASS.map((_, i) => <b class={`vg-marker vg-marker-mass vgm${i + 1}`} data-marker-mass>{i + 1}</b>)}
+          </div>
+
+          <span class="vg-divider" aria-hidden="true" data-vg-divider><i></i></span>
+        </div>
+      </div>
+
+      <div class="vg-ctrl">
+        <span class="vg-end vg-end-l mono" aria-hidden="true">Baukasten</span>
+        <input class="vg-range needs-js" id="vg-range" type="range" min="0" max="100" step="1" value="0" data-vg-range aria-valuetext="Baukasten" />
+        <span class="vg-end vg-end-r mono" aria-hidden="true">Maßarbeit</span>
+        <label class="vg-range-label small needs-js" for="vg-range">Linie ziehen oder mit den Pfeiltasten verschieben</label>
+      </div>
+    </div>
+
+    <div class="vg-notes vg-notes-stage" data-vg-notes>
+      <h3 class="mono vg-notes-h vg-notes-h-base">Baukasten</h3>
+      <ol class="vg-list vg-list-base">{BASE.map((t, i) => <li data-note-base><b>{i + 1}</b><span>{t}</span></li>)}</ol>
+      <h3 class="mono vg-notes-h vg-notes-h-mass">Maßarbeit</h3>
+      <ol class="vg-list vg-list-mass">{MASS.map((t, i) => <li data-note-mass><b>{i + 1}</b><span>{t}</span></li>)}</ol>
+    </div>
+  </div>
+  </div>
+
+  <div class="vg-after">
+    <div class="vg-notes vg-notes-flow">
+      <h3 class="mono vg-notes-h vg-notes-h-base">Baukasten</h3>
+      <ol class="vg-list vg-list-base">{BASE.map((t, i) => <li><b>{i + 1}</b><span>{t}</span></li>)}</ol>
+      <h3 class="mono vg-notes-h vg-notes-h-mass">Maßarbeit</h3>
+      <ol class="vg-list vg-list-mass">{MASS.map((t, i) => <li><b>{i + 1}</b><span>{t}</span></li>)}</ol>
+    </div>
+    <p class="vg-close lead">Beide zeigen dieselbe Bäckerei. Nur eine sieht aus wie sie.</p>
+    <ul class="vg-nutzen">
+      {NUTZEN.map(([h, t]) => <li><strong>{h}</strong><span>{t}</span></li>)}
+    </ul>
+  </div>
+</section>

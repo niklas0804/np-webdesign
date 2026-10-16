@@ -1,0 +1,43 @@
+---
+/**
+ * S1 · Hero (Auftrag 11. Oktober 2026, Teil C). Leinen. Die H1 ist ein echtes Textelement (LCP), unabhängig von jeder Animation.
+ * Die Maßschicht bemaßt die Zeilen mit live gemessenen Breiten (src/motion/home/hero.js, nie erfundene Zahlen, für Screenreader verborgen).
+ * Die Logo-Konstruktion läuft in 1,6 s per CSS (home.css). Der orange Faden verlässt den Hero am linken Rand und führt in S2.
+ */
+import Logo from '../components/Logo.astro';
+import { TEXT } from '../config/journey.js';
+const { row } = Astro.props;
+---
+<section id={row.anchor} class="hero" data-section={row.id} data-counter={row.label} data-ground={row.ground} data-tone={row.tone} aria-labelledby="hero-title">
+  <span class="faden-v hero-faden" data-faden-v aria-hidden="true"></span>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="kicker hero-kicker">NP Webdesign · Schwandorf</p>
+      <h1 id="hero-title" class="hero-title" data-hero-title>
+        <span class="hero-line" data-hero-line>Websites, die</span>
+        <span class="hero-line" data-hero-line>nach Ihrem</span>
+        <span class="hero-line" data-hero-line>Unternehmen</span>
+        <span class="hero-line" data-hero-line>aussehen.</span>
+        <span class="hero-ms-layer" aria-hidden="true" data-hero-ms></span>
+      </h1>
+      <p class="lead hero-lead">Individuell entworfen und gebaut für Betriebe in der Oberpfalz und darüber hinaus. Ohne Baukasten, ohne Vorlage.</p>
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="#kontakt">
+          <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-secondary" href="/welten">
+          <span class="btn-label"><span>{TEXT.heroSecondary}</span><span aria-hidden="true">{TEXT.heroSecondary}</span></span>
+        </a>
+      </div>
+      <p class="small hero-direct">Direkt zu: <a class="link" href="/leistungen">Pakete und Preise</a> · <a class="link" href="#kontakt">Kontakt</a></p>
+    </div>
+    <div class="hero-logo" aria-hidden="true">
+      <span class="hero-guide hero-guide-top"></span>
+      <span class="hero-guide hero-guide-base"></span>
+      <span class="hero-guide hero-guide-slash"></span>
+      <Logo class="hero-logo-mark" />
+      <span class="hero-logo-cap mono">Konstruktion · Schrägstrich, N, P</span>
+    </div>
+  </div>
+</section>

@@ -27,7 +27,7 @@ export function setSection(sec) {
   updateBar(sec);
 
   // Anker in der Adresszeile ohne neuen Verlaufseintrag (Blueprint J)
-  if (sec.id && sec.id !== 'opening') history.replaceState(null, '', '#' + sec.id);
+  if (sec.id && sec.id !== 'opening' && sec.id !== 'start') history.replaceState(null, '', '#' + sec.id);
   else if (location.hash) history.replaceState(null, '', location.pathname + location.search);
 }
 
@@ -83,7 +83,7 @@ export function initRahmen() {
   const place = () => {
     const max = ScrollTrigger.maxScroll(window);
     ticks.forEach((t) => {
-      const sec = document.querySelector(`section[data-world="${t.dataset.tick}"]`);
+      const sec = document.querySelector(`section[data-world="${t.dataset.tick}"], section[data-section="${t.dataset.tick}"]`);
       if (!sec || !max) return;
       const top = sec.getBoundingClientRect().top + window.scrollY;
       const f = Math.min(1, Math.max(0, top / max));

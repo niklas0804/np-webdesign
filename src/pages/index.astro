@@ -1,24 +1,29 @@
 ---
 /**
- * Startseite. VORLÄUFIG (Teil B des Auftrags vom 11. Oktober 2026): Teil C ersetzt sie durch die neue Startseite („Maßarbeit“).
- * Bis dahin: Kopf, Warum, Arbeitsweise, Kontakt, FAQ, Footer. Die neun Welten wohnen auf /welten.
+ * Startseite „Maßarbeit“ (Auftrag 11. Oktober 2026, Teil C). Sieben Abschnitte, der orange Faden als Werkzeug durch alle:
+ * S1 Hero · S2 Warum · S3 Vergleich · S4 Beispiele · S5 Zusammenarbeit · S6 Kontakt · S7 FAQ und Footer.
+ * Übergänge mit Staffelstab: S2 → S3 (N-Blende), S5 → S6 (P-Iris). Die neun Welten wohnen auf /welten.
+ * Die Startseite lädt nur ihre eigenen Module (src/motion/home/).
  */
 import Base from '../layouts/Base.astro';
 import '../styles/frame.css';
 import '../styles/sections.css';
+import '../styles/home.css';
 import '../styles/kontakt.css';
-import { homeRows } from '../config/journey.js';
+import { homeJourney } from '../config/journey.js';
 import { SITE, PACKAGES } from '../config/site.js';
 import Frame from '../components/Frame.astro';
 import Menu from '../components/Menu.astro';
-import HeroVorlaeufig from '../components/HeroVorlaeufig.astro';
-import Warum from '../components/Warum.astro';
+import Hero from '../home/Hero.astro';
+import Warum from '../home/Warum.astro';
+import Vergleich from '../home/Vergleich.astro';
+import Transition from '../components/Transition.astro';
 import Arbeitsweise from '../components/Arbeitsweise.astro';
 import Kontakt from '../components/Kontakt.astro';
 import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 
-const row = Object.fromEntries(homeRows.map((r) => [r.id, r]));
+const row = Object.fromEntries(homeJourney.map((r) => [r.id, r]));
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -49,8 +54,10 @@ const jsonLd = [
   <Menu />
 
   <main id="main" data-page="home">
-    <HeroVorlaeufig />
+    <Hero row={row.start} />
     <Warum row={row.warum} />
+    <Transition row={row['t-warum-vergleich']} />
+    <Vergleich row={row.vergleich} />
     <Arbeitsweise row={row.arbeitsweise} />
     <Kontakt row={row.kontakt} />
     <Faq row={row.faq} />
@@ -58,6 +65,6 @@ const jsonLd = [
 
   <Footer />
   <script>
-    import '../motion/index.js';
+    import '../motion/home/index.js';
   </script>
 </Base>
