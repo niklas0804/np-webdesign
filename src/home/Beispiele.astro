@@ -30,9 +30,9 @@ const { row } = Astro.props;
               <span class="bsp-in" aria-hidden="true">
                 <span class="bsp-bar"><i></i><i></i><i></i><span class="bsp-bar-label mono">Studie {w.nr}</span></span>
                 <span class="bsp-still"><WorldStill nr={w.nr} /></span>
+                <span class="bsp-caption mono">{w.nr} · {w.name} · {w.branche}</span>
                 <span class="bsp-crops"><b></b><b></b><b></b><b></b></span>
               </span>
-              <span class="bsp-caption mono" aria-hidden="true">{w.nr} · {w.name} · {w.branche}</span>
             </a>
           </li>
         ))}

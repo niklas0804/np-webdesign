@@ -32,7 +32,8 @@ export function initBeispiele() {
   // Lage eines Elements in der Bühne (Offset-Kette bis zur Bühne, ohne Transformationen und unabhängig vom Scrollstand)
   const rel = (e) => { let x = 0; let y = 0; for (let n = e; n && n !== stage; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; } return { x, y, w: e.offsetWidth, h: e.offsetHeight }; };
   const n = cards.length;
-  const fan = (i) => { const t = (i - (n - 1) / 2) / ((n - 1) / 2); return { x: t * 64, y: Math.abs(t) * 16, r: t * 13 }; };
+  // 28 px Versatz je Karte: Jede Karte hat im Stapel einen mindestens 24 px breiten Streifen (Zielgröße, WCAG 2.5.8)
+  const fan = (i) => { const t = (i - (n - 1) / 2) / ((n - 1) / 2); return { x: t * 112, y: Math.abs(t) * 16, r: t * 13 }; };
   // FLIP: First = Stapel in der Mitte des Rasters (gemessen), Last = Zelle im Raster; abgespielt wird nur mit transform
   const stack = (i) => {
     const g = rel(grid); const c = rel(cards[i]); const f = fan(i);
