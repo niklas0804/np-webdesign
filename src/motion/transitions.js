@@ -454,6 +454,6 @@ function nblende(c) {
   const { tl, A } = c; const len = c.len();
   tl.fromTo(wipe, { '--a': 0 }, { '--a': 1, duration: len * 0.42, ease: 'power2.inOut', immediateRender: true }, A + len * 0.34)
     .fromTo(diag, { scaleX: 0 }, { scaleX: 1, duration: len * 0.28, ease: 'power2.inOut', immediateRender: true }, A)
-    .fromTo(right, { scaleY: 0 }, { scaleY: 1, duration: len * 0.2, ease: 'power2.out', immediateRender: true }, A + len * 0.2);
+    .fromTo(right, { scaleY: 0 }, { scaleY: 1, duration: 40 + len * 0.15, ease: 'power2.out', immediateRender: true }, A - 40);
   return true;
 }

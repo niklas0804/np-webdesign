@@ -141,17 +141,17 @@ html[data-fonts~='fraunces'] .vg-mass, html:not([data-js]) .vg-mass { --hm-serif
 @container (max-width: 560px) {
   .vg-mass { padding: 5cqw; }
   .hm-body { grid-template-columns: 1fr; align-content: space-between; gap: 2cqw; }
-  .hm-title { font-size: max(40px, 17cqw); }
+  .hm-title { font-size: max(38px, 14.5cqw); }
   .hm-sub { font-size: max(16px, 5.4cqw); }
   .hm-hours { margin-top: 3cqw; font-size: max(11px, 3.2cqw); }
   .hm-kicker { font-size: max(10px, 2.8cqw); }
   .hm-nav { font-size: max(10px, 3cqw); } .hm-brand { font-size: max(13px, 4cqw); }
-  .hm-loaf { width: 64%; }
+  .hm-loaf { width: 52%; margin-bottom: 4cqw; }
   .hm-bon { right: 2cqw; bottom: 0; padding: 2.2cqw 3cqw; } .hm-bon-nr { font-size: max(18px, 6.6cqw); } .hm-bon-head { font-size: max(8px, 2.2cqw); }
   .bk-welcome { font-size: max(15px, 5cqw); } .bk-text, .bk-nav, .bk-tile, .bk-btn { font-size: max(10px, 2.8cqw); }
   .bk-stock { width: 80%; } .bk-hero { padding-inline: 8cqw; }
 }
-/* Positionen der Marken (Prozent der Fläche) */
+/* Positionen der Marken (Prozent der Fläche); schmal liegen die Merkmale anders */
 .vgb1 { left: 72%; top: 38%; } .vgb2 { left: 64%; top: 62%; } .vgb3 { left: 60%; top: 94%; } .vgb4 { left: 78%; top: 78%; }
 .vgm1 { left: 70%; top: 36%; } .vgm2 { left: 38%; top: 80%; } .vgm3 { left: 88%; top: 68%; } .vgm4 { left: 30%; top: 28%; } .vgm5 { left: 14%; top: 8%; }
 
@@ -227,3 +227,7 @@ html[data-mode='desktop'] .t-nb-wipe, html[data-mode='mobile'] .t-nb-wipe {
 .t-nb-leg { top: 0; bottom: 0; width: 5px; margin-left: -2.5px; }
 .t-nb-r { transform-origin: bottom; }
 .t-nb-diag { top: 0; height: 5px; margin-top: -2.5px; transform-origin: 0 50%; }
+@container (max-width: 560px) {
+  .vgb1 { left: 84%; top: 27%; } .vgb2 { left: 90%; top: 40%; } .vgb3 { left: 56%; top: 95%; } .vgb4 { left: 92%; top: 82%; }
+  .vgm1 { left: 62%; top: 80%; } .vgm2 { left: 46%; top: 47%; } .vgm3 { left: 90%; top: 86%; } .vgm4 { left: 74%; top: 27%; } .vgm5 { left: 32%; top: 8%; }
+}
