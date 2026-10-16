@@ -101,7 +101,7 @@ html:not([data-js]) .w06-slots, html:not([data-js]) .w06-pill-fest { display: no
 @media (min-width: 1024px) { .w06-karten { grid-template-columns: repeat(3, 1fr); } .w06 > .w06-haltung { max-width: 1100px; } .w06-karte { padding: var(--s6); } }
 
 /* Kreise der Farbkugel: Staffelstab des Übergangs 06 → 07 (werden zu Messkreisen) */
-.w06-kreise { position: relative; width: clamp(150px, 22vw, 210px); aspect-ratio: 1; margin: var(--s10) auto 0; }
-.w06-kreise i { position: absolute; border-radius: 50%; border: 2px solid var(--accent); }
-.w06-kreise i:nth-child(1) { inset: 0; } .w06-kreise i:nth-child(2) { inset: 16%; } .w06-kreise i:nth-child(3) { inset: 32%; }
-.w06-kreise b { position: absolute; inset: 43%; border-radius: 50%; background: radial-gradient(circle at 36% 32%, #FFF4E6 0%, var(--accent2) 55%, var(--accent3) 100%); }
+.w06-messkreise { position: relative; width: clamp(150px, 22vw, 210px); aspect-ratio: 1; margin: var(--s10) auto 0; }
+.w06-messkreise i { position: absolute; border-radius: 50%; border: 2px solid var(--accent); }
+.w06-messkreise i:nth-child(1) { inset: 0; } .w06-messkreise i:nth-child(2) { inset: 16%; } .w06-messkreise i:nth-child(3) { inset: 32%; }
+.w06-messkreise b { position: absolute; inset: 43%; border-radius: 50%; background: radial-gradient(circle at 36% 32%, #FFF4E6 0%, var(--accent2) 55%, var(--accent3) 100%); }

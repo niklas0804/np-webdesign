@@ -295,7 +295,7 @@ function scheinwerfer(c) {
  * die Laserlinie von TORQUEL tastet sie ab. Flieder wird Stahlschiefer, Malve wird Signalgelb. Landung: genau auf die Messkreise im Kopf von Welt 07.
  */
 function messkreise(c) {
-  const src = $('.w06-kreise', c.fromSec); const dst = $('.w07-rund', c.toSec);
+  const src = $('.w06-messkreise', c.fromSec); const dst = $('.w07-rund', c.toSec);
   if (!src || !dst) return false;
   c.lent.push(src, dst);
   const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
