@@ -1,7 +1,7 @@
 /**
  * S4 · Der Musterkoffer. Desktop (gepinnt): Die neun Vorschaukarten liegen zuerst als gefächerter Stapel auf dem „Tisch“ (Mitte des Rasters);
- * beim Scrollen werden sie nacheinander ausgeteilt und rasten in ihre Zelle des 3×3-Rasters ein (Versatz je Karte 5 Prozent der Pinlänge),
- * jede setzt sich mit einem kurzen Schnittmarken-Zucken. Nur Transform. Mobil: zweispaltig, jede Karte erscheint beim Einfahren.
+ * sobald der Abschnitt einfährt, werden sie zeitgesteuert ausgeteilt (FLIP, 70 ms Versatz je Karte) und rasten in ihre Zelle des 3×3-Rasters ein,
+ * jede setzt sich mit einem kurzen Schnittmarken-Zucken. Rückwärts fährt der Stapel wieder zusammen. Nur Transform. Bewegung reduzieren: das Raster steht sofort. Mobil: zweispaltig, jede Karte erscheint beim Einfahren.
  * Der Faden zeichnet sich am linken Rand und unterstreicht die Überschrift.
  */
 import { gsap, ScrollTrigger, $, $$, mode } from '../base.js';
@@ -33,22 +33,24 @@ export function initBeispiele() {
   const rel = (e) => { let x = 0; let y = 0; for (let n = e; n && n !== stage; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; } return { x, y, w: e.offsetWidth, h: e.offsetHeight }; };
   const n = cards.length;
   const fan = (i) => { const t = (i - (n - 1) / 2) / ((n - 1) / 2); return { x: t * 64, y: Math.abs(t) * 16, r: t * 13 }; };
+  // FLIP: First = Stapel in der Mitte des Rasters (gemessen), Last = Zelle im Raster; abgespielt wird nur mit transform
   const stack = (i) => {
     const g = rel(grid); const c = rel(cards[i]); const f = fan(i);
     return { x: g.x + g.w / 2 - (c.x + c.w / 2) + f.x, y: g.y + g.h / 2 - (c.y + c.h / 2) + f.y, rotation: f.r };
   };
-  const STEP = 0.05; const DUR = 0.2; const T0 = 0.04; // Anteile der Pinlänge
-  const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: track, start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+  // Zeitgesteuert statt am Scrollen: Der Stapel fächert sich sichtbar auf, auch wenn jemand schnell scrollt (je Karte 70 ms versetzt)
+  const tl = gsap.timeline({ paused: true });
   cards.forEach((card, i) => {
     const s = () => stack(i);
-    tl.fromTo(card, { x: () => s().x, y: () => s().y, rotation: () => s().rotation, scale: 0.93 }, { x: () => s().x, y: () => s().y, rotation: () => s().rotation, scale: 0.93, duration: 0.001, immediateRender: true }, 0)
-      .fromTo(card, { x: () => s().x, y: () => s().y, rotation: () => s().rotation, scale: 0.93 }, { x: 0, y: 0, rotation: 0, scale: 1, duration: DUR, ease: 'power2.inOut', immediateRender: false }, T0 + i * STEP);
+    tl.fromTo(card, { x: () => s().x, y: () => s().y, rotation: () => s().rotation, scale: 0.93 },
+      { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.95, ease: 'power3.inOut', immediateRender: true,
+        onComplete: () => card.classList.add('is-set'), onReverseComplete: () => card.classList.remove('is-set') }, i * 0.07);
   });
-  tl.set({}, {}, 1); // die Zeitleiste ist genau eine Pinlänge lang, danach steht das Raster
+  // Messwerte der Ausgangslage nach jedem Refresh neu (Größenänderung), ohne die Wiedergabe zu stören
+  ScrollTrigger.addEventListener('refresh', () => { const p = tl.progress(); tl.invalidate(); tl.progress(p, true); });
   ScrollTrigger.create({
-    trigger: track, start: 'top top', end: 'bottom bottom',
-    onUpdate: (self) => cards.forEach((c, i) => c.classList.toggle('is-set', self.progress >= T0 + i * STEP + DUR * 0.92)),
-    onLeaveBack: () => cards.forEach((c) => c.classList.remove('is-set')),
+    trigger: track, start: 'top 38%', end: 'bottom top',
+    onEnter: () => tl.play(), onEnterBack: () => tl.play(), onLeaveBack: () => tl.reverse(),
   });
 
   // Faden und Unterstreichung beim Einfahren des Abschnitts

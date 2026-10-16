@@ -1,7 +1,8 @@
 ---
 /**
- * Finale (Blueprint L, Kurskorrektur 11. Oktober 2026): Rückzoom auf den Werkplan. Der zehnte Platz ist leer und trägt das erleuchtete Fenster
- * (aus dem Übergang 09 → Finale), darunter die Einladung „Neun Welten. Die zehnte gehört Ihnen.“. Der Kontakt liegt auf der Startseite.
+ * Finale (Blueprint L, Kurskorrektur 11. Oktober 2026, Nachbesserung 17. Oktober): Rückzoom auf den Werkplan. Die Szene beginnt mit dem NP-Logo,
+ * das der Übergang 09 → Finale aus den Linien der neun Welten gezeichnet hat; die Kamera fährt vom Logo (Mitte des Werkplans) zurück, bis alle neun
+ * Studien und der leere zehnte Platz sichtbar sind, darunter die Einladung „Neun Welten. Die zehnte gehört Ihnen.“. Der Kontakt liegt auf der Startseite.
  * Der echte Inhalt (Überschrift, Button) steht einmal im DOM; die Zellen sind reine Bühne (für Hilfstechnik verborgen).
  * Ruhig und ohne JavaScript: nur die Einladung.
  */
@@ -30,14 +31,14 @@ const slots = builtWorlds.length + 1;
             <span class="wp-frame wp-frame-open">
               <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Ihr Betrieb</span></span>
               <span class="wp-open">
-                <span class="f-window" data-f-window><span class="f-window-licht"></span><span class="f-window-steg f-window-steg-v"></span><span class="f-window-steg f-window-steg-h"></span><span class="f-window-rahmen"></span></span>
                 <span class="wp-open-text mono" data-f-empty>Ihr Betrieb<span class="f-cursor" data-f-cursor></span></span>
               </span>
             </span>
           </div>
         </div>
         <div class="f-center" aria-hidden="true" data-f-center>
-          <span class="f-logo" data-f-logo><Logo class="wp-center-logo" /></span>
+          <span class="f-center-chrome" data-f-chrome></span>
+          <span class="f-logo" data-f-logo><Logo class="wp-center-logo" variant="full" /></span>
         </div>
         <div class="f-invite" data-f-invite>
           <p class="kicker">{TEXT.nextWorld} · Ihr Betrieb</p>

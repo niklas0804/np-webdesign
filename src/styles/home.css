@@ -116,44 +116,42 @@ html[data-mode='desktop'] .warum-faden, html[data-mode='mobile'] .warum-faden { 
 .bk-tile svg { width: max(16px, 2.6cqw); height: max(16px, 2.6cqw); stroke: #2f6fdb; fill: none; stroke-width: 1.8; }
 .bk-foot { padding: 1.2cqw 3cqw; background: #2b2f36; color: #aeb4bf; font-size: max(9px, 1.3cqw); }
 
-/* Maßarbeit: der Einstieg von Halmberg. Fraunces erst kurz vor dem Abschnitt (src/motion/home/index.js setzt data-fonts) */
-@font-face { font-family: 'Fraunces Display NP'; src: url('/fonts/fraunces-01-display.woff2') format('woff2-variations'); font-weight: 650; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Fraunces Text NP'; src: url('/fonts/fraunces-01-text.woff2') format('woff2-variations'); font-weight: 400 600; font-style: normal; font-display: swap; }
-.vg-mass { --hm-serif: Georgia, 'Times New Roman', serif; --hm-serif-d: Georgia, 'Times New Roman', serif; }
-html[data-fonts~='fraunces'] .vg-mass, html:not([data-js]) .vg-mass { --hm-serif: 'Fraunces Text NP', Georgia, serif; --hm-serif-d: 'Fraunces Display NP', Georgia, serif; }
-.vg-mass { background: var(--ground); color: var(--text); font-family: var(--hm-serif); display: flex; flex-direction: column; padding: 3.6cqw 4.4cqw; text-align: left; }
-.hm-nav { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 1.6cqw; border-bottom: 1px solid color-mix(in srgb, var(--text) 28%, transparent); font-size: max(10px, 1.6cqw); }
-.hm-brand { font-family: var(--hm-serif-d); font-weight: 650; font-size: max(13px, 2.2cqw); letter-spacing: -.01em; }
-.hm-links { display: flex; gap: 2.4cqw; }
-.hm-body { flex: 1; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 3cqw; align-items: center; }
-.hm-kicker { font-size: max(10px, 1.5cqw); color: var(--accent); margin: 0; max-width: none; }
-.hm-title { font-family: var(--hm-serif-d); font-weight: 650; font-variation-settings: 'SOFT' 100; font-size: max(36px, 10.6cqw); line-height: .9; letter-spacing: -.015em; margin: 1cqw 0 .8cqw; max-width: none; }
-.hm-sub { font-family: var(--hm-serif-d); font-weight: 650; font-variation-settings: 'SOFT' 100; font-size: max(15px, 3.1cqw); line-height: 1.1; margin: 0; max-width: none; }
-.hm-hours { margin-top: 2.6cqw; font-size: max(11px, 1.7cqw); line-height: 1.35; }
-.hm-hours dt { font-weight: 600; } .hm-hours dd { margin: 0; }
-.hm-art { position: relative; display: grid; place-items: center; }
-.hm-loaf { width: 92%; height: auto; }
-.hm-loaf-body { fill: var(--accent2); stroke: var(--text); stroke-width: 2.4; }
-.hm-loaf-score { fill: none; stroke: var(--text); stroke-width: 3; stroke-linecap: round; opacity: .55; }
-.hm-bon { position: absolute; right: 1cqw; bottom: -1.2cqw; background: color-mix(in srgb, var(--ground) 25%, #fff); color: var(--text); padding: 1.4cqw 2cqw; transform: rotate(-3deg); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 18%, transparent); }
-.hm-bon-head { display: block; font-size: max(8px, 1.1cqw); color: var(--orange-text); text-transform: none; letter-spacing: .02em; }
-.hm-bon-nr { display: block; font-family: var(--hm-serif-d); font-weight: 650; font-size: max(18px, 4.2cqw); line-height: 1; }
+/* Maßarbeit: der Einstieg von Messingstuhl. Bodoni Moda erst kurz vor dem Abschnitt (src/motion/home/vergleich.js setzt data-fonts) */
+@font-face { font-family: 'Bodoni Moda NP'; src: url('/fonts/bodoni-02.woff2') format('woff2-variations'); font-weight: 400 700; font-style: normal; font-display: swap; }
+.vg-mass { --ms-serif: Didot, 'Bodoni 72', Georgia, 'Times New Roman', serif; }
+html[data-fonts~='bodoni'] .vg-mass, html:not([data-js]) .vg-mass { --ms-serif: 'Bodoni Moda NP', Didot, 'Bodoni 72', Georgia, serif; }
+.vg-mass { background: var(--ground); color: var(--text); font-family: var(--ms-serif); display: flex; flex-direction: column; padding: 3cqw 4cqw; text-align: center; }
+.ms-axis { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--accent); opacity: .35; }
+.ms-nav { position: relative; display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 1.4cqw; border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); font-size: max(9px, 1.4cqw); letter-spacing: .24em; text-transform: uppercase; background: var(--ground); }
+.ms-brand { font-weight: 600; font-size: max(10px, 1.7cqw); }
+.ms-links { display: flex; gap: 2.4cqw; color: var(--accent); }
+.ms-body { position: relative; flex: 1; display: grid; justify-items: center; align-content: space-evenly; gap: .6cqw; }
+.ms-kicker, .ms-title, .ms-ticket, .ms-wait, .ms-prices { background: var(--ground); }
+.ms-kicker { margin: 0; max-width: none; font-size: max(9px, 1.35cqw); letter-spacing: .32em; text-transform: uppercase; color: var(--accent); font-weight: 600; padding: 0 .6em; }
+.ms-title { margin: 0; max-width: none; font-size: max(24px, 6.2cqw); line-height: 1; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; font-variation-settings: 'opsz' 20; padding: 0 .2em 0 .4em; }
+.ms-ticket { width: 17cqw; min-width: 96px; background: var(--accent); color: var(--ground); display: grid; gap: .4cqw; padding: 1.4cqw 1.2cqw 0; text-align: center;
+  -webkit-mask: radial-gradient(circle 1.1cqw at 0 62%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 1.1cqw at 100% 62%, #0000 96%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle 1.1cqw at 0 62%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 1.1cqw at 100% 62%, #0000 96%, #000) right / 51% 100% no-repeat; }
+.ms-t-head { margin: 0; max-width: none; display: grid; font-size: max(7px, 1cqw); letter-spacing: .22em; text-transform: uppercase; font-weight: 600; }
+.ms-t-nr { margin: 0; max-width: none; font-size: max(30px, 7.4cqw); line-height: .95; font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
+.ms-t-foot { margin: .6cqw -1.2cqw 0; max-width: none; background: var(--accent2); color: var(--text); padding: .6cqw; font-size: max(7px, 1cqw); letter-spacing: .4em; text-transform: uppercase; }
+.ms-wait { margin: 0; max-width: none; font-size: max(10px, 1.6cqw); padding: 0 1em; color: var(--text); }
+.ms-prices { display: flex; gap: 6cqw; font-size: max(10px, 1.6cqw); letter-spacing: .04em; }
+.ms-prices div { display: flex; gap: 1.6cqw; align-items: baseline; }
+.ms-prices dd { margin: 0; color: var(--accent); font-weight: 600; font-family: Georgia, 'Times New Roman', serif; }
 @container (max-width: 560px) {
   .vg-mass { padding: 5cqw; }
-  .hm-body { grid-template-columns: 1fr; align-content: space-between; gap: 2cqw; }
-  .hm-title { font-size: max(38px, 14.5cqw); }
-  .hm-sub { font-size: max(16px, 5.4cqw); }
-  .hm-hours { margin-top: 3cqw; font-size: max(11px, 3.2cqw); }
-  .hm-kicker { font-size: max(10px, 2.8cqw); }
-  .hm-nav { font-size: max(10px, 3cqw); } .hm-brand { font-size: max(13px, 4cqw); }
-  .hm-loaf { width: 52%; margin-bottom: 4cqw; }
-  .hm-bon { right: 2cqw; bottom: 0; padding: 2.2cqw 3cqw; } .hm-bon-nr { font-size: max(18px, 6.6cqw); } .hm-bon-head { font-size: max(8px, 2.2cqw); }
+  .ms-nav { font-size: max(9px, 2.6cqw); } .ms-brand { font-size: max(10px, 3.2cqw); }
+  .ms-kicker { font-size: max(8px, 2.5cqw); letter-spacing: .2em; }
+  .ms-title { font-size: max(24px, 8.6cqw); letter-spacing: .14em; }
+  .ms-ticket { width: 34cqw; padding: 3cqw 2.4cqw 0; } .ms-t-head { font-size: max(7px, 2cqw); } .ms-t-nr { font-size: max(32px, 13cqw); } .ms-t-foot { font-size: max(7px, 2cqw); margin: 1cqw -2.4cqw 0; padding: 1cqw; }
+  .ms-wait { font-size: max(10px, 3.2cqw); } .ms-prices { gap: 4cqw; font-size: max(10px, 3cqw); flex-wrap: wrap; justify-content: center; }
   .bk-welcome { font-size: max(15px, 5cqw); } .bk-text, .bk-nav, .bk-tile, .bk-btn { font-size: max(10px, 2.8cqw); }
   .bk-stock { width: 80%; } .bk-hero { padding-inline: 8cqw; }
 }
 /* Positionen der Marken (Prozent der Fläche); schmal liegen die Merkmale anders */
 .vgb1 { left: 72%; top: 38%; } .vgb2 { left: 64%; top: 62%; } .vgb3 { left: 60%; top: 94%; } .vgb4 { left: 78%; top: 78%; }
-.vgm1 { left: 70%; top: 36%; } .vgm2 { left: 38%; top: 80%; } .vgm3 { left: 88%; top: 68%; } .vgm4 { left: 30%; top: 28%; } .vgm5 { left: 14%; top: 8%; }
+.vgm1 { left: 56%; top: 44%; } .vgm2 { left: 67%; top: 71%; } .vgm3 { left: 80%; top: 88%; } .vgm4 { left: 30%; top: 24%; } .vgm5 { left: 92%; top: 8%; }
 
 /* Anmerkungen als Liste */
 .vg-notes-h { margin: var(--s5) 0 var(--s2); color: var(--stein); }
@@ -232,7 +230,7 @@ html[data-mode='desktop'] .t-nb-wipe, html[data-mode='mobile'] .t-nb-wipe {
 .t-nb-diag { top: 0; height: 5px; margin-top: -2.5px; transform-origin: 0 50%; }
 @container (max-width: 560px) {
   .vgb1 { left: 84%; top: 27%; } .vgb2 { left: 90%; top: 40%; } .vgb3 { left: 56%; top: 95%; } .vgb4 { left: 92%; top: 82%; }
-  .vgm1 { left: 62%; top: 80%; } .vgm2 { left: 46%; top: 47%; } .vgm3 { left: 90%; top: 86%; } .vgm4 { left: 74%; top: 27%; } .vgm5 { left: 32%; top: 8%; }
+  .vgm1 { left: 66%; top: 46%; } .vgm2 { left: 84%; top: 67%; } .vgm3 { left: 88%; top: 86%; } .vgm4 { left: 18%; top: 25%; } .vgm5 { left: 92%; top: 7%; }
 }
 
 /* ======================= S4 · Was ich baue: der Musterkoffer ======================= */
@@ -306,7 +304,7 @@ html[data-mode='mobile'] .bsp-card { opacity: 0; }
   .zs-step { gap: var(--s2); }
   .zs-head { margin-bottom: var(--s9); }
 }
-@media (max-width: 1023px) { .zs-loop { transform: rotate(90deg); } }
+@media (max-width: 1023px) { .zs-loop { transform: rotate(90deg); } html[data-mode='mobile'] .zs-stage { padding-bottom: max(var(--block), 42svh); } }
 /* gepinnt (nur Desktop): Szene über die Pinlänge; mobil läuft der Faden senkrecht ohne Pin */
 html[data-mode='desktop'] .zs-track { min-height: calc(var(--len) * 1svh); }
 html[data-mode='desktop'] .zs-stage { position: sticky; top: 0; height: 100svh; padding-top: calc(var(--frame-top) + var(--s5)); padding-bottom: var(--s6); display: grid; align-content: center; }
@@ -316,7 +314,7 @@ html[data-mode='desktop'] .zs-thread-path, html[data-mode='mobile'] .zs-thread-p
 html[data-mode='desktop'] .zs-p, html[data-mode='mobile'] .zs-p { stroke-dashoffset: 1; }
 /* Abbilder im Übergang (P-Iris): Schlaufe fertig gezeichnet, ohne Positionierung der Bühne */
 .t-clone .zs-p { stroke-dashoffset: 0 !important; }
-.t-clone .zs-pic { position: static !important; left: auto !important; top: auto !important; margin: 0 !important; }
+.t-clone .zs-pic { background: none !important; position: static !important; left: auto !important; top: auto !important; margin: 0 !important; }
 html[data-mode='desktop'] .zs-step :is(.zs-nr, .zs-h, .zs-t), html[data-mode='mobile'] .zs-step :is(.zs-nr, .zs-h, .zs-t) { opacity: 0; transform: translateY(8px); }
 
 /* ======================= Übergang S5 → S6: P-Iris ======================= */

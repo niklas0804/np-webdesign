@@ -45,7 +45,7 @@ export function initZusammenarbeit() {
   ScrollTrigger.addEventListener('refresh', build);
 
   const update = (P) => {
-    const t = P / 0.8;
+    const t = P / (desktop ? 0.52 : 0.8); // Desktop: Der Faden ist nach gut der Hälfte der Pinlänge fertig, danach steht alles zum Lesen (kein Wegziehen vor dem Lesen)
     path.style.strokeDashoffset = String(1 - clamp(t));
     pics.forEach((p, i) => {
       const q = clamp((t - th[i]) / 0.12);

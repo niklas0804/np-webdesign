@@ -39,7 +39,8 @@ export function init() {
           trigger: scan, start: 'top 70%', end: 'bottom 55%', scrub: true,
           onUpdate: (self) => {
             const p = self.progress;
-            gsap.set(laser, { x: () => p * (bild.clientWidth - 3), autoAlpha: p > 0.01 && p < 0.99 ? 1 : 0 });
+            // Die Laserlinie blendet am Anfang und am Ende weich ein und aus (nur Deckkraft, kein harter Wechsel von visibility)
+            gsap.set(laser, { x: () => p * (bild.clientWidth - 3), opacity: Math.min(1, p / 0.06, (1 - p) / 0.06) });
             rows.forEach((r, i) => r.classList.toggle('is-on', p >= (i + 1) / (rows.length + 1)));
           },
         });

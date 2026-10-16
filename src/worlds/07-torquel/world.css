@@ -55,7 +55,7 @@
 .w07-scan-grid { display: grid; gap: var(--s7); align-items: start; }
 .w07-scan-bild { position: relative; overflow: clip; }
 .w07-laser { display: none; }
-html[data-js] .w07-laser { display: block; position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--accent); z-index: 2; transform: translateX(0); pointer-events: none; }
+html[data-js] .w07-laser { display: block; opacity: 0; position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--accent); z-index: 2; transform: translateX(0); pointer-events: none; }
 html[data-mode='desktop'] .w07-laser::before { content: ''; position: absolute; top: 0; bottom: 0; right: 100%; width: 90px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 26%, transparent)); }
 .w07-table { width: 100%; border-collapse: collapse; font-family: var(--w07-mono); font-size: .875rem; font-variant-numeric: tabular-nums; }
 .w07-table caption { text-align: left; font-size: var(--fs-mono-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--w07-soft); padding-bottom: var(--s3); }
@@ -77,7 +77,7 @@ html[data-js][data-mode='desktop'] .w07-table tbody tr:not(.is-on), html[data-js
 .w07-dreher-bild { position: relative; max-width: 860px; touch-action: pan-y; cursor: ew-resize; user-select: none; }
 .w07-winkel { position: absolute; right: var(--s4); bottom: var(--s4); display: flex; align-items: center; gap: var(--s3); background: var(--ground); border: 1px solid var(--w07-grid-major); padding: var(--s2) var(--s3); }
 .w07-winkel-kreis { position: relative; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--text); }
-.w07-winkel-zeiger { position: absolute; left: 50%; top: 50%; width: 2px; height: 12px; margin-left: -1px; margin-top: -12px; background: var(--accent); transform-origin: 50% 12px; transform: rotate(var(--w07-winkel, 0deg)); }
+.w07-winkel-zeiger { position: absolute; left: 50%; top: 50%; width: 2px; height: 12px; margin-left: -1px; margin-top: -12px; background: var(--accent); transform-origin: 50% 12px; transform: rotate(var(--w07-winkel, 0deg)); transition: transform var(--dur-m) var(--ease-out); }
 .w07-winkel-text { font-family: var(--w07-mono); font-size: var(--fs-mono-xs); letter-spacing: .06em; text-transform: uppercase; }
 html:not([data-js]) .w07-winkel, html:not([data-js]) .w07-dreher-bedien { display: none; }
 .w07-dreher-bedien { display: flex; align-items: center; gap: var(--s4); max-width: 860px; margin-top: var(--s4); }

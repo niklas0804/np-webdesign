@@ -124,12 +124,12 @@ export const TRANSITION_VARIANTS = {
   'welt-06>welt-07': 'messkreise', // Die Kreise der Farbkugel werden Messkreise einer Rundheitsmessung, die Laserlinie von TORQUEL tastet sie ab
   'welt-07>welt-08': 'messraster', // Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als Termin, Stahlschiefer wird Mint
   'welt-08>welt-09': 'wasser', // Das Bild des Weihers zoomt aus und wird zum See in der Abenddämmerung, Mint kippt in Dämmerungsviolett
-  'welt-09>finale': 'fensterplan', // Das erleuchtete Fenster schrumpft in den leeren zehnten Platz des Werkplans, die Kamera fährt zurück
+  'welt-09>finale': 'npzeichen', // Die Linien der neun Welten laufen zusammen und zeichnen das NP-Logo; von dort fährt die Kamera auf den Werkplan zurück
 };
 
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
 export const TRANSITION_DEFAULT = { desktop: 60, mobile: 40 };
-/** Längere Übergänge (Blueprint F): Weiher → See, Fenster → Werkplan */
+/** Längere Übergänge (Blueprint F): Weiher → See, Linien → NP-Logo */
 export const TRANSITION_LENGTH = {
   'welt-08>welt-09': { desktop: 80, mobile: 50 },
   'welt-09>finale': { desktop: 100, mobile: 80 },
@@ -143,7 +143,7 @@ export const journey = (() => {
   /** @type {any[]} */
   const seq = [
     // Werkplan-Szene: Der Werkplan steht von Anfang an (kein Hero, der gehört der Startseite), ruht kurz (plan) und t00 lässt die Zelle 01 wachsen (grow)
-    { id: 'opening', kind: 'opening', anchor: 'werkplan', expansion: { d: 0, m: 0 }, plan: { d: 70, m: 60 }, grow: { d: 60, m: 40 }, ground: MASTER.leinen, tone: 'light' },
+    { id: 'opening', kind: 'opening', anchor: 'werkplan', expansion: { d: 0, m: 0 }, plan: { d: 20, m: 15 }, grow: { d: 60, m: 40 }, ground: MASTER.leinen, tone: 'light' },
     { id: 'welt-01', kind: 'world', world: '01', d: 160, m: 140 },
     { id: 'welt-02', kind: 'world', world: '02', d: 140, m: 120 },
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
@@ -197,8 +197,8 @@ export const homeJourney = (() => {
     { id: 'start', kind: 'home', anchor: 'start', label: 'Start', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'warum', kind: 'home', anchor: 'warum', label: 'Warum', d: 250, m: 200, ground: MASTER.nacht, tone: 'dark' },
     { id: 'vergleich', kind: 'home', anchor: 'vergleich', label: 'Vergleich', d: 260, m: 240, ground: MASTER.leinen, tone: 'light' },
-    { id: 'beispiele', kind: 'home', anchor: 'beispiele', label: 'Beispiele', d: 210, m: 100, ground: MASTER.kalk, tone: 'light' },
-    { id: 'arbeitsweise', kind: 'home', anchor: 'arbeitsweise', label: 'Zusammenarbeit', d: 250, m: 100, ground: MASTER.leinen, tone: 'light' },
+    { id: 'beispiele', kind: 'home', anchor: 'beispiele', label: 'Beispiele', d: 180, m: 100, ground: MASTER.kalk, tone: 'light' },
+    { id: 'arbeitsweise', kind: 'home', anchor: 'arbeitsweise', label: 'Zusammenarbeit', d: 300, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'kontakt', kind: 'home', anchor: 'kontakt', label: 'Kontakt', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
     { id: 'faq', kind: 'home', anchor: 'faq', label: 'FAQ', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
   ];

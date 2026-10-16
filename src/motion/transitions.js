@@ -14,7 +14,7 @@
 import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 import { setTone, setSection } from './rahmen.js';
 import { docRect, viewRect, cloneOf, refreshClone, snapshot, lend } from './baton.js';
-import { windowAtStart } from './finale.js';
+import { logoAtStart } from './finale.js';
 
 /** 1 svh in Pixeln. Die Bühne selbst ist 100 lvh hoch (deckt auch bei eingefahrener Adressleiste), die Ränder rechnen mit svh. */
 let probe = null;
@@ -60,7 +60,7 @@ export function initTransitions() {
     const lent = [];
     const clones = []; // { shell, el, world, pristine }
     // Wann der Rahmen seine Farbe wechselt: Anteil des freien Fensters
-    const splitW = { nblende: 0.6, piris: 0.5, bon: 0.45, goldlinie: 0.5, stempel: 0.5, zierlinie: 0.5, scheinwerfer: 0.62, messkreise: 0.5, messraster: 0.45, wasser: 0.5, fensterplan: 0.5 }[variant] ?? 0.5;
+    const splitW = { nblende: 0.6, piris: 0.5, bon: 0.45, goldlinie: 0.5, stempel: 0.5, zierlinie: 0.5, scheinwerfer: 0.62, messkreise: 0.5, messraster: 0.45, wasser: 0.5, npzeichen: 0.5 }[variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -107,7 +107,7 @@ export function initTransitions() {
       dstRect: (e) => viewRect(e, tl.scrollTrigger.end),
       world: (s) => s?.dataset.world,
     };
-    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, fensterplan, nblende, piris }[variant];
+    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, npzeichen, nblende, piris }[variant];
     if (!(fn && fn(c))) {
       // Ohne Staffelstab: der Faden zeichnet eine Linie, dann wischt die neue Welt herein
       tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 40, ease: 'power2.out' }, 100)
@@ -402,25 +402,61 @@ function wasser(c) {
   return true;
 }
 
-/* ---------- t09 · Fenster → Werkplan (Welt 09 → Finale) ---------- */
+/* ---------- t09 · Linien der Welten → NP-Logo (Welt 09 → Finale) ---------- */
 /**
- * Das erleuchtete Fenster am Ende von Gut Weidenstein wird abgeholt und wächst auf die Größe, in der es im ersten Bild des Finales steht: im leeren
- * zehnten Platz des Werkplans, der die ganze Bühne füllt. Von dort fährt die Kamera zurück, bis der ganze Werkplan sichtbar ist (Finale).
- * Landung: genau auf das Fenster im ersten Bild des Finales.
+ * Neun Linien in den Akzentfarben der neun Welten laufen von beiden Seiten zusammen und zeichnen das NP-Zeichen samt Balken (Schrägstrich, N in drei Strichen,
+ * P in vier Strichen, Balken). Der Dämmerungsgrund wird Kalk, die Linien werden Markenfarben, dann geht die Zeichnung in das echte Logo über.
+ * Landung: genau auf das Logo im ersten Bild des Finales (dort beginnt der Rückzoom auf den Werkplan).
  */
-function fensterplan(c) {
-  const src = $('.w09-fenster', c.fromSec);
-  const dstEl = $('.f-window', c.toSec);
-  if (!src || !dstEl) return false;
-  c.lent.push(src, dstEl);
-  const sr = () => c.srcRect(src); const dr = () => windowAtStart() || c.dstRect(dstEl);
-  const win = put(c, c.clone(src, '09'));
-  const { tl, A } = c; const E = c.E(); const len = c.len();
-  const mid = () => Math.min(c.vw() * 0.5, c.vh() * 0.46, 300) / sr().w;
-  tl.fromTo(win, { x: () => sr().cx, y: () => sr().cy, scale: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: mid, duration: 85, ease: 'power2.inOut', immediateRender: true }, 8)
-    // das Fenster wächst, bis es so groß ist wie im ersten Bild des Finales
-    .fromTo(win, { x: () => center(c).x, y: () => center(c).y, scale: mid }, { scale: () => dr().w / sr().w, x: () => dr().cx, y: () => dr().cy, duration: len * 0.7 + 100, ease: 'power2.inOut', ...NI }, A + len * 0.2);
-  // Der Grund bleibt Dämmerung: Welt 09 und der zehnte Platz haben dieselbe Farbe
+const NS = 'http://www.w3.org/2000/svg';
+const NP_STRICHE = [ // Mittellinien im Koordinatensystem der Logo-Zeichnung (viewBox 0 1 107.4 92), Strichstärke siehe unten
+  { d: 'M7.15 56.28 L27.65 1.76', w: 6, final: '#E8601C' }, // Schrägstrich
+  { d: 'M50.17 49.9 V7.56', w: 5.4, final: 'currentColor' }, // N, linkes Bein
+  { d: 'M50.4 9.2 L69.4 48.2', w: 5.6, final: 'currentColor' }, // N, Diagonale
+  { d: 'M69.65 49.9 V7.56', w: 5.4, final: 'currentColor' }, // N, rechtes Bein
+  { d: 'M82.93 49.9 V7.56', w: 5.75, final: 'currentColor' }, // P, Schaft
+  { d: 'M82.93 10.1 H93.8', w: 5.1, final: 'currentColor' }, // P, oben
+  { d: 'M93.8 10.1 A10.1 10.1 0 0 1 93.8 30.3', w: 5.1, final: 'currentColor' }, // P, Bauch
+  { d: 'M93.8 30.3 H82.93', w: 5.1, final: 'currentColor' }, // P, unten
+  { d: 'M0 70.5 H107.4', w: 5, final: '#E8601C' }, // Balken
+];
+function npzeichen(c) {
+  const real = $('[data-f-logo] svg', c.toSec);
+  if (!real || !logoAtStart()) return false;
+  const colors = (c.sec.dataset.colors || '').split(',').filter(Boolean);
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 1 107.4 92'); svg.setAttribute('class', 't-np'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
+  const paths = NP_STRICHE.map((st, i) => {
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', st.d); p.setAttribute('pathLength', '1'); p.setAttribute('fill', 'none');
+    p.style.strokeWidth = String(st.w);
+    p.style.stroke = colors[i] || '#C9A24A';
+    svg.append(p);
+    return p;
+  });
+  const copy = real.cloneNode(true); copy.setAttribute('class', 't-np-real');
+  c.stage.append(copy, svg);
+  const geom = () => {
+    const r = logoAtStart(); if (!r) return;
+    [svg, copy].forEach((e) => { e.style.left = `${r.x}px`; e.style.top = `${r.y}px`; e.style.width = `${r.w}px`; e.style.height = `${r.h}px`; });
+  };
+  geom();
+  ScrollTrigger.addEventListener('refresh', geom);
+  const { tl, A } = c; const len = c.len();
+  // Die Striche laufen von beiden Seiten zusammen (abwechselnd links und rechts) und zeichnen sich dabei
+  paths.forEach((p, i) => {
+    const side = i % 2 ? 1 : -1;
+    tl.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1, x: side * 70 }, { strokeDashoffset: 0, x: 0, duration: len * 0.3, ease: 'power2.out', immediateRender: true }, A - 30 + i * len * 0.05);
+  });
+  // Grund: Dämmerung → Kalk (Grundfarbe des ersten Bildes im Finale), die Striche werden Markenfarben
+  tl.fromTo(c.stage, { backgroundColor: c.from }, { backgroundColor: '#FBF8F5', duration: len * 0.35, ease: 'none', immediateRender: true }, A + len * 0.3);
+  paths.forEach((p, i) => {
+    const fin = NP_STRICHE[i].final === 'currentColor' ? '#1C1712' : NP_STRICHE[i].final;
+    tl.fromTo(p, { stroke: colors[i] || '#C9A24A' }, { stroke: fin, duration: len * 0.3, ease: 'none', ...NI }, A + len * 0.4);
+  });
+  // Das echte Logo löst die Zeichnung ab (gleiche Lage und Größe wie im ersten Bild des Finales)
+  tl.fromTo(copy, { opacity: 0 }, { opacity: 1, duration: len * 0.18, ease: 'none', immediateRender: true }, A + len * 0.72)
+    .fromTo(svg, { opacity: 1 }, { opacity: 0, duration: len * 0.18, ease: 'none', ...NI }, A + len * 0.72);
   return true;
 }
 

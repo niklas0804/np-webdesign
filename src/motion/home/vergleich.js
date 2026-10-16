@@ -2,7 +2,7 @@
  * S3 · Gleicher Betrieb. Zwei Websites. Der orange Faden ist die Trennlinie: Er wandert scrollgesteuert und deckt die Seite „Maßarbeit“ auf
  * (Desktop von rechts nach links, mobil von oben nach unten). Kreuzt er ein Merkmal, setzt die Maßschicht dort eine nummerierte Marke;
  * die Anmerkung steht als Liste im Dokument. Nach dem Pin lässt sich die Linie ziehen: Maus, Touch (Regler) und Tastatur (echtes <input type="range">).
- * Ruhig und ohne Pin: beide Fassungen untereinander, alle Marken stehen, die Liste darunter (nur CSS, hier nur das Laden von Fraunces).
+ * Ruhig und ohne Pin: beide Fassungen untereinander, alle Marken stehen, die Liste darunter (nur CSS, hier nur das Laden von Bodoni Moda).
  */
 import { gsap, ScrollTrigger, $, $$, root, mode } from '../base.js';
 
@@ -12,8 +12,8 @@ export function initVergleich() {
   const sec = $('[data-vergleich]');
   if (!sec) return;
 
-  // Fraunces erst kurz bevor der Abschnitt erreicht wird (Budget: erster Bildschirm ≤ 350 KB)
-  ScrollTrigger.create({ trigger: sec, start: 'top bottom+=120%', once: true, onEnter: () => { root.dataset.fonts = `${root.dataset.fonts || ''} fraunces`.trim(); } });
+  // Bodoni Moda (Maßarbeit-Seite) erst kurz bevor der Abschnitt erreicht wird (Budget: erster Bildschirm ≤ 350 KB)
+  ScrollTrigger.create({ trigger: sec, start: 'top bottom+=120%', once: true, onEnter: () => { root.dataset.fonts = `${root.dataset.fonts || ''} bodoni`.trim(); } });
 
   const pinned = mode === 'desktop' || mode === 'mobile';
   const markersAll = $$('.vg-marker', sec);
