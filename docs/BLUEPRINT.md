@@ -19,6 +19,24 @@ Sep 30, 2026 · @Niklas Prüfling
 
 Die Abschnitte B, E, F, G, H, I, J, K, L, M und T unten sind in diesem Sinn zu lesen; die Beschreibung der Welt 10 (Abschnitt F) und der drei Zwischenspiele bleibt als Verlauf stehen und wird nicht mehr gebaut.
 
+### Die neue Startseite „Maßarbeit“ (Teil C, Oktober 2026)
+
+Die Startseite `/` verkauft; die Welten wohnen auf `/welten`. Leitidee „Maßarbeit“, wörtlich genommen: Die Seite misst, konstruiert und setzt sich vor den Augen des Besuchers zusammen. Der orange Faden ist das Werkzeug durch alle Abschnitte und beginnt in jedem dort, wo er im vorigen endete (gleiche x-Position an der Abschnittsgrenze, `--fx` in `src/styles/home.css`).
+
+| Nr. | Abschnitt | Grund | Signatur-Moment |
+| --- | --- | --- | --- |
+| S1 | Hero | Leinen | Logo-Konstruktion in 1,6 s per CSS; die Maßschicht bemaßt die H1-Zeilen mit **live gemessenen** Breiten |
+| S2 | Warum | Nacht | Drei Sätze gepinnt, jede Zeile auf Breite gesetzt (Archivo-Breitenachse); die Maßschicht bemaßt einzelne Wörter, die vier Schnittmarken rahmen den Satz |
+| S2 → S3 | N-Blende | | Der Faden ist das linke Bein eines N; die Diagonale wischt von Nacht zu Leinen, das rechte Bein wird die Trennlinie von S3 |
+| S3 | Vergleich | Leinen | „Gleicher Betrieb. Zwei Websites.“: Browserrahmen mit der Studie Halmberg als Baukasten und als Maßarbeit, der Faden als Trennlinie, echtes `input type="range"` |
+| S4 | Was ich baue | Kalk | Der Musterkoffer: neun Vorschaukarten als gefächerter Stapel, beim Scrollen ausgeteilt ins 3 × 3-Raster, Schnittmarken-Zucken |
+| S5 | Zusammenarbeit | Leinen | Der Faden zeichnet sechs Stationen, jede mit selbstzeichnendem Linien-Piktogramm; am Ende die Schlaufe (Betreuung) |
+| S5 → S6 | P-Iris | | Die Schlaufe wird der Bauch eines P, daraus öffnet sich die Iris in Kalk |
+| S6 | Kontakt | Kalk | Formular wie bisher; die Live-Vorschau konstruiert aus dem eingetippten Firmennamen eine Mini-Startseite (Hilfslinien, Satz auf Breite, Faden-Unterstreichung, Schnittmarken) |
+| S7 | FAQ und Footer | Kalk, Nacht | ruhig, ohne Inszenierung |
+
+Rahmen auf der Startseite: kein Weltzähler, Lineal mit den Abschnitten S1–S6 (Desktop, Name beim Hover), 2-px-Fortschritt (Mobil), Anfrage-Button immer erreichbar. Drei Betriebsarten: Desktop voll (Pins), Mobil mit eigener Regie (kürzere Pins, S3 senkrecht, S4 zweispaltig, S5 senkrecht ohne Pin), ruhig und ohne JavaScript vollständig. Die Startseite lädt nur ihre eigenen Module (`src/motion/home/`).
+
 ## Vorbemerkung: Referenz, Ausgangslage, Kurskorrekturen
 
 Dieses Konzept beschreibt den großen Relaunch von np-webdesign.de: eine durchgehende Scroll-Reise durch zehn Website-Welten. Gebaut ist sie für die Unternehmen, die NP Webdesign tatsächlich gewinnen will. Es baut auf dem Strategie-Audit und dem Sonnet-Master-Prompt vom 11.09.2026 auf und ersetzt deren Designteil.
