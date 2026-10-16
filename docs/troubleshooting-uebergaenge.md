@@ -123,7 +123,7 @@ Inhalten, kein Raum zwischen ihnen.
    beim Aufwärtsscrollen kommt sie zurück. `rahmen.js` setzt `--strip` bei jedem Abschnittswechsel (auch in der Mitte eines Übergangs, wo der Rahmen die Farbe wechselt).
 5. **Finale → Kontakt**: kein eigener Übergang mehr.
 
-Was Teil A **nicht** tut: die inhaltliche Neugestaltung der einzelnen Übergänge (Staffelstab als echtes Element per Flip, neue Nachbarn). Das ist Teil B.
+Was Teil A **nicht** tat: die inhaltliche Neugestaltung der einzelnen Übergänge (Staffelstab als echtes Element, neue Nachbarn). Das ist in Teil B geschehen, siehe Abschnitt 9.
 Die bestehenden Szenen laufen in der neuen Geometrie unverändert weiter, nur über einen längeren Bereich.
 
 ## 5 · Das Prüfwerkzeug
@@ -203,3 +203,39 @@ Kontaktbögen (im Ordner `docs/screens/check/`):
 - **Kopfzeilen-Fläche.** Beim Übergang ändert sich der Grund der Bühne stufenlos; die Fläche der Kopfzeile (und am Desktop das Zähler-Etikett) hat in dieser Zeit die Farbe der alten oder
   neuen Welt (Wechsel in der Mitte der Szene). Das ist sichtbar, wenn man mitten im Übergang aufwärts scrollt. Bewusste Entscheidung („Lesbarkeit geht vor“), aber ein Kompromiss.
 - **Long Tasks** siehe oben, Ziel nicht erreicht.
+
+## 9 · Teil B (16. Oktober 2026): Staffelstab-Technik, neun Übergänge, Prüfung von /welten
+
+**Technik.** Das Objekt der Übergabe ist ein echtes Element der alten Welt (`src/motion/baton.js`):
+1. Beim Laden wird von Quelle und Ziel ein unverändertes Abbild aufbewahrt (`snapshotBatons()`, bevor die Weltmodule laufen).
+2. Im Übergang wird das Abbild in eine feste, null Pixel hohe Ebene (`.t-baton`, `z-index: 2`) über den Welten gehoben. Es steht in einer Hülle mit den Klassen der Welt (`world wNN`), damit Schrift und Farben stimmen; Vorfahren innerhalb der Welt bleiben als `display: contents` erhalten, damit Selektoren wie `.w07-raster i` greifen.
+3. Position und Größe von Quelle und Ziel werden gemessen (`docRect`: Offset-Kette, ohne Transformationen; `viewRect` für den Scrollstand am Ende der Szene). Das Abbild fährt von der Quelle zum Ziel.
+4. Solange der Übergang aktiv ist, sind das echte Original und das echte Gegenstück per `[data-lent]` unsichtbar (`visibility: hidden`). Nach der Landung liegt das Gegenstück auf derselben Stelle in derselben Farbe: kein Sprung.
+
+**Die neun Übergänge** (`TRANSITION_VARIANTS`): 01→02 Bon wird Wartemarke, 02→03 Goldlinie wird Maßlinie, 03→04 Prüfstempel wird rote Linie (neu), 04→05 Zierlinie, 05→06 Scheinwerfer wird Farbkugel, 06→07 Kreise werden Messkreise, TORQUEL-Laser tastet sie ab (neu), 07→08 Messraster wird Kalender, 08→09 Wasser, 09→Finale Fenster schrumpft in den zehnten Platz des Werkplans, die Kamera fährt zurück (neu). Davor t00: Die Zelle von Welt 01 wächst auf Viewport-Größe.
+
+**GSAP-Regeln, die dabei gelten** (aus Fehlern gelernt):
+- Spätere Segmente immer als `fromTo` mit ausdrücklichen Startwerten und `immediateRender: false` (`NI`), nie als zweites `.to()` auf dieselben Eigenschaften.
+- Der Anfangszustand jeder später veränderten Eigenschaft wird durch einen `immediateRender`-Tween bei Zeit 0 festgelegt (sonst bleibt ein Objekt unsichtbar oder steht falsch).
+- Mit `invalidateOnRefresh` rendert ScrollTrigger nur ausdrückliche `immediateRender`-Tweens neu; deshalb gibt es in Opening, Finale und Übergängen ein `onRefresh`, das die Zeitleiste einmal ganz durchspielt und auf den alten Fortschritt zurücksetzt.
+- Abbilder müssen bei jedem Refresh neu aufgebaut werden (`refreshClone`), sonst bleiben Größe und Zustand vom Laden stehen (falsche Ticketnummer, falsche Höhe).
+
+**Prüfwerkzeug, Änderungen.** Schwellen neu kalibriert: leer ist ein Bild mit σ < 6 **oder** mindestens 99,7 % einer Farbe (vorher σ < 3 und 98,5 %, in der Zwischenzeit 10 und 99,5 %). Grund: Zwei Bilder, die nur aus einem gleich hellen Pfirsichkreis auf mittelgrauem Grund oder aus einer 14-px-Linie bestanden, galten als „nicht leer“; sie sind es für das Auge fast. Statt die Schwelle zu lockern, habe ich die Übergangsobjekte kräftiger gemacht (dickere Balken, Schatten am Kreisrand, gehaltene Kreisgröße, engere Kopfzone in Welt 06). Opake Rahmenelemente (`.frame-strip`) gelten als Maske für den Überdeckungstest. Optionen: `--path --section --step --no-fast --no-back --perf --only-perf --out --dist --label --view --blank-std --blank-dom --diff`.
+
+**Ergebnis auf `/welten`** (alle Übergänge, 5 % Schritte, vorwärts, rückwärts, schnelles Wischen; Build vom 16. Oktober):
+
+| Ansicht | Leerstrecken in Übergängen | Überdeckungen | Zähler falsch | Hin ≠ Rück | Schnelles Wischen (leer / Überdeckung / Abweichung) |
+| --- | --- | --- | --- | --- | --- |
+| 390 × 844 | 0 | 0 | 0 | 0 | 0 / 0 / 0 (62 Stopps) |
+| 375 × 667 | 0 | 0 | 0 | 0 | 0 / 0 / 0 (75 Stopps) |
+| 1440 × 900 | 0 (drei Einzelbilder ≤ 0,1 Bildschirmhöhe: Bon, Zierlinie, Messraster) | 0 | 0 | 0 | 0 / 0 / 0 (66 Stopps) |
+
+Der Rest aus Teil A bei 375 × 667 (13,6 σ im Bon beim schnellen Wischen) tritt im neu gebauten Bon-Übergang nicht mehr auf.
+
+**Gefunden und behoben in Teil B:**
+- Klassenkollision in Welt 06: Die Kreise des Staffelstabs hießen `.w06-kreise` wie die Prozessliste der Welt. Die Liste wurde auf 150–210 px zusammengedrückt (3 px seitlicher Überlauf bei 320 px, vom check-site gefunden), und der Übergang suchte zuerst die Liste. Der Staffelstab heißt jetzt `.w06-messkreise`.
+- Die H1 von `/welten` lag im Werkplan, der nach dem Wegscrollen `inert` wurde; damit verschwand sie aus dem Accessibility-Tree (axe: `page-has-heading-one`). Jetzt werden nur Zellen und Statement `inert`.
+- Landmarken: Der Rahmen ist ein `<header>`, die Sprungmarken sind ein `<nav>`, die Anfrageleiste eine benannte Region.
+- Zwischenzustände von Welt 01 → Opening: Der Opening-Abschnitt ist 100 svh länger, damit zwischen Zelle und Welt 01 keine einfarbige Phase entsteht.
+
+**Nicht erreicht oder nicht geprüft** (unverändert zu Abschnitt 8): echte Geräte, Lighthouse, Long Tasks > 50 ms. Alle Zahlen der Teile A und B sind Headless-Chromium. Die Zahlen aus Teil A wurden mit den damaligen, strengeren Leer-Schwellen gemessen und sind mit denen aus Teil B nicht eins zu eins vergleichbar.
