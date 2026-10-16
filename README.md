@@ -27,10 +27,11 @@ npm run build && NODE_PATH=$(npm root -g) node scripts/render-previews.cjs
 | --- | --- |
 | `src/config/journey.js` | **Einzige Quelle** für Reihenfolge, Längen (vh), Paletten, Welten, Claim-Texte. Aktuelle Bauphase: `PHASE` |
 | `src/config/site.js` | Kontakt, Pakete und Preise (einzige Preisstelle), FAQ, Arbeitsweise, sichtbare Platzhalter |
+| `src/pages/` | `index.astro` (Startseite, vorläufig bis Teil C), `welten.astro` (Werkplan → Welten 01–09 → Finale), `leistungen`, Branchenseiten, `impressum`, `datenschutz`, 404 |
 | `src/pages/journey.css.js` | erzeugt `/journey.css` aus der Konfiguration (Längen, Paletten) |
 | `src/content/branchen.js` | Texte der Branchenseiten (aus den Beispielkonzepten Friseur & Barber, Handwerker, Beratung & Coaching), Vorlage `src/pages/branchenloesungen/[slug].astro` |
-| `src/components/` | Rahmen, Menü, Opening, Werkplan, Übergang, Zwischenspiele, Finale, Kontakt, FAQ, Footer |
-| `src/motion/` | GSAP-Module: Grundgerüst/Modi, Rahmen, Opening-Szene, Übergänge, Zwischenspiele, Satz nach Maß, Menü |
+| `src/components/` | Rahmen, Menü, Opening (Werkplan-Szene), Werkplan, Übergang, Finale, Kontakt, FAQ, Footer; vorläufig Kopf der Startseite, Warum, Arbeitsweise; abgeschaltet: Über mich |
+| `src/motion/` | GSAP-Module: Grundgerüst/Modi, Rahmen, Opening (t00), Übergänge, Staffelstab-Technik (`baton.js`), Finale, Satz nach Maß, Menü |
 | `src/styles/` | Tokens, Grundstile, Rahmen, Opening, Sektionen, Unterseiten |
 | `public/mode-init.js` | setzt vor dem ersten Paint `data-js` und `data-mode` (`desktop`, `mobile`, `calm`) |
 
@@ -49,41 +50,39 @@ Ohne JavaScript und im Modus `calm` gibt es keine Pins: eine lange, ruhige Seite
 
 ## Welten
 
-Jede Welt ist ein Modul unter `src/worlds/<nr>-<name>/` (Markup, CSS, Bewegung, Daten). Nicht gebaute Welten zeigen `WorldStub`.
-Das Bewegungsmodul einer Welt lädt erst 1,5 Bildschirmhöhen vor der Welt (`src/motion/index.js`, `WORLD_MODULES`).
+Neun Welten (Stand Kurskorrektur 11. Oktober 2026: NP Labor entfällt, die Welten wohnen auf `/welten`). Jede Welt ist ein Modul unter `src/worlds/<nr>-<name>/` (Markup, CSS, Bewegung, Daten).
+Die Bewegungsmodule sind klein (1–3 KB) und werden beim Start in Dokumentreihenfolge geladen und eingerichtet (`src/motion/index.js`, `WORLD_MODULES`); es gibt genau einen `ScrollTrigger.refresh()`, nie mehr während des Scrollens.
 
-| Welt | Stand |
+| Welt | Stand und Übergänge |
 | --- | --- |
-| 01 Halmberg | gebaut (Studie, Demo-Daten); Eingangs-Übergang t00 läuft auf der Opening-Bühne |
-| 02 Messingstuhl | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t01 (Bon wird Wartemarke) |
-| 03 Wittgenfeld Bau | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang t02 (Goldlinie wird Maßlinie); Planblätter Grundriss/Schnitt/Ansicht, Schnitt baut sich beim Scrollen auf, Bauteil-Explosion mit Tastaturbedienung |
-| 04 Haas & Sternfeld | gebaut nach Blueprint (Phase 2, Welt 1 von 3); Eingangs-Übergang N-Blende (Warum → 04, „Kein Zufall.“ wird „Nichts dem Zufall überlassen.“); Zeitungs-Satzspiegel mit dreispaltigem Leitartikel, Initiale, Fußnoten als Marginalien (Tastatur und Touch), Themenregister, Bildplatzhalter |
-| 05 Chromwerk | gebaut nach Blueprint (Phase 2, Welt 2 von 3); Eingangs-Übergang Zierlinie (rote Linie wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird Racing Green, Pfad-Morph ohne Plugin); Querfahrt (Desktop gepinnt, Lichtreflex, Neigung bis 4°; mobil wischbare Leiste), Datenblatt, Ablauf in Kapiteln, Vorher-Nachher-Regler (Maus, Touch, Pfeiltasten); alle Fotos als Bildplatzhalter |
-| 06 Jana Ahrens | gebaut als Entwurf nach Blueprint (Demo-Code liegt nicht vor); Eingangs-Übergang Scheinwerfer (Ring, warmes Glas, wächst zur Farbkugel), Ausgang Kreise → Linie mit sechs Stationen; Kugel atmet mit dem Scrollen, „Drei Fragen“ färben sie (Demo, nichts gespeichert), Haltungssätze statt Kundenstimmen, Erstgespräch in zwei Klicks (Demo) |
-| 07 TORQUEL | gebaut nach Blueprint (Name in der Blueprint: NAABTEC); Eingangs-Übergang Strahl (Prozessstrahl glüht auf, wird Laserlinie, Grund wird Stahlschiefer); Kennzahlen zählen hoch, Laserlinie scannt und das Messprotokoll mit Toleranzanzeige entsteht dahinter, Bauteil drehen (12 Ansichten, mobil 6, als Bildplatzhalter), Anfrage für Zeichnungen (Demo) |
-| 08 Praxis am Weiher | gebaut nach Blueprint; Eingangs-Übergang Messraster → Kalender (Zellen ordnen sich, eine leuchtet als Termin), Atkinson Hyperlegible Next, Buchung in drei Schritten per Tastatur (Demo), Schalter „Große Schrift“ und „Hoher Kontrast“ nur in der Welt, Bewegung nur kurze Einblendungen |
-| 09 Gut Weidenstein | gebaut nach Blueprint; Eingangs-Übergang Wasser (80/50 vh: Weiher-Platzhalter zoomt aus und wird zum See, Mint kippt in Dämmerungsviolett), Ausgang Fenster (erleuchtetes Fenster wächst und wird zum Rahmen des Porträts); gepinnte Überblendung dreier Seebilder mit abkühlender Farbschicht, Speisekarte Mittag/Abend als Reiter, fixierte Buchungsleiste (Demo), Cormorant |
-| 10 NP Labor | gebaut nach Blueprint; Eingangs-Übergang Ausziehen (Zwischenspiel III verliert in vier Stufen Farben, Schrift, Abstände, Layout), Ausgang Rohbau (Rohlinks werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan); erst ungestyltes HTML (`all: revert`, Times, Arial, Courier, 0 KB), Rohbau-Schalter für das Gerüst der Welt 01 mit sichtbaren Tag-Etiketten, Bruch mit Überlagerung, 90°-Drehung und Riesenschrift (Breitenachse folgt der Scrollgeschwindigkeit, Elemente rasten ins 8-px-Raster), am Ende wird der blaue Standardlink orange; das einzige Bild fehlt absichtlich |
+| 01 Halmberg | gebaut (Studie, Demo-Daten). Davor t00: Die Zelle im Werkplan wächst auf Viewport-Größe. Ausgang: Der Bon „Nr. 07“ wird abgeholt (t01) |
+| 02 Messingstuhl | gebaut als Entwurf nach Blueprint. Eingang: der Bon wird zur goldenen Wartemarke. Ausgang: die Messingschiene am Ende wird zur Maßlinie (t02) |
+| 03 Wittgenfeld Bau | gebaut als Entwurf nach Blueprint. Eingang: Maßlinie im Kopf. Ausgang: der rote Prüfvermerk am Ende wird gesetzt und zur roten Linie der Kanzlei (neu) |
+| 04 Haas & Sternfeld | gebaut nach Blueprint. Eingang: rote Linie unter der Schlagzeile. Ausgang: die rote Schlusslinie wird zur Zierlinie von Chromwerk |
+| 05 Chromwerk | gebaut nach Blueprint (Querfahrt, Datenblatt, Vorher/Nachher). Eingang: Zierlinie im Kopf. Ausgang: der Scheinwerfer am Ende glüht auf |
+| 06 Jana Ahrens | gebaut als Entwurf nach Blueprint. Eingang: der Scheinwerfer wird zur Farbkugel. Ausgang: die Kreise der Kugel werden zu Messkreisen (neu) |
+| 07 TORQUEL | gebaut nach Blueprint. Eingang: Messkreise im Kopf, die Laserlinie tastet sie ab (neu). Ausgang: die 35 Zellen des Messrasters ordnen sich zum Kalender |
+| 08 Praxis am Weiher | gebaut nach Blueprint (Atkinson Hyperlegible Next, Buchung per Tastatur). Eingang: Kalender im Kopf, jede Zelle landet auf ihrer Zelle. Ausgang: das Weiherbild zoomt aus und wird zum See |
+| 09 Gut Weidenstein | gebaut nach Blueprint (die langsamste Welt). Eingang: See im Kopf. Ausgang: das erleuchtete Fenster am Ende wächst zum Fenster im zehnten Platz des Werkplans (Finale, neu) |
 
 Weltschriften werden auf die benutzten Zeichen reduziert: `scripts/subset-fraunces.py` (Welt 01, zwei Dateien, 29,2 KB), `scripts/subset-bodoni.py` (Welt 02, eine Datei, 20,5 KB), `scripts/subset-barlow.py` (Welt 03, zwei Dateien, 15 KB), `scripts/subset-figtree-geist.py` (Welt 06 Figtree 9,9 KB, Welt 07 Geist 11,5 KB plus Geist Mono 8 KB, Welt 08 Atkinson 11,4 KB, Welt 09 Cormorant 17,7 KB), `scripts/subset-michroma.py` (Welt 05, eine Datei, 4,3 KB, nur Versalien) und `scripts/subset-newsreader.py` (Welt 04, zwei Dateien, 30,6 KB: Display opsz 72 / 500 und Text opsz 16 / 400–600; eine Datei mit beiden Achsen wäre 47 KB groß, Kapitälchen entstehen im Browser, weil die Schrift keine echten mitbringt).
-Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/finale.css`) ist eine gepinnte Bühne mit Zoom, Einladung und Sprung in den Kontakt; ruhig und ohne JavaScript bleibt nur die Einladung. Seine Länge steht in `journey.js` (200/140 vh statt 120/100 im Blueprint, weil Rückzoom und Sprung dazukommen).
-Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`.
+Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/finale.css`) ist eine gepinnte Bühne: Der zehnte Platz „Ihr Betrieb“ füllt sie mit dem erleuchteten Fenster, die Kamera fährt auf den ganzen Werkplan zurück, die Einladung „Neun Welten. Die zehnte gehört Ihnen.“ erscheint; der Knopf führt zum Kontakt auf der Startseite. Ruhig und ohne JavaScript bleibt nur die Einladung. Seine Länge steht in `journey.js` (200/140 vh statt 120/100 im Blueprint, weil Rückzoom und Sprung dazukommen).
+Übergänge mit eigenem Staffelstab stehen in `TRANSITION_VARIANTS` (`src/config/journey.js`), die Szenen in `src/motion/transitions.js`, die Technik (Abbild echter Elemente, Landung auf dem Gegenstück) in `src/motion/baton.js`. Aufbau, Messungen und Gründe: `docs/troubleshooting-uebergaenge.md`. Prüfwerkzeug: `tools/check-transitions.cjs`.
 
-## Stand (Phase 1)
+## Stand (Teil B der Kurskorrektur vom 11. Oktober 2026)
 
-Gebaut: Reise-Konfiguration, Tokens, Rahmen, Menü, Opening mit Rückzoom und Werkplan, Eingangs-Übergänge t00 bis t03 (t03: Prüfstempel wird NP-Siegel, P-Iris), Welten 01 bis 03,
-Standard-Übergänge, Zwischenspiele I–III, Finale mit Rückzoom auf den Werkplan, leerem Zentrum und Sprung in den Kontakt, letzte Welt mit Kontaktformular und Live-Vorschau, FAQ, Footer, `/leistungen`, `/impressum`,
-`/datenschutz`, 404, vier Branchenseiten (Bäckerei, Friseur & Barber, Handwerker, Beratung & Coaching), Ruhig-Modus, Betrieb ohne JavaScript, Logo (SVG), Hostinger-Partner-Badge (selbst gehostet), Porträt.
-
-Noch offen: Einwilligungsbanner mit Matomo, Social-Vorschaubilder, Welten 04–10,
-Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, Freigabe des Werdegang-Textes.
+- `/welten`: Werkplan (4 × 3, Zentrum über zwei Spalten, zehnter Platz „Ihr Betrieb“) → Welten 01–09 mit Übergängen → Finale. Titel „Neun Welten · Studien von NP Webdesign“, indexiert, Sitemap.
+- `/`: **vorläufige** Startseite (Kopf, Warum, Arbeitsweise, Kontakt, FAQ). Teil C ersetzt sie durch die neue Startseite.
+- Übergänge: Bühne unter den Welten, Staffelstab als Abbild eines echten Elements der alten Welt, Landung auf dem Gegenstück der neuen Welt (neun Übergänge, drei neu: Stempel → rote Linie, Messkreise mit Laser, Fenster → Werkplan).
+- Entfernt: NP Labor (Welt 10), Zwischenspiele auf `/welten`, Übergänge `ausziehen` und `rohbau`. „Über mich“ ist per Schalter in `src/config/site.js` aus, das Porträt liegt geparkt in `assets-parked/` und wird nicht ausgeliefert.
+- Noch offen: Teil C (neue Startseite), Teil D (Abnahme, Übergabe), Einwilligungsbanner mit Matomo (erst nach rechtlicher Klärung), Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, 21 Fotos (`docs/fotoliste.md`).
 
 ## Rechtliche Prüfung
 
 `docs/rechtspruefung.md` listet alle Punkte, die ein Prüfer ansehen soll (Hoster und Unterauftragnehmer, Formular, Banner, Badge, Inhalte, Lizenzen).
 `public/.htaccess` enthält HTTPS, Header und saubere Adressen für Hostinger (nicht lokal testbar).
 
-## Kontaktformular (Welt 11)
+## Kontaktformular (Startseite)
 
 - Markup `src/components/Kontakt.astro`, Stil `src/styles/kontakt.css`, Verhalten `src/motion/kontakt.js` (Live-Vorschau, Prüfung beim Verlassen eines Feldes, Senden per `fetch`, nichts wird zwischengespeichert).
 - Ohne JavaScript sendet das Formular normal an `/api/kontakt.php`; die Antwort zeigt die Seite über `#anfrage-erhalten` bzw. `#anfrage-fehler` (`:target`).

@@ -53,12 +53,12 @@ srv.listen(0, async () => {
   ]) {
     const ctx = await browser.newContext({ viewport: vp, ...opts });
     const page = await ctx.newPage();
-    await page.goto(base + '/'); await page.waitForTimeout(2500);
+    await page.goto(base + '/welten'); await page.waitForTimeout(2500);
     // Der NP-Rahmen gehört nicht zur Studie: ausblenden
     await page.evaluate(() => document.querySelectorAll('.frame,.menu,.skiplinks').forEach((e) => e.style.setProperty('display', 'none', 'important')));
     for (const w of builtWorlds) {
       const y = await page.evaluate((a) => document.getElementById(a).getBoundingClientRect().top + scrollY, w.anchor);
-      await page.evaluate((v) => scrollTo(0, v), y);
+      await page.evaluate((v) => scrollTo(0, v + 4), y); // 4 px hinein: knapp hinter dem Ende des Übergangs, das echte Element steht
       await page.waitForTimeout(1600);
       const f = path.join(TMP, `welt-${w.nr}-${label}.png`);
       await page.screenshot({ path: f });
@@ -109,10 +109,15 @@ srv.listen(0, async () => {
     `<div class="frame" style="width:${w}px"><div class="bar mono" style="font-size:13px"><i></i><i></i><i></i><span>Studie ${nr}</span></div><img src="${img}" style="height:${h}px"></div>`;
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const cards = {
-    // Startseite: alle gebauten Welten nebeneinander
+    // Startseite: der Satz der Startseite, vier Studien als Andeutung
     start: `<div class="card"><div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>
+      <h1 style="font-size:60px;margin:34px 0 0;max-width:980px">Websites, die nach Ihrem Unternehmen aussehen.</h1>
+      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:24px">${builtWorlds.slice(0, 4).map((w) => frame(b64(shots[`${w.nr}-d`]), w.nr, 262, 164)).join('')}</div></div>`,
+    // /welten: neun Studien
+    welten: `<div class="card"><div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>
       <h1 style="font-size:54px;margin:34px 0 0;max-width:980px">${esc(TEXT.statement)}</h1>
-      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:30px">${builtWorlds.map((w) => frame(b64(shots[`${w.nr}-d`]), w.nr, 340, 213)).join('')}</div></div>`,
+      <p class="mono note" style="margin-top:18px;font-size:18px">Neun Welten · Studien von NP Webdesign</p>
+      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:24px">${builtWorlds.slice(0, 4).map((w) => frame(b64(shots[`${w.nr}-d`]), w.nr, 262, 164)).join('')}</div></div>`,
     // Leistungen und Preise: ohne Welt, nur Marke
     leistungen: `<div class="card"><div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>
       <h1 style="font-size:96px;margin-top:150px;max-width:900px">Leistungen und Preise</h1>
