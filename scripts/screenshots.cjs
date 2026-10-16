@@ -27,11 +27,11 @@ const WELTEN = [
   ['02-t00-zelle-waechst', opening(0.42)],
   ['03-welt01-einstieg', top('#baeckerei', 4)],
   ...[['04', 't-welt-01-welt-02', 'bon'], ['06', 't-welt-02-welt-03', 'goldlinie'], ['08', 't-welt-03-welt-04', 'stempel'], ['10', 't-welt-04-welt-05', 'zierlinie'],
-    ['12', 't-welt-05-welt-06', 'scheinwerfer'], ['14', 't-welt-06-welt-07', 'messkreise'], ['16', 't-welt-07-welt-08', 'messraster'], ['18', 't-welt-08-welt-09', 'wasser'], ['20', 't-welt-09-finale', 'fensterplan']]
+    ['12', 't-welt-05-welt-06', 'scheinwerfer'], ['14', 't-welt-06-welt-07', 'messkreise'], ['16', 't-welt-07-welt-08', 'messraster'], ['18', 't-welt-08-welt-09', 'wasser'], ['20', 't-welt-09-finale', 'npzeichen']]
     .flatMap(([n, id, name]) => [[`${n}-uebergang-${name}-anfang`, trans(id, 0.18)], [`${n}b-uebergang-${name}-mitte`, trans(id, 0.45)], [`${n}c-uebergang-${name}-landung`, trans(id, 0.72)]]),
   ['05-welt02-einstieg', top('#barbershop', 4)], ['07-welt03-einstieg', top('#bau', 4)], ['09-welt04-einstieg', top('#kanzlei', 4)], ['11-welt05-einstieg', top('#oldtimer', 4)],
   ['13-welt06-einstieg', top('#coaching', 4)], ['15-welt07-einstieg', top('#industrie', 4)], ['17-welt08-einstieg', top('#physiotherapie', 4)], ['19-welt09-einstieg', top('#landgasthof', 4)],
-  ['21-finale-zehnter-platz', finale(0.02)], ['22-finale-rueckzoom', finale(0.3)], ['23-finale-einladung', finale(0.9)],
+  ['21-finale-logo', finale(0.02)], ['22-finale-rueckzoom', finale(0.3)], ['23-finale-einladung', finale(0.9)],
 ];
 const START = [['start-oben', top('#start')], ['start-kontakt', top('#kontakt')], ['start-faq', top('#faq')]];
 
