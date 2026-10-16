@@ -40,6 +40,8 @@ export function snapshotBatons() {
 
 /** Spätere Abschnitte eines Staffelstabs sind fromTo mit ausdrücklichem Startwert und ohne Sofortdarstellung: .to() würde seinen Startwert erst beim ersten Erreichen merken (und beim Zurückspringen falsch setzen) */
 const NI = { immediateRender: false };
+/** #RRGGBB → rgba(r, g, b, a) (für Schatten, die GSAP durchrechnen kann) */
+const rgba = (hex, a) => { const h = String(hex).replace('#', ''); const n = parseInt(h.length === 3 ? h.replace(/./g, '$&$&') : h, 16); return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`; };
 const el = (cls) => { const e = document.createElement('div'); e.className = cls; return e; };
 
 export function initTransitions() {
@@ -173,17 +175,18 @@ function goldlinie(c) {
   const mass = put(c, c.clone(dst, '03', true));
   const { tl, A } = c; const E = c.E(); const len = c.len();
   const blue = () => c.toAccent || '#2B5C8A';
-  tl.fromTo(bar, { x: () => sr().cx, y: () => sr().cy, scaleX: 1 }, { x: () => center(c).x, y: () => center(c).y, scaleX: () => c.vw() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+  tl.fromTo(bar, { x: () => sr().cx, y: () => sr().cy, scaleX: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scaleX: () => c.vw() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(bar._el, { backgroundColor: () => getComputedStyle(src).backgroundColor }, { backgroundColor: () => getComputedStyle(src).backgroundColor, duration: 0.001, immediateRender: true }, 0)
     .fromTo(mass, { x: () => center(c).x, y: () => center(c).y, autoAlpha: 0, scaleX: () => c.vw() / dr().w }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
     // 100 → : Schiene zieht sich auf Maßlinienbreite zusammen und wird blau, die Maßlinie blendet ein
     .fromTo(bar, { scaleX: () => c.vw() / sr().w }, { scaleX: () => dr().w / sr().w, duration: len * 0.4, ease: 'power2.inOut', ...NI }, A + len * 0.1)
     .fromTo(bar._el, { backgroundColor: () => getComputedStyle(src).backgroundColor }, { backgroundColor: blue, duration: len * 0.4, ease: 'none', ...NI }, A + len * 0.1)
-    .fromTo(mass, { autoAlpha: 0, scaleX: () => c.vw() / dr().w }, { autoAlpha: 1, scaleX: 1, duration: len * 0.3, ease: 'power2.out', ...NI }, A + len * 0.35)
+    .fromTo(mass, { autoAlpha: 0, scaleX: () => c.vw() / dr().w, scaleY: 1.8 }, { autoAlpha: 1, scaleX: 1.8, scaleY: 1.8, duration: len * 0.3, ease: 'power2.out', ...NI }, A + len * 0.35)
     .fromTo(bar, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.15, ...NI }, A + len * 0.55)
     // Millimeterpapier schiebt sich über das Dunkel
     .fromTo(c.wipe, { yPercent: 100 }, { yPercent: 0, duration: len * 0.7, ease: 'power2.inOut' }, A + len * 0.3)
     // Landung
-    .fromTo(mass, { x: () => center(c).x, y: () => center(c).y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+    .fromTo(mass, { x: () => center(c).x, y: () => center(c).y, scaleX: 1.8, scaleY: 1.8 }, { x: () => dr().cx, y: () => dr().cy, scaleX: 1, scaleY: 1, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
   return true;
 }
 
@@ -238,15 +241,16 @@ function zierlinie(c) {
   svg.append(path); put(c, svg);
   const { tl, A } = c; const E = c.E(); const len = c.len();
   const dstAccent = () => c.toAccent || '#EFE6D2';
-  tl.fromTo(bar, { x: () => sr().cx, y: () => sr().cy, scaleX: 1, scaleY: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scaleX: () => c.vw() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+  tl.fromTo(bar, { x: () => sr().cx, y: () => sr().cy, scaleX: 1, scaleY: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scaleX: () => c.vw() / sr().w, scaleY: 3, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
     .fromTo(svg, { x: () => center(c).x, y: () => center(c).y, width: () => dr().w, height: () => dr().h, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    .fromTo(path, { stroke: c.fromAccent || '#A3122A', strokeWidth: '14px', attr: { d: gerade } }, { stroke: c.fromAccent || '#A3122A', strokeWidth: '14px', attr: { d: gerade }, duration: 0.001, immediateRender: true }, 0)
     // die Linie zieht sich auf die Breite der Zierlinie zusammen und wird dick wie ein Pinselstrich
-    .fromTo(bar, { scaleX: () => c.vw() / sr().w, scaleY: 1 }, { scaleX: () => dr().w / sr().w, scaleY: 3.5, duration: len * 0.25, ease: 'power2.inOut', ...NI }, A)
+    .fromTo(bar, { scaleX: () => c.vw() / sr().w, scaleY: 3 }, { scaleX: () => dr().w / sr().w, scaleY: 3.5, duration: len * 0.25, ease: 'power2.inOut', ...NI }, A)
     .fromTo(svg, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, ...NI }, A + len * 0.25)
     .fromTo(bar, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.01, ...NI }, A + len * 0.25)
     .fromTo(path, { attr: { d: gerade } }, { attr: { d: kurve }, duration: len * 0.45, ease: 'power2.inOut', immediateRender: false }, A + len * 0.28)
-    .fromTo(path, { stroke: c.fromAccent || '#A3122A' }, { stroke: dstAccent, duration: len * 0.4, ease: 'none', ...NI }, A + len * 0.4)
-    .fromTo(path, { strokeWidth: '14px' }, { strokeWidth: '3px', duration: 86, ease: 'power2.inOut', ...NI }, E + 6)
+    .fromTo(path, { stroke: c.fromAccent || '#A3122A' }, { stroke: dstAccent, duration: len * 0.3, ease: 'none', ...NI }, A + len * 0.62)
+    .fromTo(path, { strokeWidth: '14px' }, { strokeWidth: '3px', duration: 40, ease: 'power2.inOut', ...NI }, E + 50)
     .fromTo(svg, { x: () => center(c).x, y: () => center(c).y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
   ground(c, c.from, c.to, A + len * 0.1, len * 0.6);
   return true;
@@ -265,17 +269,22 @@ function scheinwerfer(c) {
   const lamp = put(c, c.clone(src, '05'));
   const orb = put(c, c.clone(dst, '06', true));
   const { tl, A } = c; const E = c.E(); const len = c.len();
+  const edge = (a) => `0 0 0 4px ${rgba(c.toAccent || '#8A5470', a)}`; // Rand der Kugel: hebt sie vom gleich hellen Flieder ab, solange sie den Bildschirm füllt
+  orb.style.borderRadius = '50%';
   const cover = () => (c.vh() * 1.3) / dr().w; // fast bildschirmhoch: Rand und Ecken bleiben sichtbar (nie ein einfarbiger Bildschirm)
   const lampScale = () => (sr().w * 2.2) / dr().w;
   tl.fromTo(lamp, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: 2.2, duration: 70, ease: 'power2.inOut', immediateRender: true }, 8)
     .fromTo(orb, { x: () => center(c).x, y: () => center(c).y, scale: lampScale, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
     // das Glas glüht auf
     .fromTo(orb, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.3, ease: 'power1.in', ...NI }, A * 0.5)
+    .fromTo(orb, { boxShadow: () => edge(0) }, { boxShadow: () => edge(0.7), duration: len * 0.3, ease: 'none', immediateRender: true }, A + len * 0.1)
     // wächst fast bis zur Bildschirmhöhe; der Ring verblasst
     .fromTo(orb, { scale: lampScale }, { scale: cover, duration: len * 0.55, ease: 'power2.in', ...NI }, A + len * 0.15)
     .fromTo(lamp, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.25, ...NI }, A + len * 0.2)
     // schrumpft auf die Kugel in Welt 06
-    .fromTo(orb, { scale: cover, x: () => center(c).x, y: () => center(c).y }, { scale: 1, x: () => dr().cx, y: () => dr().cy, duration: 100 + len * 0.25, ease: 'power2.out', ...NI }, A + len * 0.75);
+    // bleibt groß, bis die neue Welt von unten kommt, und schrumpft dann auf die Kugel in Welt 06
+    .fromTo(orb, { scale: cover, x: () => center(c).x, y: () => center(c).y }, { scale: 1, x: () => dr().cx, y: () => dr().cy, duration: 45, ease: 'power2.inOut', ...NI }, E + 55)
+    .fromTo(orb, { boxShadow: () => edge(0.7) }, { boxShadow: () => edge(0), duration: 40, ease: 'none', ...NI }, E + 60);
   ground(c, c.from, c.to, A + len * 0.2, len * 0.6);
   return true;
 }
@@ -297,10 +306,11 @@ function messkreise(c) {
   const size = () => Math.min(c.vw() * 0.7, c.vh() * 0.62, 480);
   const yellow = () => c.toAccent || '#F2C230';
   const contour = $('.w07-rund-kontur', rund);
-  tl.fromTo(rings, { x: () => sr().cx, y: () => sr().cy, scale: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: () => size() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+  tl.fromTo(rings, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: () => size() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
     .fromTo(rund, { x: () => center(c).x, y: () => center(c).y, scale: () => size() / dr().w, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
     .fromTo(laser, { x: () => center(c).x - size() / 2 - 20, y: () => center(c).y, height: () => size() * 1.15, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
     // die Kreise werden gelb und zu Messkreisen
+    .fromTo(rings.querySelectorAll('i'), { borderColor: () => getComputedStyle(src.querySelector('i')).borderTopColor }, { borderColor: () => getComputedStyle(src.querySelector('i')).borderTopColor, duration: 0.001, immediateRender: true }, 0)
     .fromTo(rings.querySelectorAll('i'), { borderColor: () => getComputedStyle(src.querySelector('i')).borderTopColor }, { borderColor: yellow, duration: len * 0.3, ...NI }, A)
     .fromTo(rund, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.2, ...NI }, A + len * 0.2)
     .fromTo(rings, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.2, ...NI }, A + len * 0.35)
@@ -336,6 +346,8 @@ function messraster(c) {
     gsap.set([front, back], { xPercent: -50, yPercent: -50 });
     const sr = () => c.srcRect(s); const dr = () => c.dstRect(dsts[i]);
     gsap.set(back, { autoAlpha: 0 });
+    tl.fromTo(front, { autoAlpha: 1 }, { autoAlpha: 1, duration: 0.001, immediateRender: true }, 0)
+      .fromTo(back, { autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0);
     // 8–70: von ihrer Stelle im Raster zu verstreuten Lagen um die Mitte
     tl.fromTo(node, { x: () => sr().cx, y: () => sr().cy, rotation: 0 }, { x: () => center(c).x + scatter[i].x * c.vw(), y: () => center(c).y + scatter[i].y * c.vh(), rotation: scatter[i].rot, duration: 62, ease: 'power2.inOut', immediateRender: true }, 8 + (i % 7) * 0.8)
       // 100 → : ordnen sich zum Kalender in der Bildmitte
@@ -377,14 +389,14 @@ function wasser(c) {
   const b = put(c, c.clone(dst, '09', true));
   const line = $('[data-t-wsline]', c.sec);
   const { tl, A } = c; const E = c.E(); const len = c.len();
-  const width = () => Math.min(c.vw() * 0.82, 1000);
+  const width = () => Math.min(c.vw() * 0.9, 1100);
   tl.fromTo(a, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: () => width() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
     .fromTo(b, { x: () => center(c).x, y: () => center(c).y, scale: () => width() / dr().w, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
     // erst kippt der Grund ins Dämmerungsviolett (siehe unten), dann blendet der See über
     .fromTo(b, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.3, ease: 'none', ...NI }, A + len * 0.5)
     .fromTo(a, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.25, ...NI }, A + len * 0.6)
     .fromTo(b, { x: () => center(c).x, y: () => center(c).y, scale: () => width() / dr().w }, { x: () => dr().cx, y: () => dr().cy, scale: 1, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
-  if (line) tl.fromTo(line, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: len * 0.5, ease: 'power1.inOut', immediateRender: true }, A + len * 0.2)
+  if (line) tl.fromTo(line, { strokeDashoffset: 1, autoAlpha: 1 }, { strokeDashoffset: 0, duration: len * 0.5, ease: 'power1.inOut', immediateRender: true }, A + len * 0.05)
     .fromTo(line, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.15, ...NI }, A + len * 0.85);
   ground(c, c.from, c.to, A, len * 0.4);
   return true;

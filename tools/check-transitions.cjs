@@ -30,8 +30,8 @@ const PAGE = opt('path', '/');
 const SECTION = opt('section', null); // nur einen Übergang prüfen (id, z. B. t-welt-01-welt-02)
 const RANGE = String(opt('range', '0,1')).split(',').map(Number); // Anteil der Seite
 const WAIT = Number(opt('wait', 110));
-const BLANK_STD = Number(opt('blank-std', 10));      // Standardabweichung der Helligkeit (0–255), darunter gilt ein Bild als leer
-const BLANK_DOM = Number(opt('blank-dom', 0.995));  // oder: so viel Anteil der Pixel in der häufigsten Farbe (≥ 99,5 %)
+const BLANK_STD = Number(opt('blank-std', 6));      // Standardabweichung der Helligkeit (0–255), darunter gilt ein Bild als leer
+const BLANK_DOM = Number(opt('blank-dom', 0.997));  // oder: so viel Anteil der Pixel in der häufigsten Farbe (≥ 99,7 %)
 const isBlank = (a) => a.std < BLANK_STD || a.dominant >= BLANK_DOM;
 const MAX_BLANK = 0.10;                              // Abnahme: Leerstrecke in Bildschirmhöhen
 const DIFF_LIMIT = Number(opt('diff', 6));           // mittlere Abweichung (0–255) zwischen Hin- und Rückweg
