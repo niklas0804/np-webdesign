@@ -7,11 +7,12 @@ import { initFit } from '../fit.js';
 import { initClock, initMenu } from '../menu.js';
 import { initRahmen } from '../rahmen.js';
 import { initKontakt } from '../kontakt.js';
-import { initInterludes } from '../interludes.js';
 import { initTransitions, snapshotBatons } from '../transitions.js';
 import { initHero } from './hero.js';
 import { initWarum } from './warum.js';
 import { initVergleich } from './vergleich.js';
+import { initBeispiele } from './beispiele.js';
+import { initZusammenarbeit } from './zusammenarbeit.js';
 
 watchMode();
 
@@ -34,7 +35,8 @@ async function boot() {
   initHero();
   if (pinned) initWarum();
   initVergleich();
-  initInterludes();
+  initBeispiele();
+  initZusammenarbeit();
   if (pinned) { snapshotBatons(); initTransitions(); }
 
   ScrollTrigger.sort();

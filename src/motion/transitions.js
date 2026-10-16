@@ -11,7 +11,7 @@
  *   100 … 100+len  die Bühne steht frei (len = Länge des Übergangs aus der Konfiguration)
  *   100+len … L    die neue Welt schiebt sich von unten darüber; bei L (= 200 + len) steht ihr erstes Bild genau da, wo es hingehört
  */
-import { gsap, ScrollTrigger, $, $$ } from './base.js';
+import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 import { setTone, setSection } from './rahmen.js';
 import { docRect, viewRect, cloneOf, refreshClone, snapshot, lend } from './baton.js';
 import { windowAtStart } from './finale.js';
@@ -107,7 +107,7 @@ export function initTransitions() {
       dstRect: (e) => viewRect(e, tl.scrollTrigger.end),
       world: (s) => s?.dataset.world,
     };
-    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, fensterplan, nblende }[variant];
+    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, fensterplan, nblende, piris }[variant];
     if (!(fn && fn(c))) {
       // Ohne Staffelstab: der Faden zeichnet eine Linie, dann wischt die neue Welt herein
       tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 40, ease: 'power2.out' }, 100)
@@ -455,5 +455,49 @@ function nblende(c) {
   tl.fromTo(wipe, { '--a': 0 }, { '--a': 1, duration: len * 0.42, ease: 'power2.inOut', immediateRender: true }, A + len * 0.34)
     .fromTo(diag, { scaleX: 0 }, { scaleX: 1, duration: len * 0.28, ease: 'power2.inOut', immediateRender: true }, A)
     .fromTo(right, { scaleY: 0 }, { scaleY: 1, duration: 40 + len * 0.15, ease: 'power2.out', immediateRender: true }, A - 40);
+  return true;
+}
+
+/* ---------- P-Iris (Startseite: Zusammenarbeit → Kontakt) ---------- */
+/**
+ * Die Schlaufe am Ende des Fadens (Betreuung) wird abgeholt, wandert in die Mitte und wird der Bauch eines P: ein Ring, daneben der Schaft.
+ * Aus dem Bauch öffnet sich die Iris in Kalk über das Leinen und gibt den Kontakt frei. Das P bleibt als orange Zeichnung stehen,
+ * der Kontakt schiebt sich darüber.
+ */
+function piris(c) {
+  const src = $('.zs-loop', c.fromSec);
+  const stage = $('[data-zs-stage]', c.fromSec);
+  if (!src || !stage) return false;
+  c.lent.push(src);
+  // Am Desktop sitzt die Schlaufe in der klebenden Bühne: dort liegt sie beim Start des Übergangs genau an ihrer Stelle in der Bühne
+  const sr = () => {
+    if (mode !== 'desktop') return c.srcRect(src);
+    let x = 0; let y = 0;
+    for (let n = src; n && n !== stage; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; }
+    const r = { x: stage.getBoundingClientRect().left + x, y, w: src.offsetWidth, h: src.offsetHeight };
+    return { ...r, cx: r.x + r.w / 2, cy: r.y + r.h / 2 };
+  };
+  const loop = put(c, c.clone(src, '05'));
+  const iris = el('t-pi-iris'); const ring = el('t-pi-ring'); const stem = el('t-pi-stem');
+  c.stage.append(iris, ring, stem);
+  const G = () => { const w = c.vw(); const h = c.vh(); const R = Math.min(w * 0.22, h * 0.2); return { w, h, R, cx: w / 2, cy: h * 0.45 }; };
+  const geom = () => {
+    const g = G();
+    iris.style.setProperty('--cx', String(g.cx)); iris.style.setProperty('--cy', String(g.cy));
+    Object.assign(ring.style, { left: `${g.cx - g.R}px`, top: `${g.cy - g.R}px`, width: `${g.R * 2}px`, height: `${g.R * 2}px` });
+    Object.assign(stem.style, { left: `${g.cx - g.R}px`, top: `${g.cy - g.R}px`, height: `${g.R * 3.4}px` });
+  };
+  geom();
+  ScrollTrigger.addEventListener('refresh', geom);
+  const { tl, A } = c; const len = c.len();
+  tl.fromTo(loop, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => G().cx, y: () => G().cy, scale: () => (G().R * 2) / sr().w, duration: 70, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(ring, { autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    .fromTo(stem, { scaleY: 0 }, { scaleY: 0, duration: 0.001, immediateRender: true }, 0)
+    .fromTo(iris, { '--r': 0 }, { '--r': 0, duration: 0.001, immediateRender: true }, 0)
+    .fromTo(ring, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.16, ...NI }, A + len * 0.02)
+    .fromTo(loop, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.16, ...NI }, A + len * 0.02)
+    .fromTo(stem, { scaleY: 0 }, { scaleY: 1, duration: len * 0.28, ease: 'power2.out', ...NI }, A + len * 0.08)
+    .fromTo(iris, { '--r': 0 }, { '--r': () => G().R * 0.9, duration: len * 0.2, ease: 'power2.out', ...NI }, A + len * 0.16)
+    .fromTo(iris, { '--r': () => G().R * 0.9 }, { '--r': () => Math.hypot(G().w, G().h), duration: len * 0.55, ease: 'power2.in', ...NI }, A + len * 0.4);
   return true;
 }

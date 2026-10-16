@@ -197,7 +197,7 @@ export const homeJourney = (() => {
     { id: 'start', kind: 'home', anchor: 'start', label: 'Start', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'warum', kind: 'home', anchor: 'warum', label: 'Warum', d: 250, m: 200, ground: MASTER.nacht, tone: 'dark' },
     { id: 'vergleich', kind: 'home', anchor: 'vergleich', label: 'Vergleich', d: 260, m: 240, ground: MASTER.leinen, tone: 'light' },
-    { id: 'beispiele', kind: 'home', anchor: 'beispiele', label: 'Beispiele', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
+    { id: 'beispiele', kind: 'home', anchor: 'beispiele', label: 'Beispiele', d: 210, m: 100, ground: MASTER.kalk, tone: 'light' },
     { id: 'arbeitsweise', kind: 'home', anchor: 'arbeitsweise', label: 'Zusammenarbeit', d: 250, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'kontakt', kind: 'home', anchor: 'kontakt', label: 'Kontakt', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
     { id: 'faq', kind: 'home', anchor: 'faq', label: 'FAQ', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },

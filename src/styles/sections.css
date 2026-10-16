@@ -77,46 +77,10 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 .transition[data-variant] .t-wipe, .transition[data-variant] .t-thread { display: none !important; }
 .transition[data-variant='goldlinie'] .t-wipe { display: block !important; }
 
-/* ---------- Zwischenspiele ---------- */
+/* ---------- Abschnitt „Über mich“ (abgeschaltet, Komponente bleibt) ---------- */
 .interlude { position: relative; background: var(--ground); min-height: calc(var(--len) * 1svh); padding: var(--block) var(--gutter); overflow: clip; } /* clip statt hidden: hidden bricht position: sticky */
 .interlude-inner { max-width: var(--max); margin: 0 auto; }
 .on-dark { color: var(--leinen); }
-
-/* I · Warum */
-.interlude-warum { color: var(--leinen); }
-.statements { display: grid; gap: var(--s3); margin-bottom: var(--s8); }
-.statement { display: block; font-size: clamp(2.75rem, 11vw, 9rem); font-weight: 850; font-stretch: 80%; line-height: .86; letter-spacing: -.04em; text-transform: uppercase; }
-.statement.is-fit { white-space: nowrap; }
-.statement-accent { color: var(--glut); }
-.warum-lead { color: var(--asche); max-width: 38ch; }
-.benefits { display: grid; gap: var(--s5); margin-top: var(--s7); max-width: 60ch; }
-@media (min-width: 1024px) { .benefits { grid-template-columns: repeat(3, 1fr); max-width: none; } }
-.benefits li { border-top: 1px solid rgba(240, 235, 227, .2); padding-top: var(--s4); color: var(--asche); max-width: 34ch; }
-.benefits strong { display: block; color: var(--leinen); font-weight: 650; margin-bottom: var(--s2); }
-.band { margin: 0 calc(var(--gutter) * -1) var(--s9); border-block: 1px solid rgba(240, 235, 227, .2); overflow: hidden; padding: var(--s3) 0; }
-.band-track { display: flex; width: max-content; gap: var(--s7); font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ocker); white-space: nowrap; }
-.band-track span::after { content: '·'; margin-left: var(--s7); color: var(--glut); }
-
-/* II · Arbeitsweise */
-.interlude-weg { color: var(--tinte); padding: 0; }
-.weg-stage { padding: var(--block) var(--gutter); }
-.beam { position: relative; height: 2px; background: var(--haarlinie); margin: var(--s7) 0 var(--s6); }
-.beam-fill { position: absolute; inset: 0; background: var(--np-orange); transform-origin: left; }
-.steps { display: grid; gap: var(--s6); grid-template-columns: 1fr; }
-.step { border-top: 1px solid var(--haarlinie); padding-top: var(--s4); }
-.step-nr { color: var(--orange-text); display: block; margin-bottom: var(--s2); }
-.step h3 { margin-bottom: var(--s2); }
-.step p { color: var(--stein); font-size: var(--fs-small); max-width: 28ch; }
-.weg-close { margin-top: var(--s8); font-weight: 600; }
-@media (min-width: 1024px) {
-  .steps { grid-template-columns: repeat(6, 1fr); gap: var(--s5); }
-  .step { border-top: 0; padding-top: 0; }
-}
-html[data-mode='desktop'] .interlude-weg, html[data-mode='mobile'] .interlude-weg { min-height: calc(var(--len) * 1svh); }
-html[data-mode='desktop'] .weg-stage, html[data-mode='mobile'] .weg-stage { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; padding-top: calc(var(--frame-top) + var(--s6)); padding-bottom: var(--s8); }
-html[data-mode='desktop'] .step:not(.is-on), html[data-mode='mobile'] .step:not(.is-on) { opacity: 0; transform: translateY(12px); }
-.step { transition: opacity var(--dur-m) var(--ease-out), transform var(--dur-m) var(--ease-out); }
-html[data-mode='desktop'] .beam-fill, html[data-mode='mobile'] .beam-fill { transform: scaleX(0); }
 
 /* III · Über mich */
 .interlude-ich { color: var(--tinte); }
@@ -192,9 +156,3 @@ html[data-mode='desktop'] .beam-fill, html[data-mode='mobile'] .beam-fill { tran
 .fp-k { font-weight: 700; }
 .fp-meta { opacity: .85; }
 @media (max-width: 599px) { .fp-frame { padding: var(--s3); gap: var(--s1); } .fp-frame p { font-size: .8125rem; } }
-
-/* VORLÄUFIGER Kopf der Startseite (Teil B; Teil C ersetzt ihn) */
-.hero-v { background: var(--leinen); padding: calc(var(--frame-top) + var(--s8)) var(--gutter) var(--s9); min-height: 90svh; display: grid; align-content: center; }
-.hero-v-inner { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--s5); justify-items: start; }
-.hero-v h1 { font-size: var(--fs-display); line-height: .92; letter-spacing: -.03em; font-stretch: 85%; max-width: 16ch; }
-.hero-v-buttons { display: flex; flex-wrap: wrap; gap: var(--s3); }

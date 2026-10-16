@@ -12,7 +12,7 @@
     linear-gradient(var(--haarlinie) 1px, transparent 1px), linear-gradient(90deg, var(--haarlinie) 1px, transparent 1px);
   background-size: 32px 32px; background-position: -1px -1px;
   border: 1.5px solid var(--tinte);
-  display: grid; align-content: center; padding: var(--s5);
+  display: grid; align-content: center; padding: var(--s9) var(--s5) var(--s5);
 }
 .k-pv-frame::before, .k-pv-frame::after { content: ''; position: absolute; width: 14px; height: 14px; border: 0 solid var(--orange-text); }
 .k-pv-frame::before { top: 8px; left: 8px; border-width: 1.5px 0 0 1.5px; }
@@ -30,7 +30,26 @@
 .k-pv-line { color: var(--stein); max-width: none; }
 
 /* Vorschau-Inhalt: eigener Block ohne Innenabstand, damit „Satz nach Maß“ die Rahmenbreite trifft */
-.k-pv-body { display: grid; gap: var(--s3); min-width: 0; }
+.k-pv-body { position: relative; display: grid; gap: var(--s3); min-width: 0; }
+/* Die Vorschau konstruiert sich: Hilfslinien schnappen ein, der Name steht auf Breite, der Faden unterstreicht ihn, Schnittmarken setzen sich */
+.k-pv-nav { position: absolute; left: var(--s5); right: var(--s5); top: var(--s6); display: flex; align-items: center; gap: var(--s3); }
+.k-pv-nav i { width: 28px; height: 3px; background: var(--haarlinie); }
+.k-pv-mark { margin-right: auto; font-family: var(--mono); font-size: var(--fs-mono-xs); color: var(--stein); border: 1px solid var(--haarlinie); padding: 2px 8px; max-width: 40%; overflow: hidden; white-space: nowrap; text-overflow: clip; }
+.k-pv-guide { position: absolute; left: calc(var(--s5) * -1); right: calc(var(--s5) * -1); height: 1px; background: var(--np-orange); opacity: 0; pointer-events: none; }
+.k-pv-faden { position: absolute; left: 0; height: 3px; width: 0; background: var(--np-orange); transform-origin: left; transform: scaleX(0); pointer-events: none; }
+.k-pv-btn { display: block; width: 96px; height: 28px; background: var(--haarlinie); }
+.k-pv-crop { position: absolute; width: 9px; height: 9px; border: 0 solid var(--np-orange); opacity: 0; pointer-events: none; }
+.k-pv-crop-1 { border-width: 1.5px 0 0 1.5px; } .k-pv-crop-2 { border-width: 1.5px 1.5px 0 0; } .k-pv-crop-3 { border-width: 0 0 1.5px 1.5px; } .k-pv-crop-4 { border-width: 0 1.5px 1.5px 0; }
+.is-built .k-pv-guide { opacity: .7; }
+.is-built .k-pv-faden { transform: scaleX(1); transition: transform .5s var(--ease-out) .12s; }
+.is-built .k-pv-crop { opacity: 1; }
+.is-built .k-pv-btn { background: var(--np-orange); transition: background .4s var(--ease-out) .25s; }
+.is-snap .k-pv-guide { animation: k-snap .32s var(--ease-tool); }
+.is-snap .k-pv-crop { animation: k-crop .3s var(--ease-out); }
+@keyframes k-snap { from { transform: translateY(var(--snap, 14px)); opacity: 0; } }
+@keyframes k-crop { from { transform: scale(2.2); opacity: 0; } }
+html[data-mode='calm'] .is-snap .k-pv-guide, html[data-mode='calm'] .is-snap .k-pv-crop { animation: none; }
+@media (prefers-reduced-motion: reduce) { .is-snap .k-pv-guide, .is-snap .k-pv-crop, .is-built .k-pv-faden, .is-built .k-pv-btn { animation: none; transition: none; } }
 
 /* NP-Siegel „Anfrage erhalten“ */
 .k-seal { position: absolute; right: var(--s5); bottom: var(--s5); width: clamp(84px, 16vw, 132px); color: var(--fehler); opacity: 0; visibility: hidden; transform: rotate(-9deg) scale(1.25); }
@@ -99,7 +118,7 @@
 @media (max-width: 1023px) {
   /* Mobile: kompakter Streifen über dem Formular */
   .k-preview { order: -1; }
-  .k-pv-frame { aspect-ratio: auto; min-height: 0; padding: var(--s7) var(--s5) var(--s5); }
+  .k-pv-frame { aspect-ratio: auto; min-height: 0; padding: var(--s9) var(--s5) var(--s5); }
   .k-pv-title { font-size: clamp(1.75rem, 9vw, 3rem); }
   .k-pv-line { display: none; }
   .k-pv-label { left: 30px; }

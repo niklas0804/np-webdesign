@@ -23,9 +23,16 @@ const ablauf = STEPS.map((s) => s.title).join(', ');
     <aside class="k-preview" aria-label="Vorschau Ihrer Welt" data-preview>
       <div class="k-pv-frame">
         <span class="k-pv-label mono" aria-hidden="true">{TEXT.nextWorld} · Ihr Unternehmen</span>
-        <div class="k-pv-body">
+        <div class="k-pv-nav" aria-hidden="true"><span class="k-pv-mark" data-pv-mark>–</span><i></i><i></i><i></i></div>
+        <div class="k-pv-body" data-pv-body>
+          <span class="k-pv-guide k-pv-guide-top" aria-hidden="true" data-pv-guide></span>
+          <span class="k-pv-guide k-pv-guide-base" aria-hidden="true" data-pv-guide></span>
           <p class="k-pv-title is-empty" aria-hidden="true" data-pv-title data-fit data-fit-max="150"><span data-pv-text>Ihr Unternehmen</span><span class="k-cursor" data-cursor></span></p>
+          <span class="k-pv-faden" aria-hidden="true" data-pv-faden></span>
           <p class="k-pv-line mono" aria-hidden="true">Ihr Entwurf beginnt mit einem Gespräch.</p>
+          <span class="k-pv-btn" aria-hidden="true"></span>
+          <span class="k-pv-crop k-pv-crop-1" aria-hidden="true"></span><span class="k-pv-crop k-pv-crop-2" aria-hidden="true"></span>
+          <span class="k-pv-crop k-pv-crop-3" aria-hidden="true"></span><span class="k-pv-crop k-pv-crop-4" aria-hidden="true"></span>
         </div>
         <div class="k-seal" aria-hidden="true" data-seal>
           <svg viewBox="0 0 160 160" focusable="false">

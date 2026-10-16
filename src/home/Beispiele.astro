@@ -1,0 +1,42 @@
+---
+/**
+ * S4 · Was ich baue: der Musterkoffer (Auftrag 11. Oktober 2026, Teil C). Kalk. Die neun Studien als Vorschaukarten (echte Bilder aus images/werkplan).
+ * Desktop: Sie liegen zuerst als gefächerter Stapel wie Planblätter auf dem Tisch; beim Scrollen werden sie ausgeteilt und rasten in ein 3×3-Raster ein.
+ * Mobil: zweispaltiges Raster, jede Karte erscheint beim Einfahren. Ruhig und ohne JavaScript: das Raster steht da. Jede Karte führt zur Welt auf /welten.
+ */
+import { builtWorlds, TEXT } from '../config/journey.js';
+import WorldStill from '../components/WorldStill.astro';
+const { row } = Astro.props;
+---
+<section id={row.anchor} class="beispiele" data-section={row.id} data-counter={row.label} data-ground={row.ground} data-tone={row.tone} aria-labelledby="bsp-title" data-beispiele>
+  <div class="bsp-track" data-bsp-track>
+    <div class="bsp-stage" data-bsp-stage>
+      <span class="faden-v bsp-faden" data-faden-v aria-hidden="true"></span>
+      <div class="bsp-head">
+        <p class="kicker">Was ich baue</p>
+        <h2 id="bsp-title" class="bsp-title">{TEXT.statement}</h2>
+        <span class="bsp-underline" aria-hidden="true" data-bsp-underline></span>
+        <p class="mono bsp-note">{TEXT.statementNote}</p>
+        <a class="btn btn-primary bsp-btn" href="/welten">
+          <span class="btn-label"><span>Alle neun Beispiele ansehen</span><span aria-hidden="true">Alle neun Beispiele ansehen</span></span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <ol class="bsp-grid" aria-label={`Die ${TEXT.worldCount} Studien`} data-bsp-grid>
+        {builtWorlds.map((w) => (
+          <li class="bsp-card" data-card>
+            <a class="bsp-link" href={`/welten#${w.anchor}`} data-bsp-link>
+              <span class="visually-hidden">Welt {w.nr}: {w.name}, {w.branche} (Studie)</span>
+              <span class="bsp-in" aria-hidden="true">
+                <span class="bsp-bar"><i></i><i></i><i></i><span class="bsp-bar-label mono">Studie {w.nr}</span></span>
+                <span class="bsp-still"><WorldStill nr={w.nr} /></span>
+                <span class="bsp-crops"><b></b><b></b><b></b><b></b></span>
+              </span>
+              <span class="bsp-caption mono" aria-hidden="true">{w.nr} · {w.name} · {w.branche}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

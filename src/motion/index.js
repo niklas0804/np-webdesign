@@ -5,7 +5,6 @@ import { initClock, initMenu } from './menu.js';
 import { initRahmen } from './rahmen.js';
 import { initOpening } from './opening.js';
 import { initTransitions, snapshotBatons } from './transitions.js';
-import { initInterludes } from './interludes.js';
 import { initKontakt } from './kontakt.js';
 import { initFinale } from './finale.js';
 
@@ -56,7 +55,6 @@ async function boot() {
     initOpening();
     initFinale();
   }
-  initInterludes();
   if (pinned) snapshotBatons(); // Ziele der Übergänge im Zustand beim Laden festhalten, bevor die Weltmodule sie animieren
   await initWorlds();
   if (pinned) initTransitions();

@@ -28,14 +28,40 @@ export function initKontakt() {
   form.setAttribute('novalidate', '');
 
   /* Live-Vorschau */
-  const setTitle = () => {
+  const frame = title.closest('.k-pv-frame');
+  const body = $('[data-pv-body]', section);
+  const faden = $('[data-pv-faden]', section);
+  const mark = $('[data-pv-mark]', section);
+  const guides = $$('[data-pv-guide]', section);
+  const crops = $$('.k-pv-crop', section);
+  /** Hilfslinien, Unterstreichung und Schnittmarken an den eingesetzten Namen legen (alles nur Lage und Breite, nichts wird gespeichert) */
+  const layout = () => {
+    const r = document.createRange(); r.selectNodeContents(text);
+    const b = r.getBoundingClientRect(); const bb = body.getBoundingClientRect(); const tb = title.getBoundingClientRect();
+    const w = Math.max(0, b.width);
+    faden.style.width = `${w}px`; faden.style.top = `${tb.bottom - bb.top + 2}px`;
+    guides[0].style.top = `${tb.top - bb.top + tb.height * 0.12}px`; guides[1].style.top = `${tb.bottom - bb.top - tb.height * 0.1}px`;
+    const x0 = -8; const x1 = w + 8 - 9; const y0 = tb.top - bb.top - 6; const y1 = tb.bottom - bb.top + 12 - 9;
+    const at = [[x0, y0], [x1, y0], [x0, y1], [x1, y1]];
+    crops.forEach((c, i) => { c.style.left = `${at[i][0]}px`; c.style.top = `${at[i][1]}px`; });
+  };
+  let snapTimer;
+  const setTitle = (animate) => {
     const v = company.value.trim();
     text.textContent = v || DEFAULT;
     title.classList.toggle('is-empty', !v);
+    mark.textContent = v ? v.slice(0, 18) : '–';
     fitElement(title);
+    layout();
+    frame.classList.toggle('is-built', !!v);
+    if (animate && v && mode !== 'calm') {
+      frame.classList.remove('is-snap'); void frame.offsetWidth; frame.classList.add('is-snap');
+      clearTimeout(snapTimer); snapTimer = setTimeout(() => frame.classList.remove('is-snap'), 400);
+    }
   };
-  company.addEventListener('input', setTitle);
-  setTitle();
+  company.addEventListener('input', () => setTitle(true));
+  setTitle(false);
+  window.addEventListener('resize', () => { clearTimeout(snapTimer); snapTimer = setTimeout(() => setTitle(false), 150); });
 
   /* Der Cursor blinkt sechsmal, sobald die Vorschau im Bild ist, und steht danach still (WCAG 2.2.2) */
   const blink = () => {

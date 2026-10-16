@@ -49,7 +49,8 @@ export function initWarum() {
     const words = p.textContent.trim().split(/\s+/);
     const mass = (li.dataset.mass || '').split('|').filter(Boolean);
     p.textContent = '';
-    p.setAttribute('aria-label', words.join(' '));
+    // Der Satz bleibt für Hilfstechnik ein Textstück; die Zeilen darüber sind nur Setzung
+    const sr = document.createElement('span'); sr.className = 'visually-hidden'; sr.textContent = words.join(' '); p.append(sr);
     const lns = groups(words).map((g) => {
       const ln = document.createElement('span'); ln.className = 'ln'; ln.setAttribute('aria-hidden', 'true');
       const inn = document.createElement('span'); inn.className = 'ln-in';
