@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /*
  * Automatische Barrierefreiheits-Prüfung (axe-core, WCAG 2.2 AA) auf der gebauten Seite (dist).
- * Prüft die Startseite in den drei Modi, an jeder gebauten Welt (nach dem Scrollen dorthin) und alle Unterseiten.
+ * Prüft Startseite und /welten in den Modi, an jeder gebauten Welt (nach dem Scrollen dorthin) und alle Unterseiten.
  * Aufruf:  AXE=/pfad/zu/axe.min.js NODE_PATH=$(npm root -g) node tools/axe-check.cjs
  * axe-core gehört nicht zur Website; es wird nur lokal geladen und bei jeder Prüfung mit CSP-Ausnahme eingespielt.
  */
@@ -24,14 +24,19 @@ srv.listen(0, async () => {
   const desktop = { viewport: { width: 1440, height: 900 } };
   const mobile = { viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true };
   const runs = [
-    ['index', '/', desktop, 'desktop-start', null],
-    ['index', '/', desktop, 'desktop-werkplan', '#werkplan'],
-    ...builtWorlds.map((w) => ['index', '/', desktop, `desktop-welt-${w.nr}`, '#' + w.anchor]),
-    ['index', '/', desktop, 'desktop-finale', '#finale'],
-    ['index', '/', desktop, 'desktop-kontakt', '#kontakt'],
-    ['index', '/', mobile, 'mobil-start', null],
-    ...builtWorlds.map((w) => ['index', '/', mobile, `mobil-welt-${w.nr}`, '#' + w.anchor]),
-    ['index', '/', { viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' }, 'ruhig', null],
+    ['start', '/', desktop, 'desktop', null],
+    ['start', '/', desktop, 'desktop-kontakt', '#kontakt'],
+    ['start', '/', desktop, 'desktop-faq', '#faq'],
+    ['start', '/', mobile, 'mobil', null],
+    ['start', '/', mobile, 'mobil-kontakt', '#kontakt'],
+    ['welten', '/welten', desktop, 'desktop-start', null],
+    ['welten', '/welten', desktop, 'desktop-werkplan', '#werkplan'],
+    ...builtWorlds.map((w) => ['welten', '/welten', desktop, `desktop-welt-${w.nr}`, '#' + w.anchor]),
+    ['welten', '/welten', desktop, 'desktop-finale', '#finale'],
+    ['welten', '/welten', mobile, 'mobil-start', null],
+    ...builtWorlds.map((w) => ['welten', '/welten', mobile, `mobil-welt-${w.nr}`, '#' + w.anchor]),
+    ['welten', '/welten', { viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' }, 'ruhig', null],
+    ['start', '/', { viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' }, 'ruhig', null],
     ['leistungen', '/leistungen', desktop, 'seite', null],
     ['impressum', '/impressum', mobile, 'seite-mobil', null],
     ['datenschutz', '/datenschutz', desktop, 'seite', null],

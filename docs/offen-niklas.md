@@ -27,3 +27,8 @@ Diese Liste wird bei jedem Schritt fortgeschrieben. Erledigtes bleibt als „erl
 
 ## Ablauf
 - [ ] `claude/phase-1` nach `main` mergen, wann immer du willst (Claude darf nicht selbst auf `main` pushen). Danach baut die GitHub Action den Branch `deploy`.
+
+## Nachtrag Teil B (16. Oktober 2026)
+- **Über mich ist abgeschaltet** (`SITE_FLAGS.ueberMich`). Das Porträt liegt in `assets-parked/ueber-mich/` und geht nicht an Hostinger. Wenn „Über mich“ später zurückkommt: Rechte am Foto, Datenschutzerklärung und Werdegang-Text neu prüfen.
+- **Fotoliste:** 21 offene Fotos laut `docs/fotoliste.md` (Welt 09 nutzt `w09-see-abend` zweimal: im Titel und im Fenster).
+- **Neue Prüfungen bleiben offen:** Lighthouse mobil (nicht lokal gelaufen), echte Geräte (Adressleiste und `svh`/`lvh` beim Scrollen), VoiceOver und NVDA.

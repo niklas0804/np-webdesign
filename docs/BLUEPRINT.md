@@ -2,6 +2,23 @@
 
 Sep 30, 2026 · @Niklas Prüfling
 
+## Kurskorrektur 11. Oktober 2026
+
+**Diese Kurskorrektur geht dem übrigen Text vor.** Wo dieses Dokument weiter unten „zehn Welten“, „NP Labor“, „Zwischenspiele“ oder „Über mich“ beschreibt, gilt stattdessen:
+
+| Bisher | Seit 11. Oktober 2026 |
+| --- | --- |
+| Zehn Welten, die zehnte ist NP Labor (Rohbau) | **Neun Welten.** Welt 10 (NP Labor) entfällt vollständig: Ordner `src/worlds/10-np-labor`, Konfiguration, Bildschirm, Branchenseite, Texte. Die zehnte Welt gehört dem Besucher: Im Werkplan steht an ihrer Stelle der Platz „Ihr Betrieb“ mit blinkendem Cursor, im Finale wächst das Fenster der Welt 09 in diesen Platz. Claim: „Neun Welten. Die zehnte gehört Ihnen.“ |
+| Alles auf einer Seite (`/`): Opening, Werkplan, Welten, Zwischenspiele, Finale, Kontakt | **Zwei Seiten.** `/welten` (Titel „Neun Welten · Studien von NP Webdesign“) trägt Opening, Werkplan, die neun Welten und das Finale. Die Startseite `/` verkauft: Warum, Teaser „Sehen Sie, was ich baue“, Zusammenarbeit, Kontaktformular, FAQ, Fußzeile (Ausbau in Teil C). Menü, Werkplan und Branchenseiten verlinken auf `/welten#anker` |
+| Zwischenspiele I (Warum), II (Arbeitsweise), III (Über mich) zwischen den Welten | **Keine Zwischenspiele auf `/welten`.** I und II wandern als Abschnitte auf die Startseite, III entfällt. Die Komponenten bleiben im Code |
+| Porträt und „Über mich“ sichtbar | **„Über mich“ ist abgeschaltet** über `SITE_FLAGS.ueberMich = false` in `src/config/site.js`. Die Komponente bleibt, das Porträt liegt in `assets-parked/ueber-mich/` und ist nicht im Build. Datenschutzerklärung und Rechtsprüfung nennen kein Porträt mehr |
+| Übergänge `ausziehen` (Zwischenspiel III → 10) und `rohbau` (Labor) | Entfallen. Neue Übergänge: 03 → 04 Prüfstempel wird rote Linie, 06 → 07 Kreise werden Messkreise (TORQUEL-Laser tastet sie ab), 09 → Finale Fenster schrumpft in den zehnten Platz und die Kamera fährt zurück |
+| Übergänge mit Schnitt, Überblendung oder Zwischenstufe | **Staffelstab-Technik** (siehe `docs/troubleshooting-uebergaenge.md`): Ein echtes Element der alten Welt wird abgeholt, in einer festen Ebene getragen und exakt auf das Gegenstück der neuen Welt gelegt. Kein Bild ohne Inhalt, keine Überlappung von Welten, vorwärts, rückwärts und schnell |
+| Zähler „01 / 10“ | „01 / 09“; Sitemap und Menü mit neun Welten |
+| Palette Welt 10 (Weiß/Schwarz/Linkblau), Typografie „Times, Arial, Courier“, Labor-Interaktionen | Entfallen. Die Palettenprüfung (`scripts/check-palettes.mjs`) kennt nur noch neun Welten |
+
+Die Abschnitte B, E, F, G, H, I, J, K, L, M und T unten sind in diesem Sinn zu lesen; die Beschreibung der Welt 10 (Abschnitt F) und der drei Zwischenspiele bleibt als Verlauf stehen und wird nicht mehr gebaut.
+
 ## Vorbemerkung: Referenz, Ausgangslage, Kurskorrekturen
 
 Dieses Konzept beschreibt den großen Relaunch von np-webdesign.de: eine durchgehende Scroll-Reise durch zehn Website-Welten. Gebaut ist sie für die Unternehmen, die NP Webdesign tatsächlich gewinnen will. Es baut auf dem Strategie-Audit und dem Sonnet-Master-Prompt vom 11.09.2026 auf und ersetzt deren Designteil.
@@ -412,6 +429,8 @@ Auf die Querfahrt von Chromwerk folgt die stillste Welt (Jana Ahrens), auf NAABT
 
 ### Welt 10 — NP Labor · Rohbau (NP selbst)
 
+> **Entfallen seit 11. Oktober 2026** (siehe „Kurskorrektur 11. Oktober 2026“ oben). Abschnitt bleibt als Verlauf.
+
 | Feld | Festlegung |
 | --- | --- |
 | Look & Feel | Die nackte Website. Erst ungestyltes HTML wie 1995, dann radikal experimentell: brutalistisch, riesig, roh. NPs eigene Spielwiese. |
@@ -428,6 +447,8 @@ Auf die Querfahrt von Chromwerk folgt die stillste Welt (Jana Ahrens), auf NAABT
 | Übergang hinaus | Die Rohelemente bekommen ihren Stil zurück, diesmal NP: Links werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan |
 
 ### Die drei Zwischenspiele
+
+> **Seit 11. Oktober 2026:** I und II sind Abschnitte der Startseite, III (Über mich) ist abgeschaltet. Abschnitt bleibt als Verlauf.
 
 | Zwischenspiel | Grund | Inhalt | Form |
 | --- | --- | --- | --- |

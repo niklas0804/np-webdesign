@@ -1,6 +1,13 @@
 # Stand der Website np-webdesign.de (Übergabe)
 
-Stand: 8. Oktober 2026 · Branch `claude/phase-1`, am 8. Oktober 2026 per Fast-Forward nach `main` übernommen · Inhaber: Niklas Prüfling, NP Webdesign, Schwandorf
+Stand: 16. Oktober 2026 (Teil B der Kurskorrektur vom 11. Oktober) · Arbeitsbranch `claude/phase-3` (nicht in `main`; `main` ist der Stand vom 8. Oktober) · Inhaber: Niklas Prüfling, NP Webdesign, Schwandorf
+
+## 0. Kurskorrektur 11. Oktober 2026 (gilt vor allem folgenden)
+- **Neun Welten, zwei Seiten.** NP Labor (Welt 10) und die Übergänge `ausziehen`/`rohbau` sind gelöscht. Die Welten liegen auf `/welten` (Opening, Werkplan 4×3 mit Platz „Ihr Betrieb“, neun Welten, Finale „Neun Welten. Die zehnte gehört Ihnen.“). Die Startseite `/` ist bis Teil C eine Zwischenfassung (`HeroVorlaeufig` + Warum, Arbeitsweise, Kontakt, FAQ).
+- **Zwischenspiele** sind von `/welten` entfernt; Warum und Arbeitsweise stehen auf der Startseite, „Über mich“ ist per `SITE_FLAGS.ueberMich = false` (`src/config/site.js`) abgeschaltet, das Porträt liegt in `assets-parked/ueber-mich/` und ist nicht im Build.
+- **Übergänge** (Teil A und B): Staffelstab-Technik, `src/motion/baton.js` und `transitions.js`; Befund, Technik und Prüfwerte in `docs/troubleshooting-uebergaenge.md`. Prüfwerkzeug: `tools/check-transitions.cjs` (Optionen im Kopf der Datei).
+- **Aufnahmen:** `scripts/screenshots.cjs` (Ausgabe `docs/screens/`), `scripts/render-previews.cjs` (Werkplan-, Branchen- und Social-Bilder, `welten.jpg`, `start.jpg`).
+- Die Abschnitte 4 und 4a unten beschreiben den Stand vom 8. Oktober und sind für Zwischenspiele, Welt 10, zehn Welten und das Porträt überholt; maßgebend ist `docs/BLUEPRINT.md` Abschnitt „Kurskorrektur 11. Oktober 2026“.
 
 ## 1. Worum es geht
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.

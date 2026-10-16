@@ -1,4 +1,4 @@
-/** Zwischenspiele (Blueprint F): Branchenband, Strahl mit sechs Stationen. */
+/** Abschnitte der Startseite (früher Zwischenspiele, Blueprint F): Branchenband, Strahl mit sechs Stationen. */
 import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 
 export function initInterludes() {

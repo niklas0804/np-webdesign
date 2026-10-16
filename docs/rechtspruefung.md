@@ -73,14 +73,14 @@ Noch nicht gebaut. Bitte das Konzept bewerten, bevor es gebaut wird (Blueprint A
 
 ## 6. Inhalte und Wettbewerbsrecht
 
-- [ ] **Studien-Welten:** Die Welten zeigen erfundene Unternehmen (Halmberg, Messingstuhl, Wittgenfeld Bau, geplant u. a. Haas & Sternfeld, Chromwerk, Jana Ahrens, TORQUEL, Praxis am Weiher, Gut Weidenstein, NP Labor). Sie sind als „Studie“ und „Demo“ gekennzeichnet. Reicht die Kennzeichnung? Markenrecherche (DPMAregister, EUIPO) macht Niklas selbst vor dem Livegang; Namen bleiben bis dahin. Ergebnis hier eintragen: ______
+- [ ] **Studien-Welten:** Die Welten zeigen erfundene Unternehmen (Halmberg, Messingstuhl, Wittgenfeld Bau, geplant u. a. Haas & Sternfeld, Chromwerk, Jana Ahrens, TORQUEL, Praxis am Weiher, Gut Weidenstein; NP Labor entfällt seit 11. Oktober 2026). Sie sind als „Studie“ und „Demo“ gekennzeichnet. Reicht die Kennzeichnung? Markenrecherche (DPMAregister, EUIPO) macht Niklas selbst vor dem Livegang; Namen bleiben bis dahin. Ergebnis hier eintragen: ______
 - [ ] **Demo-Daten:** Preise, Zeiten, Maße in den Welten sind erfunden und im Text als Demo bezeichnet (z. B. „Beispielpreise dieser Studie, nicht die Preise von NP Webdesign“). Ausreichend deutlich?
 - [ ] **Preisangaben** auf `/leistungen` (Starter 999 €, Professional 1.899 €, Premium ab 2.999 €, jeweils „Endpreis gem. § 19 UStG“): Pflichtangaben nach PAngV, falls Verbraucher angesprochen werden; Zielgruppe ist überwiegend gewerblich.
 - [ ] **Antwortzeit:** „Antwort innerhalb von 2 Werktagen“ ist eine verbindliche Zusage. Haftungs- oder Irreführungsrisiko? Eher „in der Regel“?
 - [ ] **Werbeaussagen** („individuell, keine Standardvorlagen, keine Baukastensysteme“, „DSGVO-orientierte Umsetzung“, „schnelle Website“) belegbar und nicht irreführend (UWG)?
 - [ ] **Branchenseite Bäckerei** (`/branchenloesungen/baeckerei`, neu geschrieben, mit Checkliste und drei FAQ): Aussagen wie „Ein Redaktionssystem gehört zum Premium-Paket“, „Bildrechte klären wir vorher“ und der Hinweis auf geprüfte Allergenangaben sachlich und rechtlich unbedenklich? Die drei anderen Branchenseiten sind wörtlich aus den vorhandenen Beispielkonzepten übernommen.
 - [ ] **Werdegang** (Über mich): „gelernter Mechatroniker, heute IT-Systemtechniker“. Berufsbezeichnungen richtig verwendet?
-- [ ] **Porträtfoto:** Niklas ist selbst abgebildet, Rechte beim Fotografen/Urheber geklärt (falls nicht Selbstaufnahme)?
+- [ ] **Porträtfoto (ruht):** Seit 11. Oktober 2026 ist „Über mich“ abgeschaltet (`SITE_FLAGS.ueberMich`), das Porträt liegt in `assets-parked/ueber-mich/` und ist nicht im Build. Die Datenschutzerklärung nennt kein Porträt. Erst beim Einschalten klären: Rechte beim Fotografen/Urheber (falls nicht Selbstaufnahme), Datenschutzerklärung und Metadaten des Bildes prüfen.
 
 ## 7. Lizenzen Dritter
 
