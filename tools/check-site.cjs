@@ -142,7 +142,8 @@ async function run() {
           if (!r.width || !r.height) { out.push(`${sel}[${i}] ohne Fläche`); return; }
           let o = 1; for (let n = el; n; n = n.parentElement) o *= parseFloat(getComputedStyle(n).opacity);
           const hit = document.elementFromPoint(Math.min(Math.max(r.left + r.width / 2, 1), innerWidth - 1), Math.min(Math.max(r.top + r.height / 2, 1), innerHeight - 1));
-          if (o < 0.5 || getComputedStyle(el).visibility === 'hidden' || !hit || !(el === hit || el.contains(hit) || hit.contains(el))) out.push(`${sel}[${i}] nicht sichtbar`);
+          const srOnly = el.classList.contains('visually-hidden'); // nur für Hilfstechnik gedacht: kein Treffertest am 1-px-Rechteck
+          if (o < 0.5 || getComputedStyle(el).visibility === 'hidden' || (!srOnly && (!hit || !(el === hit || el.contains(hit) || hit.contains(el))))) out.push(`${sel}[${i}] nicht sichtbar`);
         });
       }
       return out;
