@@ -40,7 +40,9 @@ export function initBeispiele() {
     return { x: g.x + g.w / 2 - (c.x + c.w / 2) + f.x, y: g.y + g.h / 2 - (c.y + c.h / 2) + f.y, rotation: f.r };
   };
   // Zeitgesteuert statt am Scrollen: Der Stapel fächert sich sichtbar auf, auch wenn jemand schnell scrollt (je Karte 70 ms versetzt)
-  const tl = gsap.timeline({ paused: true });
+  // Solange der Stapel liegt, überdecken sich die Karten: Mit der Maus ist dann keine einzeln zu treffen (Tastatur und Vorlesen bleiben unberührt)
+  grid.classList.add('is-stack');
+  const tl = gsap.timeline({ paused: true, onStart: () => grid.classList.remove('is-stack'), onReverseComplete: () => grid.classList.add('is-stack') });
   cards.forEach((card, i) => {
     const s = () => stack(i);
     tl.fromTo(card, { x: () => s().x, y: () => s().y, rotation: () => s().rotation, scale: 0.93 },

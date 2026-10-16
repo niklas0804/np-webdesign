@@ -271,6 +271,7 @@ html[data-mode='desktop'] .bsp-card.is-set .bsp-crops b, html[data-mode='mobile'
 }
 html[data-mode='desktop'] .bsp-track { min-height: calc(var(--len) * 1svh); }
 html[data-mode='desktop'] .bsp-stage { position: sticky; top: 0; height: 100svh; padding-top: calc(var(--frame-top) + var(--s4)); padding-bottom: var(--s6); overflow-x: clip; }
+html[data-mode='desktop'] .bsp-grid.is-stack .bsp-link { pointer-events: none; }
 html[data-mode='desktop'] .bsp-grid { width: min(100%, calc((100svh - var(--frame-top) - 90px - 235px) / .625)); justify-self: end; }
 html[data-mode='desktop'] .bsp-faden { display: block; bottom: auto; height: 40%; z-index: 1; }
 html[data-mode='mobile'] .bsp-card { opacity: 0; }
