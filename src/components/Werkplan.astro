@@ -11,7 +11,6 @@ const slots = builtWorlds.length + 1;
 ---
 <div class="werkplan" data-werkplan data-count={slots}>
   <div class="wp-grid">
-    <h1 id="werkplan-title" class="visually-hidden">Neun Welten · Studien von NP Webdesign</h1>
     <ol class="wp-cells" aria-label={`Die ${TEXT.worldCount} Welten`}>
       {builtWorlds.map((w) => (
         <li class="wp-cell" data-world={w.nr}>

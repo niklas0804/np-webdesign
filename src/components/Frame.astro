@@ -8,7 +8,7 @@ const total = String(builtWorlds.length).padStart(2, '0');
 const { page = 'welten' } = Astro.props;
 const worlds = page === 'welten';
 ---
-<div class="frame" data-page={page}>
+<header class="frame" data-page={page}>
   <span class="frame-strip" aria-hidden="true"></span>
   <a class="frame-logo" href="/" aria-label="NP Webdesign – zur Startseite">
     <Logo class="frame-logo-mark" />
@@ -44,10 +44,10 @@ const worlds = page === 'welten';
   <span class="crop crop-tr" aria-hidden="true"></span>
   <span class="crop crop-bl" aria-hidden="true"></span>
   <span class="crop crop-br" aria-hidden="true"></span>
-</div>
+</header>
 
 <!-- Mobile: Anfrage-Leiste in der Daumenzone -->
-<div class="frame-bar" data-frame-bar>
+<div class="frame-bar" data-frame-bar role="region" aria-label="Projekt anfragen">
   <a class="btn btn-primary" href="/#kontakt">
     <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
     <span class="btn-arrow" aria-hidden="true">→</span>
