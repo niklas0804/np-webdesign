@@ -35,6 +35,13 @@ const pos = (z) => Math.max(-1, Math.min(1, (z.ist - z.soll) / z.tol));
         </div>
       ))}
     </dl>
+    <div class="w07-rund" aria-hidden="true">
+      <svg viewBox="0 0 240 240" focusable="false">
+        <circle cx="120" cy="120" r="104" /><circle cx="120" cy="120" r="80" /><circle cx="120" cy="120" r="56" />
+        <path class="w07-rund-kontur" d="M120 24 C170 22 214 66 216 120 C218 172 172 218 120 216 C68 218 22 172 24 120 C22 68 68 26 120 24 Z" />
+        <path class="w07-rund-kreuz" d="M120 8v224M8 120h224" />
+      </svg>
+    </div>
   </header>
 
   <!-- Laserscan: dahinter entsteht das Messprotokoll -->
@@ -104,6 +111,8 @@ const pos = (z) => Math.max(-1, Math.min(1, (z.ist - z.soll) / z.tol));
     </form>
     <p class="w07-demo">Demo · es wird nichts gesendet und keine Datei übertragen</p>
   </section>
+
+  <div class="w07-raster" aria-hidden="true">{Array.from({ length: 35 }, () => <i></i>)}</div>
 
   <div class="w07-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Industrie und Fertigung" /></div>
   <p class="mono credit">Studie · {w.name} (fiktiv) · Gestaltung und Code: NP Webdesign</p>

@@ -26,6 +26,10 @@ const counter = `Welt 08 / ${total} · Physiotherapie · Studie`;
     <p class="w08-satz">{SATZ}</p>
     <p class="w08-unter">{UNTER}</p>
     <svg class="w08-wasser" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 12 C50 2 100 22 150 12 S250 2 300 12 S400 22 450 12 S550 2 600 12" /></svg>
+    <div class="w08-kalender" aria-hidden="true">
+      {['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map((d) => <b>{d}</b>)}
+      {Array.from({ length: 35 }, (_, i) => { const t = i - 2 + 1; return <i class={t < 1 || t > 31 ? 'is-leer' : t === 17 ? 'is-termin' : ''}>{t >= 1 && t <= 31 ? t : ''}</i>; })}
+    </div>
     <div class="w08-schalter" role="group" aria-label="Darstellung dieser Studie" data-schalter>
       <button class="w08-sw" type="button" aria-pressed="false" data-sw="large">Große Schrift</button>
       <button class="w08-sw" type="button" aria-pressed="false" data-sw="contrast">Hoher Kontrast</button>

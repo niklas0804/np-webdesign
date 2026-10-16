@@ -1,10 +1,31 @@
 /**
- * Finale (Blueprint L): Rückzoom auf den Werkplan, das Logo rückt beiseite, das Zentrum bleibt leer, die Einladung erscheint,
- * dann wächst die leere Zelle auf Viewport-Größe und führt in den Kontakt (Spiegelbild von t00).
+ * Finale (Blueprint L, Kurskorrektur 11. Oktober 2026): Rückzoom auf den Werkplan. Die Szene beginnt mit dem zehnten Platz, der die Bühne füllt
+ * und das erleuchtete Fenster trägt (so endet der Übergang 09 → Finale). Die Kamera fährt zurück, bis der ganze Werkplan sichtbar ist,
+ * das Fenster schrumpft mit seinem Platz, der Cursor blinkt, die Einladung erscheint.
  * Gepinnte Szene, folgt dem Scrollen 1:1. Nur in den Modi desktop und mobile. Nur Transform, Deckkraft, Maske.
  */
 import { gsap, $, $$ } from './base.js';
-import { setSection } from './rahmen.js';
+import { docRect } from './baton.js';
+
+/**
+ * Wo das erleuchtete Fenster im ersten Bild des Finales steht (Fensterrechteck im Bühnen-/Fensterraum, Stand Fortschritt 0).
+ * Reine Rechnung aus den Layout-Maßen (ohne Transformationen und ohne Nebenwirkung), damit der Übergang 09 → Finale genau dorthin landen kann.
+ */
+export function windowAtStart() {
+  const sec = $('[data-finale]');
+  if (!sec) return null;
+  const stage = $('[data-f-stage]', sec); const grid = $('[data-f-grid]', sec); const open = $('[data-f-open]', sec); const win = $('[data-f-window]', sec);
+  if (!stage || !grid || !open || !win) return null;
+  const sr = docRect(stage); const gr = docRect(grid); const lr = docRect(open); const wr = docRect(win);
+  const cx = lr.x - sr.x + lr.w / 2; const cy = lr.y - sr.y + lr.h / 2;
+  const s0 = Math.max(sr.w / lr.w, sr.h / lr.h) * 1.06;
+  const x0 = sr.w / 2 - cx; const y0 = sr.h / 2 - cy;
+  const ox = cx - (gr.x - sr.x); const oy = cy - (gr.y - sr.y);
+  const at = (v, o, t) => o + t + s0 * (v - o);
+  const left = (gr.x - sr.x) + at(wr.x - gr.x, ox, x0); const top = (gr.y - sr.y) + at(wr.y - gr.y, oy, y0);
+  const w = wr.w * s0; const h = wr.h * s0;
+  return { x: left, y: top, w, h, cx: left + w / 2, cy: top + h / 2 };
+}
 
 export function initFinale() {
   const sec = $('[data-finale]');
@@ -13,38 +34,28 @@ export function initFinale() {
   const plan = $('[data-f-plan]', sec);
   const grid = $('[data-f-grid]', sec);
   const cells = $$('.f-cell', sec);
+  const open = $('[data-f-open]', sec);
   const centre = $('[data-f-center]', sec);
-  const logo = $('[data-f-logo]', sec);
   const empty = $('[data-f-empty]', sec);
   const cursor = $('[data-f-cursor]', sec);
   const invite = $('[data-f-invite]', sec);
-  const sign = $('[data-f-sign]', sec);
-  const grow = $('[data-f-grow]', sec);
-  const kontakt = document.getElementById('kontakt');
-  if (!stage || !grid || !cells.length || !centre) return;
-  const last = cells[cells.length - 1];
+  const win = $('[data-f-window]', sec);
+  if (!stage || !grid || !cells.length || !open || !centre) return;
 
   const build = () => {
     gsap.set(grid, { clearProps: 'transform' });
     const sr = stage.getBoundingClientRect();
     const gr = grid.getBoundingClientRect();
-    const lr = last.getBoundingClientRect();
-    const cr = centre.getBoundingClientRect();
+    const lr = open.getBoundingClientRect();
+    // Start: der zehnte Platz füllt die Bühne bis zum Rand (deckt sie ganz), die Kamera fährt von dort zurück
     const cx = lr.left - sr.left + lr.width / 2;
     const cy = lr.top - sr.top + lr.height / 2;
-    // Start: die letzte Zelle füllt die Bühne, die Kamera fährt von dort zurück
-    const s0 = Math.max(sr.width / lr.width, sr.height / lr.height) * 1.1;
-    // Ist über dem Raster Platz für die Signatur? Sonst blendet das Logo nur aus.
-    const room = gr.top - sr.top > parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--frame-top')) + 56;
-    return {
-      s0, x0: sr.width / 2 - cx, y0: sr.height / 2 - cy, ox: cx - (gr.left - sr.left), oy: cy - (gr.top - sr.top), room,
-      clip: `inset(${cr.top - sr.top}px ${sr.right - cr.right}px ${sr.bottom - cr.bottom}px ${cr.left - sr.left}px)`,
-    };
+    const s0 = Math.max(sr.width / lr.width, sr.height / lr.height) * 1.06;
+    return { s0, x0: sr.width / 2 - cx, y0: sr.height / 2 - cy, ox: cx - (gr.left - sr.left), oy: cy - (gr.top - sr.top) };
   };
   let g = build();
 
   const len = () => parseFloat(getComputedStyle(sec).getPropertyValue('--len'));
-  let section = null;
   let blinked = false;
 
   const tl = gsap.timeline({
@@ -56,43 +67,34 @@ export function initFinale() {
       scrub: true,
       invalidateOnRefresh: true,
       onRefreshInit: () => { g = build(); },
+      // ScrollTrigger setzt bei invalidateOnRefresh zurück und rendert nur Tweens mit ausdrücklichem immediateRender neu: einmal durchspielen, damit alle Startzustände stehen
+      onRefresh: () => { const p = tl.progress(); tl.progress(1, true).progress(p, true); },
       onUpdate: (self) => {
         const p = self.progress;
         if (p > 0.62 && !blinked) { blinked = true; cursor.classList.add('is-blink'); }
         if (p < 0.4 && blinked) { blinked = false; cursor.classList.remove('is-blink'); }
-        // Zählerwechsel in der Mitte des Sprungs in den Kontakt
-        if (self.isActive && kontakt) {
-          const jump = p > 0.9;
-          if (jump !== section) { section = jump; setSection(jump ? kontakt : sec); }
-        }
       },
-      onLeaveBack: () => { section = null; },
     },
   });
 
-  // 0–38 %: Rückzoom von der letzten Zelle auf den ganzen Werkplan
-  tl.fromTo(plan, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.06 }, 0);
+  // 0–55 %: Rückzoom vom zehnten Platz auf den ganzen Werkplan
+  tl.fromTo(plan, { autoAlpha: 1 }, { autoAlpha: 1, duration: 0.001 }, 0);
   tl.fromTo(grid,
     { scale: () => g.s0, x: () => g.x0, y: () => g.y0, transformOrigin: () => `${g.ox}px ${g.oy}px` },
-    { scale: 1, x: 0, y: 0, duration: 0.38, ease: 'power2.inOut', immediateRender: true }, 0);
-  // Weitere Rahmen erscheinen, sobald sie ins Bild kommen; die letzte Zelle steht von Anfang an da
-  cells.slice(0, -1).reverse().forEach((c, i) => tl.fromTo(c, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 0.12 + i * 0.05));
-  tl.fromTo(centre, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.26);
+    { scale: 1, x: 0, y: 0, duration: 0.55, ease: 'power2.inOut', immediateRender: true }, 0);
+  // Die übrigen Plätze erscheinen, sobald sie ins Bild kommen; der zehnte steht von Anfang an da
+  cells.filter((c) => c !== open).reverse().forEach((c, i) => tl.fromTo(c, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 0.18 + i * 0.04));
+  tl.fromTo(centre, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.34);
 
-  // 46–62 %: Das Logo rückt als Signatur nach oben, die leere Zelle bleibt mit Marke und Cursor
-  tl.fromTo(logo, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.08 }, 0.46);
-  if (g.room) tl.fromTo(sign, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.5);
-  tl.fromTo(empty, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.54);
+  // Die Leiste des zehnten Platzes (Browserleiste) ist am Anfang ausgeblendet, damit das erste Bild nur Dämmerung und Fenster zeigt (so endet der Übergang 09 → Finale)
+  const bar = $('.wp-bar', open);
+  if (bar) tl.fromTo(bar, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.14);
 
-  // 62–74 %: Einladung
-  tl.fromTo(invite, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.62);
+  // 50–70 %: Das Fenster verlischt langsam zur Form eines leeren Platzes mit Cursor, der Platz bleibt „Ihr Betrieb“
+  tl.fromTo(win, { opacity: 1 }, { opacity: 0.55, duration: 0.2 }, 0.5);
+  tl.fromTo(empty, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.56);
 
-  // 80–100 %: Sprung in den Kontakt: die leere Zelle wächst auf Viewport-Größe
-  const rest = [...cells, invite, empty, ...(g.room ? [sign] : [])];
-  tl.fromTo(rest, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.08, immediateRender: false }, 0.8);
-  tl.fromTo(grow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001 }, 0.8);
-  tl.fromTo(grow, { clipPath: () => g.clip }, { clipPath: 'inset(0px 0px 0px 0px)', duration: 0.17, ease: 'power2.inOut', immediateRender: false }, 0.8);
-  tl.to(plan, { autoAlpha: 0, duration: 0.01 }, 0.97);
-  tl.to(grow, { autoAlpha: 0, duration: 0.03 }, 0.97);
+  // 62–82 %: Einladung
+  tl.fromTo(invite, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.62);
   tl.set({}, {}, 1);
 }

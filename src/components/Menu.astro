@@ -1,17 +1,17 @@
 ---
 import { builtWorlds, TEXT } from '../config/journey.js';
-import { SITE } from '../config/site.js';
+import { SITE, SITE_FLAGS } from '../config/site.js';
 ---
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menü" hidden data-menu>
   <div class="menu-inner on-dark">
     <button class="menu-close" type="button" data-menu-close>Schließen</button>
     <div class="menu-cols">
       <nav class="menu-worlds" aria-label={`Die ${TEXT.worldCount} Welten`}>
-        <p class="kicker">Die {TEXT.worldCount} Welten</p>
+        <p class="kicker"><a href="/welten" data-menu-link>Die {TEXT.worldCount} Welten</a></p>
         <ol>
           {builtWorlds.map((w) => (
             <li>
-              <a href={`/#${w.anchor}`} data-menu-link data-menu-world={w.nr}>
+              <a href={`/welten#${w.anchor}`} data-menu-link data-menu-world={w.nr}>
                 <span class="mono menu-nr">{w.nr}</span>
                 <span class="menu-name">{w.name}</span>
                 <span class="mono menu-branche">{w.branche}</span>
@@ -24,7 +24,7 @@ import { SITE } from '../config/site.js';
         <ul>
           <li><a href="/leistungen" data-menu-link>Leistungen und Preise</a></li>
           <li><a href="/#arbeitsweise" data-menu-link>Arbeitsweise</a></li>
-          <li><a href="/#ueber-mich" data-menu-link>Über mich</a></li>
+          {SITE_FLAGS.ueberMich && <li><a href="/#ueber-mich" data-menu-link>Über mich</a></li>}
           <li><a href="/#faq" data-menu-link>FAQ</a></li>
           <li><a href="/#kontakt" data-menu-link>Kontakt</a></li>
         </ul>

@@ -111,3 +111,8 @@ html[data-js] .w05-vn-range { display: grid; gap: var(--s2); }
 }
 @media (max-width: 599px) { html[data-js] .w05-vn-pane .fp-frame { aspect-ratio: auto; min-height: 21rem; } }
 @media (max-width: 599px) { .w05-table th { width: 50%; font-size: .625rem; letter-spacing: .1em; } .w05-ablauf li { grid-template-columns: 2.5rem 1fr; } }
+
+/* Scheinwerfer: Staffelstab des Übergangs 05 → 06 (glüht auf und wird zur Farbkugel) */
+.w05-lampe { position: relative; width: clamp(110px, 16vw, 150px); aspect-ratio: 1; margin: var(--s10) auto 0; }
+.w05-lampe-ring { position: absolute; inset: 0; border-radius: 50%; border: 5px solid var(--accent); }
+.w05-lampe-glas { position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle at 36% 32%, #3a5a4c 0%, #1b4636 55%, #10281f 100%); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--accent) 60%, transparent); }

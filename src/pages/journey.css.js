@@ -2,12 +2,12 @@
  * Erzeugt /journey.css aus der zentralen Reise-Konfiguration.
  * Längen und Paletten stehen nur in src/config/journey.js (Blueprint N). Eine Datei statt Inline-Styles → strikte CSP.
  */
-import { journey, WORLDS } from '../config/journey.js';
+import { journey, homeRows, WORLDS } from '../config/journey.js';
 
 export function GET() {
   const desktop = [];
   const mobile = [];
-  for (const r of journey) {
+  for (const r of [...journey, ...homeRows]) {
     const sel = `[data-section="${r.id}"]`;
     if (r.kind === 'opening') {
       desktop.push(`${sel}{--expansion:${r.expansion.d};--plan:${r.plan.d};--grow:${r.grow.d}}`);

@@ -4,10 +4,13 @@ import { builtWorlds } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Logo from './Logo.astro';
 const total = String(builtWorlds.length).padStart(2, '0');
+/** 'welten': Weltzähler und Lineal mit den neun Welten. 'home': Startseite, Zähler und Lineal gehören dem Abschnitt (Teil C). */
+const { page = 'welten' } = Astro.props;
+const worlds = page === 'welten';
 ---
-<div class="frame">
+<div class="frame" data-page={page}>
   <span class="frame-strip" aria-hidden="true"></span>
-  <a class="frame-logo" href="/#werkplan" aria-label="NP Webdesign – zum Werkplan">
+  <a class="frame-logo" href="/" aria-label="NP Webdesign – zur Startseite">
     <Logo class="frame-logo-mark" />
   </a>
 
@@ -22,19 +25,19 @@ const total = String(builtWorlds.length).padStart(2, '0');
     </a>
   </div>
 
-  <p class="frame-counter mono" aria-hidden="true">
+  {worlds && <p class="frame-counter mono" aria-hidden="true">
     <span class="frame-counter-long" data-frame-counter>Werkplan</span>
     <span class="frame-counter-short" data-frame-counter-short>00 / {total}</span>
-  </p>
+  </p>}
 
-  <div class="frame-ruler" aria-hidden="true" data-ruler>
+  {worlds && <div class="frame-ruler" aria-hidden="true" data-ruler>
     <span class="ruler-track"></span>
     <span class="ruler-fill" data-ruler-fill></span>
     <span class="ruler-mark" data-ruler-mark></span>
     {builtWorlds.map((w) => (
-      <a class="ruler-tick" href={`/#${w.anchor}`} tabindex="-1" data-tick={w.nr} data-label={`${w.nr} · ${w.name}`}><span class="ruler-tick-label">{w.nr} · {w.name}</span></a>
+      <a class="ruler-tick" href={`/welten#${w.anchor}`} tabindex="-1" data-tick={w.nr} data-label={`${w.nr} · ${w.name}`}><span class="ruler-tick-label">{w.nr} · {w.name}</span></a>
     ))}
-  </div>
+  </div>}
   <div class="frame-progress" aria-hidden="true"><span data-progress></span></div>
 
   <span class="crop crop-tl" aria-hidden="true"></span>

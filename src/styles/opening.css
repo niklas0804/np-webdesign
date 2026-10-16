@@ -163,66 +163,48 @@
   .wp-statement { grid-column: 2 / 4; padding-top: 0; display: flex; flex-direction: column; justify-content: center; }
 }
 
-/* Vier Studien: vier Spalten, das Zentrum und die Aussage darunter (mobil: das Zentrum über die ganze Breite) */
+/* Zehn Plätze (neun Welten und „Ihr Betrieb“), Kurskorrektur 11. Oktober 2026.
+   Desktop: 4 × 3, das Zentrum mit dem Logo über zwei Spalten in der Mitte der zweiten Reihe, die Aussage darunter.
+   Mobil: zwei Spalten, eigene Komposition: das Zentrum als schmales Band quer über beide Spalten nach den ersten vier Welten. */
 @media (min-width: 1024px) {
-  .werkplan[data-count='4'] .wp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .werkplan[data-count='4'] .wp-statement { grid-column: 2 / 5; }
+  .werkplan[data-count='10'] .wp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
+  .werkplan[data-count='10'] .wp-center { grid-column: 2 / 4; grid-row: 2; aspect-ratio: auto; }
+  .werkplan[data-count='10'] .wp-frame { aspect-ratio: 16 / 9; }
+  .werkplan[data-count='10'] .wp-caption { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: var(--s2); }
+  .werkplan[data-count='10'] .wp-statement { grid-column: 1 / -1; padding-top: 0; flex-direction: row; align-items: baseline; justify-content: space-between; gap: var(--s6); }
+  .werkplan[data-count='10'] .wp-statement h2 { font-size: clamp(1.25rem, 2.1vw, 2rem); max-width: none; }
+  .werkplan[data-count='10'] .wp-note { margin-top: 0; max-width: 34ch; text-align: right; }
 }
 @media (max-width: 1023px) {
-  .werkplan[data-count='4'] .wp-center { grid-column: 1 / -1; aspect-ratio: 16 / 5; }
+  .werkplan[data-count='10'] .wp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+  .werkplan[data-count='10'] .wp-center { grid-column: 1 / -1; grid-row: 3; aspect-ratio: auto; min-height: 44px; }
+  .werkplan[data-count='10'] .wp-center-logo { height: 26px; }
+  .werkplan[data-count='10'] .wp-caption { display: none; }
+  .werkplan[data-count='10'] .wp-frame { aspect-ratio: 16 / 9; }
+  .werkplan[data-count='10'] .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
+  .werkplan[data-count='10'] .wp-bar i { width: 3px; height: 3px; }
+  .werkplan[data-count='10'] .wp-still, .werkplan[data-count='10'] .wp-open { top: 12px; }
+  .werkplan[data-count='10'] .wp-statement { padding-top: var(--s2); }
+  .werkplan[data-count='10'] .wp-statement h2 { font-size: 1.0625rem; max-width: none; }
+  .werkplan[data-count='10'] .wp-note { display: none; }
 }
 
-/* Fünf Studien: drei Spalten, das Zentrum rückt in die Lücke der zweiten Reihe, die Aussage steht darunter über die ganze Breite */
-@media (min-width: 1024px) {
-  .werkplan[data-count='5'] .wp-grid { max-width: 1100px; }
-  .werkplan[data-count='5'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; }
-  .werkplan[data-count='5'] .wp-statement { grid-column: 1 / -1; padding-top: var(--s3); }
-}
-
-/* Sechs Studien: drei Spalten, das Zentrum in der dritten Reihe neben der Aussage; die Aussage ist schmal, das Raster etwas enger.
-   Sieben Studien: vier Spalten, das Zentrum rückt in die Lücke der zweiten Reihe, die Aussage steht darunter. */
-@media (min-width: 1024px) {
-  .werkplan[data-count='6'] .wp-grid { max-width: 980px; }
-  .werkplan[data-count='7'] .wp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
-  .werkplan[data-count='7'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; }
-  .werkplan[data-count='7'] .wp-statement { grid-column: 1 / -1; padding-top: var(--s3); }
-}
-@media (max-width: 1023px) {
-  .werkplan[data-count='6'] .wp-center { grid-column: 1 / -1; aspect-ratio: 16 / 4; }
-  /* Ab sechs Studien passen auf dem Handy keine Beschriftungen mehr unter die Zellen (die Bilder tragen die Namen, der Text steht für Hilfstechnik im Link) */
-  .werkplan:is([data-count='6'], [data-count='7'], [data-count='8'], [data-count='9'], [data-count='10']) .wp-caption { display: none; }
-  .werkplan:is([data-count='6'], [data-count='7'], [data-count='8'], [data-count='9'], [data-count='10']) .wp-grid { gap: var(--s3); }
-}
-
-/* Acht Studien: vier Spalten, das Zentrum links in der dritten Reihe neben der Aussage.
-   Neun Studien: fünf Spalten, das Zentrum rückt in die Lücke der zweiten Reihe, die Aussage steht darunter.
-   Mobil ab acht Studien drei Spalten (die Zellen bleiben als Übersicht lesbar). */
-@media (min-width: 1024px) {
-  .werkplan[data-count='8'] .wp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
-  .werkplan[data-count='8'] .wp-statement { grid-column: 2 / 5; }
-  .werkplan[data-count='9'] .wp-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
-  .werkplan[data-count='9'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; }
-  .werkplan[data-count='9'] .wp-statement { grid-column: 1 / -1; padding-top: var(--s3); }
-}
-@media (max-width: 1023px) {
-  .werkplan:is([data-count='8'], [data-count='9'], [data-count='10']) .wp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
-  .werkplan[data-count='8'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; }
-  .werkplan[data-count='9'] .wp-center { grid-column: 1 / -1; aspect-ratio: 16 / 3; }
-  .werkplan:is([data-count='8'], [data-count='9'], [data-count='10']) .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
-  .werkplan:is([data-count='8'], [data-count='9'], [data-count='10']) .wp-bar i { width: 3px; height: 3px; }
-  .werkplan:is([data-count='8'], [data-count='9'], [data-count='10']) .wp-still { top: 12px; }
-}
-
-/* Zehn Studien: fünf Spalten, zwei volle Reihen, das Zentrum links in der dritten Reihe neben der Aussage. */
-@media (min-width: 1024px) {
-  .werkplan[data-count='10'] .wp-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
-  .werkplan[data-count='10'] .wp-statement { grid-column: 2 / 6; }
-}
-@media (max-width: 1023px) { .werkplan[data-count='10'] .wp-center { grid-column: auto; aspect-ratio: 16 / 10; } }
+/* Der zehnte Platz: leerer Rahmen „Ihr Betrieb“ mit Cursor. Orange gehört NP. */
+.wp-frame-open { border: 1.5px dashed var(--np-orange); }
+.wp-open { position: absolute; inset: 18px 0 0 0; display: grid; place-items: center; overflow: hidden;
+  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--np-orange) 8%, transparent) 0 10px, transparent 10px 20px); }
+.wp-open > * { grid-area: 1 / 1; }
+.wp-open-text { color: var(--orange-text); font-size: var(--fs-mono-xs); text-align: center; }
+.wp-cursor { display: inline-block; width: 2px; height: 1.2em; margin-left: 5px; background: var(--np-orange); vertical-align: -.25em; }
+/* Blinkt sechsmal, sobald die Szene im Bild ist (kein Endlos-Blinken, WCAG 2.2.2) */
+.wp-cursor.is-blink { animation: wp-blink 1s steps(1) 6; }
+@keyframes wp-blink { 50% { opacity: 0; } }
+.wp-link:hover .wp-frame-open, .wp-link:focus-visible .wp-frame-open { background: var(--hover-toenung); }
 
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
-  height: calc((100 + var(--expansion) + var(--plan) + var(--grow)) * 1svh);
+  /* Die letzten 100 svh liegt Welt 01 über der Bühne (margin-top −100 svh): Sie deckt die Bühne von unten zu, wie bei den Übergängen */
+  height: calc((200 + var(--expansion) + var(--plan) + var(--grow)) * 1svh);
 }
 html[data-mode='desktop'] .stage, html[data-mode='mobile'] .stage {
   position: sticky; top: 0; height: 100svh; overflow: hidden;
@@ -234,8 +216,10 @@ html[data-mode='desktop'] .werkplan, html[data-mode='mobile'] .werkplan {
   display: grid; place-items: center; visibility: hidden; background: transparent;
 }
 html[data-mode='desktop'] .wp-grid, html[data-mode='mobile'] .wp-grid { width: 100%; will-change: auto; }
+html[data-mode='mobile'] .werkplan { padding: calc(var(--frame-top) + var(--s2)) var(--gutter) var(--s5); }
+@media (max-width: 1023px) and (max-height: 720px) { .werkplan[data-count='10'] .wp-frame { aspect-ratio: 2 / 1; } .werkplan[data-count='10'] .wp-center { min-height: 36px; } }
 html[data-mode='desktop'] .wp-statement, html[data-mode='mobile'] .wp-statement { padding-top: var(--s5); }
-html[data-mode='desktop'] .wp-statement h2, html[data-mode='mobile'] .wp-statement h2 { font-size: clamp(1.5rem, 2.6vw, 2.75rem); }
+
 html[data-mode='mobile'] .wp-note { margin-top: var(--s2); font-size: var(--fs-mono-xs); }
 
 /* Koordinate am Cursor: einzige Ausnahme vom Systemcursor – ein Hinweis daneben, nur Desktop */
@@ -261,4 +245,4 @@ html[data-mode='desktop'] .grow, html[data-mode='mobile'] .grow { display: block
 .grow-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; }
 /* Ruhig und ohne JavaScript: der orange Faden trennt Werkplan und Welt 01 */
 .opening + .world { border-top: 1.5px solid var(--np-orange); }
-html[data-mode='desktop'] .opening + .world, html[data-mode='mobile'] .opening + .world { border-top: 0; }
+html[data-mode='desktop'] .opening + .world, html[data-mode='mobile'] .opening + .world { border-top: 0; margin-top: calc(-100 * 1svh); }

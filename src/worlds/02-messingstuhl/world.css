@@ -104,3 +104,6 @@ html:not([data-js]) .w02-slots { display: none; }
 .w02-note { margin-top: var(--block); text-align: left; display: flex; justify-content: center; }
 .w02-note .note { margin: 0; }
 .w02 > .credit { margin-top: var(--s8); }
+
+/* Messingschiene am Ende des Salons: Staffelstab des Übergangs 02 → 03 (wird dort zur Maßlinie) */
+.w02-schiene { height: 14px; width: min(100%, 560px); margin: var(--block) auto 0; background: var(--accent); }

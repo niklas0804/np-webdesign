@@ -1,21 +1,22 @@
 ---
 /**
- * Finale (Blueprint L): Rückzoom auf den Werkplan, das Logo rückt beiseite, das Zentrum bleibt leer („Welt 04 · Ihr Unternehmen“),
- * darunter die Einladung. Weiterscrollen lässt die leere Zelle auf Viewport-Größe wachsen und führt in den Kontakt.
+ * Finale (Blueprint L, Kurskorrektur 11. Oktober 2026): Rückzoom auf den Werkplan. Der zehnte Platz ist leer und trägt das erleuchtete Fenster
+ * (aus dem Übergang 09 → Finale), darunter die Einladung „Neun Welten. Die zehnte gehört Ihnen.“. Der Kontakt liegt auf der Startseite.
  * Der echte Inhalt (Überschrift, Button) steht einmal im DOM; die Zellen sind reine Bühne (für Hilfstechnik verborgen).
- * Ruhig und ohne JavaScript: nur die Einladung, gestapelt.
+ * Ruhig und ohne JavaScript: nur die Einladung.
  */
 import { builtWorlds, TEXT } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Logo from './Logo.astro';
 import WorldStill from './WorldStill.astro';
 const { row } = Astro.props;
+const slots = builtWorlds.length + 1;
 ---
 <section id={row.anchor} class="finale" data-section={row.id} data-ground={row.ground} data-tone="light"
-         data-counter={`${TEXT.nextWorld} · Ihr Unternehmen`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title" data-finale>
+         data-counter={`${TEXT.nextWorld} · Ihr Betrieb`} data-counter-short={TEXT.nextWorld} aria-labelledby="finale-title" data-finale>
   <div class="f-stage" data-f-stage>
     <div class="f-plan" data-f-plan>
-      <div class="wp-grid f-grid" data-f-grid data-count={builtWorlds.length}>
+      <div class="wp-grid f-grid" data-f-grid data-count={slots}>
         <div class="f-cells" aria-hidden="true">
           {builtWorlds.map((w) => (
             <div class="f-cell" data-world={w.nr}>
@@ -25,16 +26,24 @@ const { row } = Astro.props;
               </span>
             </div>
           ))}
+          <div class="f-cell f-cell-open" data-f-open>
+            <span class="wp-frame wp-frame-open">
+              <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Ihr Betrieb</span></span>
+              <span class="wp-open">
+                <span class="f-window" data-f-window><span class="f-window-licht"></span><span class="f-window-steg f-window-steg-v"></span><span class="f-window-steg f-window-steg-h"></span><span class="f-window-rahmen"></span></span>
+                <span class="wp-open-text mono" data-f-empty>Ihr Betrieb<span class="f-cursor" data-f-cursor></span></span>
+              </span>
+            </span>
+          </div>
         </div>
         <div class="f-center" aria-hidden="true" data-f-center>
           <span class="f-logo" data-f-logo><Logo class="wp-center-logo" /></span>
-          <p class="f-empty mono" data-f-empty>{TEXT.nextWorld} · Ihr Unternehmen<span class="f-cursor" data-f-cursor></span></p>
         </div>
         <div class="f-invite" data-f-invite>
-          <p class="kicker">{TEXT.nextWorld} · Ihr Unternehmen</p>
+          <p class="kicker">{TEXT.nextWorld} · Ihr Betrieb</p>
           <h2 id="finale-title">{TEXT.claim}</h2>
           <div class="finale-actions">
-            <a class="btn btn-primary" href="#kontakt">
+            <a class="btn btn-primary" href="/#kontakt">
               <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
               <span class="btn-arrow" aria-hidden="true">→</span>
             </a>
@@ -43,7 +52,5 @@ const { row } = Astro.props;
         </div>
       </div>
     </div>
-    <div class="f-sign" aria-hidden="true" data-f-sign><Logo class="f-sign-logo" /></div>
-    <div class="f-grow" aria-hidden="true" data-f-grow></div>
   </div>
 </section>

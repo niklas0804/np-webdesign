@@ -1,0 +1,24 @@
+---
+/**
+ * VORLÄUFIG (Teil B): Kopf der Startseite, bis Teil C die neue Startseite („Maßarbeit“) baut. Wird dort ersetzt.
+ * Texte wörtlich aus dem Auftrag; der zweite Knopf führt zu /welten.
+ */
+import { TEXT } from '../config/journey.js';
+---
+<section id="start" class="hero-v" data-section="start" data-ground="#F0EBE3" data-tone="light" aria-labelledby="hero-title">
+  <div class="hero-v-inner">
+    <p class="kicker">NP Webdesign · Schwandorf</p>
+    <h1 id="hero-title">Websites, die nach Ihrem Unternehmen aussehen.</h1>
+    <p class="lead">Individuell entworfen und gebaut für Betriebe in der Oberpfalz und darüber hinaus. Ohne Baukasten, ohne Vorlage.</p>
+    <div class="hero-v-buttons">
+      <a class="btn btn-primary" href="#kontakt">
+        <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn-secondary" href="/welten">
+        <span class="btn-label"><span>{TEXT.heroSecondary}</span><span aria-hidden="true">{TEXT.heroSecondary}</span></span>
+      </a>
+    </div>
+    <p class="small hero-v-direct">Direkt zu: <a class="link" href="/leistungen">Pakete und Preise</a> · <a class="link" href="#kontakt">Kontakt</a></p>
+  </div>
+</section>

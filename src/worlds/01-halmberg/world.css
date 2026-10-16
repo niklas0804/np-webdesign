@@ -148,3 +148,6 @@ html:not([data-js]) .w01-bon { display: none; }
 .w01 > .credit { margin-top: var(--s8); }
 
 /* Zwetschgen auf der Illustration folgen dem Akzent */
+
+/* Übergang 01 → 02 holt den Bon ab: auf dem Handy steht er unten im letzten Bildschirm der Welt, die Öffnungszeiten davor */
+@media (max-width: 1023px) { .w01-service .w01-tafel { order: -1; } }

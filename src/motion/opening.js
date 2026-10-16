@@ -1,7 +1,7 @@
 /**
- * Opening, Phase 3 (Blueprint D): Expansion und Rückzoom auf den Werkplan.
+ * Einstieg von /welten (Blueprint D, Kurskorrektur 11. Oktober 2026): Der Werkplan steht von Anfang an. Er ruht kurz, dann wächst die Zelle
+ * von Welt 01 auf Viewport-Größe (t00). Den Hero und die Expansion gibt es hier nicht mehr, sie gehören der Startseite.
  * Gepinnte Szene, folgt dem Scrollen 1:1 (Scrub). Nur in den Modi desktop und mobile.
- * Die Werkplan-Ebene steht in ihrer Endgröße und wird nur verkleinert (nie hochskaliert).
  */
 import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
 import { setSection } from './rahmen.js';
@@ -17,38 +17,25 @@ export function initOpening() {
 
   const grid = $('.wp-grid', wp);
   const centre = $('[data-wp-center]', wp);
-  const centreLogo = $('.wp-center-logo', wp);
   const statement = $('[data-wp-statement]', wp);
   const cells = $$('.wp-cell', wp);
-  const heroLogo = $('[data-hero-logo]');
-  const copy = [$('[data-hero-copy]'), $('[data-hero-actions]'), $('.hero-hint')].filter(Boolean);
-  const deco = $('[data-hero-deco]');
+  const cursor = $('[data-wp-cursor]', wp);
 
-  // Der Werkplan ist bis zum Ende der Expansion nicht bedienbar
-  wp.inert = true;
+  // Der Werkplan steht sofort und ist bedienbar, bis die Zelle zu wachsen beginnt
+  gsap.set(wp, { autoAlpha: 1 });
 
-  // Frühes Scrollen: Phase 2 läuft mit vierfachem Tempo zu Ende (Blueprint D, Sonderfälle)
-  ScrollTrigger.create({
-    trigger: sec, start: 'top -4px', end: 'top -5px',
-    onEnter: () => { if (performance.now() < 1600) document.getAnimations().forEach((a) => { a.playbackRate = 4; }); },
-  });
+  // Der Cursor im zehnten Platz blinkt sechsmal, sobald die Szene im Bild ist (und noch einmal bei jedem Wiedereintritt)
+  if (cursor) {
+    ScrollTrigger.create({
+      trigger: sec, start: 'top bottom', end: 'bottom top',
+      onToggle: (self) => { cursor.classList.remove('is-blink'); if (self.isActive) { void cursor.offsetWidth; cursor.classList.add('is-blink'); } },
+    });
+  }
 
   const build = () => {
-    // Zielgeometrie im Endzustand messen
+    // Zielgeometrie im Endzustand messen: Rahmen der Zelle 01, Startform der Wachstums-Maske (t00)
     gsap.set(grid, { clearProps: 'transform' });
-    if (centreLogo) centreLogo.style.removeProperty('--wp-logo');
     const sr = stage.getBoundingClientRect();
-    const cr = centre.getBoundingClientRect();
-    const gr = grid.getBoundingClientRect();
-    const cx = cr.left - sr.left + cr.width / 2;
-    const cy = cr.top - sr.top + cr.height / 2;
-    const heroLogoH = heroLogo ? heroLogo.getBoundingClientRect().height : 96;
-    const target = { x: sr.width / 2, y: sr.height * (mode === 'desktop' ? 0.42 : 0.30) };
-    const s0 = Math.max(sr.width / cr.width, sr.height / cr.height) * 1.3;
-    // Logo im Zentrum so groß, dass es zu Beginn genau wie das Logo im Hero erscheint
-    if (centreLogo) centreLogo.style.setProperty('--wp-logo', heroLogoH / s0 + 'px');
-    // Rahmen der Zelle 01 im Endzustand: Startform der Wachstums-Maske (t00)
-    // Startform: die Fläche unter der Browserleiste; die Komposition schrumpft passend mit (Miniatur der Zelle)
     const frameEl = $('.wp-cell[data-world="01"] .wp-frame', wp);
     const fr = frameEl.getBoundingClientRect();
     const barH = $('.wp-bar', frameEl).getBoundingClientRect().height;
@@ -58,40 +45,9 @@ export function initOpening() {
     const focus = mode === 'mobile' ? FOCUS_M : 0;
     const s = fr.width / sr.width;
     const art = { x: fr.left - sr.left, y: top - focus * s, s };
-    return { s0, x0: target.x - cx, y0: target.y - cy, ox: cx - (gr.left - sr.left), oy: cy - (gr.top - sr.top), clip, art };
+    return { clip, art };
   };
-
   let g = build();
-  const tl = gsap.timeline({
-    defaults: { ease: 'none' },
-    scrollTrigger: {
-      trigger: sec,
-      start: 'top top',
-      end: () => '+=' + (parseFloat(getComputedStyle(sec).getPropertyValue('--expansion')) / 100) * stage.offsetHeight,
-      scrub: true,
-      invalidateOnRefresh: true,
-      onRefreshInit: () => { g = build(); },
-      onUpdate: (self) => { wp.inert = self.progress < 0.9; },
-    },
-  });
-
-  // 0–25 %: Hero-Text gleitet nach oben aus, Fragmente verblassen
-  tl.fromTo(copy, { y: 0, autoAlpha: 1 }, { y: -40, autoAlpha: 0, duration: 0.25 }, 0);
-  if (deco) tl.fromTo(deco, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3 }, 0.1);
-  if (heroLogo) tl.fromTo(heroLogo, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.15 }, 0.25);
-
-  // 15–85 %: Rückzoom
-  tl.fromTo(wp, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.14);
-  tl.fromTo(grid,
-    { scale: () => g.s0, x: () => g.x0, y: () => g.y0, transformOrigin: () => `${g.ox}px ${g.oy}px` },
-    { scale: 1, x: 0, y: 0, duration: 0.7, ease: 'power2.inOut', immediateRender: true }, 0.15);
-
-  // Weltrahmen blenden ein, sobald sie ins Bild kommen
-  cells.forEach((c, i) => tl.fromTo(c, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.5 + i * 0.07));
-
-  // 85–100 %: Statement
-  if (statement) tl.fromTo(statement, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.15 }, 0.85);
-  tl.set({}, {}, 1);
 
   // ---- t00 · Werkplan → Welt 01: Die Zelle wächst auf Viewport-Größe (Blueprint F, Übergang 1) ----
   const grow = $('[data-grow]', sec);
@@ -113,6 +69,8 @@ export function initOpening() {
       end: () => '+=' + (css('--grow') / 100) * H(),
       scrub: true,
       invalidateOnRefresh: true,
+      onRefreshInit: () => { g = build(); },
+      onRefresh: () => { const p = tlB.progress(); tlB.progress(1, true).progress(p, true); },
       onUpdate: (self) => {
         if (self.progress > 0) wp.inert = true;
         if (!self.isActive) return;
@@ -129,7 +87,6 @@ export function initOpening() {
      .fromTo(art, { x: () => g.art.x, y: () => g.art.y, scale: () => g.art.s, transformOrigin: '0 0' }, { x: 0, y: 0, scale: 1, duration: 0.8, ease: 'power2.inOut', immediateRender: true }, 0)
      .fromTo(rest, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3 }, 0)
      .fromTo($('.wp-bar', cell1), { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25 }, 0)
-     .fromTo(art, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.2 }, 0.8)
      .set({}, {}, 1);
 
   // Koordinate am Cursor (nur Desktop, Maus)

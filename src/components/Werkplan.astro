@@ -1,15 +1,21 @@
 ---
-/** Der Werkplan (Blueprint D): Raster aus Weltrahmen um ein Zentrum. Passt sich der Zahl der gebauten Welten an. */
+/**
+ * Der Werkplan (Blueprint D, Kurskorrektur 11. Oktober 2026): 4 × 3 Plätze, das Zentrum mit dem Logo über zwei Spalten,
+ * neun Plätze zeigen Welten, der zehnte ist ein leerer Rahmen „Ihr Betrieb“ mit blinkendem Cursor und führt zum Kontakt auf der Startseite.
+ * Mobil: zwei Spalten, das Zentrum als Band quer über beide.
+ */
 import { builtWorlds, TEXT } from '../config/journey.js';
 import Logo from './Logo.astro';
 import WorldStill from './WorldStill.astro';
+const slots = builtWorlds.length + 1;
 ---
-<div class="werkplan" data-werkplan data-count={builtWorlds.length}>
+<div class="werkplan" data-werkplan data-count={slots}>
   <div class="wp-grid">
+    <h1 id="werkplan-title" class="visually-hidden">Neun Welten · Studien von NP Webdesign</h1>
     <ol class="wp-cells" aria-label={`Die ${TEXT.worldCount} Welten`}>
       {builtWorlds.map((w) => (
         <li class="wp-cell" data-world={w.nr}>
-          <a href={`/#${w.anchor}`} class="wp-link" data-wp-link>
+          <a href={`/welten#${w.anchor}`} class="wp-link" data-wp-link>
             <span class="visually-hidden">Welt {w.nr}: {w.name}, {w.branche} (Studie)</span>
             <span class="wp-frame" aria-hidden="true">
               <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
@@ -19,12 +25,22 @@ import WorldStill from './WorldStill.astro';
           </a>
         </li>
       ))}
+      <li class="wp-cell wp-cell-open" data-wp-open>
+        <a href="/#kontakt" class="wp-link" data-wp-link>
+          <span class="visually-hidden">Platz {slots}: Ihr Betrieb. Hier entsteht Ihre Website. Zum Kontaktformular.</span>
+          <span class="wp-frame wp-frame-open" aria-hidden="true">
+            <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Ihr Betrieb</span></span>
+            <span class="wp-open"><span class="wp-open-text mono">Ihr Betrieb<span class="wp-cursor" data-wp-cursor></span></span></span>
+          </span>
+          <span class="wp-caption mono" aria-hidden="true">{String(slots).padStart(2, '0')} · Ihr Betrieb</span>
+        </a>
+      </li>
     </ol>
     <div class="wp-center" aria-hidden="true" data-wp-center>
       <Logo class="wp-center-logo" />
     </div>
     <div class="wp-statement" data-wp-statement>
-      <h2 id="werkplan-title">{TEXT.statement}</h2>
+      <h2 id="werkplan-statement">{TEXT.statement}</h2>
       <p class="mono wp-note">{TEXT.statementNote}</p>
     </div>
   </div>

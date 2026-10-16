@@ -94,3 +94,12 @@ html:not([data-js]) .w09-karte-panel { margin-bottom: var(--s6); }
 @media (max-width: 1023px) { .w09-bar { bottom: 76px; } .w09-bar-t { display: none; } }
 
 @media (min-width: 700px) { .w09-zimmer-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } .w09-speise-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); } }
+
+/* See am Abend im Kopf: Ziel des Übergangs 08 → 09. Erleuchtetes Fenster am Ende: Staffelstab des Übergangs 09 → Finale */
+.w09-hero-bild { max-width: 1180px; margin: 0 auto var(--s9); }
+.w09-fenster { position: relative; container-type: inline-size; width: clamp(110px, 16vw, 150px); aspect-ratio: 4 / 5; margin: var(--s10) auto 0; overflow: hidden; }
+.w09-fenster-licht { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 70%, #FFE9B8 0%, #F5CF87 60%, #E3B063 100%); }
+.w09-fenster-rahmen { position: absolute; inset: 0; border: 8.5cqw solid #ECE6DA; box-sizing: border-box; }
+.w09-fenster-steg { position: absolute; background: #ECE6DA; }
+.w09-fenster-steg-v { left: 50%; top: 0; bottom: 0; width: 8cqw; margin-left: -4cqw; }
+.w09-fenster-steg-h { top: 38%; left: 0; right: 0; height: 8cqw; }

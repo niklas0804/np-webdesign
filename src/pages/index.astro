@@ -1,39 +1,24 @@
 ---
 /**
- * Die Reise. Reihenfolge, Längen und Paletten kommen aus src/config/journey.js (Blueprint N, T.3).
- * Ein DOM, echter Text in Lesereihenfolge; Bühne und Rahmen liegen für Hilfstechnik verborgen darüber.
+ * Startseite. VORLÄUFIG (Teil B des Auftrags vom 11. Oktober 2026): Teil C ersetzt sie durch die neue Startseite („Maßarbeit“).
+ * Bis dahin: Kopf, Warum, Arbeitsweise, Kontakt, FAQ, Footer. Die neun Welten wohnen auf /welten.
  */
 import Base from '../layouts/Base.astro';
 import '../styles/frame.css';
-import '../styles/opening.css';
 import '../styles/sections.css';
 import '../styles/kontakt.css';
-import '../styles/finale.css';
-import { journey, PHASE, TEXT } from '../config/journey.js';
+import { homeRows } from '../config/journey.js';
 import { SITE, PACKAGES } from '../config/site.js';
 import Frame from '../components/Frame.astro';
 import Menu from '../components/Menu.astro';
-import Opening from '../components/Opening.astro';
-import Transition from '../components/Transition.astro';
-import WorldStub from '../components/WorldStub.astro';
-import World01 from '../worlds/01-halmberg/World.astro';
-import World02 from '../worlds/02-messingstuhl/World.astro';
-import World03 from '../worlds/03-wittgenfeld/World.astro';
-import World04 from '../worlds/04-haas-sternfeld/World.astro';
-import World05 from '../worlds/05-chromwerk/World.astro';
-import World06 from '../worlds/06-jana-ahrens/World.astro';
-import World07 from '../worlds/07-torquel/World.astro';
-import World08 from '../worlds/08-praxis-am-weiher/World.astro';
-import World09 from '../worlds/09-gut-weidenstein/World.astro';
-import World10 from '../worlds/10-np-labor/World.astro';
+import HeroVorlaeufig from '../components/HeroVorlaeufig.astro';
 import Warum from '../components/Warum.astro';
 import Arbeitsweise from '../components/Arbeitsweise.astro';
-import UeberMich from '../components/UeberMich.astro';
-import Finale from '../components/Finale.astro';
 import Kontakt from '../components/Kontakt.astro';
 import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 
+const row = Object.fromEntries(homeRows.map((r) => [r.id, r]));
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -48,10 +33,6 @@ const jsonLd = [
   },
   { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'de-DE' },
 ];
-
-// Weltmodule: gebaute Welten ersetzen den Platzhalter (Blueprint N, Weltmodul-Vertrag)
-const worldModules = { '01': World01, '02': World02, '03': World03, '04': World04, '05': World05, '06': World06, '07': World07, '08': World08, '09': World09, '10': World10 };
-const interludes = { warum: Warum, arbeitsweise: Arbeitsweise, 'ueber-mich': UeberMich };
 ---
 <Base
   title="Webdesign aus Schwandorf – Websites für Betriebe"
@@ -61,23 +42,18 @@ const interludes = { warum: Warum, arbeitsweise: Arbeitsweise, 'ueber-mich': Ueb
 >
   <div class="skiplinks">
     <a href="#main">Zum Inhalt springen</a>
-    <a href="#kontakt">Animationen überspringen, direkt zum Kontakt</a>
+    <a href="#kontakt">Direkt zum Kontakt</a>
   </div>
 
-  <Frame />
+  <Frame page="home" />
   <Menu />
 
-  <main id="main" data-phase={PHASE}>
-    {journey.map((row) => {
-      if (row.kind === 'opening') return <Opening />;
-      if (row.kind === 'transition') return <Transition row={row} />;
-      if (row.kind === 'world') { const W = worldModules[row.world] || WorldStub; return <W row={row} />; }
-      if (row.kind === 'interlude') { const C = interludes[row.id]; return <C row={row} />; }
-      if (row.kind === 'finale') return <Finale row={row} />;
-      if (row.kind === 'contact') return <Kontakt row={row} />;
-      if (row.kind === 'faq') return <Faq row={row} />;
-      return null;
-    })}
+  <main id="main" data-page="home">
+    <HeroVorlaeufig />
+    <Warum row={row.warum} />
+    <Arbeitsweise row={row.arbeitsweise} />
+    <Kontakt row={row.kontakt} />
+    <Faq row={row.faq} />
   </main>
 
   <Footer />

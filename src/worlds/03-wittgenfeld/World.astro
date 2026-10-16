@@ -24,6 +24,12 @@ const views = { grundriss: GRUNDRISS, schnitt: SCHNITT, ansicht: ANSICHT };
     <p class="w03-kicker">Bauunternehmen · Rohbau, Dach, Sanierung</p>
     <h2 id="w03-title" class="w03-title">Wittgenfeld Bau</h2>
     <p class="w03-sub">Jede Leistung ist ein Bauteil mit Maß.</p>
+    <div class="w03-mass" aria-hidden="true">
+      <svg class="w03-mass-pfeil w03-mass-l" viewBox="0 0 40 40"><path d="M36 14 L8 20 L36 26 Z" /><path d="M6 6 V34" /></svg>
+      <span class="w03-mass-linie"></span>
+      <span class="w03-mass-wert">12.400</span>
+      <svg class="w03-mass-pfeil w03-mass-r" viewBox="0 0 40 40"><path d="M4 14 L32 20 L4 26 Z" /><path d="M34 6 V34" /></svg>
+    </div>
     <p class="mass mass-type" aria-hidden="true"><span>Barlow Condensed 600 · Tusche #1C2A38 · Raster 16 px</span></p>
   </div>
 
@@ -104,6 +110,18 @@ const views = { grundriss: GRUNDRISS, schnitt: SCHNITT, ansicht: ANSICHT };
       </ul>
     </div>
     <p class="w03-demo mono">Demo · Beispielzeichnung einer fiktiven Firma</p>
+  </div>
+
+  <div class="w03-vermerk" aria-hidden="true">
+    <div class="w03-stempel">
+      <svg viewBox="0 0 160 160">
+        <defs><path id="w03-ring-v" d="M80 80 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0" /></defs>
+        <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="4" />
+        <circle cx="80" cy="80" r="40" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <text class="stamp-ring"><textPath href="#w03-ring-v" startOffset="0" textLength="362" lengthAdjust="spacing">WITTGENFELD BAU · STUDIE · DEMO · </textPath></text>
+        <text class="stamp-main" x="80" y="88" text-anchor="middle">GEPRÜFT</text>
+      </svg>
+    </div>
   </div>
 
   <div class="w03-note"><Werkstattnotiz world={w} linkLabel="Webdesign für Handwerker" /></div>

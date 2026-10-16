@@ -94,3 +94,10 @@ html:not([data-js]) .w08-send { display: none; }
   .w08-side { position: sticky; top: calc(var(--frame-top) + var(--s5)); }
 }
 @media (max-width: 1023px) { .w08-side { order: -1; } }
+
+/* Monatskalender im Kopf: Ziel des Übergangs 07 → 08 (die Zellen des Messrasters landen hier). Beispielmonat, der Termin ist der 17. */
+.w08-kalender { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; width: min(100%, 420px); margin-top: var(--s6); font-family: var(--mono); }
+.w08-kalender b { text-align: center; font-size: var(--fs-mono-xs); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; padding-bottom: 4px; color: var(--accent); }
+.w08-kalender i { aspect-ratio: 1.25; font-style: normal; padding: 4px 6px; font-size: .75rem; border: 3px solid var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.w08-kalender i.is-leer { border-style: dashed; background: transparent; }
+.w08-kalender i.is-termin { background: var(--accent); color: #fff; }

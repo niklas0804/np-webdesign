@@ -4,7 +4,7 @@ import { initFit } from './fit.js';
 import { initClock, initMenu } from './menu.js';
 import { initRahmen } from './rahmen.js';
 import { initOpening } from './opening.js';
-import { initTransitions } from './transitions.js';
+import { initTransitions, snapshotBatons } from './transitions.js';
 import { initInterludes } from './interludes.js';
 import { initKontakt } from './kontakt.js';
 import { initFinale } from './finale.js';
@@ -27,7 +27,6 @@ const WORLD_MODULES = {
   industrie: () => import('../worlds/07-torquel/motion.js'),
   physiotherapie: () => import('../worlds/08-praxis-am-weiher/motion.js'),
   landgasthof: () => import('../worlds/09-gut-weidenstein/motion.js'),
-  labor: () => import('../worlds/10-np-labor/motion.js'),
 };
 async function initWorlds() {
   const entries = Object.entries(WORLD_MODULES).filter(([anchor]) => document.getElementById(anchor));
@@ -58,6 +57,7 @@ async function boot() {
     initFinale();
   }
   initInterludes();
+  if (pinned) snapshotBatons(); // Ziele der Übergänge im Zustand beim Laden festhalten, bevor die Weltmodule sie animieren
   await initWorlds();
   if (pinned) initTransitions();
 

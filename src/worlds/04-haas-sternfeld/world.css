@@ -113,3 +113,6 @@ html[data-js] .w04-margins:not([data-open]) .w04-hint { display: block; }
   .w04-themenliste { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 1023px) { .w04-photo-s { max-width: 420px; } .w04-margins { padding-top: var(--s2); } }
+
+/* Schlusslinie des Leitartikels (Zeitungsrubrik): Staffelstab des Übergangs 04 → 05 */
+.w04-schluss { height: 4px; width: min(100%, 520px); margin-top: var(--s10); background: var(--accent); }

@@ -1,8 +1,8 @@
-/* Finale (Blueprint L): Rückzoom auf den Werkplan, leeres Zentrum, Einladung, Sprung in den Kontakt.
+/* Finale (Blueprint L, Kurskorrektur 11. Oktober 2026): Rückzoom auf den Werkplan, zehnter Platz mit Fenster, Einladung.
    Grundzustand = ruhig und ohne JavaScript: nur die Einladung. Die gepinnte Bühne gilt nur in den Modi desktop und mobile. */
 
 .f-grid { display: block; }
-.f-cells, .f-center, .f-sign, .f-grow { display: none; }
+.f-cells, .f-center { display: none; }
 .f-invite { display: grid; gap: var(--s5); align-content: center; max-width: var(--max); margin: 0 auto; min-height: 60svh; }
 .f-invite h2 { font-size: var(--fs-display); line-height: .92; letter-spacing: -.02em; max-width: 14ch; font-stretch: 90%; }
 
@@ -42,79 +42,34 @@ html[data-mode='desktop'] .f-invite, html[data-mode='mobile'] .f-invite {
 html[data-mode='desktop'] .f-invite h2, html[data-mode='mobile'] .f-invite h2 { font-size: clamp(1.75rem, 8vw, 2.5rem); line-height: .98; max-width: 16ch; }
 html[data-mode='desktop'] .f-invite .finale-actions, html[data-mode='mobile'] .finale-actions { margin-top: var(--s3); gap: var(--s2); }
 
-html[data-mode='desktop'] .f-sign, html[data-mode='mobile'] .f-sign {
-  display: block; position: absolute; left: 50%; top: calc(var(--frame-top) + var(--s2)); transform: translateX(-50%); color: var(--tinte); visibility: hidden;
-}
-.f-sign-logo { height: 36px; width: auto; }
-html[data-mode='desktop'] .f-grow, html[data-mode='mobile'] .f-grow {
-  display: block; position: absolute; inset: 0; pointer-events: none; visibility: hidden; background-color: var(--kalk);
-  background-image: linear-gradient(var(--haarlinie) 1px, transparent 1px), linear-gradient(90deg, var(--haarlinie) 1px, transparent 1px);
-  background-size: 32px 32px; background-position: -1px -1px;
-}
-
-/* Vier Studien: wie im Werkplan (Spalten und Zentrum) */
+/* Zehn Plätze: wie im Werkplan (4 × 3, Zentrum über zwei Spalten; mobil zwei Spalten) */
 @media (min-width: 1024px) {
-  html[data-mode='desktop'] .f-grid[data-count='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  html[data-mode='desktop'] .f-grid[data-count='4'] .f-invite { grid-column: 2 / 5; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-center { grid-column: 2 / 4; grid-row: 2; aspect-ratio: auto; min-height: 0; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .wp-frame { aspect-ratio: 16 / 9; }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
+  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
 }
 @media (max-width: 1023px) {
-  html[data-mode='mobile'] .f-grid[data-count='4'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 5; }
-}
-
-/* Fünf Studien: wie im Werkplan */
-@media (min-width: 1024px) {
-  html[data-mode='desktop'] .f-grid[data-count='5'] { max-width: 1100px; }
-  html[data-mode='desktop'] .f-grid[data-count='5'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
-  html[data-mode='desktop'] .f-grid[data-count='5'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
-  html[data-mode='desktop'] .f-grid[data-count='5'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
-}
-
-/* Sechs und sieben Studien: wie im Werkplan */
-@media (min-width: 1024px) {
-  html[data-mode='desktop'] .f-grid[data-count='6'] { max-width: 980px; }
-  html[data-mode='desktop'] .f-grid[data-count='6'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
-  html[data-mode='desktop'] .f-grid[data-count='7'] { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
-  html[data-mode='desktop'] .f-grid[data-count='7'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
-  html[data-mode='desktop'] .f-grid[data-count='7'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
-  html[data-mode='desktop'] .f-grid[data-count='7'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
-}
-@media (max-width: 1023px) {
-  html[data-mode='mobile'] .f-grid[data-count='6'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 4; }
-  html[data-mode='mobile'] .f-grid:is([data-count='6'], [data-count='7']) { gap: var(--s3); }
-}
-
-/* Acht und neun Studien: wie im Werkplan */
-@media (min-width: 1024px) {
-  html[data-mode='desktop'] .f-grid[data-count='8'] { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1180px; }
-  html[data-mode='desktop'] .f-grid[data-count='8'] .f-invite { grid-column: 2 / 5; }
-  html[data-mode='desktop'] .f-grid[data-count='9'] { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
-  html[data-mode='desktop'] .f-grid[data-count='9'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; min-height: 0; }
-  html[data-mode='desktop'] .f-grid[data-count='9'] .f-invite { grid-column: 1 / -1; padding-top: var(--s3); }
-  html[data-mode='desktop'] .f-grid[data-count='9'] .f-invite h2 { max-width: none; font-size: clamp(1.75rem, 2.8vw, 2.5rem); }
-  html[data-mode='desktop'] .f-grid[data-count='8'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
-}
-@media (max-width: 1023px) {
-  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
-  html[data-mode='mobile'] .f-grid[data-count='8'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; }
-  html[data-mode='mobile'] .f-grid[data-count='9'] .f-center { grid-column: 1 / -1; aspect-ratio: 16 / 3; }
-  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
-  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-bar i { width: 3px; height: 3px; }
-  html[data-mode='mobile'] .f-grid:is([data-count='8'], [data-count='9']) .wp-still { top: 12px; }
-}
-
-/* Zehn Studien: wie im Werkplan */
-@media (min-width: 1024px) {
-  html[data-mode='desktop'] .f-grid[data-count='10'] { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1280px; }
-  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite { grid-column: 2 / 6; }
-  html[data-mode='desktop'] .f-grid[data-count='10'] .f-invite h2 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
-}
-@media (max-width: 1023px) {
-  html[data-mode='mobile'] .f-grid[data-count='10'] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
-  html[data-mode='mobile'] .f-grid[data-count='10'] .f-center { grid-column: auto; aspect-ratio: 16 / 10; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .f-center { grid-column: 1 / -1; grid-row: 3; aspect-ratio: auto; min-height: 44px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-frame { aspect-ratio: 16 / 9; }
   html[data-mode='mobile'] .f-grid[data-count='10'] .wp-bar { height: 12px; padding: 0 4px; gap: 3px; }
   html[data-mode='mobile'] .f-grid[data-count='10'] .wp-bar i { width: 3px; height: 3px; }
-  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-still { top: 12px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .wp-still, html[data-mode='mobile'] .f-grid[data-count='10'] .wp-open { top: 12px; }
+  html[data-mode='mobile'] .f-grid[data-count='10'] .f-logo .wp-center-logo { height: 26px; }
 }
+
+/* Der zehnte Platz im Finale: Dämmerung von Gut Weidenstein mit dem erleuchteten Fenster (Ende des Übergangs 09 → Finale) */
+.f-cell-open .wp-open { background: #2A1F33; }
+.f-window { position: relative; container-type: inline-size; display: block; width: 34%; aspect-ratio: 4 / 5; overflow: hidden; }
+.f-window-licht { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 70%, #FFE9B8 0%, #F5CF87 60%, #E3B063 100%); }
+.f-window-rahmen { position: absolute; inset: 0; border: 8.5cqw solid #ECE6DA; box-sizing: border-box; }
+.f-window-steg { position: absolute; background: #ECE6DA; }
+.f-window-steg-v { left: 50%; top: 0; bottom: 0; width: 8cqw; margin-left: -4cqw; }
+.f-window-steg-h { top: 38%; left: 0; right: 0; height: 8cqw; }
+@media (max-width: 1023px) { .f-window { width: 24%; } }
+.f-cell-open .wp-open-text { color: #ECE6DA; align-self: end; margin-bottom: 6%; }
 
 @media (min-width: 1024px) {
   html[data-mode='desktop'] .f-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
@@ -122,5 +77,4 @@ html[data-mode='desktop'] .f-grow, html[data-mode='mobile'] .f-grow {
   html[data-mode='desktop'] .f-invite { grid-column: 2 / 4; padding-top: 0; }
   html[data-mode='desktop'] .f-invite h2 { font-size: clamp(2rem, 3.8vw, 3.75rem); }
   .f-logo .wp-center-logo { height: 56px; }
-  .f-sign-logo { height: 44px; }
 }

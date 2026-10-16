@@ -19,6 +19,12 @@ export const SITE = {
   partnerBadge: { file: 'hostinger-partner.svg', alt: 'Hostinger Partner', label: null, width: 80, height: 30 },
 };
 
+/**
+ * Schalter (Auftrag 11. Oktober 2026). „Über mich“ ist vorerst aus: kein Abschnitt, kein Menüpunkt, kein Porträt im Build.
+ * Die Komponente `src/components/UeberMich.astro` bleibt; das Porträt liegt geparkt in `assets-parked/ueber-mich/` (siehe dortige README).
+ */
+export const SITE_FLAGS = { ueberMich: false };
+
 /** Pakete – laut Audit kanonisch; Preise im Licht der neuen Positionierung noch prüfen (Blueprint K, S) */
 export const PACKAGES = [
   { id: 'starter', name: 'Starter', price: '999 €', note: 'einmalig · Endpreis gem. §19 UStG',

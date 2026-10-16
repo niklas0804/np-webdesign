@@ -94,3 +94,15 @@ html[data-js] .w03-label.is-open { animation: w03-label var(--dur-m) var(--ease-
 @media (max-width: 599px) { .w03-sheet { padding: var(--s3); } .w03-tab { padding: 0 var(--s4); } .w03-stamp { bottom: -18px; } }
 
 @media (max-width: 359px) { .w03-tab { padding: 0 var(--s3); font-size: 1rem; letter-spacing: .06em; } }
+
+/* Maßlinie im Kopf: Ziel des Übergangs 02 → 03. Prüfvermerk am Ende: Staffelstab des Übergangs 03 → 04 */
+.w03-mass { position: relative; display: flex; align-items: center; justify-content: center; height: 44px; margin-top: var(--s6); color: var(--accent); width: min(100%, 560px); }
+.w03-mass-pfeil { position: absolute; top: 2px; width: 40px; height: 40px; fill: currentColor; stroke: currentColor; stroke-width: 2; }
+.w03-mass-l { left: -6px; } .w03-mass-r { right: -6px; }
+.w03-mass-linie { position: absolute; left: 24px; right: 24px; top: 21px; height: 2px; background: currentColor; }
+.w03-mass-wert { position: relative; z-index: 1; padding: 0 var(--s3); background: var(--ground); font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 1.75rem; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.w03-vermerk { display: flex; justify-content: center; margin-top: var(--block); }
+.w03-stempel { width: clamp(140px, 22vw, 200px); color: var(--accent2); transform: rotate(-8deg); }
+.w03-stempel svg { width: 100%; height: auto; overflow: visible; }
+.w03-stempel .stamp-ring { font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; fill: currentColor; }
+.w03-stempel .stamp-main { font-family: 'Barlow Condensed NP', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 24px; letter-spacing: .08em; fill: currentColor; }

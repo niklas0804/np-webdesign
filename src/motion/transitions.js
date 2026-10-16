@@ -1,10 +1,20 @@
 /**
- * Standard-Übergang (Blueprint T.3): Der orange Faden zieht eine Linie quer über den Viewport,
- * dahinter wischt die neue Welt herein. Eine Szene pro Übergang, gepinnt und scrollgesteuert.
- * Der Zähler springt in der Mitte der Szene (Markenregel 4).
+ * Übergänge zwischen den Welten (Blueprint F, T.3; Auftrag 11. Oktober 2026, Teil A und B).
+ *
+ * Aufbau (siehe docs/troubleshooting-uebergaenge.md): Die Bühne liegt unter den Welten, die alte Welt deckt sie beim Wegziehen auf,
+ * die neue schiebt sich später darüber. Über allen Welten liegt die Ebene des Staffelstabs. Das Objekt der Übergabe ist ein echtes Element
+ * der alten Welt: Es wird dort abgeholt (Lage und Größe gemessen), als Abbild in die feste Ebene gehoben und am Ende genau auf das
+ * Gegenstück der neuen Welt gelegt (Lage und Größe gemessen). Das echte Gegenstück bleibt bis dahin unsichtbar (`data-lent`).
+ *
+ * Zeit der Timeline = Bildschirmhöhen (svh) ab dem Moment, in dem die alte Welt mit ihrem letzten Bildschirm den Viewport füllt:
+ *   0 … 100        die alte Welt zieht weg und deckt die Bühne auf (A = 100: die alte Welt ist ganz weg)
+ *   100 … 100+len  die Bühne steht frei (len = Länge des Übergangs aus der Konfiguration)
+ *   100+len … L    die neue Welt schiebt sich von unten darüber; bei L (= 200 + len) steht ihr erstes Bild genau da, wo es hingehört
  */
-import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
+import { gsap, ScrollTrigger, $, $$ } from './base.js';
 import { setTone, setSection } from './rahmen.js';
+import { docRect, viewRect, cloneOf, refreshClone, snapshot, lend } from './baton.js';
+import { windowAtStart } from './finale.js';
 
 /** 1 svh in Pixeln. Die Bühne selbst ist 100 lvh hoch (deckt auch bei eingefahrener Adressleiste), die Ränder rechnen mit svh. */
 let probe = null;
@@ -18,397 +28,386 @@ function svhUnit() {
   return probe.offsetHeight / 100;
 }
 
+/** Ziel-Elemente je Übergang: ihr Zustand beim Laden wird festgehalten, bevor die Weltmodule sie animieren */
+const DST = { bon: ['.w02-ticket'], goldlinie: ['.w03-mass'], stempel: ['.w04-line'], zierlinie: ['.w05-zier'], scheinwerfer: ['.w06-orb-wrap'], messkreise: ['.w07-rund'],
+  messraster: ['.w08-kalender i', '.w08-kalender b'], wasser: ['.w09-hero-bild'] };
+export function snapshotBatons() {
+  $$('.transition[data-variant]').forEach((sec) => {
+    const to = document.querySelector(`[data-section="${sec.dataset.toId}"]`);
+    (DST[sec.dataset.variant] || []).forEach((sel) => $$(sel, to).forEach(snapshot));
+  });
+}
+
+/** Spätere Abschnitte eines Staffelstabs sind fromTo mit ausdrücklichem Startwert und ohne Sofortdarstellung: .to() würde seinen Startwert erst beim ersten Erreichen merken (und beim Zurückspringen falsch setzen) */
+const NI = { immediateRender: false };
+const el = (cls) => { const e = document.createElement('div'); e.className = cls; return e; };
+
 export function initTransitions() {
   $$('.transition').forEach((sec) => {
+    const stage = $('.t-stage', sec);
+    const layer = $('[data-t-layer]', sec);
     const thread = $('.t-thread', sec);
     const wipe = $('.t-wipe', sec);
-    const from = document.querySelector(`[data-section="${sec.dataset.fromId}"]`);
-    const to = document.querySelector(`[data-section="${sec.dataset.toId}"]`);
-    let half = null;
-    // Wann der Rahmen seine Farbe wechselt: bei der Iris erst, wenn sie Kopfzeile und Zähler erreicht hat;
-    // beim Ladenschluss (Weizengold wird dunkel) früher, sonst verschwindet die Tinte im Braun
-    const split = { pruefstempel: 0.78, bon: 0.4, nblende: 0.42, scheinwerfer: 0.62, strahl: 0.55, messraster: 0.45, wasser: 0.5, fenster: 0.55, ausziehen: 0.5, rohbau: 0.5 }[sec.dataset.variant] ?? 0.5;
-
-    // Bühne und Bereich: Der Übergang beginnt, wenn die alte Welt noch LEAD svh oben deckt, und endet, wenn die neue
-    // schon LEAD svh von unten deckt. Dazwischen steht die Bühne frei (--len svh). 1 svh = Höhe der Bühne / 100.
-    const unit = svhUnit;
+    const fromSec = document.querySelector(`[data-section="${sec.dataset.fromId}"]`);
+    const toSec = document.querySelector(`[data-section="${sec.dataset.toId}"]`);
+    const variant = sec.dataset.variant;
     const len = () => parseFloat(getComputedStyle(sec).getPropertyValue('--len')) || 60;
-    const LEAD = 30;
-    const range = { start: () => `top+=${(100 - LEAD) * unit()} top`, end: () => `top+=${(100 + len() + LEAD) * unit()} top` };
+    const L = () => 200 + len();
+    const unit = svhUnit;
+    let half = null;
+    const lent = [];
+    const clones = []; // { shell, el, world, pristine }
+    // Wann der Rahmen seine Farbe wechselt: Anteil des freien Fensters
+    const splitW = { bon: 0.45, goldlinie: 0.5, stempel: 0.5, zierlinie: 0.5, scheinwerfer: 0.62, messkreise: 0.5, messraster: 0.45, wasser: 0.5, fensterplan: 0.5 }[variant] ?? 0.5;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: sec,
-        ...range,
-        // Bei jedem Refresh setzt ScrollTrigger (invalidateOnRefresh) die Animation zurück und rendert nur Tweens mit ausdrücklichem
-        // immediateRender neu. Alles andere stünde im CSS-Grundzustand, bis der Scroll den Tween erreicht, und spränge dann (gemessen:
-        // Kalenderzellen in Welt 07 → 08, vorwärts anders als rückwärts). Deshalb einmal ganz durchspielen und zurück:
-        // So stehen alle Startzustände fest, egal wie spät ein Tween beginnt.
-        onRefresh: () => { const p = tl.progress(); tl.progress(1, true).progress(p, true); },
+        start: 'top top',
+        end: () => `top+=${L() * unit()} top`,
         scrub: true,
         invalidateOnRefresh: true,
+        // Bei jedem Refresh setzt ScrollTrigger (invalidateOnRefresh) die Animation zurück und rendert nur Tweens mit ausdrücklichem
+        // immediateRender neu. Alles andere stünde im CSS-Grundzustand, bis der Scroll den Tween erreicht, und spränge dann (gemessen:
+        // Kalenderzellen in Welt 07 → 08, vorwärts anders als rückwärts). Deshalb einmal ganz durchspielen und zurück.
+        onRefresh: () => { clones.forEach((k) => refreshClone(k.shell, k.el, k.world, k.pristine)); const p = tl.progress(); tl.progress(1, true).progress(p, true); },
+        onToggle: (self) => {
+          if (self.isActive) clones.forEach((k) => refreshClone(k.shell, k.el, k.world, k.pristine));
+          layer.classList.toggle('is-on', self.isActive);
+          lent.forEach((e) => lend(e, self.isActive));
+        },
         onUpdate: (self) => {
           if (!self.isActive) return;
-          const second = self.progress > split;
+          const second = self.progress * L() > 100 + len() * splitW;
           if (second === half) return;
           half = second;
           setTone(second ? sec.dataset.toTone : sec.dataset.fromTone);
-          setSection(second ? to : from);
+          setSection(second ? toSec : fromSec);
         },
         onLeave: () => { half = null; },
         onLeaveBack: () => { half = null; },
       },
     });
-    if (sec.dataset.variant === 'bon') {
-      bon(tl, sec, wipe);
-    } else if (sec.dataset.variant === 'goldlinie') {
-      goldlinie(tl, sec, wipe, thread);
-    } else if (sec.dataset.variant === 'pruefstempel') {
-      pruefstempel(tl, sec, wipe);
-    } else if (sec.dataset.variant === 'ausziehen') {
-      ausziehen(tl, sec, range);
-    } else if (sec.dataset.variant === 'rohbau') {
-      rohbau(tl, sec);
-    } else if (sec.dataset.variant === 'messraster') {
-      messraster(tl, sec);
-    } else if (sec.dataset.variant === 'wasser') {
-      wasser(tl, sec);
-    } else if (sec.dataset.variant === 'fenster') {
-      fenster(tl, sec);
-    } else if (sec.dataset.variant === 'scheinwerfer') {
-      scheinwerfer(tl, sec, wipe);
-    } else if (sec.dataset.variant === 'kreise') {
-      kreise(tl, sec, wipe);
-    } else if (sec.dataset.variant === 'strahl') {
-      strahl(tl, sec, wipe);
-    } else if (sec.dataset.variant === 'zierlinie') {
-      zierlinie(tl, sec, wipe);
-    } else if (sec.dataset.variant === 'nblende') {
-      nblende(tl, sec, wipe);
-    } else {
-      // Der Faden zeichnet zuerst die Linie, dann wischt die neue Welt herein
-      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, 0)
-        .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: 'power2.inOut' }, 0.3);
+
+    const c = {
+      tl, sec, stage, layer, thread, wipe, fromSec, toSec, len, L, lent,
+      /** Abbild eines echten Elements; `pristine`: Zustand beim Laden (für Ziele) statt des laufenden Zustands */
+      clone: (e, world, pristine = false) => { const shell = cloneOf(e, world, docRect(e), pristine && e.__pristine ? e.__pristine : e); clones.push({ shell, el: e, world, pristine }); return shell; },
+      A: 100, E: () => 100 + len(),
+      start: () => tl.scrollTrigger.start,
+      end: () => tl.scrollTrigger.end,
+      vw: () => document.documentElement.clientWidth,
+      vh: () => stage.offsetHeight,
+      from: sec.dataset.fromGround, to: sec.dataset.toGround,
+      fromAccent: getComputedStyle(sec).getPropertyValue('--from-accent').trim(), toAccent: getComputedStyle(sec).getPropertyValue('--to-accent').trim(),
+      srcRect: (e) => viewRect(e, tl.scrollTrigger.start),
+      dstRect: (e) => viewRect(e, tl.scrollTrigger.end),
+      world: (s) => s?.dataset.world,
+    };
+    const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, fensterplan }[variant];
+    if (!(fn && fn(c))) {
+      // Ohne Staffelstab: der Faden zeichnet eine Linie, dann wischt die neue Welt herein
+      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 40, ease: 'power2.out' }, 100)
+        .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: 60, ease: 'power2.inOut' }, 100 + 20);
     }
+    tl.set({}, {}, L());
   });
 }
 
-/**
- * Welt 01 → 02: Ladenschluss. Der Grund dunkelt, der Bon „Nr. 07“ bleibt im Licht, dreht sich um die Hochachse
- * und wird als goldene Wartemarke neu gedruckt (Blueprint F, Übergang 2). Der Faden zeichnet zuerst die Kontur.
- * Nur Transform, Deckkraft und Strichlänge – keine Layout-Animation.
- */
-function bon(tl, sec, wipe) {
-  const obj = $('[data-t-bon]', sec);
-  const card = $('[data-t-card]', sec);
-  const outline = $('[data-t-outline] rect', sec);
-  gsap.set(obj, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
-  gsap.set(wipe, { yPercent: 0, autoAlpha: 0 }); // hier wird nicht gewischt, sondern überblendet
-  tl.fromTo(obj, { autoAlpha: 0, scale: 0.94, y: 24 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.14, ease: 'power2.out' }, 0)
-    .fromTo(outline, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.22, ease: 'power2.out' }, 0.02)
-    .to(outline, { autoAlpha: 0, duration: 0.1 }, 0.26)
-    .fromTo(wipe, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.12)
-    .fromTo(card, { rotationY: 0 }, { rotationY: 180, duration: 0.45, ease: 'power2.inOut' }, 0.3)
-    .to(obj, { autoAlpha: 0, scale: 1.04, duration: 0.15 }, 0.85);
+/* ---------- gemeinsame Hilfen ---------- */
+
+/** Eine Stelle in der Mitte des Fensters: Position (Mittelpunkt) in Bildschirmpixeln */
+const center = (c) => ({ x: c.vw() / 2, y: c.vh() / 2 });
+
+/** Abbild in die Ebene setzen, am Mittelpunkt verankert (xPercent/yPercent −50) */
+function put(c, node) {
+  c.layer.append(node);
+  gsap.set(node, { xPercent: -50, yPercent: -50 });
+  return node;
 }
 
-/**
- * Welt 02 → 03: Die Goldlinie streckt sich über die Breite, wird tuscheblau, bekommt Maßpfeile und den Wert „12.400“;
- * Millimeterpapier schiebt sich darunter von unten über das Dunkel (Blueprint F, Übergang 3).
- * Der orange Faden zeichnet zuerst die Linie nach. Nur Transform und Deckkraft.
- */
-function goldlinie(tl, sec, wipe, thread) {
-  const gold = $('[data-t-gold]', sec);
-  const blue = $('[data-t-blue]', sec);
-  const dim = $('[data-t-dim]', sec);
-  const mass = $('[data-t-mass]', sec);
-  tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: 'power2.out' }, 0)
-    .to(thread, { autoAlpha: 0, duration: 0.12 }, 0.2)
-    .fromTo(gold, { scaleX: 0.22 }, { scaleX: 1, duration: 0.3, ease: 'power2.out' }, 0)
-    .fromTo(blue, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 0.35)
-    .to(gold, { autoAlpha: 0, duration: 0.15 }, 0.35)
-    .fromTo(dim, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.4)
-    .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: 'power2.inOut' }, 0.45)
-    .to(mass, { autoAlpha: 0, duration: 0.1 }, 0.92);
+/** Hintergrund der Bühne wechselt über das freie Fenster */
+function ground(c, from, to, at, dur) {
+  c.tl.fromTo(c.stage, { backgroundColor: from }, { backgroundColor: to, duration: dur, ease: 'none', immediateRender: true }, at);
 }
 
+/* ---------- t01 · Bon → Wartemarke (Welt 01 → 02) ---------- */
 /**
- * Welt 03 → Zwischenspiel I: Der Prüfstempel wird gesetzt (1,15 auf 1), färbt sich NP-Orange, sein Text wechselt zu
- * „Geprüft: kein Baukasten“, und der Ring öffnet sich als P-Iris: eine Kreismaske in der Farbe der Nacht wächst aus dem
- * Innenkreis über den Viewport (Blueprint F, Übergang 4). Nur Transform, Deckkraft, Farbe und Maske.
+ * Der Bon „Nr. 07“ aus Halmberg wird dort abgeholt, hebt ab, dreht sich um die Hochachse und wird als goldene Wartemarke von Messingstuhl neu gedruckt.
+ * Der Grund dunkelt, wie der Laden schließt. Landung: genau auf die Wartemarke im Kopf von Welt 02.
  */
-function pruefstempel(tl, sec, wipe) {
-  const seal = $('[data-t-seal]', sec);
-  const iris = $('[data-t-iris]', sec);
-  const ringA = $('[data-t-ring-a]', sec);
-  const ringB = $('[data-t-ring-b]', sec);
-  const mainA = $('[data-t-main-a]', sec);
-  const mainB = $('[data-t-main-b]', sec);
-  const ringGroup = $('[data-t-ringgroup]', sec);
-  const token = (name, fallback) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
-  const orange = token('--np-orange', '#CE5D17');
-  const glut = token('--glut', '#F08A4B');
-  // Innenkreis des Siegels (r 40 von 80) in Pixeln, und der Radius, der den ganzen Viewport deckt
-  const innerR = () => seal.getBoundingClientRect().width * 0.25;
-  const coverR = () => Math.hypot(window.innerWidth, window.innerHeight) / 2 + 8;
-
-  gsap.set(wipe, { autoAlpha: 0 }); // hier wird nicht gewischt, sondern aufgeblendet
-  gsap.set(seal, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
-  gsap.set([ringB, mainB], { autoAlpha: 0 });
-  tl.fromTo(seal, { autoAlpha: 0, scale: 1.15, rotation: -9 }, { autoAlpha: 0.94, scale: 1, rotation: -9, duration: 0.12, ease: 'back.out(2)' }, 0)
-    .to(seal, { color: orange, autoAlpha: 1, duration: 0.14 }, 0.16)
-    .to([ringA, mainA], { autoAlpha: 0, duration: 0.1 }, 0.18)
-    .fromTo([ringB, mainB], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.24)
-    // Die Blende öffnet sich im Innenkreis des Siegels (dem „Bauch des P“) und wächst dann über den Viewport
-    .fromTo(iris, { clipPath: 'circle(0px at 50% 50%)' }, { clipPath: () => `circle(${innerR()}px at 50% 50%)`, duration: 0.08, ease: 'power1.out', immediateRender: true }, 0.3)
-    .to(iris, { clipPath: () => `circle(${coverR()}px at 50% 50%)`, duration: 0.5, ease: 'power2.inOut' }, 0.4)
-    .to(ringGroup, { rotation: 40, svgOrigin: '80 80', duration: 0.5, ease: 'power2.inOut' }, 0.4)
-    .to(seal, { color: glut, duration: 0.2 }, 0.52)
-    .to(seal, { autoAlpha: 0, scale: 1.08, duration: 0.12 }, 0.88);
+function bon(c) {
+  const src = $('.w01-bon', c.fromSec); const dst = $('.w02-ticket', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const W = () => Math.min(300, c.vw() * 0.7);
+  const card = put(c, el('t-card')); gsap.set(card, { xPercent: 0, yPercent: 0 });
+  const front = c.clone(src, '01'); const back = c.clone(dst, '02', true);
+  card.append(front, back);
+  gsap.set([front, back], { xPercent: -50, yPercent: -50 });
+  gsap.set(back, { rotationY: 180 });
+  const { tl, A } = c; const E = c.E();
+  tl.fromTo(card, { x: () => sr().cx, y: () => sr().cy }, { x: () => center(c).x, y: () => center(c).y, duration: 70, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(front, { scale: 1, boxShadow: '0 0 0 rgba(0,0,0,0)' }, { scale: () => W() / sr().w, boxShadow: '0 22px 40px rgba(20,12,4,.35)', duration: 70, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(back, { scale: () => W() / dr().w }, { scale: () => W() / dr().w, duration: 0.001, immediateRender: true }, 0)
+    .fromTo(card, { rotationY: 0 }, { rotationY: 180, duration: c.len() * 0.5, ease: 'power2.inOut', immediateRender: true }, A + c.len() * 0.1)
+    .fromTo(card, { x: () => center(c).x, y: () => center(c).y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6)
+    .fromTo(back, { scale: () => W() / dr().w }, { scale: 1, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+  ground(c, c.from, c.to, A, c.len() * 0.7);
+  return true;
 }
 
+/* ---------- t02 · Goldlinie → Maßlinie (Welt 02 → 03) ---------- */
 /**
- * Zwischenspiel I → Welt 04: Der orange Faden zeichnet ein N nach (Kontur), dann setzt sich das N in Weiß über die Nacht:
- * linker Schenkel, Diagonale, rechter Schenkel; danach füllt eine schräge Kante den Rest mit Reinweiß (Blueprint F, Übergang 5).
- * „Kein Zufall.“ steht dabei in NP-Orange mittig; das Wort „Zufall“ wandert an seine Stelle in „Nichts dem Zufall überlassen.“,
- * die übrigen Wörter erscheinen, am Ende blendet alles aus und die Welt rollt mit derselben Schlagzeile herein.
- * Nur Transform, Deckkraft, Farbe, Strichlänge und Masken.
+ * Die Messingschiene am Ende des Salons wird abgeholt, streckt sich über die Breite, wird tuscheblau und bekommt Maßpfeile und den Wert „12.400“;
+ * Millimeterpapier schiebt sich darunter von unten über das Dunkel. Landung: genau auf die Maßlinie im Kopf von Welt 03.
  */
-function nblende(tl, sec, wipe) {
-  const outline = $('[data-t-outline] polygon', sec);
-  const nl = $('[data-t-nl]', sec);
-  const nd = $('[data-t-nd]', sec);
-  const nr = $('[data-t-nr]', sec);
-  const fill = $('[data-t-fill]', sec);
-  const kz = $('[data-t-kz]', sec);
-  const kein = $('[data-t-kein]', sec);
-  const kzZ = $('[data-t-kz-z]', sec);
-  const dot = $('[data-t-dot]', sec);
-  const wrap = $('[data-t-finalwrap]', sec);
-  const final = $('[data-t-final]', sec);
-  const pre = $$('[data-t-pre]', sec);
-  const finZ = $('[data-t-final-z]', sec);
-  const post = $$('[data-t-post]', sec);
-  const ink = () => getComputedStyle(final).color;
-  // Das Wort „Zufall“ fährt von seiner Mitte-Position an die Stelle im Schlagzeilen-Satz (gleiche Schriftgröße, nur Verschiebung)
-  const shift = (axis) => () => {
-    const a = kzZ.getBoundingClientRect(); const b = finZ.getBoundingClientRect();
-    return axis === 'x' ? b.left - a.left : b.top - a.top;
-  };
-
-  gsap.set(wipe, { autoAlpha: 0 });
-  gsap.set(kz, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
-  gsap.set([...pre, finZ, ...post], { autoAlpha: 0 });
-  tl.fromTo(outline, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.16, ease: 'power2.out' }, 0)
-    .fromTo(kz, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.12, ease: 'power2.out' }, 0.04)
-    .fromTo(nl, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.1, ease: 'power2.out' }, 0.14)
-    .fromTo(nd, { clipPath: 'polygon(26% 0%, 26% 0%, 26% 0%, 26% 0%)' }, { clipPath: 'polygon(26% 0%, 74% 66%, 74% 100%, 26% 34%)', duration: 0.14, ease: 'none' }, 0.24)
-    .fromTo(nr, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.1, ease: 'power2.out' }, 0.38)
-    .to(outline, { autoAlpha: 0, duration: 0.08 }, 0.3)
-    .fromTo(fill, { xPercent: -130, skewX: -35, autoAlpha: 1 }, { xPercent: 0, skewX: 0, autoAlpha: 1, duration: 0.24, ease: 'power2.inOut' }, 0.46)
-    .to(kzZ, { color: ink, duration: 0.08 }, 0.72)
-    .to([kein, dot], { autoAlpha: 0, duration: 0.08 }, 0.7)
-    .to(kzZ, { x: shift('x'), y: shift('y'), duration: 0.2, ease: 'power2.inOut' }, 0.72)
-    .fromTo([...pre, ...post], { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.12, stagger: 0.05, ease: 'power2.out' }, 0.78)
-    .set(finZ, { autoAlpha: 1 }, 0.92)
-    .set(kzZ, { autoAlpha: 0 }, 0.92)
-    .to([wrap, kz], { autoAlpha: 0, duration: 0.08 }, 0.94);
+function goldlinie(c) {
+  const src = $('.w02-schiene', c.fromSec); const dst = $('.w03-mass', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const bar = put(c, c.clone(src, '02'));
+  const mass = put(c, c.clone(dst, '03', true));
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const blue = () => c.toAccent || '#2B5C8A';
+  tl.fromTo(bar, { x: () => sr().cx, y: () => sr().cy, scaleX: 1 }, { x: () => center(c).x, y: () => center(c).y, scaleX: () => c.vw() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(mass, { x: () => center(c).x, y: () => center(c).y, autoAlpha: 0, scaleX: () => c.vw() / dr().w }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    // 100 → : Schiene zieht sich auf Maßlinienbreite zusammen und wird blau, die Maßlinie blendet ein
+    .fromTo(bar, { scaleX: () => c.vw() / sr().w }, { scaleX: () => dr().w / sr().w, duration: len * 0.4, ease: 'power2.inOut', ...NI }, A + len * 0.1)
+    .fromTo(bar._el, { backgroundColor: () => getComputedStyle(src).backgroundColor }, { backgroundColor: blue, duration: len * 0.4, ease: 'none', ...NI }, A + len * 0.1)
+    .fromTo(mass, { autoAlpha: 0, scaleX: () => c.vw() / dr().w }, { autoAlpha: 1, scaleX: 1, duration: len * 0.3, ease: 'power2.out', ...NI }, A + len * 0.35)
+    .fromTo(bar, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.15, ...NI }, A + len * 0.55)
+    // Millimeterpapier schiebt sich über das Dunkel
+    .fromTo(c.wipe, { yPercent: 100 }, { yPercent: 0, duration: len * 0.7, ease: 'power2.inOut' }, A + len * 0.3)
+    // Landung
+    .fromTo(mass, { x: () => center(c).x, y: () => center(c).y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+  return true;
 }
 
+/* ---------- t03 · Prüfstempel → rote Linie (Welt 03 → 04) ---------- */
 /**
- * Welt 04 → Welt 05: Die rote Linie unter der Schlagzeile verlängert sich über die Breite und biegt sich zur Zierlinie der
- * Karosserie; dabei wechselt sie von Siegelrot zu Elfenbein, Reinweiß wird British Racing Green (Blueprint F, Übergang 6).
- * Pfad-Morph von gerade zu Kurve ohne Plugin: gleiche Befehlsfolge, GSAP rechnet die Zahlen um. Nur Strichlänge, Pfad, Farbe, Transform.
+ * Der rote Prüfvermerk am Ende von Wittgenfeld wird abgeholt und gesetzt (er schlägt von 1,4 auf 1 ein); sein Abdruck streckt sich zur roten Linie
+ * unter der Kanzlei-Schlagzeile „Nichts dem Zufall überlassen.“. Planblau wird Reinweiß. Landung: genau auf die Linie in Welt 04.
  */
-function zierlinie(tl, sec, wipe) {
-  const path = $('[data-t-zl]', sec);
-  const kurve = 'M40 250 C300 250 380 118 560 122 S860 200 1000 140';
-  const to = getComputedStyle(sec).getPropertyValue('--to-accent').trim() || '#EFE6D2';
-  tl.fromTo(path, { strokeDashoffset: 0.62 }, { strokeDashoffset: 0, duration: 0.3, ease: 'power2.out' }, 0.02)
-    .to(path, { attr: { d: kurve }, duration: 0.4, ease: 'power2.inOut' }, 0.3)
-    .fromTo(wipe, { y: 0, yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: 'power2.inOut' }, 0.3)
-    .to(path, { stroke: to, duration: 0.3, ease: 'none' }, 0.5)
-    .to(path, { autoAlpha: 0, duration: 0.1 }, 0.9);
+function stempel(c) {
+  const src = $('.w03-stempel', c.fromSec); const dst = $('.w04-line', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const stamp = put(c, c.clone(src, '03'));
+  const line = put(c, c.clone(dst, '04', true));
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const stampW = () => sr().w;
+  const NI = { immediateRender: false };
+  tl.fromTo(stamp, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: 1.4, duration: 60, ease: 'power2.inOut', immediateRender: true }, 8)
+    // gesetzt: schlägt auf 1 ein
+    .fromTo(stamp, { scale: 1.4 }, { scale: 1, duration: len * 0.12, ease: 'power4.in', ...NI }, A + len * 0.05)
+    // der Abdruck: die rote Linie wächst aus der Breite des Stempels, anfangs dick, und wird auf dem Weg zur Linie dünn
+    .fromTo(line, { x: () => center(c).x, y: () => center(c).y, scaleX: () => stampW() / dr().w, scaleY: 4, autoAlpha: 0 }, { autoAlpha: 1, scaleX: () => Math.min(c.vw() * 0.8, 900) / dr().w, duration: len * 0.4, ease: 'power3.out', immediateRender: true }, A + len * 0.22)
+    // der Stempel bleibt als Geisterring stehen und wächst
+    .fromTo(stamp, { scale: 1, autoAlpha: 1 }, { scale: 2.4, autoAlpha: 0.22, duration: len * 0.5, ease: 'power2.out', ...NI }, A + len * 0.3)
+    .fromTo(line, { scaleX: () => Math.min(c.vw() * 0.8, 900) / dr().w, scaleY: 4, x: () => center(c).x, y: () => center(c).y }, { scaleX: 1, scaleY: 1, x: () => dr().cx, y: () => dr().cy, duration: 100 - 14, ease: 'power2.inOut', ...NI }, E + 6)
+    .fromTo(stamp, { autoAlpha: 0.22 }, { autoAlpha: 0, duration: 40, ...NI }, E + 6);
+  ground(c, c.from, c.to, A + len * 0.15, len * 0.6);
+  return true;
 }
 
+/* ---------- t04 · Rote Linie → Zierlinie (Welt 04 → 05) ---------- */
 /**
- * Welt 05 → Welt 06: Die Kamera fährt auf den runden Scheinwerfer zu. Der Faden zeichnet zuerst den Ring (Elfenbein), das Glas glüht
- * warm auf (Pfirsich), wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus (Blueprint F, Übergang 7).
- * Glühen als Radialverlauf ohne Unschärfe (Blueprint O). Nur Transform, Deckkraft, Strichlänge.
+ * Die rote Schlusslinie der Kanzlei wird abgeholt, streckt sich über die Breite und biegt sich zur elfenbeinfarbenen Zierlinie von Chromwerk.
+ * Reinweiß wird British Racing Green. Landung: genau auf die Zierlinie im Kopf von Welt 05.
  */
-function scheinwerfer(tl, sec, wipe) {
-  const wrap = $('[data-t-lampwrap]', sec);
-  const ring = $('[data-t-ring]', sec);
-  const lamp = $('[data-t-lamp]', sec);
-  const cover = () => (Math.hypot(window.innerWidth, window.innerHeight) / wrap.getBoundingClientRect().width) * 1.15;
-  gsap.set(wipe, { autoAlpha: 0 });
-  gsap.set(wrap, { xPercent: -50, yPercent: -50 });
-  tl.fromTo(ring, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.18, ease: 'power2.out' }, 0)
-    .fromTo(lamp, { opacity: 0.28 }, { opacity: 1, duration: 0.2, ease: 'power1.in' }, 0.12)
-    .to(ring, { opacity: 0, duration: 0.12 }, 0.4)
-    .fromTo(wrap, { scale: 1 }, { scale: cover, duration: 0.5, ease: 'power2.in', immediateRender: false }, 0.34)
-    .to(wipe, { autoAlpha: 1, duration: 0.14 }, 0.86)
-    .to(wrap, { autoAlpha: 0, duration: 0.1 }, 0.9);
+function zierlinie(c) {
+  const src = $('.w04-schluss', c.fromSec); const dst = $('.w05-zier', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const bar = put(c, c.clone(src, '04'));
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 1000 80'); svg.setAttribute('preserveAspectRatio', 'none'); svg.setAttribute('aria-hidden', 'true');
+  Object.assign(svg.style, { position: 'absolute', left: '0', top: '0', overflow: 'visible' });
+  const path = document.createElementNS(NS, 'path');
+  const gerade = 'M40 62 C300 62 380 62 560 62 S860 62 1000 62';
+  const kurve = $('path', dst)?.getAttribute('d') || 'M40 62 C300 62 380 18 560 22 S860 50 1000 30';
+  path.setAttribute('d', gerade);
+  Object.assign(path.style, { fill: 'none', stroke: c.fromAccent || '#A3122A', strokeWidth: '14px', vectorEffect: 'non-scaling-stroke', strokeLinecap: 'round' });
+  svg.append(path); put(c, svg);
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const dstAccent = () => c.toAccent || '#EFE6D2';
+  tl.fromTo(bar, { x: () => sr().cx, y: () => sr().cy, scaleX: 1, scaleY: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scaleX: () => c.vw() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(svg, { x: () => center(c).x, y: () => center(c).y, width: () => dr().w, height: () => dr().h, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    // die Linie zieht sich auf die Breite der Zierlinie zusammen und wird dick wie ein Pinselstrich
+    .fromTo(bar, { scaleX: () => c.vw() / sr().w, scaleY: 1 }, { scaleX: () => dr().w / sr().w, scaleY: 3.5, duration: len * 0.25, ease: 'power2.inOut', ...NI }, A)
+    .fromTo(svg, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, ...NI }, A + len * 0.25)
+    .fromTo(bar, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.01, ...NI }, A + len * 0.25)
+    .fromTo(path, { attr: { d: gerade } }, { attr: { d: kurve }, duration: len * 0.45, ease: 'power2.inOut', immediateRender: false }, A + len * 0.28)
+    .fromTo(path, { stroke: c.fromAccent || '#A3122A' }, { stroke: dstAccent, duration: len * 0.4, ease: 'none', ...NI }, A + len * 0.4)
+    .fromTo(path, { strokeWidth: '14px' }, { strokeWidth: '3px', duration: 86, ease: 'power2.inOut', ...NI }, E + 6)
+    .fromTo(svg, { x: () => center(c).x, y: () => center(c).y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+  ground(c, c.from, c.to, A + len * 0.1, len * 0.6);
+  return true;
 }
 
+/* ---------- t05 · Scheinwerfer → Farbkugel (Welt 05 → 06) ---------- */
 /**
- * Welt 06 → Zwischenspiel II: Die konzentrischen Kreise rollen sich zu einer Linie ab (Ellipsen mit schwindender Höhe und wachsender Breite),
- * die Linie bekommt sechs Stationen und wechselt von Malve zu NP-Orange; Flieder wird Leinen (Blueprint F, Übergang 8).
+ * Der Scheinwerfer am Ende von Chromwerk wird abgeholt, glüht warm auf, wächst über den Bildschirm und schrumpft als Farbkugel von Jana Ahrens
+ * zurück auf ihren Platz. Racing Green wird Pfirsich und läuft in Flieder aus. Landung: genau auf die Kugel im Kopf von Welt 06.
  */
-function kreise(tl, sec, wipe) {
-  const es = $$('[data-t-e]', sec);
-  const stations = $$('[data-t-st]', sec);
-  const svg = $('[data-t-kr]', sec);
-  const orange = getComputedStyle(document.documentElement).getPropertyValue('--np-orange').trim() || '#CE5D17';
-  gsap.set(wipe, { y: 0, yPercent: 100 });
-  tl.fromTo(es, { opacity: 0, scale: 0.7, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.2, stagger: 0.05, ease: 'power2.out' }, 0)
-    .to(es, { attr: { rx: 460, ry: 0.5 }, duration: 0.42, stagger: 0.04, ease: 'power2.inOut' }, 0.25)
-    .to(es, { stroke: orange, duration: 0.25, ease: 'none' }, 0.5)
-    .fromTo(stations, { opacity: 0, scale: 0.2, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.14, stagger: 0.04, ease: 'back.out(2)' }, 0.62)
-    .to(wipe, { yPercent: 0, duration: 0.5, ease: 'power2.inOut' }, 0.4)
-    .to(svg, { autoAlpha: 0, duration: 0.1 }, 0.92);
+function scheinwerfer(c) {
+  const src = $('.w05-lampe', c.fromSec); const dst = $('.w06-orb-wrap', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const lamp = put(c, c.clone(src, '05'));
+  const orb = put(c, c.clone(dst, '06', true));
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const cover = () => (c.vh() * 1.3) / dr().w; // fast bildschirmhoch: Rand und Ecken bleiben sichtbar (nie ein einfarbiger Bildschirm)
+  const lampScale = () => (sr().w * 2.2) / dr().w;
+  tl.fromTo(lamp, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: 2.2, duration: 70, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(orb, { x: () => center(c).x, y: () => center(c).y, scale: lampScale, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    // das Glas glüht auf
+    .fromTo(orb, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.3, ease: 'power1.in', ...NI }, A * 0.5)
+    // wächst fast bis zur Bildschirmhöhe; der Ring verblasst
+    .fromTo(orb, { scale: lampScale }, { scale: cover, duration: len * 0.55, ease: 'power2.in', ...NI }, A + len * 0.15)
+    .fromTo(lamp, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.25, ...NI }, A + len * 0.2)
+    // schrumpft auf die Kugel in Welt 06
+    .fromTo(orb, { scale: cover, x: () => center(c).x, y: () => center(c).y }, { scale: 1, x: () => dr().cx, y: () => dr().cy, duration: 100 + len * 0.25, ease: 'power2.out', ...NI }, A + len * 0.75);
+  ground(c, c.from, c.to, A + len * 0.2, len * 0.6);
+  return true;
 }
 
+/* ---------- t06 · Kreise → Messkreise (Welt 06 → 07) ---------- */
 /**
- * Zwischenspiel II → Welt 07: Der Prozessstrahl (orange, sechs Stationen) glüht auf und wird zur Laserlinie in Signalgelb;
- * der Grund dunkelt von Leinen zu Stahlschiefer (Blueprint F, Übergang 9). Leuchten nur am Desktop (Radialverlauf statt Unschärfe).
+ * Die konzentrischen Kreise der Farbkugel am Ende von Jana Ahrens werden abgeholt und zu den Messkreisen einer Rundheitsmessung an einem Bauteil;
+ * die Laserlinie von TORQUEL tastet sie ab. Flieder wird Stahlschiefer, Malve wird Signalgelb. Landung: genau auf die Messkreise im Kopf von Welt 07.
  */
-function strahl(tl, sec, wipe) {
-  const beam = $('[data-t-beam]', sec);
-  const dots = $$('[data-t-dot]', sec);
-  const glow = $('[data-t-glow]', sec);
-  const to = getComputedStyle(sec).getPropertyValue('--to-accent').trim() || '#F2C230';
-  gsap.set(wipe, { yPercent: 0, y: 0, autoAlpha: 0 });
-  tl.fromTo(beam, { attr: { x2: 40 } }, { attr: { x2: 960 }, duration: 0.3, ease: 'power2.out' }, 0)
-    .fromTo(dots, { opacity: 0, scale: 0.2, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.14, stagger: 0.04, ease: 'back.out(2)' }, 0.1)
-    .to(wipe, { autoAlpha: 1, duration: 0.4, ease: 'power1.inOut' }, 0.3)
-    .to(beam, { stroke: to, duration: 0.25 }, 0.5)
-    .to(dots, { opacity: 0, duration: 0.15 }, 0.55);
-  if (glow && mode === 'desktop') tl.fromTo(glow, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.45);
-  tl.to([beam, glow].filter(Boolean), { autoAlpha: 0, duration: 0.1 }, 0.92);
+function messkreise(c) {
+  const src = $('.w06-kreise', c.fromSec); const dst = $('.w07-rund', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const rings = put(c, c.clone(src, '06'));
+  const rund = put(c, c.clone(dst, '07', true));
+  const laser = el('t-laser'); put(c, laser);
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const size = () => Math.min(c.vw() * 0.7, c.vh() * 0.62, 480);
+  const yellow = () => c.toAccent || '#F2C230';
+  const contour = $('.w07-rund-kontur', rund);
+  tl.fromTo(rings, { x: () => sr().cx, y: () => sr().cy, scale: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: () => size() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(rund, { x: () => center(c).x, y: () => center(c).y, scale: () => size() / dr().w, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    .fromTo(laser, { x: () => center(c).x - size() / 2 - 20, y: () => center(c).y, height: () => size() * 1.15, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    // die Kreise werden gelb und zu Messkreisen
+    .fromTo(rings.querySelectorAll('i'), { borderColor: () => getComputedStyle(src.querySelector('i')).borderTopColor }, { borderColor: yellow, duration: len * 0.3, ...NI }, A)
+    .fromTo(rund, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.2, ...NI }, A + len * 0.2)
+    .fromTo(rings, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.2, ...NI }, A + len * 0.35)
+    // der Laser tastet ab: von links nach rechts über die Kreise, die Kontur erscheint in seinem Zug
+    .fromTo(laser, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.05, ...NI }, A + len * 0.3)
+    .fromTo(laser, { x: () => center(c).x - size() / 2 - 20 }, { x: () => center(c).x + size() / 2 + 20, duration: len * 0.5, ease: 'power1.inOut', ...NI }, A + len * 0.35)
+    .fromTo(laser, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.08, ...NI }, A + len * 0.85);
+  if (contour) tl.fromTo(contour, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: len * 0.5, ease: 'power1.inOut', immediateRender: true }, A + len * 0.35);
+  tl.fromTo(rund, { x: () => center(c).x, y: () => center(c).y, scale: () => size() / dr().w }, { x: () => dr().cx, y: () => dr().cy, scale: 1, duration: 100 - 36, ease: 'power2.inOut', ...NI }, E + 30);
+  ground(c, c.from, c.to, A + len * 0.1, len * 0.55);
+  return true;
 }
 
+/* ---------- t07 · Messraster → Monatskalender (Welt 07 → 08) ---------- */
 /**
- * Welt 07 → Welt 08: Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als gebuchter Termin;
- * Stahlschiefer wird Mint (Blueprint F, Übergang 10). Die Zellen kommen verstreut und finden ihre Plätze (Transform, Deckkraft, Farbe).
+ * Die 35 Zellen des Messrasters am Ende von TORQUEL werden einzeln abgeholt, lösen sich vom Raster, ordnen sich in der Bildmitte zum Kalender,
+ * eine Zelle leuchtet als Termin; Stahlschiefer wird Mint. Landung: jede Zelle genau auf ihre Zelle im Kalender von Welt 08.
  */
-function messraster(tl, sec) {
-  const cal = $('[data-t-cal]', sec);
-  const cells = $$('[data-t-cell]', sec);
-  const heads = $$('[data-t-head]', sec);
-  const termin = $('[data-termin]', sec);
-  const bg = $('.t-stage', sec);
-  const css = (n, d) => getComputedStyle(sec).getPropertyValue(n).trim() || d;
-  const to = css('--to-accent', '#2F6B57'); const toText = css('--to-text', '#1E2D2A');
-  const toGround = css('--to', '#CDE8DA'); const fromGround = css('--from', '#2B3642');
+function messraster(c) {
+  const srcs = $$('.w07-raster i', c.fromSec); const dsts = $$('.w08-kalender i', c.toSec); const heads = $$('.w08-kalender b', c.toSec);
+  const grid = $('.w07-raster', c.fromSec); const cal = $('.w08-kalender', c.toSec);
+  if (!srcs.length || srcs.length !== dsts.length || !grid || !cal) return false;
+  c.lent.push(grid, cal);
+  const { tl, A } = c; const E = c.E(); const len = c.len();
   const r = gsap.utils.random;
-  gsap.set(cal, { xPercent: -50, yPercent: -50 });
-  // Zufällige Startlagen einmal festlegen (stabil beim Zurückscrollen)
-  const start = cells.map(() => ({ x: r(-45, 45, 1) * (window.innerWidth / 100), y: r(-40, 40, 1) * (window.innerHeight / 100), rotation: r(-30, 30, 1) }));
-  tl.fromTo(cells, { x: (i) => start[i].x, y: (i) => start[i].y, rotation: (i) => start[i].rotation, opacity: 0.55 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.5, stagger: { each: 0.008, from: 'random' }, ease: 'power3.out' }, 0.04)
-    .fromTo(heads, { opacity: 0 }, { opacity: 1, duration: 0.12, stagger: 0.02 }, 0.45)
-    .fromTo(bg, { backgroundColor: fromGround }, { backgroundColor: toGround, duration: 0.35, ease: 'none' }, 0.4)
-    // Beim Farbwechsel des Grundes (Mitte bei ~0,58) bleiben Rahmen und Schrift weiß, sonst fallen Linie und Grund in einem Grau zusammen
-    .to(cells, { borderColor: '#fff', color: '#fff', duration: 0.1, ease: 'none' }, 0.42)
-    .to(heads, { color: '#fff', duration: 0.1, ease: 'none' }, 0.42)
-    .to(cells, { borderColor: to, color: toText, duration: 0.12, ease: 'none' }, 0.64)
-    .to(heads, { color: toText, duration: 0.12, ease: 'none' }, 0.64)
-    .fromTo(termin, { scale: 1 }, { scale: 1.12, backgroundColor: to, color: '#fff', duration: 0.14, ease: 'back.out(2)' }, 0.75)
-    .to(termin, { scale: 1, duration: 0.08 }, 0.89)
-    .to(cal, { autoAlpha: 0, duration: 0.08 }, 0.94);
-}
-
-/**
- * Welt 08 → Welt 09: Das Bild des Weihers zoomt aus und wird zum See in der Abenddämmerung (Blueprint F, Übergang 11, länger: 80/50 vh).
- * Die Fotos stehen als Bildplatzhalter, nichts ist gezeichnet; Mint kippt in Dämmerungsviolett, die Wasserlinie zieht sich auf.
- */
-function wasser(tl, sec) {
-  const frame = $('[data-t-wsframe]', sec);
-  const a = $('[data-t-wsa]', sec);
-  const b = $('[data-t-wsb]', sec);
-  const line = $('[data-t-wsline]', sec);
-  const bg = $('.t-stage', sec);
-  const css = (n, d) => getComputedStyle(sec).getPropertyValue(n).trim() || d;
-  tl.fromTo(frame, { scale: 1.3, transformOrigin: '50% 60%' }, { scale: 1, duration: 0.7, ease: 'power2.out' }, 0)
-    .fromTo(line, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.3, ease: 'power2.inOut' }, 0.2)
-    .to(a, { opacity: 0, duration: 0.3, ease: 'none' }, 0.4)
-    .to(b, { opacity: 1, duration: 0.3, ease: 'none' }, 0.4)
-    .fromTo(bg, { backgroundColor: css('--from', '#CDE8DA') }, { backgroundColor: css('--to', '#2A1F33'), duration: 0.4, ease: 'none' }, 0.35)
-    .to(line, { opacity: 0, duration: 0.1 }, 0.85)
-    .to(frame, { autoAlpha: 0, duration: 0.1 }, 0.92);
-}
-
-/**
- * Welt 09 → Zwischenspiel III: Die Kamera fährt auf ein erleuchtetes Fenster zu; sein Rahmen wird zur Maske für das Porträt
- * (Blueprint F, Übergang 12). Das Fenster geht an, wächst über den Viewport und füllt sich mit dem Leinen der nächsten Seite.
- */
-function fenster(tl, sec) {
-  const win = $('[data-t-window]', sec);
-  const licht = $('[data-t-licht]', sec);
-  const bg = $('.t-stage', sec);
-  const toGround = getComputedStyle(sec).getPropertyValue('--to').trim() || '#F0EBE3';
-  const cover = () => Math.max(window.innerWidth / win.offsetWidth, window.innerHeight / win.offsetHeight) * 1.25;
-  gsap.set(win, { xPercent: -50, yPercent: -50 });
-  tl.fromTo(win, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0)
-    .fromTo(licht, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.in' }, 0.14)
-    .fromTo(win, { scale: 1 }, { scale: cover, duration: 0.5, ease: 'power2.in', immediateRender: false }, 0.36)
-    .to(licht, { backgroundColor: toGround, backgroundImage: 'none', duration: 0.2, ease: 'none' }, 0.7)
-    .to(bg, { backgroundColor: toGround, duration: 0.15, ease: 'none' }, 0.82)
-    .to(win, { autoAlpha: 0, duration: 0.08 }, 0.94);
-}
-
-/**
- * Zwischenspiel III → Welt 10: Die Seite zieht sich aus. Vier Stufen an festen Scroll-Schwellen (Klassenwechsel, kein Tween):
- * Farben, Schrift, Abstände, Layout (Blueprint F, Übergang 13, länger: 100/70 vh). Rückwärts bauen sich die Stufen wieder auf.
- */
-function ausziehen(tl, sec, range) {
-  const ex = $('[data-t-ex]', sec);
-  const label = $('[data-t-exstep]', sec);
-  const names = ['Zwischenspiel III', 'Farben fallen', 'Schrift fällt', 'Abstände fallen', 'Layout fällt'];
-  const marks = [0.18, 0.4, 0.62, 0.82];
-  let last = -1;
-  tl.fromTo(ex, { opacity: 1 }, { opacity: 1, duration: 1 }, 0); // hält die Szene über die ganze Strecke
-  ScrollTrigger.create({
-    trigger: sec, ...range,
-    onUpdate: (self) => {
-      const step = marks.filter((m) => self.progress >= m).length;
-      if (step === last) return;
-      last = step;
-      for (let i = 1; i <= 4; i += 1) ex.classList.toggle(`is-s${i}`, step >= i);
-      label.textContent = `Stufe ${step} von 4 · ${names[step]}`;
-    },
+  // Mittelanordnung: der Kalender (Maße und Abstände wie im Ziel) in die Bildmitte geschoben
+  const off = () => { const d = viewRect(cal, c.end()); return { x: center(c).x - d.cx, y: center(c).y - d.cy }; };
+  const scatter = srcs.map(() => ({ x: r(-0.3, 0.3, 0.01), y: r(-0.3, 0.3, 0.01), rot: r(-25, 25, 1) }));
+  const blue = c.toAccent || '#2F6B57'; const toText = getComputedStyle(c.sec).getPropertyValue('--to-text').trim() || '#1E2D2A';
+  const cells = srcs.map((s, i) => {
+    const front = c.clone(s, '07'); const back = c.clone(dsts[i], '08', true);
+    const node = el('t-pieces'); node.append(front, back); c.layer.append(node);
+    gsap.set([front, back], { xPercent: -50, yPercent: -50 });
+    const sr = () => c.srcRect(s); const dr = () => c.dstRect(dsts[i]);
+    gsap.set(back, { autoAlpha: 0 });
+    // 8–70: von ihrer Stelle im Raster zu verstreuten Lagen um die Mitte
+    tl.fromTo(node, { x: () => sr().cx, y: () => sr().cy, rotation: 0 }, { x: () => center(c).x + scatter[i].x * c.vw(), y: () => center(c).y + scatter[i].y * c.vh(), rotation: scatter[i].rot, duration: 62, ease: 'power2.inOut', immediateRender: true }, 8 + (i % 7) * 0.8)
+      // 100 → : ordnen sich zum Kalender in der Bildmitte
+      .fromTo(node, { x: () => center(c).x + scatter[i].x * c.vw(), y: () => center(c).y + scatter[i].y * c.vh(), rotation: scatter[i].rot }, { x: () => dr().cx + off().x, y: () => dr().cy + off().y, rotation: 0, duration: len * 0.45, ease: 'power3.out', ...NI }, A + (i % 7) * 0.4 + Math.floor(i / 7) * 0.5)
+      // Farbwechsel: Zellen von Stahlschiefer-Gelb zu Mint-Grün (Aussehen der Zielzelle blendet ein)
+      .fromTo(back, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.2, ...NI }, A + len * 0.4)
+      .fromTo(front, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.2, ...NI }, A + len * 0.4)
+      // Landung auf der echten Zelle
+      .fromTo(node, { x: () => dr().cx + off().x, y: () => dr().cy + off().y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+    return node;
   });
+  // Wochentage blenden in der Mitte ein und landen mit
+  heads.forEach((h) => {
+    const node = el('t-pieces'); const cl = c.clone(h, '08', true); node.append(cl); c.layer.append(node);
+    gsap.set(cl, { xPercent: -50, yPercent: -50 });
+    const dr = () => c.dstRect(h);
+    tl.fromTo(node, { x: () => dr().cx + off().x, y: () => dr().cy + off().y, autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.15, immediateRender: true }, A + len * 0.4)
+      .fromTo(node, { x: () => dr().cx + off().x, y: () => dr().cy + off().y }, { x: () => dr().cx, y: () => dr().cy, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+    c.lent.push(h);
+  });
+  c.lent.push(...dsts);
+  void cells;
+  ground(c, c.from, c.to, A + len * 0.25, len * 0.5);
+  return true;
 }
 
+/* ---------- t08 · Weiher → See (Welt 08 → 09) ---------- */
 /**
- * Welt 10 → Finale: Die Rohelemente (blaue Links in Times) bekommen NP-Stil zurück: Links werden orange, Times wird Archivo, und die Blöcke
- * ordnen sich zum Werkplan, den das Finale als Nächstes zeigt (Blueprint F, Übergang 14, lang: 140/90 vh). Positionen aus der Messung.
+ * Das Bild des Weihers am Ende von Praxis am Weiher wird abgeholt, zoomt aus und wird zum See in der Abenddämmerung von Gut Weidenstein;
+ * Mint kippt in Dämmerungsviolett, die Wasserlinie zieht sich auf. Die Fotos stehen als Bildplatzhalter, nichts ist gezeichnet.
+ * Landung: genau auf das Bild im Kopf von Welt 09.
  */
-function rohbau(tl, sec) {
-  const stage = $('.t-stage', sec);
-  const rb = $('[data-t-rb]', sec);
-  const grid = $('[data-t-rbgrid]', sec);
-  const items = $$('[data-t-rbi]', sec);
-  const raws = $$('[data-t-raw]', sec);
-  const nps = $$('[data-t-np]', sec);
-  const center = $('[data-t-rbcenter]', sec);
-  const orange = getComputedStyle(document.documentElement).getPropertyValue('--orange-text').trim() || '#A34A0D';
-  const leinen = getComputedStyle(document.documentElement).getPropertyValue('--leinen').trim() || '#F0EBE3';
-  const rawPos = (i, axis) => () => {
-    const sr = stage.getBoundingClientRect(); const gr = grid.getBoundingClientRect();
-    const r = items[i].getBoundingClientRect(); // Messung im Endzustand (Transform steht bei Szenenbeginn auf 0)
-    const left = gr.left; const top = sr.top + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--frame-top')) + 72 + i * 30;
-    return axis === 'x' ? left - r.left : top - r.top;
-  };
-  gsap.set(raws, { color: '#0000EE' });
-  // 0–25 %: die Rohliste steht da (blau, Times); 25–45 %: Links werden orange, Times wird Archivo (Wechsel der Schrift in der Mitte)
-  items.forEach((it, i) => tl.fromTo(it, { x: rawPos(i, 'x'), y: rawPos(i, 'y') }, { x: 0, y: 0, duration: 0.45, ease: 'power3.inOut' }, 0.4 + i * 0.015));
-  tl.to(raws, { color: orange, duration: 0.18, ease: 'none' }, 0.2)
-    .set(raws, { fontFamily: 'Archivo NP, sans-serif', fontStretch: '70%', fontWeight: 800, letterSpacing: '-.02em' }, 0.34)
-    .to(raws, { autoAlpha: 0, duration: 0.14, ease: 'none' }, 0.55)
-    .to(nps, { opacity: 1, duration: 0.2, ease: 'none', stagger: 0.01 }, 0.5)
-    .fromTo(center, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.78)
-    .to(rb, { backgroundColor: leinen, duration: 0.3, ease: 'none' }, 0.62)
-    .to(rb, { autoAlpha: 0, duration: 0.08 }, 0.94);
+function wasser(c) {
+  const src = $('.w08-weiher', c.fromSec); const dst = $('.w09-hero-bild', c.toSec);
+  if (!src || !dst) return false;
+  c.lent.push(src, dst);
+  const sr = () => c.srcRect(src); const dr = () => c.dstRect(dst);
+  const a = put(c, c.clone(src, '08'));
+  const b = put(c, c.clone(dst, '09', true));
+  const line = $('[data-t-wsline]', c.sec);
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const width = () => Math.min(c.vw() * 0.82, 1000);
+  tl.fromTo(a, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: () => width() / sr().w, duration: 80, ease: 'power2.inOut', immediateRender: true }, 8)
+    .fromTo(b, { x: () => center(c).x, y: () => center(c).y, scale: () => width() / dr().w, autoAlpha: 0 }, { autoAlpha: 0, duration: 0.001, immediateRender: true }, 0)
+    // erst kippt der Grund ins Dämmerungsviolett (siehe unten), dann blendet der See über
+    .fromTo(b, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.3, ease: 'none', ...NI }, A + len * 0.5)
+    .fromTo(a, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.25, ...NI }, A + len * 0.6)
+    .fromTo(b, { x: () => center(c).x, y: () => center(c).y, scale: () => width() / dr().w }, { x: () => dr().cx, y: () => dr().cy, scale: 1, duration: 86, ease: 'power2.inOut', ...NI }, E + 6);
+  if (line) tl.fromTo(line, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: len * 0.5, ease: 'power1.inOut', immediateRender: true }, A + len * 0.2)
+    .fromTo(line, { autoAlpha: 1 }, { autoAlpha: 0, duration: len * 0.15, ...NI }, A + len * 0.85);
+  ground(c, c.from, c.to, A, len * 0.4);
+  return true;
+}
+
+/* ---------- t09 · Fenster → Werkplan (Welt 09 → Finale) ---------- */
+/**
+ * Das erleuchtete Fenster am Ende von Gut Weidenstein wird abgeholt und wächst auf die Größe, in der es im ersten Bild des Finales steht: im leeren
+ * zehnten Platz des Werkplans, der die ganze Bühne füllt. Von dort fährt die Kamera zurück, bis der ganze Werkplan sichtbar ist (Finale).
+ * Landung: genau auf das Fenster im ersten Bild des Finales.
+ */
+function fensterplan(c) {
+  const src = $('.w09-fenster', c.fromSec);
+  const dstEl = $('.f-window', c.toSec);
+  if (!src || !dstEl) return false;
+  c.lent.push(src, dstEl);
+  const sr = () => c.srcRect(src); const dr = () => windowAtStart() || c.dstRect(dstEl);
+  const win = put(c, c.clone(src, '09'));
+  const { tl, A } = c; const E = c.E(); const len = c.len();
+  const mid = () => Math.min(c.vw() * 0.5, c.vh() * 0.46, 300) / sr().w;
+  tl.fromTo(win, { x: () => sr().cx, y: () => sr().cy, scale: 1 }, { x: () => center(c).x, y: () => center(c).y, scale: mid, duration: 85, ease: 'power2.inOut', immediateRender: true }, 8)
+    // das Fenster wächst, bis es so groß ist wie im ersten Bild des Finales
+    .fromTo(win, { x: () => center(c).x, y: () => center(c).y, scale: mid }, { scale: () => dr().w / sr().w, x: () => dr().cx, y: () => dr().cy, duration: len * 0.7 + 100, ease: 'power2.inOut', ...NI }, A + len * 0.2);
+  // Der Grund bleibt Dämmerung: Welt 09 und der zehnte Platz haben dieselbe Farbe
+  return true;
 }

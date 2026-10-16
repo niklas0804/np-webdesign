@@ -44,7 +44,7 @@ export function npMode(ground) {
 const pal = (ground, text, accent, accent2, { accentUse = 'text', accent2Use = 'fill', accent3 } = {}) =>
   ({ ground, text, accent, accentUse, accent2, accent2Use, ...(accent3 ? { accent3 } : {}), tone: npMode(ground) });
 
-/** @type {World[]} Die zehn Welten (Blueprint F). `built` richtet sich nach der Bauphase. Paletten: Designentscheidung vom 7. Oktober 2026. */
+/** @type {World[]} Die neun Welten (Blueprint F, Kurskorrektur 11. Oktober 2026: NP Labor entfällt). `built` richtet sich nach der Bauphase. Paletten: Designentscheidung vom 7. Oktober 2026. */
 export const WORLDS = [
   { nr: '01', slug: 'baeckerei', name: 'Halmberg', branche: 'Bäckerei', anchor: 'baeckerei', branchPage: '/branchenloesungen/baeckerei',
     palette: pal('#E9C46A', '#3B2618', '#5E2B4A', '#8B5A2B', { accent2Use: 'graphic' }), // Weizengold · Kruste · Zwetschge · Roggen (nur Grafik, nie Text)
@@ -82,10 +82,6 @@ export const WORLDS = [
     palette: pal('#2A1F33', '#ECE6DA', '#A9BC93', '#6F8796', { accent2Use: 'lines' }), // Dämmerungsviolett · Elfenbein · Schilf · Wasser (nur Linien)
     notiz: 'Gäste buchen ein Gefühl. Darum kommt die Anfrage erst, wenn es da ist — und dann ohne Hürde.',
     built: true, source: 'neu', leistung: 'Conversion-Struktur' },
-  { nr: '10', slug: 'labor', name: 'NP Labor', branche: 'Labor', anchor: 'labor', branchPage: '/',
-    palette: pal('#FFFFFF', '#000000', '#0000EE', '#551A8B', { accent2Use: 'text' }), // Weiß · Schwarz · Linkblau · Besucht
-    notiz: 'Alles, was Sie gesehen haben, besteht aus diesem Rohmaterial. Kein Baukasten, keine Vorlage.',
-    built: true, source: 'neu', leistung: 'Sauberer Code, keine Baukasten-Abhängigkeit' },
 ];
 
 /**
@@ -93,10 +89,10 @@ export const WORLDS = [
  */
 export const DISTINCT = {
   minDeltaE: 10,
-  /** Paare, die denselben Grund teilen dürfen (beide Weiß, in der Reise weit auseinander) */
-  samePairs: [['04', '10']],
+  /** Paare, die denselben Grund teilen dürfen (derzeit keine) */
+  samePairs: [],
   /** Welten, deren Grund Leinen nahekommt (Weiß liegt bei ΔE 8,1 zu Leinen) */
-  leinenExempt: ['04', '10'],
+  leinenExempt: ['04'],
 };
 
 export const builtWorlds = WORLDS.filter((w) => w.built);
@@ -111,65 +107,56 @@ export const TEXT = {
   claim: `${ZAHL[n]} Welten. Die ${ORDINAL[n + 1]} gehört Ihnen.`,
   statement: `${ZAHL[n]} Betriebe. ${ZAHL[n]} Websites. Keine sieht aus wie die andere.`,
   statementNote: `Alle ${ZAHL_KLEIN[n]} sind Studien: erfundene Unternehmen, echte Gestaltung.`,
-  heroSecondary: `${ZAHL[n]} Welten ansehen`,
+  heroSecondary: 'Sehen Sie, was ich baue',
   nextWorld: `Welt ${String(n + 1).padStart(2, '0')}`,
 };
 
-/** Übergänge mit eigenem Staffelstab statt des Standard-Fadens. Schlüssel: `von>nach`. Die Länge bleibt in der Konfiguration. */
+/**
+ * Übergänge mit eigenem Staffelstab statt des Standard-Fadens. Schlüssel: `von>nach`. Die Länge bleibt in der Konfiguration.
+ * Stand Kurskorrektur 11. Oktober 2026: neun Welten, keine Zwischenspiele auf /welten, Labor entfällt.
+ */
 export const TRANSITION_VARIANTS = {
-  'welt-01>welt-02': 'bon', // Bon „Nr. 07“ dreht sich um und wird als goldene Wartemarke neu gedruckt
+  'welt-01>welt-02': 'bon', // Bon „Nr. 07“ aus Halmberg dreht sich um und wird als goldene Wartemarke von Messingstuhl neu gedruckt
   'welt-02>welt-03': 'goldlinie', // Goldlinie wird Maßlinie, Millimeterpapier schiebt sich darunter hoch
-  'welt-05>welt-06': 'scheinwerfer', // Der runde Scheinwerfer glüht warm auf, wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus
-  'welt-06>arbeitsweise': 'kreise', // Die konzentrischen Kreise rollen sich zu einer Linie mit sechs Stationen ab
-  'ueber-mich>welt-10': 'ausziehen', // Zwischenspiel III zieht sich aus: Farben, Schrift, Abstände, Layout fallen in vier Stufen
-  'welt-10>finale': 'rohbau', // Die Rohelemente bekommen NP-Stil: Links werden orange, Times wird Archivo, die Blöcke ordnen sich zum Werkplan
+  'welt-03>welt-04': 'stempel', // Der rote Prüfstempel von Wittgenfeld wird gesetzt, sein Abdruck streckt sich zur roten Linie der Kanzlei; Planblau wird Reinweiß
+  'welt-04>welt-05': 'zierlinie', // Die rote Linie wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird British Racing Green
+  'welt-05>welt-06': 'scheinwerfer', // Der Scheinwerfer glüht auf, wächst über den Viewport und wird zur Farbkugel; Racing Green wird Pfirsich und läuft in Flieder aus
+  'welt-06>welt-07': 'messkreise', // Die Kreise der Farbkugel werden Messkreise einer Rundheitsmessung, die Laserlinie von TORQUEL tastet sie ab
   'welt-07>welt-08': 'messraster', // Die Messraster-Zellen ordnen sich zum Monatskalender, eine Zelle leuchtet als Termin, Stahlschiefer wird Mint
   'welt-08>welt-09': 'wasser', // Das Bild des Weihers zoomt aus und wird zum See in der Abenddämmerung, Mint kippt in Dämmerungsviolett
-  'welt-09>ueber-mich': 'fenster', // Die Kamera fährt auf ein erleuchtetes Fenster zu, sein Rahmen wird zur Maske für das Porträt
-  'arbeitsweise>welt-07': 'strahl', // Der Prozessstrahl glüht auf und wird zur Laserlinie, der Grund wechselt zu Stahlschiefer
-  'welt-04>welt-05': 'zierlinie', // Die rote Linie unter der Schlagzeile wird zur elfenbeinfarbenen Zierlinie, Reinweiß wird British Racing Green
-  'warum>welt-04': 'nblende', // N-Blende: diagonal von Nacht zu Reinweiß, „Kein Zufall.“ fließt in „Nichts dem Zufall überlassen.“
-  'welt-03>warum': 'pruefstempel', // Prüfstempel wird NP-Siegel, der Ring öffnet sich als P-Iris (Kreisblende) in die Nacht
+  'welt-09>finale': 'fensterplan', // Das erleuchtete Fenster schrumpft in den leeren zehnten Platz des Werkplans, die Kamera fährt zurück
 };
 
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
 export const TRANSITION_DEFAULT = { desktop: 60, mobile: 40 };
-/** Längere Übergänge (Blueprint F): Weiher → See */
+/** Längere Übergänge (Blueprint F): Weiher → See, Fenster → Werkplan */
 export const TRANSITION_LENGTH = {
   'welt-08>welt-09': { desktop: 80, mobile: 50 },
-  'ueber-mich>welt-10': { desktop: 100, mobile: 70 },
-  'welt-10>finale': { desktop: 140, mobile: 90 },
+  'welt-09>finale': { desktop: 100, mobile: 80 },
 };
 
 /**
- * Reihenfolge der Reise in dieser Bauphase (Blueprint T.3, gekürzt auf die gebauten Teile).
- * kind: opening | world | interlude | transition | finale | contact | faq
+ * Reihenfolge der Seite /welten: Werkplan → Welten 01–09 mit Übergängen → Finale (Auftrag 11. Oktober 2026).
+ * kind: opening | world | transition | finale
  */
 export const journey = (() => {
   /** @type {any[]} */
   const seq = [
-    // Opening: Hero (100) + Expansion (150, gepinnt) + Werkplan (80) bilden eine Bühne
-    // t00 (Werkplan → Welt 01, 60/40vh) läuft auf derselben Bühne: Die Zelle wächst auf Viewport-Größe
-    { id: 'opening', kind: 'opening', anchor: 'werkplan', hero: { d: 100, m: 100 }, expansion: { d: 150, m: 100 }, plan: { d: 80, m: 80 }, grow: { d: 60, m: 40 }, ground: MASTER.leinen, tone: 'light' },
+    // Werkplan-Szene: Der Werkplan steht von Anfang an (kein Hero, der gehört der Startseite), ruht kurz (plan) und t00 lässt die Zelle 01 wachsen (grow)
+    { id: 'opening', kind: 'opening', anchor: 'werkplan', expansion: { d: 0, m: 0 }, plan: { d: 70, m: 60 }, grow: { d: 60, m: 40 }, ground: MASTER.leinen, tone: 'light' },
     { id: 'welt-01', kind: 'world', world: '01', d: 160, m: 140 },
     { id: 'welt-02', kind: 'world', world: '02', d: 140, m: 120 },
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
-    { id: 'warum', kind: 'interlude', anchor: 'warum', title: 'Warum individuell', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
     { id: 'welt-04', kind: 'world', world: '04', d: 200, m: 160 },
     // scene: Länge der gepinnten Querfahrt (Desktop); mobil ist die Bildstrecke eine wischbare Leiste ohne Pin
     { id: 'welt-05', kind: 'world', world: '05', d: 240, m: 180, scene: { d: 260, m: 0 } },
     { id: 'welt-06', kind: 'world', world: '06', d: 230, m: 190 },
-    { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', title: 'Arbeitsweise', d: 160, m: 160, ground: MASTER.leinen, tone: 'light', pin: true },
     { id: 'welt-07', kind: 'world', world: '07', d: 260, m: 200 },
     { id: 'welt-08', kind: 'world', world: '08', d: 240, m: 200 },
     // scene: Länge der gepinnten Bildüberblendung (Blueprint F: 120vh plus Verweilen); die langsamste Welt der Reise
     { id: 'welt-09', kind: 'world', world: '09', d: 320, m: 240, scene: { d: 240, m: 170 } },
-    { id: 'ueber-mich', kind: 'interlude', anchor: 'ueber-mich', title: 'Über mich', d: 120, m: 110, ground: MASTER.leinen, tone: 'light' },
-    { id: 'welt-10', kind: 'world', world: '10', d: 280, m: 220 },
-    // Finale: Rückzoom auf den Werkplan, leeres Zentrum, Einladung und Sprung in den Kontakt auf einer gepinnten Bühne (Blueprint L)
-    { id: 'finale', kind: 'finale', anchor: 'finale', d: 200, m: 140, ground: MASTER.leinen, tone: 'light' },
-    { id: 'kontakt', kind: 'contact', anchor: 'kontakt', d: 150, m: 200, ground: MASTER.leinen, tone: 'light' },
-    { id: 'faq', kind: 'faq', anchor: 'faq', d: 160, m: 230, ground: MASTER.kalk, tone: 'light' },
+    // Finale: Rückzoom auf den Werkplan, der zehnte Platz bleibt leer, Einladung (Blueprint L). Der Kontakt liegt auf der Startseite.
+    { id: 'finale', kind: 'finale', anchor: 'finale', d: 160, m: 120, ground: MASTER.leinen, tone: 'light' },
   ];
 
   const groundOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.ground : s.ground);
@@ -177,29 +164,39 @@ export const journey = (() => {
   const textOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.text : null);
   const toneOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.tone : s.tone);
 
-  // Übergänge zwischen den Abschnitten einfügen. Keiner nach dem Opening (t00 läuft auf dessen Bühne), keiner vor dem FAQ
-  // (dort keine Inszenierung) und keiner nach dem Finale: Das Finale wächst selbst in den Kontakt hinein (Blueprint L).
+  // Übergänge zwischen den Abschnitten einfügen. Keiner nach dem Opening: t00 läuft auf dessen Bühne.
   const out = [];
   seq.forEach((s, i) => {
     out.push(s);
     const next = seq[i + 1];
-    if (!next || next.kind === 'faq' || s.kind === 'opening' || s.kind === 'finale') return;
+    if (!next || s.kind === 'opening') return;
+    const len = TRANSITION_LENGTH[`${s.id}>${next.id}`] || TRANSITION_DEFAULT;
     out.push({
       id: `t-${s.id}-${next.id}`, kind: 'transition', from: s.id, to: next.id,
       fromGround: groundOf(s), toGround: groundOf(next), fromTone: toneOf(s), toTone: toneOf(next),
       fromAccent: accentOf(s), toAccent: accentOf(next), fromText: textOf(s), toText: textOf(next),
-      d: (TRANSITION_LENGTH[`${s.id}>${next.id}`] || TRANSITION_DEFAULT).desktop, m: (TRANSITION_LENGTH[`${s.id}>${next.id}`] || TRANSITION_DEFAULT).mobile,
+      d: len.desktop, m: len.mobile,
       variant: TRANSITION_VARIANTS[`${s.id}>${next.id}`] || null,
     });
   });
   return out;
 })();
 
+/**
+ * Abschnitte der Startseite (Teil C ersetzt das). Hier nur Länge, Grund und Ton, damit /journey.css sie kennt.
+ */
+export const homeRows = [
+  { id: 'warum', kind: 'interlude', anchor: 'warum', d: 120, m: 100, ground: MASTER.nacht, tone: 'dark' },
+  { id: 'arbeitsweise', kind: 'interlude', anchor: 'arbeitsweise', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
+  { id: 'kontakt', kind: 'contact', anchor: 'kontakt', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
+  { id: 'faq', kind: 'faq', anchor: 'faq', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },
+];
+
 /** Welt-Eintrag zu einer Reise-Zeile */
 export const worldOf = (row) => WORLDS.find((w) => w.nr === row.world);
 
 /** Kleine Hilfen für Tests und Abnahme */
 export const totals = () => ({
-  desktop: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.hero.d + r.expansion.d + r.plan.d + r.grow.d : r.d), 0),
-  mobile: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.hero.m + r.expansion.m + r.plan.m + r.grow.m : r.m), 0),
+  desktop: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.expansion.d + r.plan.d + r.grow.d : r.d), 0),
+  mobile: journey.reduce((sum, r) => sum + (r.kind === 'opening' ? r.expansion.m + r.plan.m + r.grow.m : r.m), 0),
 });
