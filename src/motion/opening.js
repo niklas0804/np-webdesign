@@ -13,6 +13,8 @@ export function initOpening() {
   const sec = $('#opening');
   const stage = $('[data-stage]');
   const wp = $('[data-werkplan]');
+  /** Der Werkplan ist nach dem Wegscrollen nicht mehr bedienbar; die Hauptüberschrift (H1) bleibt für Hilfstechnik erhalten */
+  const setInert = (on) => wp.querySelectorAll('.wp-cells, .wp-statement').forEach((e) => { e.inert = on; });
   if (!sec || !stage || !wp) return;
 
   const grid = $('.wp-grid', wp);
@@ -72,12 +74,12 @@ export function initOpening() {
       onRefreshInit: () => { g = build(); },
       onRefresh: () => { const p = tlB.progress(); tlB.progress(1, true).progress(p, true); },
       onUpdate: (self) => {
-        if (self.progress > 0) wp.inert = true;
+        if (self.progress > 0) setInert(true);
         if (!self.isActive) return;
         const second = self.progress > 0.5;
         if (second !== half) { half = second; if (second) setSection(world1); else setSection(document.getElementById('opening')); }
       },
-      onLeaveBack: () => { half = null; wp.inert = false; },
+      onLeaveBack: () => { half = null; setInert(false); },
     },
   });
   // Die Zelle wächst als Maske von ihrer Form auf den ganzen Viewport, die übrigen Rahmen treten zurück
