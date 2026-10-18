@@ -4,7 +4,8 @@ Stand: 18. Oktober 2026. Erledigtes steht unten unter „Erledigt“. Arbeitssta
 
 ## 1. Kontaktformular (läuft, Rest offen)
 - [ ] **Zugangsdaten sichern:** `np-config.php` einen Ordner **über** `public_html` anlegen (Vorlage `public/api/config.sample.php`, Block `smtp` für das IONOS-Postfach). Sie übersteht jedes Neuladen per Git oder ZIP; `api/config.php` bleibt als zweiter Ort möglich. Eine Kopie lokal aufbewahren, nie ins Repository, nie in den Chat.
-- [ ] **Vier Auffälligkeiten entscheiden** (Bericht vom 18. Oktober): globales Mengenlimit (jetzt 40 pro Stunde, gilt für alle zusammen), stilles „Danke“ bei mehr als 2 Links, Absender gleich Empfänger, `config.sample.php` nicht auf den Server laden.
+- [ ] **Autofill-Test auf dem Live-Server** in Safari, Chrome und Firefox (Kontaktkarte mit Website-Eintrag): Mail muss ohne „[Spam-Verdacht]“ ankommen. Der Honeypot heißt jetzt `np_hp_field`; Verdachtsfälle werden nicht mehr verworfen, sondern im Betreff markiert.
+- [ ] **Auffälligkeiten entscheiden** (Bericht vom 18. Oktober): globales Mengenlimit (jetzt 40 pro Stunde, gilt für alle zusammen), Absender gleich Empfänger, `config.sample.php` nicht auf den Server laden. (Das stille „Danke“ bei Links und Honeypot ist behoben.)
 - [ ] **SPF, DKIM, DMARC** für np-webdesign.de prüfen (Werte aus der Hilfe von IONOS und Hostinger übernehmen).
 - [ ] PHP-Version auf dem Server mindestens 8.0 prüfen.
 

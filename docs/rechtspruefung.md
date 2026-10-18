@@ -44,7 +44,7 @@ Technisch abgesichert (Prüfskript `tools/check-site.cjs`): null Anfragen an fre
 - [ ] Postfach bei IONOS SE: Auftragsverarbeitungsvertrag vorhanden? Firmenname und Sitz im Text (IONOS SE, Montabaur) gegen den Vertrag abgleichen.
 - [ ] Transportverschlüsselung: Formular per HTTPS; Versand entweder über den Mailserver von Hostinger (`mail()`) oder per authentifiziertem SMTP zum Postfach (`config.php`). Genügt das als technisch-organisatorische Maßnahme (Art. 32 DSGVO)? Empfehlung: SMTP über das IONOS-Postfach mit STARTTLS.
 - [ ] Speicherdauer „bis zur abschließenden Bearbeitung, bei Auftrag gesetzliche Fristen“: konkret genug? Fristen für Geschäftsbriefe (§ 257 HGB, § 147 AO) richtig zugeordnet?
-- [ ] Spamschutz ohne Personenbezug (Honeypot, Mengenbegrenzung nach Gesamtzahl pro Stunde, ohne IP-Speicherung): Darstellung im Text richtig und ausreichend?
+- [ ] Spamschutz ohne Personenbezug (Honeypot, Zeitprüfung mit übertragenem Zeitpunkt des Seitenaufrufs, Linkfilter, Zustellung mit Betreff-Markierung statt Verwerfen, Mengenbegrenzung nach Gesamtzahl pro Stunde, ohne IP-Speicherung): Darstellung im Text richtig und ausreichend?
 - [ ] Hinweis, dass der Formularinhalt bis zum Absenden im Browser bleibt (Live-Vorschau lokal): sinnvoll oder überflüssig?
 
 **Browser-Speicher**

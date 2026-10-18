@@ -82,7 +82,8 @@ const ablauf = STEPS.map((s) => s.title).join(', ');
           <textarea id="k-msg" name="nachricht" rows="5" required minlength="10" maxlength="4000" aria-describedby="k-msg-err"></textarea>
           <p class="k-err" id="k-msg-err" data-err hidden>Bitte beschreiben Sie Ihr Vorhaben in ein, zwei Sätzen (mindestens 10 Zeichen).</p>
         </div>
-        <div class="k-trap" aria-hidden="true"><label>Bitte leer lassen<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <div class="k-trap" aria-hidden="true"><label for="np_hp_field">Bitte leer lassen</label><input type="text" id="np_hp_field" name="np_hp_field" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore /></div>
+        <input type="hidden" name="np_ts" value="" data-ts />
         <button class="btn btn-primary k-submit" type="submit" data-submit>
           <span class="btn-label"><span data-submit-label>Anfrage senden</span><span aria-hidden="true">Anfrage senden</span></span>
           <span class="btn-arrow" aria-hidden="true">→</span>

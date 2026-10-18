@@ -3,7 +3,8 @@ declare(strict_types=1);
 /*
  * Formular-Endpunkt (Blueprint N, Q2): nimmt die Anfrage entgegen und stellt sie als E-Mail zu.
  * Keine Datenbank, kein Drittdienst, kein Formularinhalt in Logs, keine Speicherung von IP-Adressen.
- * Schutz: Honeypot, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
+ * Schutz: Honeypot, Zeitprüfung, Linkfilter, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
+ * Verdachtsfälle werden trotzdem zugestellt (Betreff „[Spam-Verdacht]“); verworfen wird nur, wenn alle drei Prüfungen anschlagen.
  * Versand: standardmäßig über mail() des Hosters, optional über ein SMTP-Postfach (config.php, Eintrag „smtp“).
  * Zugangsdaten und Adressen: nie im Repository. Gesucht wird zuerst np-config.php außerhalb des Web-Ordners (ein Ordner über
  * public_html, übersteht jedes Neuladen der Website), sonst config.php neben dieser Datei (siehe config.sample.php).
@@ -129,9 +130,16 @@ if ($origin !== '' && strtolower((string) parse_url($origin, PHP_URL_HOST)) !== 
     finish(false, 'origin', $json, 403);
 }
 
-// Honeypot: Menschen sehen das Feld nicht. Bots bekommen scheinbar Erfolg, es wird nichts gesendet.
-if (clean($_POST['website'] ?? '', 200) !== '') {
-    finish(true, 'ok', $json);
+// Spamverdacht: Honeypot-Feld (für Menschen unsichtbar, Name ohne Bezug zu Autofill-Feldern), Absenden unter 3 s nach dem
+// Seitenaufruf (fehlt oder unplausibel: nicht bewertet, z. B. ohne JavaScript) und Linkflut. Nichts davon wird gespeichert.
+$flags = [];
+if (clean($_POST['np_hp_field'] ?? '', 200) !== '') {
+    $flags[] = 'verstecktes Feld ausgefüllt';
+}
+$loaded = is_string($_POST['np_ts'] ?? null) && ctype_digit($_POST['np_ts']) && strlen($_POST['np_ts']) <= 15 ? (int) $_POST['np_ts'] : 0;
+$age = $loaded > 0 ? (int) (microtime(true) * 1000) - $loaded : -1;
+if ($age >= 0 && $age < 3000) {
+    $flags[] = 'unter 3 Sekunden nach dem Seitenaufruf gesendet';
 }
 
 $name = clean($_POST['name'] ?? '', 100);
@@ -148,8 +156,11 @@ if ($name === '' || mb_strlen($message) < 10 || !filter_var($email, FILTER_VALID
     finish(false, 'invalid', $json, 422);
 }
 
-// Linkflut ist Spam: stilles „Erfolg“
 if (preg_match_all('~https?://|www\.~i', $message . ' ' . $company) > 2) {
+    $flags[] = 'mehr als 2 Links';
+}
+// Nur wenn alle drei Prüfungen anschlagen, wird verworfen (scheinbarer Erfolg); sonst wird zugestellt und im Betreff markiert
+if (count($flags) === 3) {
     finish(true, 'ok', $json);
 }
 
@@ -186,6 +197,9 @@ $lines = [
     '',
     '— Gesendet über das Kontaktformular. Antworten geht direkt an die E-Mail-Adresse des Absenders.',
 ];
+if ($flags) {
+    $lines[] = 'Spam-Verdacht: ' . implode('; ', $flags) . '.';
+}
 $headers = [
     'From: NP Webdesign <' . $cfg['from'] . '>',
     'Reply-To: ' . $email,
@@ -193,7 +207,7 @@ $headers = [
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
 ];
-$subject = '=?UTF-8?B?' . base64_encode($cfg['subject'] . ' – ' . $name) . '?=';
+$subject = '=?UTF-8?B?' . base64_encode(($flags ? '[Spam-Verdacht] ' : '') . $cfg['subject'] . ' – ' . $name) . '?=';
 
 $sent = false;
 if (is_array($cfg['smtp'] ?? null)) {

@@ -26,6 +26,9 @@ export function initKontakt() {
   const DEFAULT = 'Ihr Unternehmen';
 
   form.setAttribute('novalidate', '');
+  /* Zeitpunkt des Seitenaufrufs für die Zeitprüfung im Endpunkt (Spamschutz, wird nicht gespeichert) */
+  const ts = $('[data-ts]', form);
+  if (ts) ts.value = String(Date.now());
 
   /* Live-Vorschau */
   const frame = title.closest('.k-pv-frame');
