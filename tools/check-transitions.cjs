@@ -158,7 +158,10 @@ const PAGE_STATE = `() => {
       if (shown && want && shown.textContent.trim() !== want.trim()) counter = { want, got: shown.textContent.trim(), section: s.dataset.section };
     }
   });
-  return { counter, y: Math.round(scrollY), max: document.documentElement.scrollHeight - vh, inTransition, center, hits: hits.slice(0, 6), hitCount: hits.length, frameVisible: rects.map((r) => r.n), stripBottom };
+  // Szenen mit eigenem zeitgesteuertem Ablauf (Kunden-Test): beim ersten Durchlauf im Anfangszustand, beim Rückweg im Endzustand; Hin- gegen Rückweg wird dort nicht gewertet
+  const kd = document.querySelector('[data-kt-demo]'); let timed = false;
+  if (kd) { const kr = kd.getBoundingClientRect(); timed = Math.min(kr.bottom, vh) - Math.max(kr.top, 0) > kr.height * 0.1; }
+  return { counter, y: Math.round(scrollY), max: document.documentElement.scrollHeight - vh, inTransition, timed, center, hits: hits.slice(0, 6), hitCount: hits.length, frameVisible: rects.map((r) => r.n), stripBottom };
 }`;
 
 function pad(s, n) { return String(s).padEnd(n); }
@@ -278,7 +281,7 @@ async function run(browser, base, view) {
     backFrames.reverse();
     backFrames.forEach((b, i) => {
       const a = frames[i]; let s = 0; for (let k = 0; k < a.thumb.length; k++) s += Math.abs(a.thumb[k] - b.thumb[k]);
-      const d = s / a.thumb.length; if (d > DIFF_LIMIT) backDiffs.push({ y: a.y, diff: +d.toFixed(1), section: a.st.center, transition: a.st.inTransition || null, i });
+      const d = s / a.thumb.length; if (d > DIFF_LIMIT) backDiffs.push({ y: a.y, diff: +d.toFixed(1), section: a.st.center, transition: (a.st.timed ? null : a.st.inTransition) || null, i });
     });
   }
 

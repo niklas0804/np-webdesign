@@ -1,7 +1,7 @@
 ---
 /**
  * Startseite „Maßarbeit“ (Auftrag 11. Oktober 2026, Teil C). Sieben Abschnitte, der orange Faden als Werkzeug durch alle:
- * S1 Hero · S2 Warum · S3 Vergleich · S4 Beispiele · S5 Zusammenarbeit · S6 Kontakt · S7 FAQ und Footer.
+ * S1 Hero · S2 Warum · S3 Der Kunden-Test · S4 Beispiele · S5 Zusammenarbeit · S6 Kontakt · S7 FAQ und Footer.
  * Übergänge mit Staffelstab: S2 → S3 (N-Blende), S5 → S6 (P-Iris). Die neun Welten wohnen auf /welten.
  * Die Startseite lädt nur ihre eigenen Module (src/motion/home/).
  */
@@ -16,7 +16,7 @@ import Frame from '../components/Frame.astro';
 import Menu from '../components/Menu.astro';
 import Hero from '../home/Hero.astro';
 import Warum from '../home/Warum.astro';
-import Vergleich from '../home/Vergleich.astro';
+import KundenTest from '../home/KundenTest.astro';
 import Beispiele from '../home/Beispiele.astro';
 import Transition from '../components/Transition.astro';
 import Zusammenarbeit from '../home/Zusammenarbeit.astro';
@@ -58,7 +58,7 @@ const jsonLd = [
     <Hero row={row.start} />
     <Warum row={row.warum} />
     <Transition row={row['t-warum-vergleich']} />
-    <Vergleich row={row.vergleich} />
+    <KundenTest row={row.vergleich} />
     <Beispiele row={row.beispiele} />
     <Zusammenarbeit row={row.arbeitsweise} />
     <Transition row={row['t-arbeitsweise-kontakt']} />

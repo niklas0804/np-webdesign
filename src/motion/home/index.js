@@ -10,11 +10,23 @@ import { initKontakt } from '../kontakt.js';
 import { initTransitions, snapshotBatons } from '../transitions.js';
 import { initHero } from './hero.js';
 import { initWarum } from './warum.js';
-import { initVergleich } from './vergleich.js';
 import { initBeispiele } from './beispiele.js';
 import { initZusammenarbeit } from './zusammenarbeit.js';
 
 watchMode();
+
+/** S3 · Der Kunden-Test: Ablauf und Schrift (Bodoni Moda) erst bei Annäherung laden; die Fläche ist vorab reserviert, es gibt keinen Layout-Sprung */
+function lazyKundentest() {
+  const sec = document.querySelector('[data-kt]');
+  if (!sec || !pinned) return;
+  const io = new IntersectionObserver((es) => {
+    if (!es.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    root.setAttribute('data-fonts', `${root.getAttribute('data-fonts') || ''} bodoni`.trim());
+    Promise.all([import('./kundentest.js'), document.fonts.load('500 20px "Bodoni Moda NP"').catch(() => {})]).then(([m]) => m.initKundentest(sec));
+  }, { rootMargin: '900px 0px' });
+  io.observe(sec);
+}
 
 async function boot() {
   let lenis = null;
@@ -34,7 +46,7 @@ async function boot() {
   initRahmen();
   initHero();
   if (pinned) initWarum();
-  initVergleich();
+  lazyKundentest();
   initBeispiele();
   initZusammenarbeit();
   if (pinned) { snapshotBatons(); initTransitions(); }

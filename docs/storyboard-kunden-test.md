@@ -1,6 +1,6 @@
 # Storyboard „Der Kunden-Test“ (Startseite, Sektion „Der Unterschied“)
 
-Stand: 18. Oktober 2026. **Zur Freigabe, noch nichts umgesetzt.** Die Sektion auf der Seite ist weiter der bisherige Slider.
+Stand: 18. Oktober 2026. **Umgesetzt** (Freigabe von Niklas am 18. Oktober). Aufnahmen und Prüfprotokoll der Umsetzung: `docs/screens/kunden-test/umsetzung/`.
 
 Die Standbilder liegen in `docs/screens/kunden-test/` (Desktop 1440 px, Mobil 390 px). Sie sind echtes HTML und CSS mit den vorhandenen Fassungen aus `src/home/Vergleich.astro` (Baukasten `vg-base`/`bk-*`, Maßarbeit `vg-mass`/`ms-*`) und lassen sich mit `NODE_PATH=$(npm root -g) node scripts/storyboard-shots.cjs` neu erzeugen (Quelle: `scripts/storyboard/kunden-test.html`).
 

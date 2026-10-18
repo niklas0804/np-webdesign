@@ -189,14 +189,14 @@ export const journey = (() => {
  * label: Name im Lineal (Desktop). Eigene Zählung: Die Startseite hat keinen Weltzähler.
  */
 export const HOME_TRANSITIONS = {
-  'warum>vergleich': { variant: 'nblende', d: 80, m: 60 }, // die Diagonale des N wischt von Nacht zu Leinen, der Faden wird zur Trennlinie
+  'warum>vergleich': { variant: 'nblende', d: 80, m: 60 }, // die Diagonale des N wischt von Nacht zu Leinen, das rechte Bein endet am rechten Rand der Demo (Kunden-Test)
   'arbeitsweise>kontakt': { variant: 'piris', d: 100, m: 70 }, // die Schlaufe des Fadens wird der Bauch des P, die P-Iris öffnet den Kontakt
 };
 export const homeJourney = (() => {
   const seq = [
     { id: 'start', kind: 'home', anchor: 'start', label: 'Start', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'warum', kind: 'home', anchor: 'warum', label: 'Warum', d: 250, m: 200, ground: MASTER.nacht, tone: 'dark' },
-    { id: 'vergleich', kind: 'home', anchor: 'vergleich', label: 'Vergleich', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
+    { id: 'vergleich', kind: 'home', anchor: 'vergleich', label: 'Kunden-Test', d: 100, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'beispiele', kind: 'home', anchor: 'beispiele', label: 'Beispiele', d: 180, m: 100, ground: MASTER.kalk, tone: 'light' },
     { id: 'arbeitsweise', kind: 'home', anchor: 'arbeitsweise', label: 'Zusammenarbeit', d: 300, m: 100, ground: MASTER.leinen, tone: 'light' },
     { id: 'kontakt', kind: 'home', anchor: 'kontakt', label: 'Kontakt', d: 100, m: 100, ground: MASTER.kalk, tone: 'light' },

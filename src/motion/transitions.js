@@ -463,12 +463,11 @@ function npzeichen(c) {
 /* ---------- N-Blende (Startseite: Warum → Vergleich) ---------- */
 /**
  * Der Faden am linken Rand von S2 ist das linke Bein eines N. Die Diagonale zeichnet sich von oben links nach unten rechts, das rechte Bein
- * steigt vom unteren Rand auf (genau über dem rechten Rand des Browserrahmens von S3). Dann wischt die Diagonale von Nacht zu Leinen:
- * erst füllt sich das Dreieck oben rechts, dann das unten links. Das N bleibt als Faden stehen; S3 schiebt sich darüber, der rechte Strich
- * wird dort zur Trennlinie.
+ * steigt vom unteren Rand auf (genau über dem rechten Rand der Demo von S3). Dann wischt die Diagonale von Nacht zu Leinen:
+ * erst füllt sich das Dreieck oben rechts, dann das unten links. Das N bleibt als Faden stehen; S3 schiebt sich darüber.
  */
 function nblende(c) {
-  const frame = $('.vg-frame', c.toSec);
+  const frame = $('[data-kt-demo]', c.toSec);
   const spine = $('.warum-faden', c.fromSec);
   if (!frame || !spine) return false;
   const wipe = el('t-nb-wipe'); const left = el('t-nb-leg t-nb-l'); const diag = el('t-nb-diag'); const right = el('t-nb-leg t-nb-r');

@@ -1,0 +1,48 @@
+---
+/**
+ * Baukasten-Fassung des Barbershops (generisch, aber nicht lächerlich): Startseite.
+ * phone = false: Ebene im Browserfenster; phone = true: lange Seite, die in der Handykarte scrollt (mit „Über uns“ und großem Footer).
+ */
+const { phone = false } = Astro.props;
+---
+<div class={phone ? 'kt-scroll kt-b' : 'kt-pg kt-b'} data-l={phone ? undefined : 'home'} data-scroll={phone ? '' : undefined}>
+  <div class="bk-nav"><span class="bk-logo" data-n="logo">Logo</span><span>Start</span><span>Über uns</span><span data-n="kontakt">Kontakt</span></div>
+  <div class="kt-stockrow"><div class="bk-stock" data-stock><svg viewBox="0 0 100 60" preserveAspectRatio="none" focusable="false"><path d="M0 0 L100 60 M100 0 L0 60" /></svg><span>Stockfoto</span></div></div>
+  <div class="kt-jump" data-jump>
+    <div class="bk-hero">
+      <p class="bk-welcome" data-welcome>Willkommen bei Barbershop Messingstuhl</p>
+      <p class="bk-text">Wir freuen uns, Sie auf unserer Website begrüßen zu dürfen.</p>
+      <span class="bk-btn" data-more>Mehr erfahren</span>
+    </div>
+    <div class="bk-tiles">
+      <div class="bk-tile" data-tile="angebot"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8" /></svg><b>Unser Angebot</b></div>
+      <div class="bk-tile" data-tile="ueber"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="4" width="16" height="16" /></svg><b>Über uns</b></div>
+      <div class="bk-tile"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 4 L21 20 H3 Z" /></svg><b>Aktuelles</b></div>
+    </div>
+    {phone ? (
+      <>
+        <div class="bk-more">
+          <p class="bk-h">Über uns</p>
+          <p class="bk-text">Seit vielen Jahren sind wir Ihr verlässlicher Partner. Unsere Leidenschaft ist Qualität, unser Team ist freundlich und kompetent.</p>
+          <div class="bk-stock"><svg viewBox="0 0 100 60" preserveAspectRatio="none" focusable="false"><path d="M0 0 L100 60 M100 0 L0 60" /></svg><span>Stockfoto</span></div>
+          <p class="bk-h bk-h2">Aktuelles</p>
+          <p class="bk-text">Hier finden Sie bald Neuigkeiten.</p>
+        </div>
+        <div class="bk-foot2">
+          <b>Kontakt</b>
+          <p class="tel hit" data-tel>Tel. 01234 56789</p>
+          <p>Musterstraße 1 · 12345 Musterstadt</p>
+          <b>Mehr</b>
+          <p>Impressum<br />Datenschutz<br />AGB<br />Cookie-Einstellungen<br />Newsletter</p>
+          <b>Newsletter</b>
+          <p>Bleiben Sie auf dem Laufenden.</p>
+          <p class="nl"><span>E-Mail-Adresse</span><em>Anmelden</em></p>
+          <p class="soc"><i></i><i></i><i></i><i></i></p>
+          <p>© Barbershop Messingstuhl</p>
+        </div>
+      </>
+    ) : (
+      <div class="bk-foot">Impressum · Datenschutz · Tel. 01234 56789</div>
+    )}
+  </div>
+</div>

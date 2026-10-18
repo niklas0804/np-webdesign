@@ -1,0 +1,28 @@
+---
+/**
+ * Maßarbeit-Fassung: der Einstieg von Messingstuhl (Texte aus der Studie, damit die reduzierte Schrift alle Zeichen hat).
+ * phone = false: Termin buchen (Fenster); phone = true: großer Button „Anrufen“ in der Daumenzone.
+ * Das Markup steht im Endzustand; kundentest.js setzt den Anfangszustand.
+ */
+const { phone = false } = Astro.props;
+const WAIT = 'Aufgerufen wird Nr. 05. Wartezeit etwa 24 Minuten.';
+---
+<div class="kt-pg kt-m is-end" data-world="02" data-l="mass">
+  <div class="ms-nav"><span class="ms-brand">Messingstuhl</span><span class="ms-links"><span>Preisliste</span><span class="ms-termin" data-termin>Termin</span></span></div>
+  <div class="ms-body" data-mbody>
+    <p class="ms-kicker">Barbershop · Haarschnitt und Rasur</p>
+    <p class="ms-title">Messingstuhl</p>
+    <div class="kt-mid">
+      <div class="ms-ticket kt-t07"><p class="ms-t-head"><span>Messingstuhl</span><span>Wartemarke</span></p><p class="ms-t-nr">07</p><p class="ms-t-foot">Demo</p></div>
+      <div class="kt-slots"><p class="ms-slots-h">Heute</p><div class="ms-slots"><span class="ms-slot">Heute 16:30</span><span class="ms-slot on" data-slot>Heute 17:15</span><span class="ms-slot">Heute 18:00</span></div></div>
+      <div class="ms-ticket kt-tbook"><p class="ms-t-head"><span>Messingstuhl</span><span>Heute</span></p><p class="ms-t-nr time">17:15</p><p class="ms-t-foot">Gebucht</p></div>
+    </div>
+    <p class="ms-wait"><span class="kt-wa">{WAIT}</span><span class="kt-wb">Heute 17:15. Bis gleich.</span></p>
+    <dl class="ms-prices"><div><dt>Haarschnitt</dt><dd>28 €</dd></div><div><dt>Rasur mit Heißtuch</dt><dd>25 €</dd></div></dl>
+  </div>
+  {phone ? (
+    <div class="ms-callwrap" data-callwrap><div class="ms-call" data-call><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" /></svg>Anrufen</div></div>
+  ) : (
+    <span class="ms-stamp" data-stamp>Gebucht</span>
+  )}
+</div>

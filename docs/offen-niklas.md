@@ -26,7 +26,7 @@ Stand: 18. Oktober 2026. Erledigtes steht unten unter „Erledigt“. Arbeitssta
 - [ ] **Social-Vorschaubilder** ansehen (`public/images/social/`).
 
 ## 4. Tests, die nur Niklas machen kann
-- [ ] Echte Geräte (iPhone, Android, Tablet): Adressleiste und `svh`/`lvh` beim Scrollen, Slider „Der Unterschied“, Musterkoffer.
+- [ ] Echte Geräte (iPhone, Android, Tablet): Adressleiste und `svh`/`lvh` beim Scrollen, Kunden-Test „Der Unterschied“ (Handy-Szenen, Daumenzone, Pause), Musterkoffer.
 - [ ] **Lighthouse mobil** (Ziel ≥ 90) auf `/` und `/welten`. Lokal nicht gelaufen. Die Ladewerte (LCP ≤ 2,0 s, INP ≤ 150 ms, CLS ≤ 0,05, erste Ansicht ≤ 350 KB) sind nicht gemessen.
 - [ ] VoiceOver (iOS/macOS), NVDA (Windows), Tastatur-Runde, 200 % Zoom.
 - [ ] Testversion auf einer Subdomain hochladen und durchklicken (`docs/testversion-hostinger.md`).

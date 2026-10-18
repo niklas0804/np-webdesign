@@ -1,0 +1,1165 @@
+{
+ "label": "kunden-test",
+ "blankStd": 6,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "mobil",
+   "mode": "mobile",
+   "total": 14402,
+   "stepPx": 42,
+   "steps": 344,
+   "stdMin": 24.6,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     10,
+     0
+    ],
+    [
+     20,
+     0
+    ]
+   ],
+   "blankRuns": [],
+   "blankInTransition": [],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 3612,
+     "diff": 6.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 86
+    },
+    {
+     "y": 3654,
+     "diff": 13.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 87
+    },
+    {
+     "y": 3696,
+     "diff": 22.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 88
+    },
+    {
+     "y": 3738,
+     "diff": 31.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 89
+    },
+    {
+     "y": 3780,
+     "diff": 39.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 90
+    },
+    {
+     "y": 3822,
+     "diff": 48,
+     "section": "vergleich",
+     "transition": null,
+     "i": 91
+    },
+    {
+     "y": 3864,
+     "diff": 55.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 92
+    },
+    {
+     "y": 3906,
+     "diff": 63.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 93
+    },
+    {
+     "y": 3948,
+     "diff": 70.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 94
+    },
+    {
+     "y": 3990,
+     "diff": 80.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 95
+    },
+    {
+     "y": 4032,
+     "diff": 88.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 96
+    },
+    {
+     "y": 4074,
+     "diff": 95.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 97
+    },
+    {
+     "y": 4116,
+     "diff": 94.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 98
+    },
+    {
+     "y": 4158,
+     "diff": 96.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 99
+    },
+    {
+     "y": 4200,
+     "diff": 96.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 100
+    },
+    {
+     "y": 4242,
+     "diff": 96.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 101
+    },
+    {
+     "y": 4284,
+     "diff": 96.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 102
+    },
+    {
+     "y": 4326,
+     "diff": 96.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 103
+    },
+    {
+     "y": 4368,
+     "diff": 95.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 104
+    },
+    {
+     "y": 4410,
+     "diff": 91.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 105
+    },
+    {
+     "y": 4452,
+     "diff": 83.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 106
+    },
+    {
+     "y": 4494,
+     "diff": 74.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 107
+    },
+    {
+     "y": 4536,
+     "diff": 67.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 108
+    },
+    {
+     "y": 4578,
+     "diff": 36.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 109
+    },
+    {
+     "y": 4620,
+     "diff": 30,
+     "section": "vergleich",
+     "transition": null,
+     "i": 110
+    },
+    {
+     "y": 4662,
+     "diff": 10.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 111
+    },
+    {
+     "y": 4704,
+     "diff": 10.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 112
+    },
+    {
+     "y": 4746,
+     "diff": 10.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 113
+    },
+    {
+     "y": 4788,
+     "diff": 9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 114
+    },
+    {
+     "y": 4830,
+     "diff": 8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 115
+    },
+    {
+     "y": 6006,
+     "diff": 8.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 143
+    },
+    {
+     "y": 6048,
+     "diff": 14.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 144
+    },
+    {
+     "y": 6090,
+     "diff": 18.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 145
+    },
+    {
+     "y": 6132,
+     "diff": 18.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 146
+    },
+    {
+     "y": 6174,
+     "diff": 20.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 147
+    },
+    {
+     "y": 6216,
+     "diff": 22.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 148
+    },
+    {
+     "y": 6258,
+     "diff": 23.1,
+     "section": "beispiele",
+     "transition": null,
+     "i": 149
+    },
+    {
+     "y": 6300,
+     "diff": 25.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 150
+    },
+    {
+     "y": 6342,
+     "diff": 27.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 151
+    },
+    {
+     "y": 6384,
+     "diff": 32,
+     "section": "beispiele",
+     "transition": null,
+     "i": 152
+    },
+    {
+     "y": 6426,
+     "diff": 34.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 153
+    },
+    {
+     "y": 6468,
+     "diff": 39.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 154
+    },
+    {
+     "y": 6510,
+     "diff": 42.4,
+     "section": "beispiele",
+     "transition": null,
+     "i": 155
+    },
+    {
+     "y": 6552,
+     "diff": 43.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 156
+    },
+    {
+     "y": 6594,
+     "diff": 47,
+     "section": "beispiele",
+     "transition": null,
+     "i": 157
+    },
+    {
+     "y": 6636,
+     "diff": 43.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 158
+    },
+    {
+     "y": 6678,
+     "diff": 37.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 159
+    },
+    {
+     "y": 6720,
+     "diff": 36.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 160
+    },
+    {
+     "y": 6762,
+     "diff": 41.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 161
+    },
+    {
+     "y": 6804,
+     "diff": 42.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 162
+    },
+    {
+     "y": 6846,
+     "diff": 41.6,
+     "section": "beispiele",
+     "transition": null,
+     "i": 163
+    },
+    {
+     "y": 6888,
+     "diff": 41.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 164
+    },
+    {
+     "y": 6930,
+     "diff": 42.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 165
+    },
+    {
+     "y": 6972,
+     "diff": 42.6,
+     "section": "beispiele",
+     "transition": null,
+     "i": 166
+    },
+    {
+     "y": 7014,
+     "diff": 32.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 167
+    },
+    {
+     "y": 7056,
+     "diff": 27,
+     "section": "beispiele",
+     "transition": null,
+     "i": 168
+    },
+    {
+     "y": 7098,
+     "diff": 27.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 169
+    },
+    {
+     "y": 7140,
+     "diff": 26.6,
+     "section": "beispiele",
+     "transition": null,
+     "i": 170
+    },
+    {
+     "y": 7182,
+     "diff": 18.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 171
+    },
+    {
+     "y": 7224,
+     "diff": 12.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 172
+    },
+    {
+     "y": 7266,
+     "diff": 12.1,
+     "section": "beispiele",
+     "transition": null,
+     "i": 173
+    },
+    {
+     "y": 7308,
+     "diff": 11.7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 174
+    },
+    {
+     "y": 7350,
+     "diff": 11.8,
+     "section": "arbeitsweise",
+     "transition": null,
+     "i": 175
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 0
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-kunden-test-mobil.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-kunden-test-mobil.jpg"
+   }
+  },
+  {
+   "view": "schmal",
+   "mode": "mobile",
+   "total": 13171,
+   "stepPx": 33,
+   "steps": 401,
+   "stdMin": 27.1,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     10,
+     0
+    ],
+    [
+     20,
+     0
+    ]
+   ],
+   "blankRuns": [],
+   "blankInTransition": [],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 3168,
+     "diff": 10.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 96
+    },
+    {
+     "y": 3201,
+     "diff": 18.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 97
+    },
+    {
+     "y": 3234,
+     "diff": 24.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 98
+    },
+    {
+     "y": 3267,
+     "diff": 31.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 99
+    },
+    {
+     "y": 3300,
+     "diff": 38.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 100
+    },
+    {
+     "y": 3333,
+     "diff": 43,
+     "section": "vergleich",
+     "transition": null,
+     "i": 101
+    },
+    {
+     "y": 3366,
+     "diff": 49.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 102
+    },
+    {
+     "y": 3399,
+     "diff": 57.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 103
+    },
+    {
+     "y": 3432,
+     "diff": 63.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 104
+    },
+    {
+     "y": 3465,
+     "diff": 70.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 105
+    },
+    {
+     "y": 3498,
+     "diff": 69.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 106
+    },
+    {
+     "y": 3531,
+     "diff": 73.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 107
+    },
+    {
+     "y": 3564,
+     "diff": 75.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 108
+    },
+    {
+     "y": 3597,
+     "diff": 75.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 109
+    },
+    {
+     "y": 3630,
+     "diff": 75.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 110
+    },
+    {
+     "y": 3663,
+     "diff": 75.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 111
+    },
+    {
+     "y": 3696,
+     "diff": 75.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 112
+    },
+    {
+     "y": 3729,
+     "diff": 73.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 113
+    },
+    {
+     "y": 3762,
+     "diff": 67.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 114
+    },
+    {
+     "y": 3795,
+     "diff": 62.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 115
+    },
+    {
+     "y": 3828,
+     "diff": 55.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 116
+    },
+    {
+     "y": 3861,
+     "diff": 50.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 117
+    },
+    {
+     "y": 3894,
+     "diff": 31,
+     "section": "vergleich",
+     "transition": null,
+     "i": 118
+    },
+    {
+     "y": 3927,
+     "diff": 22.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 119
+    },
+    {
+     "y": 3960,
+     "diff": 7.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 120
+    },
+    {
+     "y": 3993,
+     "diff": 9.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 121
+    },
+    {
+     "y": 4026,
+     "diff": 9.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 122
+    },
+    {
+     "y": 4059,
+     "diff": 9.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 123
+    },
+    {
+     "y": 4092,
+     "diff": 6.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 124
+    },
+    {
+     "y": 5379,
+     "diff": 9.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 163
+    },
+    {
+     "y": 5412,
+     "diff": 15.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 164
+    },
+    {
+     "y": 5445,
+     "diff": 20.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 165
+    },
+    {
+     "y": 5478,
+     "diff": 22.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 166
+    },
+    {
+     "y": 5511,
+     "diff": 23,
+     "section": "beispiele",
+     "transition": null,
+     "i": 167
+    },
+    {
+     "y": 5544,
+     "diff": 24.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 168
+    },
+    {
+     "y": 5577,
+     "diff": 25.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 169
+    },
+    {
+     "y": 5610,
+     "diff": 26.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 170
+    },
+    {
+     "y": 5643,
+     "diff": 27.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 171
+    },
+    {
+     "y": 5676,
+     "diff": 30.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 172
+    },
+    {
+     "y": 5709,
+     "diff": 31.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 173
+    },
+    {
+     "y": 5742,
+     "diff": 35.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 174
+    },
+    {
+     "y": 5775,
+     "diff": 39.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 175
+    },
+    {
+     "y": 5808,
+     "diff": 45.4,
+     "section": "beispiele",
+     "transition": null,
+     "i": 176
+    },
+    {
+     "y": 5841,
+     "diff": 49.1,
+     "section": "beispiele",
+     "transition": null,
+     "i": 177
+    },
+    {
+     "y": 5874,
+     "diff": 40.4,
+     "section": "beispiele",
+     "transition": null,
+     "i": 178
+    },
+    {
+     "y": 5907,
+     "diff": 30.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 179
+    },
+    {
+     "y": 5940,
+     "diff": 34.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 180
+    },
+    {
+     "y": 5973,
+     "diff": 37,
+     "section": "beispiele",
+     "transition": null,
+     "i": 181
+    },
+    {
+     "y": 6006,
+     "diff": 41.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 182
+    },
+    {
+     "y": 6039,
+     "diff": 42.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 183
+    },
+    {
+     "y": 6072,
+     "diff": 37,
+     "section": "beispiele",
+     "transition": null,
+     "i": 184
+    },
+    {
+     "y": 6105,
+     "diff": 38.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 185
+    },
+    {
+     "y": 6138,
+     "diff": 43,
+     "section": "beispiele",
+     "transition": null,
+     "i": 186
+    },
+    {
+     "y": 6171,
+     "diff": 47,
+     "section": "beispiele",
+     "transition": null,
+     "i": 187
+    },
+    {
+     "y": 6204,
+     "diff": 50.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 188
+    },
+    {
+     "y": 6237,
+     "diff": 42,
+     "section": "beispiele",
+     "transition": null,
+     "i": 189
+    },
+    {
+     "y": 6270,
+     "diff": 33.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 190
+    },
+    {
+     "y": 6303,
+     "diff": 33.5,
+     "section": "beispiele",
+     "transition": null,
+     "i": 191
+    },
+    {
+     "y": 6336,
+     "diff": 33.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 192
+    },
+    {
+     "y": 6369,
+     "diff": 32.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 193
+    },
+    {
+     "y": 6402,
+     "diff": 32.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 194
+    },
+    {
+     "y": 6435,
+     "diff": 23,
+     "section": "beispiele",
+     "transition": null,
+     "i": 195
+    },
+    {
+     "y": 6468,
+     "diff": 14.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 196
+    },
+    {
+     "y": 6501,
+     "diff": 14.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 197
+    },
+    {
+     "y": 6534,
+     "diff": 14.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 198
+    },
+    {
+     "y": 6567,
+     "diff": 14,
+     "section": "beispiele",
+     "transition": null,
+     "i": 199
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 0
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-kunden-test-schmal.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-kunden-test-schmal.jpg"
+   }
+  },
+  {
+   "view": "desktop",
+   "mode": "desktop",
+   "total": 14625,
+   "stepPx": 45,
+   "steps": 326,
+   "stdMin": 7.6,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     20,
+     48
+    ]
+   ],
+   "blankRuns": [],
+   "blankInTransition": [],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 4680,
+     "diff": 6.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 104
+    },
+    {
+     "y": 4725,
+     "diff": 7.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 105
+    },
+    {
+     "y": 4770,
+     "diff": 9.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 106
+    },
+    {
+     "y": 4815,
+     "diff": 8.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 107
+    },
+    {
+     "y": 6075,
+     "diff": 8.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 135
+    },
+    {
+     "y": 6120,
+     "diff": 12.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 136
+    },
+    {
+     "y": 6165,
+     "diff": 12.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 137
+    },
+    {
+     "y": 6210,
+     "diff": 14.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 138
+    },
+    {
+     "y": 6255,
+     "diff": 16.8,
+     "section": "beispiele",
+     "transition": null,
+     "i": 139
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 0
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-kunden-test-desktop.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-kunden-test-desktop.jpg"
+   }
+  }
+ ]
+}

@@ -25,7 +25,7 @@ const SHOTS = {
   s2: { still: [['s2-warum-satz1', P('.warum', 0.12)], ['s2-warum-satz2', P('.warum', 0.5)], ['s2-warum-satz3', P('.warum', 0.9)]],
     seq: { name: 's2-sequenz-saetze', at: [P('.warum', 0), P('.warum', 0.18), P('.warum', 0.34), P('.warum', 0.5), P('.warum', 0.7), P('.warum', 0.88)] } },
   // S3: Die Trennlinie bewegt sich nur über den Regler (Aufnahmen dazu: scripts/slider-shots.cjs); hier der Abschnitt in Ruhe
-  s3: { still: [['s3-vergleich', TOP('[data-vergleich]', 0)], ['s3-nutzen', TOP('.vg-after', -80)]], seq: { name: 's3', at: [] } },
+  s3: { still: [['s3-kunden-test', TOP('[data-kt]', 0)], ['s3-warum', TOP('.kt-warum', -80)]], seq: { name: 's3', at: [] } },
   s4: { still: [['s4-musterkoffer-stapel', P('[data-bsp-track]', 0)], ['s4-musterkoffer-mitte', P('[data-bsp-track]', 0.4)], ['s4-musterkoffer-raster', P('[data-bsp-track]', 1)]],
     seq: { name: 's4-sequenz-austeilen', at: [P('[data-bsp-track]', 0.02), P('[data-bsp-track]', 0.18), P('[data-bsp-track]', 0.3), P('[data-bsp-track]', 0.42), P('[data-bsp-track]', 0.55), P('[data-bsp-track]', 0.7), P('[data-bsp-track]', 1)] } },
   s5: { still: [['s5-zusammenarbeit-anfang', P('[data-zs-track]', 0.3)], ['s5-zusammenarbeit-mitte', P('[data-zs-track]', 0.6)], ['s5-zusammenarbeit-ende', P('[data-zs-track]', 1)]],

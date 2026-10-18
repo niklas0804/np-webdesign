@@ -1,0 +1,121 @@
+---
+/**
+ * S3 · Der Kunden-Test (Startseite, Leinen). Ein simulierter Kunde will auf beiden Fassungen des Barbershops Messingstuhl dasselbe erreichen:
+ * am Computer einen Termin buchen (zwei Fenster, ein Rennen), auf dem Handy anrufen (eine Handykarte, Szenen nacheinander).
+ * Beide Fassungen sind echtes HTML und CSS (KtBase, KtMass), keine Videos. Die Zahlen beschreiben nur diese beiden Demo-Fassungen.
+ * Das Markup zeigt den Endzustand: Ruhige Ansicht und Seiten ohne JavaScript zeigen Standbilder mit Labels und Zählern.
+ * Ablauf und Steuerung: src/motion/home/kundentest.js (wird erst bei Annäherung geladen, kein Scroll-Hijacking, kein ScrollTrigger).
+ */
+import KtBase from './KtBase.astro';
+import KtMass from './KtMass.astro';
+import '../styles/kundentest.css';
+const { row } = Astro.props;
+const WARUM = [
+  ['Vertrauen in drei Sekunden.', 'Eigene Bilder statt Stockfoto: Der Kunde sieht sofort, wo er ist.'],
+  ['Anfragen statt Absprünge.', 'Telefon, Termin und Öffnungszeiten genau dort, wo der Kunde sucht.'],
+  ['Gefunden in Ihrer Region.', 'Schnell geladen und klar aufgebaut, damit Google Sie zeigt.'],
+];
+---
+<section id={row.anchor} class="kt" data-section={row.id} data-counter={row.label} data-ground={row.ground} data-tone={row.tone} aria-labelledby="kt-title" data-kt>
+  <div class="kt-in">
+    <p class="kicker">Der Unterschied</p>
+    <h2 id="kt-title" class="kt-title"><span>Gleicher Barbershop.</span> <span>Ein Kunde mit einem Ziel.</span></h2>
+    <p class="kt-sub mono"><span class="kt-sub-pc">Termin buchen. Wie lange dauert das?</span><span class="kt-sub-ph">Anrufen. Wie lange dauert das?</span></p>
+
+    <div class="kt-demo" data-kt-demo role="group" aria-describedby="kt-desc">
+      <p id="kt-desc" class="visually-hidden">Simulierter Ablauf mit der Studie Messingstuhl. Am Computer braucht der Kunde auf der Baukasten-Seite sechs Klicks auf drei Seiten und findet keinen Termin, auf der Maßarbeit-Seite bucht er in zwei Klicks. Auf dem Handy sind es im Baukasten vier Taps und dreimal Scrollen, bis er die Telefonnummer ganz unten findet, bei der Maßarbeit ein Tipp auf „Anrufen“.</p>
+
+      <!-- Rennen am Computer -->
+      <div class="kt-race" data-kt-race aria-hidden="true">
+        <div class="kt-win kt-win-b" data-win="b">
+          <div class="kt-bar"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-wname mono">Baukasten</span><span class="kt-count mono" data-count>Klicks 6 · Seiten 3</span></div>
+          <div class="kt-view" data-view>
+            <div class="kt-pg kt-b" data-l="skel"><div class="bk-skelnav"></div><div class="bk-skel"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><div class="row"><i></i><i></i><i></i></div></div></div>
+            <KtBase />
+            <div class="kt-pg kt-b" data-l="angebot">
+              <div class="bk-nav"><span class="bk-logo">Logo</span><span>Start</span><span>Über uns</span><span>Kontakt</span></div>
+              <div class="bk-hero"><p class="bk-h">Unser Angebot</p><p class="bk-text">Wir bieten Ihnen ein breites Spektrum an Dienstleistungen.</p><div class="bk-list"><p>Haarschnitt</p><p>Rasur</p><p>Bartpflege</p></div></div>
+              <div class="bk-foot">Impressum · Datenschutz · Tel. 01234 56789</div>
+            </div>
+            <div class="kt-pg kt-b is-end" data-l="kontakt">
+              <div class="bk-nav"><span class="bk-logo">Logo</span><span>Start</span><span>Über uns</span><span class="on" data-n="kontakt">Kontakt</span></div>
+              <div class="bk-hero"><p class="bk-h">Kontakt</p><p class="bk-text">Schreiben Sie uns eine Nachricht, wir melden uns.</p><div class="bk-form"><label>Name<span></span></label><label>E-Mail<span data-fm></span></label><label>Nachricht<span class="t" data-fn></span></label></div><span class="bk-btn">Absenden</span></div>
+              <div class="bk-foot">Impressum · Datenschutz · Tel. 01234 56789</div>
+            </div>
+            <div class="bk-cookie" data-cookie><span>Wir verwenden Cookies, um Ihr Nutzererlebnis zu verbessern.</span><u>Einstellungen</u><b data-ckbtn>Alle akzeptieren</b></div>
+            <i class="bk-jumpline" data-jumpline></i>
+            <p class="kt-label kt-label-bad" data-label>Kein Termin buchbar. Kunde schreibt eine Mail. Oder geht.</p>
+            <i class="kt-rip" data-rip></i>
+            <svg class="kt-cur" data-cur viewBox="0 0 22 22" focusable="false"><path d="M3 2 L3 17 L7 13.5 L10 20 L12.6 18.8 L9.6 12.6 L15 12.2 Z" /></svg>
+          </div>
+        </div>
+        <div class="kt-win kt-win-m" data-win="m">
+          <div class="kt-bar"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-wname mono">Maßarbeit</span><span class="kt-count mono" data-count>Klicks 2 · Seiten 1</span></div>
+          <div class="kt-view" data-view>
+            <KtMass />
+            <p class="kt-label kt-label-good" data-label>Zwei Klicks. Termin steht.</p>
+            <i class="kt-rip" data-rip></i>
+            <svg class="kt-cur" data-cur viewBox="0 0 22 22" focusable="false"><path d="M3 2 L3 17 L7 13.5 L10 20 L12.6 18.8 L9.6 12.6 L15 12.2 Z" /></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Der Anruf auf dem Handy -->
+      <div class="kt-phones" data-kt-phones aria-hidden="true">
+        <div class="kt-phone kt-phone-b" data-phone="b">
+          <div class="kt-ptop mono"><span>Baukasten</span><b class="kt-count" data-count>Taps 4 · Scrollen 3 ×</b></div>
+          <div class="kt-pv" data-pv>
+            <KtBase phone />
+            <div class="kt-pg kt-b" data-l="skel"><div class="bk-skelnav"></div><div class="bk-skel"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><div class="row"><i></i><i></i><i></i></div></div></div>
+            <div class="kt-zone" data-zone><span>Daumenzone</span></div>
+            <p class="kt-label" data-label>Telefon erst ganz unten.</p>
+            <i class="kt-rip" data-rip></i>
+            <i class="kt-fing" data-fing></i>
+          </div>
+        </div>
+        <div class="kt-phone kt-phone-m" data-phone="m">
+          <div class="kt-ptop mono"><span>Maßarbeit</span><b class="kt-count" data-count>Taps 1 · Scrollen 0 ×</b></div>
+          <div class="kt-pv" data-pv>
+            <KtMass phone />
+            <div class="kt-zone" data-zone><span>Daumenzone</span></div>
+            <p class="kt-label kt-label-good" data-label>Ein Tipp. Ein Anruf.</p>
+            <i class="kt-rip" data-rip></i>
+            <i class="kt-fing" data-fing></i>
+          </div>
+        </div>
+      </div>
+      <p class="visually-hidden" role="status" aria-live="polite" data-kt-live></p>
+    </div>
+
+    <div class="kt-ctrl" data-kt-ctrl>
+      <div class="kt-seg kt-seg-run" role="group" aria-label="Ablauf">
+        <button type="button" data-run="b" aria-pressed="false">Baukasten</button>
+        <button type="button" data-run="m" aria-pressed="false">Maßarbeit</button>
+        <button type="button" data-run="both">Nochmal</button>
+      </div>
+      <div class="kt-seg kt-dev" role="group" aria-label="Gerät">
+        <button type="button" data-dev="pc" aria-pressed="true">Am Computer</button>
+        <button type="button" data-dev="phone" aria-pressed="false">Am Handy</button>
+      </div>
+      <button type="button" class="kt-pause" data-pause><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true" focusable="false"><rect x="1" y="1" width="3.4" height="12" fill="currentColor" /><rect x="7.6" y="1" width="3.4" height="12" fill="currentColor" /></svg><span data-pause-label>Pause</span></button>
+    </div>
+    <p class="kt-note mono">Demo · simulierter Ablauf mit der Studie Messingstuhl</p>
+
+    <div class="kt-res" data-kt-res>
+      <div class="kt-res-pc kt-res-vals"><div><span class="mono">Baukasten</span><span class="kt-val kt-val-a">6 <small>Klicks</small></span></div><div><span class="mono">Maßarbeit</span><span class="kt-val kt-val-b">2 <small>Klicks</small></span></div></div>
+      <div class="kt-res-ph kt-res-vals"><div><span class="mono">Baukasten</span><span class="kt-val kt-val-a">4 <small>Taps</small></span></div><div><span class="mono">Maßarbeit</span><span class="kt-val kt-val-b">1 <small>Tap</small></span></div></div>
+      <p class="kt-close">Jeder Schritt zu viel ist ein Kunde, der zur Konkurrenz geht.</p>
+    </div>
+
+    <ul class="kt-warum" data-kt-warum>
+      {WARUM.map(([h, t]) => <li><strong>{h}</strong><span>{t}</span></li>)}
+    </ul>
+    <div class="kt-cta">
+      <a class="btn btn-primary" href="#kontakt">
+        <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="link" href="/welten">Alle neun Beispiele ansehen</a>
+    </div>
+  </div>
+</section>

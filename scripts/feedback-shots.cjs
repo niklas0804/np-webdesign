@@ -94,9 +94,9 @@ const JOBS = {
     for (const f of [0.0, 0.2, 0.4, 0.6, 1.0]) { await page.evaluate((v) => scrollTo(0, v), Math.round(await yOf(page, { k: 'pin', sel: '[data-finale]', f }))); await page.waitForTimeout(900); const fl = path.join(OUT, `.l-${view}-${frames.length}.png`); await page.screenshot({ path: fl }); frames.push(fl); }
     strip(frames, path.join(OUT, `logo-rueckzoom-${view}.jpg`), h);
   },
-  // 7 · Vergleich mit Messingstuhl: siehe scripts/slider-shots.cjs (die Linie bewegt sich nur über den Regler)
+  // 7 · Kunden-Test mit Messingstuhl: Ablauf und Aufnahmen siehe scripts/kundentest-shots.cjs
   async vergleich(page, base, view, h) {
-    await page.evaluate((v) => scrollTo(0, v), Math.round(await yOf(page, { k: 'top', sel: '[data-vergleich]' }))); await page.waitForTimeout(900);
+    await page.evaluate((v) => scrollTo(0, v), Math.round(await yOf(page, { k: 'top', sel: '[data-kt]' }))); await page.waitForTimeout(900);
     await page.screenshot({ path: path.join(OUT, `vergleich-messingstuhl-ende-${view}.png`) });
   },
 };
