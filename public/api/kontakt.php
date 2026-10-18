@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Zugangsdaten und Adressen: nur in config.php neben dieser Datei (siehe config.sample.php), nie im Repository.
  */
 
-const MAX_PER_HOUR = 10;
+const MAX_PER_HOUR = 40;
 
 $cfg = ['to' => 'kontakt@np-webdesign.de', 'from' => 'kontakt@np-webdesign.de', 'subject' => 'Anfrage über np-webdesign.de'];
 if (is_file(__DIR__ . '/config.php')) {
