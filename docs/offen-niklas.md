@@ -1,38 +1,44 @@
 # Offene Punkte für Niklas
 
-Diese Liste wird bei jedem Schritt fortgeschrieben. Erledigtes bleibt als „erledigt“ stehen, bis Niklas es streicht.
+Stand: 18. Oktober 2026. Erledigtes steht unten unter „Erledigt“. Arbeitsstand: Branch `claude/phase-3`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
 
-## Vor dem Livegang (Pflicht)
-- [ ] **Logfile-Speicherdauer:** In `src/content/datenschutz.html` steht ein sichtbarer Platzhalter. Hostinger-Support fragen, wie lange Server-Logfiles gespeichert werden, und eintragen.
-- [ ] **IONOS-Postfach und Formular:** Zugangsdaten für `kontakt@np-webdesign.de` auf dem Server als `np-config.php` (Ordner über `public_html`, übersteht jedes Neuladen) oder `api/config.php` hinterlegen (Vorlage `public/api/config.sample.php`), danach eine echte Testanfrage senden. SMTP wurde nur gegen einen lokalen Testserver geprüft.
-- [ ] **`.htaccess` auf dem echten Hostinger-Server testen:** HTTPS, HSTS, saubere Adressen (`/leistungen`), Header, `/api/kontakt.php`.
-- [ ] **Markenrecherche** für die Studiennamen (Halmberg, Messingstuhl, Wittgenfeld Bau, Haas & Sternfeld, Chromwerk, Jana Ahrens, NAABTEC bzw. TORQUEL …) und für „NP Webdesign“ vor dem Livegang. Namen bleiben bis dahin.
-- [ ] **Rechtsprüfung** mit `docs/rechtspruefung.md` (inklusive der Nachträge zu den Branchenseiten Kanzlei, Oldtimer-Werkstatt und weiteren).
-- [ ] **Einwilligungsbanner und Matomo:** erst nach der Antwort des Rechtsprüfers bauen.
-- [ ] **GitHub Pages abschalten** (Settings → Pages), damit nichts Halbes veröffentlicht wird.
-- [ ] **Werbeaussagen der Branchenseiten:** Kanzlei/Steuerberater (Berufsrecht), Physio (Heilmittelwerbung, Gesundheitsdaten bei echter Buchung) und Gastro/Hotel (Preisangaben, Allergene) prüfen lassen; die Punkte stehen in `docs/rechtspruefung.md`.
+## 1. Kontaktformular (läuft, Rest offen)
+- [ ] **Zugangsdaten sichern:** `np-config.php` einen Ordner **über** `public_html` anlegen (Vorlage `public/api/config.sample.php`, Block `smtp` für das IONOS-Postfach). Sie übersteht jedes Neuladen per Git oder ZIP; `api/config.php` bleibt als zweiter Ort möglich. Eine Kopie lokal aufbewahren, nie ins Repository, nie in den Chat.
+- [ ] **Vier Auffälligkeiten entscheiden** (Bericht vom 18. Oktober): globales Mengenlimit (jetzt 40 pro Stunde, gilt für alle zusammen), stilles „Danke“ bei mehr als 2 Links, Absender gleich Empfänger, `config.sample.php` nicht auf den Server laden.
+- [ ] **SPF, DKIM, DMARC** für np-webdesign.de prüfen (Werte aus der Hilfe von IONOS und Hostinger übernehmen).
+- [ ] PHP-Version auf dem Server mindestens 8.0 prüfen.
 
-## Inhalte und Bilder
-- [ ] **Fotos besorgen:** siehe `docs/fotoliste.md` (wird mit jeder Welt länger). Rechte und Abbildungsrechte vorab klären, keine erkennbaren Personen, keine Herstellerlogos.
-- [x] **Welt 01:** Laib-Zeichnung durch Foto-Platzhalter ersetzt (entschieden am 9. Oktober 2026); die Fotos stehen in `docs/fotoliste.md`.
-- [ ] **Bäckerei-Branchenseite** inhaltlich prüfen (neu geschrieben, nicht aus deinen Vorlagen). Ebenso die neuen Seiten Kanzlei, Oldtimer-Werkstatt und die folgenden.
-- [ ] **Werdegang** („Ich komme aus der Technik …“) nach eigener Prüfung anpassen.
-- [x] **Name Welt 07:** bleibt TORQUEL (entschieden am 9. Oktober 2026).
-- [x] **Demo-Code der Welten 02, 03 und 06:** liegt nicht vor (bestätigt am 9. Oktober 2026), die drei Welten bleiben Entwürfe nach der Blueprint.
-- [ ] **Social-Vorschaubilder** ansehen (`public/images/social/`); sie entstehen aus den gebauten Seiten.
+## 2. Vor dem Livegang (Pflicht)
+- [ ] **Logfile-Speicherdauer:** In `src/content/datenschutz.html` steht ein sichtbarer Platzhalter. Hostinger-Support fragen und eintragen. Das ist der einzige sichtbare `[PLATZHALTER]` auf der gebauten Seite.
+- [ ] **Datenschutz ergänzen:** beim Eintrag `np-calm` (localStorage) die Laufzeit nennen („bleibt gespeichert, bis Sie ihn löschen“).
+- [ ] **`.htaccess` auf dem echten Hostinger-Server testen:** HTTPS, HSTS, saubere Adressen (`/leistungen`), Sicherheits-Header, 404-Seite, `/api/kontakt.php`.
+- [ ] **Cookie- und Speicherprüfung live** mit dem Web-Inspektor (Reiter „Speicher“ und „Netzwerk“) auf Start, `/welten` und `/datenschutz`. Befund lokal: keine Cookies, nur `np-calm` nach Klick auf „Ruhige Ansicht“, keine Fremd-Requests; der Live-Server ist nicht geprüft.
+- [ ] **Markenrecherche** für die Studiennamen (Halmberg, Messingstuhl, Wittgenfeld Bau, Haas & Sternfeld, Chromwerk, Jana Ahrens, TORQUEL) und für „NP Webdesign“. Namen bleiben bis dahin.
+- [ ] **Rechtsprüfung** mit `docs/rechtspruefung.md` (inklusive Branchenseiten Kanzlei, Oldtimer-Werkstatt, Physiotherapie, Gastronomie/Hotel).
+- [ ] **Werbeaussagen der Branchenseiten:** Kanzlei/Steuerberater (Berufsrecht), Physio (Heilmittelwerbung, Gesundheitsdaten bei echter Buchung) und Gastro/Hotel (Preisangaben, Allergene) prüfen lassen.
+- [ ] **GitHub Pages abschalten** (Repository-Einstellungen → Pages), damit nichts Halbes veröffentlicht wird.
 
-## Tests, die nur du machen kannst
-- [ ] Echte Geräte (iPhone, Android, Tablet), Lighthouse (Ziel Mobil ≥ 90), VoiceOver (iOS/macOS) und NVDA (Windows), Tastatur-Runde, 200 % Zoom.
-- [ ] Testversion auf der Subdomain hochladen und durchklicken (`docs/testversion-hostinger.md`).
+## 3. Inhalte und Bilder
+- [ ] **Fotos besorgen:** 21 offene Fotos laut `docs/fotoliste.md` (Rechte und Abbildungsrechte vorab klären, keine erkennbaren Personen, keine Herstellerlogos).
+- [ ] **Bäckerei-Branchenseite** und die neuen Branchenseiten (Kanzlei, Oldtimer-Werkstatt, Physiotherapie, Gastronomie/Hotel) inhaltlich lesen und freigeben; sie sind nicht aus deinen Vorlagen.
+- [ ] **Werdegang** („Ich komme aus der Technik …“) nach eigener Prüfung anpassen. Wird erst gebraucht, wenn „Über mich“ zurückkommt.
+- [ ] **Social-Vorschaubilder** ansehen (`public/images/social/`).
 
-## Ablauf
-- [ ] `claude/phase-1` nach `main` mergen, wann immer du willst (Claude darf nicht selbst auf `main` pushen). Danach baut die GitHub Action den Branch `deploy`.
+## 4. Tests, die nur Niklas machen kann
+- [ ] Echte Geräte (iPhone, Android, Tablet): Adressleiste und `svh`/`lvh` beim Scrollen, Slider „Der Unterschied“, Musterkoffer.
+- [ ] **Lighthouse mobil** (Ziel ≥ 90) auf `/` und `/welten`. Lokal nicht gelaufen. Die Ladewerte (LCP ≤ 2,0 s, INP ≤ 150 ms, CLS ≤ 0,05, erste Ansicht ≤ 350 KB) sind nicht gemessen.
+- [ ] VoiceOver (iOS/macOS), NVDA (Windows), Tastatur-Runde, 200 % Zoom.
+- [ ] Testversion auf einer Subdomain hochladen und durchklicken (`docs/testversion-hostinger.md`).
+- [ ] **Rundes beiges Element im Kontakt:** konnte nicht nachgestellt werden. Falls es wieder auftaucht: Browser und Fenstergröße melden.
 
-## Nachtrag Teil B (16. Oktober 2026)
-- **Über mich ist abgeschaltet** (`SITE_FLAGS.ueberMich`). Das Porträt liegt in `assets-parked/ueber-mich/` und geht nicht an Hostinger. Wenn „Über mich“ später zurückkommt: Rechte am Foto, Datenschutzerklärung und Werdegang-Text neu prüfen.
-- **Fotoliste:** 21 offene Fotos laut `docs/fotoliste.md` (Welt 09 nutzt `w09-see-abend` zweimal: im Titel und im Fenster).
-- **Neue Prüfungen bleiben offen:** Lighthouse mobil (nicht lokal gelaufen), echte Geräte (Adressleiste und `svh`/`lvh` beim Scrollen), VoiceOver und NVDA.
+## 5. Hinweise
+- **Über mich ist abgeschaltet** (`SITE_FLAGS.ueberMich`). Das Porträt liegt in `assets-parked/ueber-mich/` und geht nicht an Hostinger. Kommt die Seite zurück: Rechte am Foto, Datenschutzerklärung und Werdegang-Text neu prüfen.
+- **Kein Einwilligungsbanner nötig**, solange nichts außer `np-calm` gespeichert wird und keine Fremddienste eingebunden werden. Matomo oder andere Statistik gibt es nicht; sie bräuchten vorher ein eigenes Konzept und Rechtsprüfung.
+- **Bei jeder Änderung neu prüfen:** Cookies, Speicher, Fremd-Requests (Vorschlag: Prüfskript `tools/inventur.cjs`, optional automatisch nach jedem Deploy).
 
-## Nachtrag 18. Oktober 2026 (Kontaktformular, Prüfung ohne Umbau)
-- Bericht und Befunde stehen im Chat vom 18. Oktober; die Liste der Auffälligkeiten (globales Mengenlimit, stilles „Danke“ bei Link-Flut, Zustellbarkeit über SPF/DKIM) wartet auf Ihre Abstimmung.
-- Vor dem Livegang: Live-Test des Formulars auf dem echten Server (Schritte siehe Bericht) und SPF/DKIM/DMARC für np-webdesign.de prüfen.
+## Erledigt
+- [x] Welt 01: Laib-Zeichnung durch Foto-Platzhalter ersetzt (9. Oktober 2026).
+- [x] Name Welt 07 bleibt TORQUEL (9. Oktober 2026).
+- [x] Demo-Code der Welten 02, 03 und 06 liegt nicht vor, die Welten bleiben Entwürfe nach der Blueprint (9. Oktober 2026).
+- [x] Hostinger-Partner-Badge liegt als SVG selbst gehostet unter `public/images/`.
+- [x] Mail-Zustellung des Formulars läuft (18. Oktober 2026, von Niklas bestätigt).
