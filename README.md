@@ -87,7 +87,7 @@ Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/f
 - Markup `src/components/Kontakt.astro`, Stil `src/styles/kontakt.css`, Verhalten `src/motion/kontakt.js` (Live-Vorschau, Prüfung beim Verlassen eines Feldes, Senden per `fetch`, nichts wird zwischengespeichert).
 - Ohne JavaScript sendet das Formular normal an `/api/kontakt.php`; die Antwort zeigt die Seite über `#anfrage-erhalten` bzw. `#anfrage-fehler` (`:target`).
 - Endpunkt `public/api/kontakt.php` (PHP 8): Honeypot, serverseitige Prüfung, Mengenbegrenzung (Gesamtzahl pro Stunde, ohne IP-Adressen), Versand per `mail()`, kein Inhalt in Logs.
-- Auf dem Server optional `api/config.php` neben der Datei anlegen (Vorlage `config.sample.php`; Empfänger und Absender). Sie steht in `.gitignore` und kommt nie ins Repository.
+- Auf dem Server optional eine Konfiguration anlegen (Vorlage `config.sample.php`; Empfänger, Absender, SMTP). Empfohlen als `np-config.php` einen Ordner ÜBER `public_html` (außerhalb des Web-Ordners, übersteht jedes Neuladen per Git oder ZIP); alternativ `api/config.php` neben der Datei. Beides kommt nie ins Repository.
 - Das Postfach liegt bei IONOS, die Website bei Hostinger. Empfohlen: in `config.php` den Eintrag `smtp` setzen (Vorlage liegt bei), dann geht die Anfrage über das IONOS-Postfach selbst (STARTTLS, Anmeldung) und Absender und SPF passen zusammen. Ohne `smtp` nutzt der Endpunkt `mail()` von Hostinger; dann SPF-Eintrag der Domain für Hostinger prüfen.
 - Nach dem Hochladen einmal eine Testanfrage senden.
 - Lokal testen: `php -S 127.0.0.1:8098 -t dist` (mit `sendmail_path` auf ein Skript, das die Mail in eine Datei schreibt).

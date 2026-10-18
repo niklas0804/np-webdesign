@@ -5,16 +5,20 @@ declare(strict_types=1);
  * Keine Datenbank, kein Drittdienst, kein Formularinhalt in Logs, keine Speicherung von IP-Adressen.
  * Schutz: Honeypot, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
  * Versand: standardmäßig über mail() des Hosters, optional über ein SMTP-Postfach (config.php, Eintrag „smtp“).
- * Zugangsdaten und Adressen: nur in config.php neben dieser Datei (siehe config.sample.php), nie im Repository.
+ * Zugangsdaten und Adressen: nie im Repository. Gesucht wird zuerst np-config.php außerhalb des Web-Ordners (ein Ordner über
+ * public_html, übersteht jedes Neuladen der Website), sonst config.php neben dieser Datei (siehe config.sample.php).
  */
 
 const MAX_PER_HOUR = 40;
 
 $cfg = ['to' => 'kontakt@np-webdesign.de', 'from' => 'kontakt@np-webdesign.de', 'subject' => 'Anfrage über np-webdesign.de'];
-if (is_file(__DIR__ . '/config.php')) {
-    $extra = require __DIR__ . '/config.php';
-    if (is_array($extra)) {
-        $cfg = array_merge($cfg, $extra);
+foreach ([dirname(__DIR__, 2) . '/np-config.php', __DIR__ . '/config.php'] as $configFile) {
+    if (is_file($configFile)) {
+        $extra = require $configFile;
+        if (is_array($extra)) {
+            $cfg = array_merge($cfg, $extra);
+        }
+        break;
     }
 }
 

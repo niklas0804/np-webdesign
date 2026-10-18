@@ -1,5 +1,5 @@
 <?php
-/* Optional: als config.php kopieren und auf dem Server neben kontakt.php ablegen. Nie ins Repository. */
+/* Optional. Bevorzugt als np-config.php EINEN Ordner ÜBER public_html ablegen (außerhalb des Web-Ordners, übersteht jedes Neuladen); alternativ als config.php neben kontakt.php. Nie ins Repository. */
 return [
     'to' => 'kontakt@np-webdesign.de',   // Postfach, in dem die Anfragen ankommen
     'from' => 'kontakt@np-webdesign.de', // Absender: muss zu einem Postfach der eigenen Domain gehören (Zustellbarkeit)

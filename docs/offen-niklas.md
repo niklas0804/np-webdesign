@@ -4,7 +4,7 @@ Diese Liste wird bei jedem Schritt fortgeschrieben. Erledigtes bleibt als „erl
 
 ## Vor dem Livegang (Pflicht)
 - [ ] **Logfile-Speicherdauer:** In `src/content/datenschutz.html` steht ein sichtbarer Platzhalter. Hostinger-Support fragen, wie lange Server-Logfiles gespeichert werden, und eintragen.
-- [ ] **IONOS-Postfach und Formular:** Zugangsdaten für `kontakt@np-webdesign.de` in `api/config.php` auf dem Server hinterlegen (Vorlage `public/api/config.sample.php`), danach eine echte Testanfrage senden. SMTP wurde nur gegen einen lokalen Testserver geprüft.
+- [ ] **IONOS-Postfach und Formular:** Zugangsdaten für `kontakt@np-webdesign.de` auf dem Server als `np-config.php` (Ordner über `public_html`, übersteht jedes Neuladen) oder `api/config.php` hinterlegen (Vorlage `public/api/config.sample.php`), danach eine echte Testanfrage senden. SMTP wurde nur gegen einen lokalen Testserver geprüft.
 - [ ] **`.htaccess` auf dem echten Hostinger-Server testen:** HTTPS, HSTS, saubere Adressen (`/leistungen`), Header, `/api/kontakt.php`.
 - [ ] **Markenrecherche** für die Studiennamen (Halmberg, Messingstuhl, Wittgenfeld Bau, Haas & Sternfeld, Chromwerk, Jana Ahrens, NAABTEC bzw. TORQUEL …) und für „NP Webdesign“ vor dem Livegang. Namen bleiben bis dahin.
 - [ ] **Rechtsprüfung** mit `docs/rechtspruefung.md` (inklusive der Nachträge zu den Branchenseiten Kanzlei, Oldtimer-Werkstatt und weiteren).
