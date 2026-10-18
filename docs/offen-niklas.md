@@ -32,3 +32,7 @@ Diese Liste wird bei jedem Schritt fortgeschrieben. Erledigtes bleibt als „erl
 - **Über mich ist abgeschaltet** (`SITE_FLAGS.ueberMich`). Das Porträt liegt in `assets-parked/ueber-mich/` und geht nicht an Hostinger. Wenn „Über mich“ später zurückkommt: Rechte am Foto, Datenschutzerklärung und Werdegang-Text neu prüfen.
 - **Fotoliste:** 21 offene Fotos laut `docs/fotoliste.md` (Welt 09 nutzt `w09-see-abend` zweimal: im Titel und im Fenster).
 - **Neue Prüfungen bleiben offen:** Lighthouse mobil (nicht lokal gelaufen), echte Geräte (Adressleiste und `svh`/`lvh` beim Scrollen), VoiceOver und NVDA.
+
+## Nachtrag 18. Oktober 2026 (Kontaktformular, Prüfung ohne Umbau)
+- Bericht und Befunde stehen im Chat vom 18. Oktober; die Liste der Auffälligkeiten (globales Mengenlimit, stilles „Danke“ bei Link-Flut, Zustellbarkeit über SPF/DKIM) wartet auf Ihre Abstimmung.
+- Vor dem Livegang: Live-Test des Formulars auf dem echten Server (Schritte siehe Bericht) und SPF/DKIM/DMARC für np-webdesign.de prüfen.

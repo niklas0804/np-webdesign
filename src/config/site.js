@@ -35,6 +35,15 @@ export const PACKAGES = [
     features: ['Individuelle Unternehmenswebsite', 'Individuelle Funktionen & CMS', 'Performance-Optimierung', 'Monatliches Reporting', 'Prioritäts-Support', 'Laufende Betreuung möglich', 'DSGVO-orientierte Umsetzung'] },
 ];
 
+/**
+ * Leistungen im Überblick (Kontaktbereich der Startseite): einzelne, nicht doppelte Begriffe. Ersetzt ab 18. Oktober 2026 die Verkettung der Felder `leistung`
+ * aller Welten: Diese Felder sind Kurztexte „Leistung im Einsatz“ je Studie, mit „und“ verbunden und teils doppelt (Terminbuchung in Welt 02 und 08).
+ */
+export const LEISTUNGEN = [
+  'Konzeption', 'Seitenstruktur', 'Inhaltsstruktur', 'Texte', 'Bildkonzept', 'Fotobriefing', 'Nutzerführung', 'Animation', 'Interaktion',
+  'Online-Terminbuchung', 'Conversion-Struktur', 'Markenwirkung', 'Barrierefreiheit', 'Performance', 'Technik',
+];
+
 /** Arbeitsweise – Copy-Deck Blueprint K */
 export const STEPS = [
   { nr: '01', title: 'Kennenlernen', text: 'Wir sprechen über Ihren Betrieb, Ihre Kunden und Ihre Ziele. Kostenlos und unverbindlich.' },

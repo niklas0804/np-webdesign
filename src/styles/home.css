@@ -170,11 +170,9 @@ html[data-fonts~='bodoni'] .vg-mass, html:not([data-js]) .vg-mass { --ms-serif: 
 .vg-nutzen strong { font-weight: 650; font-size: var(--fs-h3); line-height: 1.15; }
 .vg-nutzen span { color: var(--stein); }
 
-/* --- gepinnt --- */
-html[data-mode='desktop'] .vg-track, html[data-mode='mobile'] .vg-track { min-height: calc(var(--len) * 1svh); }
-html[data-mode='desktop'] .vg-stage, html[data-mode='mobile'] .vg-stage { position: sticky; top: 0; height: 100svh; margin: 0 auto; padding-top: calc(var(--frame-top) + var(--s5)); padding-bottom: var(--s5); overflow: clip; display: grid; align-content: center; }
-html[data-mode='desktop'] .vg-stage { grid-template-columns: minmax(0, 8.2fr) minmax(0, 3.8fr); grid-template-rows: auto; column-gap: var(--s8); align-items: center; }
-html[data-mode='desktop'] .vg-head { grid-column: 1 / -1; margin-bottom: var(--s5); }
+/* --- interaktiv (Desktop und Mobil): Trennlinie nur über den Regler, kein Pin, keine Scroll-Kopplung --- */
+html[data-mode='desktop'] .vg-stage { grid-template-columns: minmax(0, 8.2fr) minmax(0, 3.8fr); column-gap: var(--s8); align-items: center; }
+html[data-mode='desktop'] .vg-head { grid-column: 1 / -1; }
 html[data-mode='desktop'] .vg-title { max-width: none; }
 html[data-mode='desktop'] .vg-compare { grid-column: 1; }
 html[data-mode='desktop'] .vg-notes-stage { display: block; grid-column: 2; }
@@ -186,32 +184,32 @@ html[data-mode='desktop'] .vg-notes-stage li { transition: font-weight var(--dur
 html[data-mode='desktop'] .vg-notes-stage li.is-on { font-weight: 650; }
 html[data-mode='desktop'] .vg-list-base.vg-list li.is-on b { background: var(--stein); color: var(--leinen); }
 html[data-mode='desktop'] .vg-list-mass.vg-list li.is-on b { background: var(--orange-text); color: var(--leinen); }
-html[data-mode='desktop'] .vg-after, html[data-mode='mobile'] .vg-after { padding-top: var(--s8); }
 html[data-mode='desktop'] .vg-view, html[data-mode='mobile'] .vg-view { display: block; aspect-ratio: 16 / 9; overflow: hidden; }
-html[data-mode='mobile'] .vg-view { aspect-ratio: auto; height: min(56svh, 520px); }
+html[data-mode='mobile'] .vg-view { aspect-ratio: auto; height: min(62svh, 560px); }
 html[data-mode='desktop'] .vg-pane, html[data-mode='mobile'] .vg-pane { position: absolute; inset: 0; aspect-ratio: auto; }
-html[data-mode='desktop'] .vg-divider, html[data-mode='mobile'] .vg-divider { display: block; position: absolute; z-index: 4; pointer-events: none; }
-html[data-mode='desktop'] .vg-divider { top: 0; bottom: 0; left: 100%; width: 3px; margin-left: -1.5px; background: var(--np-orange); }
-html[data-mode='mobile'] .vg-divider { left: 0; right: 0; top: 0; height: 3px; margin-top: -1.5px; background: var(--np-orange); }
-.vg-divider i { position: absolute; width: 28px; height: 28px; border-radius: 50%; background: var(--np-orange); border: 3px solid var(--leinen); left: 50%; top: 50%; transform: translate(-50%, -50%); }
-html[data-mode='mobile'] .vg-divider i { left: 50%; top: 50%; }
-html[data-mode='desktop'] .vg-view { cursor: ew-resize; touch-action: pan-y; }
-html[data-mode='desktop'] .vg-ctrl, html[data-mode='mobile'] .vg-ctrl { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s4); }
-.vg-end { color: var(--stein); } .vg-end-r { color: var(--orange-text); }
+/* Trennlinie: senkrecht, Startposition 50 Prozent (die Position setzt vergleich.js) */
+html[data-mode='desktop'] .vg-divider, html[data-mode='mobile'] .vg-divider { display: block; position: absolute; z-index: 4; top: 0; bottom: 0; left: 50%; width: 3px; margin-left: -1.5px; background: var(--np-orange); pointer-events: none; }
+/* Griff: 44 × 44 px Trefferfläche, darin der sichtbare Knopf. Waagerechtes Ziehen gehört der Seite nicht (pan-y: senkrechtes Wischen scrollt weiter) */
+.vg-handle { position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); pointer-events: auto; touch-action: pan-y; cursor: ew-resize; border-radius: 50%; }
+.vg-handle::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; background: var(--np-orange); border: 3px solid var(--leinen); box-sizing: border-box; box-shadow: 0 0 0 1.5px var(--tinte); }
+.vg-handle::after { content: '‹ ›'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--leinen); font-weight: 800; font-size: .75rem; letter-spacing: .08em; line-height: 1; }
+html[data-mode='desktop'] .vg-view { cursor: ew-resize; }
+html[data-mode='desktop'] .vg-ctrl, html[data-mode='mobile'] .vg-ctrl { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: var(--s2); }
+/* Bezeichnung der Seiten: Ecken der beiden Flächen (links Baukasten, rechts Maßarbeit) */
+.vg-tag { position: absolute; z-index: 5; top: 6px; padding: 3px 8px; font-size: .625rem; letter-spacing: .1em; text-transform: uppercase; }
+.vg-tag-l { left: 6px; background: var(--stein); color: #fff; }
+.vg-tag-r { right: 6px; background: var(--np-orange); color: var(--nacht); }
 .vg-range-label { grid-column: 1 / -1; color: var(--stein); }
-.vg-range { appearance: none; -webkit-appearance: none; width: 100%; height: 44px; background: transparent; cursor: ew-resize; }
+.vg-range { appearance: none; -webkit-appearance: none; width: 100%; height: 44px; background: transparent; cursor: ew-resize; touch-action: pan-y; }
 .vg-range::-webkit-slider-runnable-track { height: 2px; background: var(--tinte); }
 .vg-range::-moz-range-track { height: 2px; background: var(--tinte); }
 .vg-range::-webkit-slider-thumb { -webkit-appearance: none; width: 32px; height: 32px; margin-top: -15px; border-radius: 50%; background: var(--np-orange); border: 3px solid var(--leinen); box-shadow: 0 0 0 1.5px var(--tinte); }
 .vg-range::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--np-orange); border: 3px solid var(--leinen); box-shadow: 0 0 0 1.5px var(--tinte); }
 .vg-range:focus-visible { outline: 2px solid var(--tinte); outline-offset: 2px; border-radius: 4px; }
-html[data-mode='mobile'] .vg-marker { transition: transform var(--dur-s) var(--ease-out), opacity var(--dur-s); }
-html[data-mode='desktop'] .vg-marker, html[data-mode='mobile'] .vg-marker { transform: translate(-50%, -50%) scale(0); }
+html[data-mode='desktop'] .vg-marker, html[data-mode='mobile'] .vg-marker { transform: translate(-50%, -50%) scale(0); transition: transform var(--dur-m) var(--ease-out); }
 html[data-mode='desktop'] .vg-marker.is-on, html[data-mode='mobile'] .vg-marker.is-on { transform: translate(-50%, -50%) scale(1); }
-html[data-mode='desktop'] .vg-marker { transition: transform var(--dur-m) var(--ease-out); }
-html[data-mode='mobile'] .vg-stage { grid-template-rows: auto auto; }
-html[data-mode='mobile'] .vg-head { margin-bottom: var(--s3); }
 html[data-mode='mobile'] .vg-title { font-size: clamp(1.9rem, 8.4vw, 2.6rem); }
+html[data-mode='mobile'] .vg-head { margin-bottom: var(--s4); }
 html[data-mode='mobile'] .vg-ctrl { margin-top: var(--s2); }
 @media (prefers-reduced-motion: reduce) { .vg-marker, .vg-notes-stage li { transition: none !important; } }
 

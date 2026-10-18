@@ -24,8 +24,8 @@ const SHOTS = {
   s1: { still: [['s1-hero', { k: 'y', y: 0 }]], seq: { name: 's1-sequenz-logo', anim: [150, 500, 850, 1200, 1500, 1900] } },
   s2: { still: [['s2-warum-satz1', P('.warum', 0.12)], ['s2-warum-satz2', P('.warum', 0.5)], ['s2-warum-satz3', P('.warum', 0.9)]],
     seq: { name: 's2-sequenz-saetze', at: [P('.warum', 0), P('.warum', 0.18), P('.warum', 0.34), P('.warum', 0.5), P('.warum', 0.7), P('.warum', 0.88)] } },
-  s3: { still: [['s3-vergleich-anfang', P('[data-vg-track]', 0)], ['s3-vergleich-mitte', P('[data-vg-track]', 0.5)], ['s3-vergleich-ende', P('[data-vg-track]', 1)], ['s3-nutzen', TOP('.vg-after', -80)]],
-    seq: { name: 's3-sequenz-trennlinie', at: [P('[data-vg-track]', 0.05), P('[data-vg-track]', 0.25), P('[data-vg-track]', 0.45), P('[data-vg-track]', 0.65), P('[data-vg-track]', 0.85), P('[data-vg-track]', 1)] } },
+  // S3: Die Trennlinie bewegt sich nur über den Regler (Aufnahmen dazu: scripts/slider-shots.cjs); hier der Abschnitt in Ruhe
+  s3: { still: [['s3-vergleich', TOP('[data-vergleich]', 0)], ['s3-nutzen', TOP('.vg-after', -80)]], seq: { name: 's3', at: [] } },
   s4: { still: [['s4-musterkoffer-stapel', P('[data-bsp-track]', 0)], ['s4-musterkoffer-mitte', P('[data-bsp-track]', 0.4)], ['s4-musterkoffer-raster', P('[data-bsp-track]', 1)]],
     seq: { name: 's4-sequenz-austeilen', at: [P('[data-bsp-track]', 0.02), P('[data-bsp-track]', 0.18), P('[data-bsp-track]', 0.3), P('[data-bsp-track]', 0.42), P('[data-bsp-track]', 0.55), P('[data-bsp-track]', 0.7), P('[data-bsp-track]', 1)] } },
   s5: { still: [['s5-zusammenarbeit-anfang', P('[data-zs-track]', 0.3)], ['s5-zusammenarbeit-mitte', P('[data-zs-track]', 0.6)], ['s5-zusammenarbeit-ende', P('[data-zs-track]', 1)]],

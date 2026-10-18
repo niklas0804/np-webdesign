@@ -5,10 +5,9 @@
  * Eingaben bleiben im Browser bis zum Absenden: keine Zwischenspeicherung, kein Mitschneiden.
  */
 import { SITE } from '../config/site.js';
-import { builtWorlds, TEXT } from '../config/journey.js';
-import { STEPS } from '../config/site.js';
+import { TEXT } from '../config/journey.js';
+import { STEPS, LEISTUNGEN } from '../config/site.js';
 const { row } = Astro.props;
-const leistungen = builtWorlds.map((w) => w.leistung).join(' · ');
 const ablauf = STEPS.map((s) => s.title).join(', ');
 ---
 <section id={row.anchor} class="kontakt" data-section={row.id} data-ground={row.ground} data-tone="light"
@@ -101,7 +100,7 @@ const ablauf = STEPS.map((s) => s.title).join(', ');
     </div>
 
     <dl class="facts k-facts">
-      <div><dt class="mono">Leistungen</dt><dd>{leistungen}</dd></div>
+      <div><dt class="mono">Leistungen</dt><dd><ul class="k-leist">{LEISTUNGEN.map((l) => <li>{l}</li>)}</ul></dd></div>
       <div><dt class="mono">Preise</dt><dd><a class="link" href="/leistungen">Pakete und Preise</a></dd></div>
       <div><dt class="mono">Ablauf</dt><dd>{ablauf}. Von der ersten Skizze bis nach dem Launch sprechen Sie mit mir.</dd></div>
       <div><dt class="mono">Antwortzeit</dt><dd>{SITE.responseTime}</dd></div>

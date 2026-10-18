@@ -28,7 +28,7 @@ Die Startseite `/` verkauft; die Welten wohnen auf `/welten`. Leitidee „Maßar
 | S1 | Hero | Leinen | Logo-Konstruktion in 1,6 s per CSS; die Maßschicht bemaßt die H1-Zeilen mit **live gemessenen** Breiten |
 | S2 | Warum | Nacht | Drei Sätze gepinnt, jede Zeile auf Breite gesetzt (Archivo-Breitenachse); die Maßschicht bemaßt einzelne Wörter, die vier Schnittmarken rahmen den Satz |
 | S2 → S3 | N-Blende | | Der Faden ist das linke Bein eines N; die Diagonale wischt von Nacht zu Leinen, das rechte Bein wird die Trennlinie von S3 |
-| S3 | Vergleich | Leinen | „Gleicher Betrieb. Zwei Websites.“: Browserrahmen mit der Studie Halmberg als Baukasten und als Maßarbeit, der Faden als Trennlinie, echtes `input type="range"` |
+| S3 | Vergleich | Leinen | „Gleicher Betrieb. Zwei Websites.“: Browserrahmen mit der Studie Messingstuhl als Baukasten (links) und als Maßarbeit (rechts). Der Faden ist die Trennlinie und bewegt sich **nur über den Regler** (ziehen am Griff, Pfeiltasten am echten `input type="range"`), nicht durch Scrollen; Start bei 50 Prozent (Stand 18. Oktober 2026) |
 | S4 | Was ich baue | Kalk | Der Musterkoffer: neun Vorschaukarten als gefächerter Stapel, beim Scrollen ausgeteilt ins 3 × 3-Raster, Schnittmarken-Zucken |
 | S5 | Zusammenarbeit | Leinen | Der Faden zeichnet sechs Stationen, jede mit selbstzeichnendem Linien-Piktogramm; am Ende die Schlaufe (Betreuung) |
 | S5 → S6 | P-Iris | | Die Schlaufe wird der Bauch eines P, daraus öffnet sich die Iris in Kalk |

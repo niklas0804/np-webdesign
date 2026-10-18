@@ -104,6 +104,10 @@ html[data-mode='calm'] .is-snap .k-pv-guide, html[data-mode='calm'] .is-snap .k-
 .k-fail:target, .k-main.is-failed .k-fail { display: flex; }
 .k-fail::before { margin-top: .15em; }
 
+/* Leistungen: einzelne Begriffe, durch Mittelpunkte getrennt */
+.k-leist { display: flex; flex-wrap: wrap; gap: 0 .4em; }
+.k-leist li:not(:last-child)::after { content: '·'; margin-left: .4em; color: var(--stein); }
+
 /* Fakten */
 .k-facts { margin-top: 0; }
 

@@ -1,10 +1,12 @@
 /**
- * S3 · Gleicher Betrieb. Zwei Websites. Der orange Faden ist die Trennlinie: Er wandert scrollgesteuert und deckt die Seite „Maßarbeit“ auf
- * (Desktop von rechts nach links, mobil von oben nach unten). Kreuzt er ein Merkmal, setzt die Maßschicht dort eine nummerierte Marke;
- * die Anmerkung steht als Liste im Dokument. Nach dem Pin lässt sich die Linie ziehen: Maus, Touch (Regler) und Tastatur (echtes <input type="range">).
- * Ruhig und ohne Pin: beide Fassungen untereinander, alle Marken stehen, die Liste darunter (nur CSS, hier nur das Laden von Bodoni Moda).
+ * S3 · Gleicher Betrieb. Zwei Websites. Der orange Faden ist die Trennlinie zwischen „Baukasten“ (links) und „Maßarbeit“ (rechts).
+ * Sie bewegt sich NUR über den Regler: ziehen am Griff (Maus, Touch, Stift), Pfeiltasten im fokussierten <input type="range">,
+ * am Desktop zusätzlich Ziehen mit der Maus irgendwo im Bild. Beim Scrollen bleibt die Linie, wo sie ist (Start: 50 Prozent).
+ * Mobil: Senkrechtes Wischen über dem Bild scrollt die Seite; nur ein waagerechtes Ziehen am Griff bewegt die Linie (Griff: touch-action pan-y, kein preventDefault).
+ * Die nummerierten Marken und Anmerkungen folgen der Position der Linie. Es gibt keine Scroll-Kopplung und keinen ScrollTrigger.
+ * Ruhig und ohne JavaScript: beide Fassungen untereinander, alle Marken stehen, die Liste darunter (nur CSS).
  */
-import { gsap, ScrollTrigger, $, $$, root, mode } from '../base.js';
+import { $, $$, root, mode } from '../base.js';
 
 const clamp = (v, a = 0, b = 100) => Math.min(b, Math.max(a, v));
 
@@ -12,74 +14,56 @@ export function initVergleich() {
   const sec = $('[data-vergleich]');
   if (!sec) return;
 
-  // Bodoni Moda (Maßarbeit-Seite) erst kurz bevor der Abschnitt erreicht wird (Budget: erster Bildschirm ≤ 350 KB)
-  ScrollTrigger.create({ trigger: sec, start: 'top bottom+=120%', once: true, onEnter: () => { root.dataset.fonts = `${root.dataset.fonts || ''} bodoni`.trim(); } });
+  // Bodoni Moda (Maßarbeit-Seite) erst kurz bevor der Abschnitt erreicht wird (Budget: erster Bildschirm ≤ 350 KB); IntersectionObserver, keine Scroll-Kopplung
+  const io = new IntersectionObserver((es) => {
+    if (es.some((e) => e.isIntersecting)) { root.dataset.fonts = `${root.dataset.fonts || ''} bodoni`.trim(); io.disconnect(); }
+  }, { rootMargin: '150% 0px 150% 0px' });
+  io.observe(sec);
 
-  const pinned = mode === 'desktop' || mode === 'mobile';
-  const markersAll = $$('.vg-marker', sec);
-  if (!pinned) { markersAll.forEach((m) => m.classList.add('is-on')); return; }
+  const interactive = mode === 'desktop' || mode === 'mobile';
+  if (!interactive) { $$('.vg-marker', sec).forEach((m) => m.classList.add('is-on')); return; }
 
-  const track = $('[data-vg-track]', sec);
   const view = $('[data-vg-view]', sec);
   const mass = $('.vg-mass', sec);
-  const base = $('.vg-base', sec);
   const divider = $('[data-vg-divider]', sec);
+  const handle = $('[data-vg-handle]', sec);
   const range = $('[data-vg-range]', sec);
   const mMass = $$('[data-marker-mass]', sec); const nMass = $$('[data-note-mass]', sec);
   const mBase = $$('[data-marker-base]', sec); const nBase = $$('[data-note-base]', sec);
-  const vertical = mode === 'mobile';
-  let value = 0; let manual = false; let entered = false;
 
-  // Lage der Marken in Prozent der Fläche (aus dem Stylesheet gelesen, ohne Transformationen)
-  const pos = (m) => ({ x: (m.offsetLeft / m.offsetParent.offsetWidth) * 100, y: (m.offsetTop / m.offsetParent.offsetHeight) * 100 });
+  // Lage der Marken in Prozent der Fläche (aus dem Stylesheet gelesen, ohne Transformationen); neu beim Ändern der Fenstergröße
+  const pos = (m) => (m.offsetLeft / m.offsetParent.offsetWidth) * 100;
   let pMass = []; let pBase = [];
   const measure = () => { pMass = mMass.map(pos); pBase = mBase.map(pos); };
-  measure();
+  const text = (v) => (v <= 3 ? 'Linie ganz links: nur Maßarbeit' : v >= 97 ? 'Linie ganz rechts: nur Baukasten' : `Linie bei ${Math.round(v)} Prozent von links: links Baukasten, rechts Maßarbeit`);
 
-  const text = (v) => (v < 15 ? 'Baukasten' : v > 85 ? 'Maßarbeit' : `${Math.round(v)} Prozent Maßarbeit`);
-
-  /** v: Anteil der Seite „Maßarbeit“, der sichtbar ist (0 … 100) */
+  /** v: Position der Trennlinie in Prozent von links (0 … 100). Links der Linie steht „Baukasten“, rechts „Maßarbeit“; Regler und Linie laufen in dieselbe Richtung. */
+  let value = 50;
   const set = (v) => {
     value = clamp(v);
-    if (vertical) { mass.style.clipPath = `inset(0 0 ${100 - value}% 0)`; divider.style.top = `${value}%`; }
-    else { mass.style.clipPath = `inset(0 0 0 ${100 - value}%)`; divider.style.left = `${100 - value}%`; }
-    mMass.forEach((m, i) => {
-      const seen = vertical ? pMass[i].y <= value : pMass[i].x >= 100 - value;
-      m.classList.toggle('is-on', seen && entered); nMass[i]?.classList.toggle('is-on', seen && entered);
-    });
-    mBase.forEach((m, i) => {
-      const seen = vertical ? pBase[i].y > value : pBase[i].x < 100 - value;
-      m.classList.toggle('is-on', seen && entered); nBase[i]?.classList.toggle('is-on', seen && entered);
-    });
+    mass.style.clipPath = `inset(0 0 0 ${value}%)`;
+    divider.style.left = `${value}%`;
+    mMass.forEach((m, i) => { const seen = pMass[i] >= value; m.classList.toggle('is-on', seen); nMass[i]?.classList.toggle('is-on', seen); });
+    mBase.forEach((m, i) => { const seen = pBase[i] < value; m.classList.toggle('is-on', seen); nBase[i]?.classList.toggle('is-on', seen); });
     if (range) { range.value = String(Math.round(value)); range.setAttribute('aria-valuetext', text(value)); }
   };
-  set(0);
+  measure(); set(50);
+  let rt;
+  new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => { measure(); set(value); }, 150); }).observe(view);
 
-  // Scroll treibt die Linie, solange niemand sie angefasst hat
-  ScrollTrigger.create({
-    trigger: track, start: 'top top', end: 'bottom bottom', invalidateOnRefresh: true,
-    onRefresh: () => { measure(); if (!manual) set(value); },
-    onToggle: (self) => { entered = self.isActive || self.progress > 0; set(value); },
-    onUpdate: (self) => {
-      entered = true;
-      if (manual) return;
-      const p = clamp((self.progress - 0.08) / 0.8, 0, 1);
-      set(gsap.parseEase('power1.inOut')(p) * 100);
-    },
-    onLeaveBack: () => { manual = false; entered = false; set(0); },
-  });
-  // Marken schon beim Einfahren des Abschnitts als „bereit“ (die Baukasten-Marken stehen, sobald der Rahmen im Bild ist)
-  ScrollTrigger.create({ trigger: sec, start: 'top 80%', end: 'bottom top', onToggle: (self) => { entered = self.isActive; set(value); } });
+  // Regler: Tastatur, Maus und Touch am nativen Element
+  range?.addEventListener('input', () => set(parseFloat(range.value)));
 
-  // Ziehen: Regler (Maus, Touch, Tastatur) und am Desktop direkt am Bild
-  const user = (v) => { manual = true; set(v); };
-  range?.addEventListener('input', () => user(parseFloat(range.value)));
-  if (!vertical && view) {
-    let drag = false;
-    const at = (e) => { const r = view.getBoundingClientRect(); user(100 - ((e.clientX - r.left) / r.width) * 100); };
-    view.addEventListener('pointerdown', (e) => { drag = true; view.setPointerCapture(e.pointerId); at(e); });
-    view.addEventListener('pointermove', (e) => { if (drag) at(e); });
-    const end = () => { drag = false; };
-    view.addEventListener('pointerup', end); view.addEventListener('pointercancel', end);
-  }
+  // Ziehen im Bild: am Griff mit jedem Zeiger, am Desktop mit der Maus auch irgendwo im Bild
+  const at = (e) => { const r = view.getBoundingClientRect(); set(((e.clientX - r.left) / r.width) * 100); };
+  let drag = null;
+  const down = (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    drag = e.pointerId; e.currentTarget.setPointerCapture(e.pointerId); at(e);
+  };
+  const move = (e) => { if (drag === e.pointerId) at(e); };
+  const end = (e) => { if (drag === e.pointerId) drag = null; };
+  handle?.addEventListener('pointerdown', down);
+  [handle, view].forEach((t) => { t?.addEventListener('pointermove', move); t?.addEventListener('pointerup', end); t?.addEventListener('pointercancel', end); });
+  view?.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse' && e.target !== handle) down(e); });
 }
