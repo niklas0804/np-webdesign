@@ -6,15 +6,23 @@ declare(strict_types=1);
  * Schutz: Honeypot, Zeitprüfung, Linkfilter, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
  * Verdachtsfälle werden trotzdem zugestellt (Betreff „[Spam-Verdacht]“); verworfen wird nur, wenn alle drei Prüfungen anschlagen.
  * Versand: standardmäßig über mail() des Hosters, optional über ein SMTP-Postfach (config.php, Eintrag „smtp“).
- * Zugangsdaten und Adressen: nie im Repository. Gesucht wird zuerst np-config.php außerhalb des Web-Ordners (ein Ordner über
- * public_html, übersteht jedes Neuladen der Website), sonst config.php neben dieser Datei (siehe config.sample.php).
+ * Zugangsdaten und Adressen: nie im Repository. Gesucht wird zuerst np-config.php außerhalb des Web-Ordners (ein Ordner bzw. der Home-Ordner
+ * über public_html, übersteht jedes Neuladen der Website), sonst config.php neben dieser Datei (siehe config.sample.php).
  */
 
 const MAX_PER_HOUR = 40;
 
 $cfg = ['to' => 'kontakt@np-webdesign.de', 'from' => 'kontakt@np-webdesign.de', 'subject' => 'Anfrage über np-webdesign.de'];
-foreach ([dirname(__DIR__, 2) . '/np-config.php', __DIR__ . '/config.php'] as $configFile) {
-    if (is_file($configFile)) {
+// Orte für np-config.php: ein Ordner über dem Web-Ordner und der Home-Ordner (bei Hostinger liegt public_html unter domains/<Domain>/,
+// im Dateimanager erscheint es direkt unter dem Home-Ordner) sowie über dem Document-Root; zuletzt config.php neben dieser Datei.
+$configFiles = [];
+foreach ([dirname(__DIR__, 2), dirname(__DIR__, 4), dirname((string) ($_SERVER['DOCUMENT_ROOT'] ?? __DIR__))] as $configDir) {
+    $configFiles[$configDir . '/np-config.php'] = true;
+}
+$configFiles = array_keys($configFiles);
+$configFiles[] = __DIR__ . '/config.php';
+foreach ($configFiles as $configFile) {
+    if (@is_file($configFile)) {
         $extra = require $configFile;
         if (is_array($extra)) {
             $cfg = array_merge($cfg, $extra);
