@@ -1,0 +1,222 @@
+<!doctype html>
+<!--
+  Storyboard „Der Kunden-Test“ (Startseite, Sektion „Der Unterschied“). Nur zur Freigabe, wird nicht ausgeliefert.
+  Die Standbilder werden mit scripts/storyboard-shots.cjs gerendert (?f=d1 … d5, d6 für „Am Handy“, m1 … m5).
+  Die Fenster verwenden die echten Fassungen aus src/home/Vergleich.astro (Klassen vg-base/bk-* und vg-mass/ms-*).
+-->
+<html lang="de" data-mode="desktop" data-js data-fonts="bodoni">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storyboard Kunden-Test</title>
+<link rel="stylesheet" href="/journey.css">
+<link rel="stylesheet" href="/_astro/PartnerBadge.DYgvS44U.css">
+<link rel="stylesheet" href="/_astro/Footer.DBI4_N8B.css">
+<link rel="stylesheet" href="/_astro/index.DRMfAAxJ.css">
+<style>
+  body { margin: 0; background: var(--leinen); color: var(--tinte); font-family: 'Archivo NP', Arial, sans-serif; }
+  .kt { background: var(--leinen); padding: var(--s8) var(--gutter) var(--s8); }
+  .kt-in { max-width: var(--max); margin-inline: auto; }
+  .kt-title { font-size: clamp(2.1rem, 5vw, 4.5rem); line-height: .96; letter-spacing: -.03em; font-weight: 790; font-stretch: 88%; max-width: none; margin: var(--s2) 0 var(--s4); }
+  .kt-sub { margin: 0 0 var(--s7); color: var(--stein); font-size: var(--fs-mono); max-width: none; }
+
+  /* Fenster (Desktop) */
+  .kt-race { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6); }
+  .kt-win { border: 1.5px solid var(--tinte); background: #fff; position: relative; }
+  .kt-bar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--s3); height: 38px; padding: 0 var(--s3); border-bottom: 1.5px solid var(--tinte); background: var(--sand); }
+  .kt-dots { display: flex; gap: 6px; } .kt-dots i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--tinte); }
+  .kt-wname { font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; }
+  .kt-count { font-size: .6875rem; letter-spacing: .06em; font-variant-numeric: tabular-nums; padding: 3px 8px; background: var(--tinte); color: var(--leinen); }
+  .kt-win--mass .kt-count { background: var(--np-orange); color: var(--nacht); }
+  .kt-view { position: relative; overflow: hidden; aspect-ratio: 16 / 10; container-type: inline-size; }
+  html[data-mode] .kt-view.vg-pane { position: relative; inset: auto; aspect-ratio: 16 / 10; }
+
+  /* Zeiger und Klick-Ripple */
+  .kt-cur { position: absolute; z-index: 9; width: 22px; height: 22px; margin: -2px 0 0 -2px; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.35)); }
+  .kt-cur path { fill: #fff; stroke: #14100C; stroke-width: 1.4; stroke-linejoin: round; }
+  .kt-rip { position: absolute; z-index: 8; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 2px solid var(--np-orange); background: color-mix(in srgb, var(--np-orange) 22%, transparent); }
+  .kt-fing { position: absolute; z-index: 9; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: rgba(20,16,12,.55); border: 2px solid #fff; box-shadow: 0 0 0 1.5px rgba(20,16,12,.6); }
+
+  /* Label am Element */
+  .kt-label { position: absolute; z-index: 10; margin: 0; max-width: 24ch; padding: 6px 10px; font-family: var(--mono); font-size: .6875rem; line-height: 1.35; letter-spacing: .02em; background: var(--tinte); color: var(--leinen); border-left: 4px solid var(--fehler); }
+  .kt-label--good { background: var(--np-orange); color: var(--nacht); border-left-color: var(--nacht); }
+  @media (min-width: 1024px) { .kt-label { font-size: .8125rem; padding: 8px 12px; max-width: 30ch; } }
+
+  /* Baukasten: träges Laden, Cookie, Kontaktseite */
+  .bk-skel { display: grid; gap: 1.6cqw; padding: 2cqw 6cqw; }
+  .bk-skel i { display: block; background: linear-gradient(90deg, #e6e9ee 0%, #f3f5f8 50%, #e6e9ee 100%); border-radius: 3px; }
+  .bk-cookie { position: absolute; z-index: 6; left: 3cqw; right: 3cqw; bottom: 3cqw; background: #fff; border: 1px solid #c7ccd4; box-shadow: 0 6px 24px rgba(0,0,0,.18); padding: 1.6cqw 2cqw; display: flex; gap: 2cqw; align-items: center; text-align: left; font-size: max(10px, 1.45cqw); color: #3b414b; }
+  .bk-cookie span { flex: 1; }
+  .bk-cookie b { background: #2f6fdb; color: #fff; padding: .55em 1.2em; border-radius: 4px; font-size: max(10px, 1.45cqw); white-space: nowrap; }
+  .bk-cookie u { text-decoration: none; border: 1px solid #9aa1ad; padding: .55em 1.2em; border-radius: 4px; font-size: max(10px, 1.45cqw); white-space: nowrap; }
+  .bk-jump { position: absolute; z-index: 5; left: 6cqw; right: 6cqw; top: 6.4cqw; height: 1px; border-top: 2px dashed var(--np-orange); }
+  .bk-form { display: grid; gap: 1.2cqw; justify-items: stretch; width: min(52%, 40cqw); margin-inline: auto; text-align: left; }
+  .bk-form label { display: grid; gap: .4cqw; font-size: max(10px, 1.4cqw); color: #4a515c; }
+  .bk-form span { display: block; border: 1px solid #b9c0cb; background: #fff; height: 2.7cqw; min-height: 20px; }
+  .bk-form span.t { height: 6.4cqw; }
+  .bk-nav .on { font-weight: 700; color: #2b2f36; border-bottom: 2px solid #2f6fdb; }
+  .bk-h { font-size: max(14px, 2.6cqw); font-weight: 700; margin: 0; max-width: none; }
+
+  /* Maßarbeit: Termin, Zeitfenster, gebucht */
+  .ms-links .ms-termin { color: var(--ground); background: var(--accent); padding: .35em .9em; font-weight: 700; letter-spacing: .2em; }
+  .ms-slots { display: flex; gap: 1.4cqw; background: var(--ground); padding: 0 .4cqw; }
+  .ms-slot { border: 1px solid var(--accent); padding: .9cqw 1.6cqw; font-size: max(10px, 1.55cqw); letter-spacing: .08em; color: var(--accent); background: var(--ground); font-variant-numeric: lining-nums tabular-nums; }
+  .ms-slot.on { background: var(--accent); color: var(--ground); font-weight: 700; }
+  .ms-slots-h { margin: 0; max-width: none; background: var(--ground); font-size: max(9px, 1.35cqw); letter-spacing: .32em; text-transform: uppercase; color: var(--accent); padding: 0 .6em; }
+  .ms-stamp { position: absolute; z-index: 6; right: 7cqw; top: 66%; transform: rotate(-6deg); border: 2px solid var(--accent); color: var(--accent); background: color-mix(in srgb, var(--ground) 82%, transparent); padding: .5cqw 2cqw; font-size: max(12px, 2.4cqw); letter-spacing: .3em; text-transform: uppercase; font-weight: 700; }
+  .ms-callwrap { position: relative; z-index: 8; padding: 2cqw 3cqw 1cqw; }
+  .ms-call { display: grid; grid-auto-flow: column; gap: 3cqw; align-items: center; justify-content: center; margin-top: 2cqw; padding: 4.2cqw 8cqw; min-height: 44px; border-radius: 999px; background: var(--accent); color: var(--ground); font-size: max(13px, 4.4cqw); letter-spacing: .06em; font-weight: 700; }
+  .ms-call svg { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-width: 2; }
+
+  /* Steuerung */
+  .kt-ctrl { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: center; justify-content: space-between; margin-top: var(--s5); }
+  .kt-seg { display: inline-flex; border: 1.5px solid var(--tinte); background: var(--leinen); }
+  .kt-seg button { all: unset; box-sizing: border-box; min-height: 44px; padding: 0 var(--s4); display: grid; place-items: center; font-size: .875rem; font-weight: 600; cursor: pointer; }
+  .kt-seg button + button { border-left: 1.5px solid var(--tinte); }
+  .kt-seg button[aria-pressed='true'] { background: var(--tinte); color: var(--leinen); }
+  .kt-pause { all: unset; box-sizing: border-box; min-height: 44px; padding: 0 var(--s4); display: inline-flex; align-items: center; gap: var(--s2); border: 1.5px solid var(--tinte); font-size: .875rem; font-weight: 600; cursor: pointer; }
+  .kt-note { margin: var(--s4) 0 0; color: var(--stein); font-size: var(--fs-mono-xs); letter-spacing: .04em; max-width: none; }
+
+  /* Auflösung */
+  .kt-res { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6); margin-top: var(--s8); border-top: 1.5px solid var(--np-orange); padding-top: var(--s6); }
+  .kt-res div { display: grid; gap: var(--s2); }
+  .kt-res .mono { color: var(--stein); }
+  .kt-val { font-size: clamp(3rem, 8.4vw, 9rem); line-height: .92; letter-spacing: -.04em; font-weight: 800; font-stretch: 84%; font-variant-numeric: tabular-nums; }
+  .kt-val small { font-size: .42em; letter-spacing: -.02em; font-weight: 700; }
+  .kt-val--a { color: var(--stein); } .kt-val--b { color: var(--orange-text); }
+  .kt-close { margin: var(--s6) 0 0; font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -.01em; font-weight: 650; max-width: 32ch; }
+
+  /* Handykarte */
+  .kt-phones { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; gap: var(--s7); }
+  .kt-phone { width: min(100%, calc(68svh * 9 / 17)); position: relative; border: 1.5px solid var(--tinte); border-radius: 30px; background: #fff; overflow: hidden; aspect-ratio: 9 / 17; container-type: inline-size; margin-inline: auto; }
+  .kt-phones .kt-phone { width: 300px; }
+  .kt-ptop { position: absolute; z-index: 12; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; height: 34px; padding: 0 16px; background: var(--sand); border-bottom: 1.5px solid var(--tinte); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; }
+  .kt-ptop b { font-weight: 500; font-variant-numeric: tabular-nums; padding: 2px 7px; background: var(--tinte); color: var(--leinen); letter-spacing: .04em; }
+  .kt-phone--mass .kt-ptop b { background: var(--np-orange); color: var(--nacht); }
+  .kt-pv { position: absolute; inset: 34px 0 0 0; overflow: hidden; container-type: inline-size; }
+  html[data-mode] .kt-pv.vg-pane { position: absolute; inset: 34px 0 0 0; aspect-ratio: auto; }
+  .kt-scroll { position: absolute; left: 0; right: 0; top: 0; transform: translateY(var(--y, 0)); display: flex; flex-direction: column; }
+  .kt-zone { position: absolute; z-index: 7; left: 0; right: 0; bottom: 0; height: 38%; background: color-mix(in srgb, #2e9b5f 20%, transparent); border-top: 2px dashed #1f7a49; pointer-events: none; }
+  .kt-zone span { position: absolute; right: 10px; top: 8px; padding: 2px 8px; background: #1f7a49; color: #fff; font-family: var(--mono); font-size: .625rem; letter-spacing: .12em; text-transform: uppercase; }
+  .bk-foot2 { background: #2b2f36; color: #c9ced7; text-align: left; padding: 4cqw 5cqw 3cqw; display: grid; gap: 3cqw; font-size: max(10px, 3cqw); }
+  .bk-foot2 .tel { color: #9aa1ad; font-size: max(8px, 2.2cqw); justify-self: start; padding: 1px 4px; }
+  .bk-foot2 .tel.hit { outline: 2px solid #e5483a; outline-offset: 3px; color: #fff; }
+  .bk-more { padding: 6cqw 8cqw 8cqw; text-align: center; } .kt-pv .bk-tiles { grid-template-columns: 1fr; padding-bottom: 6cqw; }
+  .bk-foot2 p { margin: 0; max-width: none; line-height: 1.6; } .bk-foot2 b { color: #fff; font-size: max(11px, 3.2cqw); }
+  .bk-foot2 .nl { display: grid; gap: 2cqw; } .bk-foot2 .nl span { border: 1px solid #6b7380; padding: 2.4cqw 3cqw; color: #9aa1ad; } .bk-foot2 .nl em { font-style: normal; background: #2f6fdb; color: #fff; padding: 2.4cqw 3cqw; text-align: center; border-radius: 4px; }
+  .bk-foot2 .soc { display: flex; gap: 2cqw; } .bk-foot2 .soc i { width: 6cqw; height: 6cqw; background: #4a515c; border-radius: 50%; }
+  .kt-phone .kt-label { left: 12px; right: 12px; max-width: none; bottom: auto; }
+  .kt-mctrl { display: grid; gap: var(--s3); margin-top: var(--s4); }
+  .kt-mctrl .kt-seg { display: grid; grid-template-columns: repeat(3, 1fr); }
+
+  /* Nach unten: Auflösung auf dem Handy */
+  .kt--m .kt-res { margin-top: var(--s7); gap: var(--s4); }
+  .kt--m .kt-val { font-size: clamp(2.6rem, 14vw, 4.4rem); }
+  .kt--m .kt-close { font-size: 1.25rem; }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const q = new URLSearchParams(location.search).get('f') || 'd1';
+const mobile = q[0] === 'm';
+document.documentElement.dataset.mode = mobile ? 'mobile' : 'desktop';
+
+/* ---------- Bausteine ---------- */
+const cur = (x, y) => `<svg class="kt-cur" style="left:${x}%;top:${y}%" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2 L3 17 L7 13.5 L10 20 L12.6 18.8 L9.6 12.6 L15 12.2 Z"/></svg>`;
+const rip = (x, y) => `<i class="kt-rip" style="left:${x}%;top:${y}%"></i>`;
+const fing = (x, y) => `<i class="kt-fing" style="left:${x}%;top:${y}%"></i>`;
+const label = (t, x, y, good) => `<p class="kt-label${good ? ' kt-label--good' : ''}" style="${x}:${y[0]};${y[1]}">${t}</p>`;
+
+const bkNav = (on) => `<div class="bk-nav"><span class="bk-logo">Logo</span><span>Start</span><span>Über uns</span><span class="${on === 'k' ? 'on' : ''}">Kontakt</span></div>`;
+const bkHero = `<div class="bk-hero">
+  <div class="bk-stock"><svg viewBox="0 0 100 60" preserveAspectRatio="none" focusable="false"><path d="M0 0 L100 60 M100 0 L0 60"/></svg><span>Stockfoto</span></div>
+  <p class="bk-welcome">Willkommen bei Barbershop Messingstuhl</p>
+  <p class="bk-text">Wir freuen uns, Sie auf unserer Website begrüßen zu dürfen.</p>
+  <span class="bk-btn">Mehr erfahren</span></div>`;
+const bkTiles = `<div class="bk-tiles">
+  <div class="bk-tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg><b>Unser Angebot</b></div>
+  <div class="bk-tile"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg><b>Über uns</b></div>
+  <div class="bk-tile"><svg viewBox="0 0 24 24"><path d="M12 4 L21 20 H3 Z"/></svg><b>Aktuelles</b></div></div>`;
+const bkFoot = `<div class="bk-foot">Impressum · Datenschutz · Tel. 01234 56789</div>`;
+const bkSkel = `<div class="bk-nav"><span class="bk-logo" style="opacity:.4">Logo</span></div>
+  <div class="bk-skel"><i style="height:14cqw"></i><i style="height:3cqw;width:60%;margin-inline:auto"></i><i style="height:2cqw;width:44%;margin-inline:auto"></i><i style="height:3.4cqw;width:18%;margin-inline:auto"></i>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.6cqw"><i style="height:8cqw"></i><i style="height:8cqw"></i><i style="height:8cqw"></i></div></div>`;
+const bkKontakt = `${bkNav('k')}<div class="bk-hero" style="gap:1.6cqw"><p class="bk-h">Kontakt</p><p class="bk-text">Schreiben Sie uns eine Nachricht, wir melden uns.</p>
+  <div class="bk-form"><label>Name<span></span></label><label>E-Mail<span></span></label><label>Nachricht<span class="t"></span></label></div><span class="bk-btn">Absenden</span></div>${bkFoot}`;
+
+const msNav = (hot) => `<div class="ms-nav"><span class="ms-brand">Messingstuhl</span><span class="ms-links"><span>Preisliste</span><span class="${hot ? 'ms-termin' : ''}">Termin</span></span></div>`;
+const msBody = (mid, wait) => `<div class="ms-body"><p class="ms-kicker">Barbershop · Haarschnitt und Rasur</p><p class="ms-title">Messingstuhl</p>${mid}
+  <p class="ms-wait">${wait}</p><dl class="ms-prices"><div><dt>Haarschnitt</dt><dd>28 €</dd></div><div><dt>Rasur mit Heißtuch</dt><dd>25 €</dd></div></dl></div>`;
+const ticket = (nr, foot, head) => `<div class="ms-ticket"><p class="ms-t-head"><span>Messingstuhl</span><span>${head}</span></p><p class="ms-t-nr"${nr.includes(':') ? ' style="font-size:max(22px,4.6cqw);padding:.6cqw 0"' : ''}>${nr}</p><p class="ms-t-foot">${foot}</p></div>`;
+const slots = (on) => `<p class="ms-slots-h">Heute</p><div class="ms-slots">${['16:30', '17:15', '18:00'].map((t) => `<span class="ms-slot${on === t ? ' on' : ''}">Heute ${t}</span>`).join('')}</div>`;
+const WAIT = 'Aufgerufen wird Nr. 05. Wartezeit etwa 24 Minuten.';
+
+const win = (kind, title, count, view, over) => `<div class="kt-win kt-win--${kind}"><div class="kt-bar"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-wname mono">${title}</span><span class="kt-count mono">${count}</span></div>${view(over)}</div>`;
+const head = (sub) => `<p class="kicker">Der Unterschied</p><h2 class="kt-title"><span style="display:block">Gleicher Barbershop.</span><span style="display:block">Ein Kunde mit einem Ziel.</span></h2><p class="kt-sub mono">${sub}</p>`;
+const ctrl = (handyOn, active) => `<div class="kt-ctrl"><div class="kt-seg" role="group" aria-label="Ablauf"><button aria-pressed="${active === 'a'}">Baukasten</button><button aria-pressed="${active === 'b'}">Maßarbeit</button><button aria-pressed="false">Nochmal</button></div>
+  ${handyOn === null ? '' : `<div class="kt-seg" role="group" aria-label="Gerät"><button aria-pressed="${!handyOn}">Am Computer</button><button aria-pressed="${handyOn}">Am Handy</button></div>`}<button class="kt-pause"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><rect x="1" y="1" width="3.4" height="12" fill="currentColor"/><rect x="7.6" y="1" width="3.4" height="12" fill="currentColor"/></svg>Pause</button></div>
+  <p class="kt-note mono">Demo · simulierter Ablauf mit der Studie Messingstuhl</p>`;
+const res = (a, b, aL, bL) => `<div class="kt-res"><div><span class="mono">Baukasten</span><span class="kt-val kt-val--a">${a} <small>${aL}</small></span></div><div><span class="mono">Maßarbeit</span><span class="kt-val kt-val--b">${b} <small>${bL}</small></span></div></div>
+  <p class="kt-close">Jeder Schritt zu viel ist ein Kunde, der zur Konkurrenz geht.</p>`;
+
+/* ---------- Desktop-Fenster ---------- */
+const viewBk = (inner, over = '') => `<div class="kt-view vg-pane vg-base">${inner}${over}</div>`;
+const viewMs = (inner, over = '') => `<div class="kt-view vg-pane vg-mass" data-world="02">${inner}${over}</div>`;
+
+const D = {
+  d1: () => `${head('Termin buchen. Wie lange dauert das?')}<div class="kt-race">
+    ${win('base', 'Baukasten', 'Klicks 0 · Seiten 1', viewBk, `${bkSkel}${cur(48, 22)}`)}
+    ${win('mass', 'Maßarbeit', 'Klicks 0 · Seiten 1', viewMs, `${msNav(true)}${msBody(ticket('07', 'Demo', 'Wartemarke'), WAIT)}${cur(80, 12)}`)}</div>${ctrl(false, 'a')}`,
+  d2: () => `${head('Termin buchen. Wie lange dauert das?')}<div class="kt-race">
+    ${win('base', 'Baukasten', 'Klicks 0 · Seiten 1', viewBk, `${bkNav()}${bkHero}${bkTiles}${bkFoot}<div class="bk-cookie"><span>Wir verwenden Cookies, um Ihr Nutzererlebnis zu verbessern.</span><u>Einstellungen</u><b>Alle akzeptieren</b></div><div class="bk-jump"></div>${cur(74, 74)}`)}
+    ${win('mass', 'Maßarbeit', 'Klicks 1 · Seiten 1', viewMs, `${msNav(true)}${msBody(slots(''), WAIT)}${rip(80, 12)}${cur(81.5, 14.5)}`)}</div>${ctrl(false, 'a')}`,
+  d3: () => `${head('Termin buchen. Wie lange dauert das?')}<div class="kt-race">
+    ${win('base', 'Baukasten', 'Klicks 1 · Seiten 1', viewBk, `${bkNav()}${bkHero}${bkTiles}${bkFoot}${cur(70, 8)}`)}
+    ${win('mass', 'Maßarbeit', 'Klicks 2 · Seiten 1', viewMs, `${msNav(true)}${msBody(ticket('17:15', 'Gebucht', 'Heute'), 'Heute 17:15. Bis gleich.')}<span class="ms-stamp">Gebucht</span>${label('Zwei Klicks. Termin steht.', 'left', ['3.5%', 'top:54%;max-width:17ch'], true)}${cur(48, 60)}`)}</div>${ctrl(false, 'a')}`,
+  d4: () => `${head('Termin buchen. Wie lange dauert das?')}<div class="kt-race">
+    ${win('base', 'Baukasten', 'Klicks 6 · Seiten 3', viewBk, `${bkKontakt}${label('Kein Termin buchbar. Kunde schreibt eine Mail. Oder geht.', 'left', ['2.5%', 'top:46%;max-width:21ch;font-size:.75rem'])}${rip(52, 82)}${cur(52, 82)}`)}
+    ${win('mass', 'Maßarbeit', 'Klicks 2 · Seiten 1', viewMs, `${msNav(true)}${msBody(ticket('17:15', 'Gebucht', 'Heute'), 'Heute 17:15. Bis gleich.')}<span class="ms-stamp">Gebucht</span>`)}</div>${ctrl(false, 'a')}`,
+  d5: () => `${head('Termin buchen. Wie lange dauert das?')}<div class="kt-race">
+    ${win('base', 'Baukasten', 'Klicks 6 · Seiten 3', viewBk, `${bkKontakt}`)}
+    ${win('mass', 'Maßarbeit', 'Klicks 2 · Seiten 1', viewMs, `${msNav(true)}${msBody(ticket('17:15', 'Gebucht', 'Heute'), 'Heute 17:15. Bis gleich.')}<span class="ms-stamp">Gebucht</span>`)}</div>${ctrl(false, 'b')}${res('6', '2', 'Klicks', 'Klicks')}`,
+};
+
+/* ---------- Handykarten ---------- */
+const phone = (kind, count, inner, extra = '') => `<div class="kt-phone kt-phone--${kind}"><div class="kt-ptop mono"><span>${kind === 'base' ? 'Baukasten' : 'Maßarbeit'}</span><b>${count}</b></div>${inner}${extra}</div>`;
+const pvBk = (y, inner) => `<div class="kt-pv vg-pane vg-base"><div class="kt-scroll"${y === 'end' ? ' data-end' : ` style="--y:${y}"`}>${inner}</div></div>`;
+const footBk = (hit) => `<div class="bk-foot2"><b>Kontakt</b><p class="tel${hit ? ' hit' : ''}">Tel. 01234 56789</p><p>Musterstraße 1 · 12345 Musterstadt</p><b>Mehr</b><p>Impressum<br>Datenschutz<br>AGB<br>Cookie-Einstellungen<br>Newsletter</p><b>Newsletter</b><p>Bleiben Sie auf dem Laufenden.</p><p class="nl"><span>E-Mail-Adresse</span><em>Anmelden</em></p><p class="soc"><i></i><i></i><i></i><i></i></p><p>© Barbershop Messingstuhl</p></div>`;
+const pvMs = (inner) => `<div class="kt-pv vg-pane vg-mass" data-world="02">${inner}</div>`;
+const msMobile = () => `${msNav(false)}${msBody(ticket('07', 'Demo', 'Wartemarke'), WAIT)}<div class="ms-callwrap"><div class="ms-call" style="margin:0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Anrufen</div></div>`;
+const callBtn = `<div data-world="02" style="position:absolute;left:8cqw;right:8cqw;bottom:6cqw;z-index:8"><div class="ms-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Anrufen</div></div>`;
+const CALL = `<div data-world="02" style="position:absolute;z-index:8;left:8%;right:8%;bottom:5%"><div class="ms-call" style="margin:0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Anrufen</div></div>`;
+const zone = `<div class="kt-zone"><span>Daumenzone</span></div>`;
+const bkMore = `<div class="bk-more"><p class="bk-h" style="margin-bottom:2cqw">Über uns</p><p class="bk-text">Seit vielen Jahren sind wir Ihr verlässlicher Partner. Unsere Leidenschaft ist Qualität, unser Team ist freundlich und kompetent.</p><div class="bk-stock" style="width:90%;margin:3cqw auto 0;aspect-ratio:16/7"><svg viewBox="0 0 100 60" preserveAspectRatio="none"><path d="M0 0 L100 60 M100 0 L0 60"/></svg><span>Stockfoto</span></div><p class="bk-h" style="margin:5cqw 0 2cqw">Aktuelles</p><p class="bk-text">Hier finden Sie bald Neuigkeiten.</p></div>`;
+const bkAll = `${bkNav()}${bkHero}${bkTiles}${bkMore}`;
+
+const mCtrl = (a) => `<div class="kt-mctrl"><div class="kt-seg" role="group" aria-label="Ablauf"><button aria-pressed="${a === 'a'}">Baukasten</button><button aria-pressed="${a === 'b'}">Maßarbeit</button><button aria-pressed="false">Nochmal</button></div><button class="kt-pause" style="justify-self:start"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><rect x="1" y="1" width="3.4" height="12" fill="currentColor"/><rect x="7.6" y="1" width="3.4" height="12" fill="currentColor"/></svg>Pause</button></div><p class="kt-note mono">Demo · simulierter Ablauf mit der Studie Messingstuhl</p>`;
+const MSUB = 'Anrufen. Wie lange dauert das?';
+const M = {
+  m1: () => `${head(MSUB)}${phone('base', 'Taps 0 · Scrollen 0 ×', pvBk('0', bkSkel), fing(52, 70))}${mCtrl('a')}`,
+  m2: () => `${head(MSUB)}${phone('base', 'Taps 1 · Scrollen 2 ×', pvBk('-9cqw', bkAll), rip(60, 56) + fing(60, 56))}${mCtrl('a')}`,
+  m3: () => `${head(MSUB)}${phone('base', 'Taps 4 · Scrollen 3 ×', pvBk('end', bkAll + footBk(true)), zone + label('Telefon erst ganz unten.', 'left', ['12px', 'top:44px']).replace('class="kt-label"','class="kt-label" data-near=".tel"') + fing(24, 47))}${mCtrl('a')}`,
+  m4: () => `${head(MSUB)}${phone('mass', 'Taps 1 · Scrollen 0 ×', pvMs(msMobile()), zone + label('Ein Tipp. Ein Anruf.', 'left', ['12px', 'top:44px'], true) + rip(50, 88) + fing(50, 88))}${mCtrl('b')}`,
+  m5: () => `${head(MSUB)}${phone('mass', 'Taps 1 · Scrollen 0 ×', pvMs(msMobile()), zone)}${mCtrl('b')}${res('4', '1', 'Taps', 'Tap')}`,
+};
+/* Desktop mit Umschalter „Am Handy“: zwei Handykarten nebeneinander */
+D.d6 = () => `${head(MSUB)}<div class="kt-phones">${phone('base', 'Taps 4 · Scrollen 3 ×', pvBk('end', bkAll + footBk(true)), zone + label('Telefon erst ganz unten.', 'left', ['12px', 'top:44px']).replace('class="kt-label"','class="kt-label" data-near=".tel"'))}
+  ${phone('mass', 'Taps 1 · Scrollen 0 ×', pvMs(msMobile()), zone + label('Ein Tipp. Ein Anruf.', 'left', ['12px', 'top:44px'], true))}</div>${ctrl(true, 'a')}`;
+
+const placeEnd = () => {
+  document.querySelectorAll('.kt-scroll[data-end]').forEach((el) => el.style.setProperty('--y', -(el.scrollHeight - el.parentElement.clientHeight) + 'px'));
+  document.querySelectorAll('.kt-label[data-near]').forEach((l) => {
+    const t = document.querySelector(l.dataset.near); if (!t) return;
+    const ph = l.closest('.kt-phone').getBoundingClientRect(); const r = t.getBoundingClientRect();
+    l.style.top = Math.max(40, r.top - ph.top - l.offsetHeight - 14) + 'px';
+  });
+};
+document.getElementById('app').innerHTML = `<section class="kt${mobile ? ' kt--m' : ''}" style="${mobile ? 'padding-top:var(--s8)' : ''}"><div class="kt-in">${(mobile ? M : D)[q]()}</div></section>`;
+document.fonts.ready.then(placeEnd); placeEnd();
+</script>
+</body>
+</html>
