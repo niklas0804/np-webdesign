@@ -21,13 +21,16 @@ foreach ([dirname(__DIR__, 2), dirname(__DIR__, 4), dirname((string) ($_SERVER['
 }
 $configFiles = array_keys($configFiles);
 $configFiles[] = __DIR__ . '/config.php';
-foreach ($configFiles as $configFile) {
+// Alle vorhandenen Dateien gelten, die zuerst genannte hat bei gleichem Eintrag Vorrang (fehlt der Eintrag „smtp“ in einer Datei,
+// zählt er aus der anderen). Im Protokoll steht nur, welche Dateien gelesen wurden, nie ein Inhalt.
+$configUsed = [];
+foreach (array_reverse($configFiles) as $configFile) {
     if (@is_file($configFile)) {
         $extra = require $configFile;
         if (is_array($extra)) {
             $cfg = array_merge($cfg, $extra);
+            $configUsed[] = basename($configFile);
         }
-        break;
     }
 }
 
@@ -54,8 +57,9 @@ function finish(bool $ok, string $code, bool $json, int $status = 200): never
  * Versand über einen SMTP-Server mit Anmeldung (z. B. das Postfach beim E-Mail-Anbieter): STARTTLS (Port 587) oder SSL (465).
  * Zugangsdaten stehen nur in config.php auf dem Server. Gibt bei Fehlern false zurück, ohne Inhalte zu protokollieren.
  */
-function smtp_send(array $c, string $from, string $to, string $subject, array $headers, string $body): bool
+function smtp_send(array $c, string $from, string $to, string $subject, array $headers, string $body, ?string &$stage = null): bool
 {
+    $stage = 'verbindung';
     $secure = $c['secure'] ?? 'tls';
     $port = (int) ($c['port'] ?? ($secure === 'ssl' ? 465 : 587));
     $ssl = ['verify_peer' => true, 'verify_peer_name' => true];
@@ -77,36 +81,45 @@ function smtp_send(array $c, string $from, string $to, string $subject, array $h
         }
         return [(int) substr($text, 0, 3), $text];
     };
-    $cmd = static function (string $line, int $ok) use ($fp, $read): bool {
+    $last = 0;
+    $cmd = static function (string $line, int $ok) use ($fp, $read, &$last): bool {
         fwrite($fp, $line . "\r\n");
         [$code] = $read();
+        $last = $code;
         return $code === $ok;
     };
     $host = preg_replace('/[^a-z0-9.-]/i', '', substr(strrchr($from, '@') ?: '@localhost', 1)) ?: 'localhost';
     $done = false;
     do {
+        $stage = 'begrüßung';
         if ($read()[0] !== 220) {
             break;
         }
+        $stage = 'EHLO';
         if (!$cmd('EHLO ' . $host, 250)) {
             break;
         }
         if ($secure === 'tls') {
+            $stage = 'STARTTLS';
             if (!$cmd('STARTTLS', 220) || !stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
                 break;
             }
+            $stage = 'EHLO nach STARTTLS';
             if (!$cmd('EHLO ' . $host, 250)) {
                 break;
             }
         }
         if (!empty($c['user'])) {
+            $stage = 'Anmeldung';
             if (!$cmd('AUTH LOGIN', 334) || !$cmd(base64_encode((string) $c['user']), 334) || !$cmd(base64_encode((string) ($c['pass'] ?? '')), 235)) {
                 break;
             }
         }
+        $stage = 'Absender/Empfänger';
         if (!$cmd('MAIL FROM:<' . $from . '>', 250) || !$cmd('RCPT TO:<' . $to . '>', 250) || !$cmd('DATA', 354)) {
             break;
         }
+        $stage = 'Nachricht';
         $head = array_merge(['To: ' . $to, 'Subject: ' . $subject, 'Date: ' . date('r'), 'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . $host . '>'], $headers);
         $msg = implode("\r\n", $head) . "\r\n\r\n" . preg_replace('/\r\n|\r|\n/', "\r\n", $body);
         $msg = preg_replace('/^\./m', '..', $msg); // Punkt am Zeilenanfang verdoppeln
@@ -114,6 +127,7 @@ function smtp_send(array $c, string $from, string $to, string $subject, array $h
     } while (false);
     @fwrite($fp, "QUIT\r\n");
     fclose($fp);
+    $stage = $done ? null : $stage . ', Antwort ' . $last;
     return $done;
 }
 
@@ -217,14 +231,18 @@ $headers = [
 ];
 $subject = '=?UTF-8?B?' . base64_encode(($flags ? '[Spam-Verdacht] ' : '') . $cfg['subject'] . ' – ' . $name) . '?=';
 
-$sent = false;
-if (is_array($cfg['smtp'] ?? null)) {
-    $sent = smtp_send($cfg['smtp'], $cfg['from'], $cfg['to'], $subject, $headers, implode("\n", $lines));
+// Protokoll nur mit dem Weg, nie mit Name, Adresse oder Text
+$via = is_array($cfg['smtp'] ?? null) ? 'SMTP' : 'mail()';
+$log = 'kontakt: ' . $via . ', Konfiguration: ' . ($configUsed ? implode(' + ', array_reverse($configUsed)) : 'keine');
+$stage = null;
+if ($via === 'SMTP') {
+    $sent = smtp_send($cfg['smtp'], $cfg['from'], $cfg['to'], $subject, $headers, implode("\n", $lines), $stage);
 } else {
     $sent = mail($cfg['to'], $subject, implode("\n", $lines), implode("\r\n", $headers), '-f' . $cfg['from']);
 }
 if (!$sent) {
-    error_log('kontakt: Versand fehlgeschlagen'); // ohne Inhalt
+    error_log($log . ', Versand fehlgeschlagen' . ($stage !== null ? ' bei ' . $stage : ''));
     finish(false, 'mail', $json, 502);
 }
+error_log($log . ', angenommen' . ($flags ? ', Spam-Verdacht' : ''));
 finish(true, 'ok', $json);
