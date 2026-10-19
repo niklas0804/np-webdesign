@@ -156,7 +156,8 @@ html[data-mode='mobile'] .bsp-card { opacity: 0; }
 .zs-pic { position: absolute; left: calc((var(--s7) + var(--s3)) * -1); top: -4px; display: block; width: 56px; height: 56px; padding: 6px; background: var(--leinen); border-radius: 50%; }
 .zs-pic svg { width: 100%; height: 100%; overflow: visible; }
 .zs-p { fill: none; stroke: var(--tinte); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
-.zs-loop .zs-p { stroke: var(--np-orange); }
+.zs-pic.zs-logo { width: auto; height: 56px; padding: 0; background: none; border-radius: 0; display: flex; align-items: center; color: var(--tinte); }
+.zs-pic.zs-logo svg { height: 27px; width: auto; }
 .zs-nr { color: var(--orange-text); }
 .zs-h { font-size: var(--fs-h3); line-height: 1.1; }
 .zs-t { color: var(--stein); font-size: var(--fs-small); }
@@ -166,24 +167,25 @@ html[data-mode='mobile'] .bsp-card { opacity: 0; }
 @media (min-width: 1024px) {
   .zs-steps { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s5); padding-left: 0; }
   .zs-pic { position: static; width: 88px; height: 88px; padding: 11px; margin-bottom: var(--s5); }
+  .zs-pic.zs-logo { width: auto; height: 88px; padding: 0; } .zs-pic.zs-logo svg { height: 64px; }
   .zs-t { font-size: 1rem; }
   .zs-step { gap: var(--s2); }
   .zs-head { margin-bottom: var(--s9); }
 }
-@media (max-width: 1023px) { .zs-loop { transform: rotate(90deg); } html[data-mode='mobile'] .zs-stage { padding-bottom: max(var(--block), 42svh); } }
+@media (max-width: 1023px) { html[data-mode='mobile'] .zs-stage { padding-bottom: max(var(--block), 26svh); } }
 /* gepinnt (nur Desktop): Szene über die Pinlänge; mobil läuft der Faden senkrecht ohne Pin */
 html[data-mode='desktop'] .zs-track { min-height: calc(var(--len) * 1svh); }
 html[data-mode='desktop'] .zs-stage { position: sticky; top: 0; height: 100svh; padding-top: calc(var(--frame-top) + var(--s5)); padding-bottom: var(--s6); display: grid; align-content: center; }
 html[data-mode='desktop'] .zs-after { padding-top: var(--s7); }
-@media (min-width: 1024px) and (max-height: 820px) { .zs-head { margin-bottom: var(--s7); } .zs-title { font-size: clamp(2rem, 4vw, 3.2rem); } .zs-pic { width: 72px !important; height: 72px !important; padding: 9px !important; margin-bottom: var(--s4) !important; } .zs-after { padding-top: var(--s5); } }
+@media (min-width: 1024px) and (max-height: 820px) { .zs-head { margin-bottom: var(--s7); } .zs-title { font-size: clamp(2rem, 4vw, 3.2rem); } .zs-pic { width: 72px !important; height: 72px !important; padding: 9px !important; margin-bottom: var(--s4) !important; } .zs-pic.zs-logo { width: auto !important; padding: 0 !important; } .zs-pic.zs-logo svg { height: 52px; } .zs-after { padding-top: var(--s5); } }
 html[data-mode='desktop'] .zs-thread-path, html[data-mode='mobile'] .zs-thread-path { stroke-dashoffset: 1; }
 html[data-mode='desktop'] .zs-p, html[data-mode='mobile'] .zs-p { stroke-dashoffset: 1; }
-/* Abbilder im Übergang (P-Iris): Schlaufe fertig gezeichnet, ohne Positionierung der Bühne */
+/* Abbilder im Übergang (P-Iris): Logo voll sichtbar, ohne Positionierung der Bühne */
+.t-clone .zs-logo { opacity: 1 !important; }
 .t-clone .zs-p { stroke-dashoffset: 0 !important; }
 .t-clone .zs-pic { background: none !important; position: static !important; left: auto !important; top: auto !important; margin: 0 !important; }
 html[data-mode='desktop'] .zs-step :is(.zs-nr, .zs-h, .zs-t), html[data-mode='mobile'] .zs-step :is(.zs-nr, .zs-h, .zs-t) { opacity: 0; transform: translateY(8px); }
 
 /* ======================= Übergang S5 → S6: P-Iris ======================= */
+html[data-mode='desktop'] .t-pi-mark, html[data-mode='mobile'] .t-pi-mark { position: absolute; color: var(--tinte); pointer-events: none; }
 html[data-mode='desktop'] .t-pi-iris, html[data-mode='mobile'] .t-pi-iris { position: absolute; inset: 0; background: var(--to, var(--kalk)); --r: 0; --cx: 0; --cy: 0; clip-path: circle(calc(var(--r) * 1px) at calc(var(--cx) * 1px) calc(var(--cy) * 1px)); }
-.t-pi-ring { position: absolute; border: 8px solid var(--np-orange); border-radius: 50%; pointer-events: none; box-sizing: border-box; }
-.t-pi-stem { position: absolute; width: 8px; margin-left: -4px; background: var(--np-orange); transform-origin: top; pointer-events: none; }

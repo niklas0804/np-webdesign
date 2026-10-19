@@ -190,7 +190,7 @@ export const journey = (() => {
  */
 export const HOME_TRANSITIONS = {
   'warum>vergleich': { variant: 'nblende', d: 80, m: 60 }, // die Diagonale des N wischt von Nacht zu Leinen, das rechte Bein endet am rechten Rand der Demo (Kunden-Test)
-  'arbeitsweise>kontakt': { variant: 'piris', d: 100, m: 70 }, // die Schlaufe des Fadens wird der Bauch des P, die P-Iris öffnet den Kontakt
+  'arbeitsweise>kontakt': { variant: 'piris', d: 100, m: 50 }, // der Faden endet im NP-Logo, aus dem die Iris den Kontakt öffnet
 };
 export const homeJourney = (() => {
   const seq = [
