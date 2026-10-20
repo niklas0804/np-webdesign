@@ -23,7 +23,7 @@ function lazyKundentest() {
     if (!es.some((e) => e.isIntersecting)) return;
     io.disconnect();
     root.setAttribute('data-fonts', `${root.getAttribute('data-fonts') || ''} bodoni`.trim());
-    Promise.all([import('./kundentest.js'), document.fonts.load('500 20px "Bodoni Moda NP"').catch(() => {})]).then(([m]) => m.initKundentest(sec));
+    Promise.all([import('./kundentest.js'), document.fonts.load('500 20px "Bodoni Moda NP"').catch(() => {})]).then(([m]) => { m.initKundentest(sec); requestAnimationFrame(() => ScrollTrigger.refresh()); });
   }, { rootMargin: '900px 0px' });
   io.observe(sec);
 }

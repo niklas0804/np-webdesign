@@ -10,7 +10,7 @@ desktop Am Handy: phones · Taps 4 · Scrollen 3 × | Taps 1 · Scrollen 0 ×
 mobil 0.4 s: Taps 0 · Scrollen 0 ×
 mobil 2.4 s: Taps 0 · Scrollen 0 ×
 mobil 4.0 s: Taps 2 · Scrollen 1 ×
-mobil 6.3 s: Taps 3 · Scrollen 3 ×
+mobil 6.3 s: Taps 4 · Scrollen 3 ×
 mobil 7.6 s: Taps 4 · Scrollen 3 × | Taps 0 · Scrollen 0 ×
 mobil 9.6 s: Taps 4 · Scrollen 3 × | Taps 1 · Scrollen 0 ×
 mobil 11.8 s: Taps 4 · Scrollen 3 × | Taps 1 · Scrollen 0 ×

@@ -50,6 +50,13 @@
 .kt-scroll { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; will-change: transform; }
 @media (min-width: 1024px) { .kt[data-view='phones'] .kt-phone { width: 300px; } }
 @media (max-width: 1023.98px) { .kt-phones { gap: var(--s7); } }
+/* Mit Bewegung (Modus mobile) steht von Anfang an dieselbe Höhe wie nach dem Start des Ablaufs: eine Karte, die zweite darüber versteckt.
+   Sonst schrumpft die Sektion beim späten Laden von kundentest.js, und alles darunter (Zusammenarbeit, Kontakt) verschiebt sich gegen die gemessenen Auslöser. */
+@media (max-width: 1023.98px) {
+  html[data-mode='mobile'] .kt-phones { grid-template-areas: 'card'; }
+  html[data-mode='mobile'] .kt-phone { grid-area: card; }
+  html[data-mode='mobile'] .kt:not([data-view]) .kt-phone-m { visibility: hidden; }
+}
 .kt-zone { position: absolute; z-index: 7; left: 0; right: 0; bottom: 0; height: 38%; background: color-mix(in srgb, #2e9b5f 20%, transparent); border-top: 2px dashed #1f7a49; pointer-events: none; }
 .kt-zone span { position: absolute; right: 10px; bottom: 100%; margin-bottom: 6px; padding: 2px 8px; background: #1f7a49; color: #fff; font-family: var(--mono); font-size: .625rem; letter-spacing: .12em; text-transform: uppercase; }
 
@@ -196,9 +203,9 @@ html:not([data-js]) .kt-ctrl, html[data-mode='calm'] .kt-ctrl { display: none; }
 .kt-val-a { color: var(--stein); } .kt-val-b { color: var(--orange-text); }
 .kt-close { margin: var(--s6) 0 0; font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -.01em; font-weight: 650; max-width: 32ch; }
 .kt-res-ph { display: none; }
-@media (max-width: 1023.98px) { .kt-res-pc { display: none; } .kt-res-ph { display: block; } .kt-val { font-size: clamp(2.6rem, 14vw, 4.4rem); } .kt-close { font-size: 1.25rem; } .kt-res { margin-top: var(--s7); } .kt-res-vals { gap: var(--s4); } }
-.kt[data-view='race'] .kt-res-pc { display: block; } .kt[data-view='race'] .kt-res-ph { display: none; }
-.kt[data-view='phones'] .kt-res-pc, .kt[data-view='single'] .kt-res-pc { display: none; } .kt[data-view='phones'] .kt-res-ph, .kt[data-view='single'] .kt-res-ph { display: block; }
+@media (max-width: 1023.98px) { .kt-res-pc { display: none; } .kt-res-ph { display: grid; } .kt-val { font-size: clamp(2.6rem, 14vw, 4.4rem); } .kt-close { font-size: 1.25rem; } .kt-res { margin-top: var(--s7); } .kt-res-vals { gap: var(--s4); } }
+.kt[data-view='race'] .kt-res-pc { display: grid; } .kt[data-view='race'] .kt-res-ph { display: none; }
+.kt[data-view='phones'] .kt-res-pc, .kt[data-view='single'] .kt-res-pc { display: none; } .kt[data-view='phones'] .kt-res-ph, .kt[data-view='single'] .kt-res-ph { display: grid; }
 @media (min-width: 1024px) { .kt[data-view='phones'] .kt-val, .kt[data-view='race'] .kt-val { font-size: clamp(3rem, 8.4vw, 9rem); } }
 
 /* Warum sich das lohnt */

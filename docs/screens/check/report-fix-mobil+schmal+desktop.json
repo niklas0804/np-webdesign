@@ -1,0 +1,689 @@
+{
+ "label": "fix",
+ "blankStd": 6,
+ "step": 0.05,
+ "views": [
+  {
+   "view": "mobil",
+   "mode": "mobile",
+   "total": 13402,
+   "stepPx": 42,
+   "steps": 321,
+   "stdMin": 24.6,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     10,
+     0
+    ],
+    [
+     20,
+     0
+    ]
+   ],
+   "blankRuns": [],
+   "blankInTransition": [],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 3612,
+     "diff": 6.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 86
+    },
+    {
+     "y": 3654,
+     "diff": 13.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 87
+    },
+    {
+     "y": 3696,
+     "diff": 22.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 88
+    },
+    {
+     "y": 3738,
+     "diff": 31.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 89
+    },
+    {
+     "y": 3780,
+     "diff": 39.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 90
+    },
+    {
+     "y": 3822,
+     "diff": 48,
+     "section": "vergleich",
+     "transition": null,
+     "i": 91
+    },
+    {
+     "y": 3864,
+     "diff": 55.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 92
+    },
+    {
+     "y": 3906,
+     "diff": 63.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 93
+    },
+    {
+     "y": 3948,
+     "diff": 70.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 94
+    },
+    {
+     "y": 3990,
+     "diff": 80.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 95
+    },
+    {
+     "y": 4032,
+     "diff": 88.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 96
+    },
+    {
+     "y": 4074,
+     "diff": 95.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 97
+    },
+    {
+     "y": 4116,
+     "diff": 94.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 98
+    },
+    {
+     "y": 4158,
+     "diff": 96.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 99
+    },
+    {
+     "y": 4200,
+     "diff": 96.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 100
+    },
+    {
+     "y": 4242,
+     "diff": 96.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 101
+    },
+    {
+     "y": 4284,
+     "diff": 96.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 102
+    },
+    {
+     "y": 4326,
+     "diff": 96.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 103
+    },
+    {
+     "y": 4368,
+     "diff": 96.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 104
+    },
+    {
+     "y": 4410,
+     "diff": 91.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 105
+    },
+    {
+     "y": 4452,
+     "diff": 84.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 106
+    },
+    {
+     "y": 4494,
+     "diff": 60.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 107
+    },
+    {
+     "y": 4536,
+     "diff": 46.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 108
+    },
+    {
+     "y": 4578,
+     "diff": 15.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 109
+    },
+    {
+     "y": 4620,
+     "diff": 13.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 110
+    },
+    {
+     "y": 4662,
+     "diff": 12.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 111
+    },
+    {
+     "y": 4704,
+     "diff": 10.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 112
+    },
+    {
+     "y": 4746,
+     "diff": 9.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 113
+    },
+    {
+     "y": 4788,
+     "diff": 9.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 114
+    },
+    {
+     "y": 4830,
+     "diff": 8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 115
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 0
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-fix-mobil.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-fix-mobil.jpg"
+   }
+  },
+  {
+   "view": "schmal",
+   "mode": "mobile",
+   "total": 12357,
+   "stepPx": 33,
+   "steps": 376,
+   "stdMin": 27.1,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     10,
+     0
+    ],
+    [
+     20,
+     0
+    ]
+   ],
+   "blankRuns": [],
+   "blankInTransition": [],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 3168,
+     "diff": 10.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 96
+    },
+    {
+     "y": 3201,
+     "diff": 18.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 97
+    },
+    {
+     "y": 3234,
+     "diff": 24.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 98
+    },
+    {
+     "y": 3267,
+     "diff": 31.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 99
+    },
+    {
+     "y": 3300,
+     "diff": 38.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 100
+    },
+    {
+     "y": 3333,
+     "diff": 43.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 101
+    },
+    {
+     "y": 3366,
+     "diff": 49.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 102
+    },
+    {
+     "y": 3399,
+     "diff": 56.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 103
+    },
+    {
+     "y": 3432,
+     "diff": 63.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 104
+    },
+    {
+     "y": 3465,
+     "diff": 70.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 105
+    },
+    {
+     "y": 3498,
+     "diff": 69.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 106
+    },
+    {
+     "y": 3531,
+     "diff": 73.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 107
+    },
+    {
+     "y": 3564,
+     "diff": 75.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 108
+    },
+    {
+     "y": 3597,
+     "diff": 75.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 109
+    },
+    {
+     "y": 3630,
+     "diff": 75,
+     "section": "vergleich",
+     "transition": null,
+     "i": 110
+    },
+    {
+     "y": 3663,
+     "diff": 75.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 111
+    },
+    {
+     "y": 3696,
+     "diff": 75.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 112
+    },
+    {
+     "y": 3729,
+     "diff": 72.6,
+     "section": "vergleich",
+     "transition": null,
+     "i": 113
+    },
+    {
+     "y": 3762,
+     "diff": 67.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 114
+    },
+    {
+     "y": 3795,
+     "diff": 62.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 115
+    },
+    {
+     "y": 3828,
+     "diff": 55.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 116
+    },
+    {
+     "y": 3861,
+     "diff": 45.7,
+     "section": "vergleich",
+     "transition": null,
+     "i": 117
+    },
+    {
+     "y": 3894,
+     "diff": 26.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 118
+    },
+    {
+     "y": 3927,
+     "diff": 19,
+     "section": "vergleich",
+     "transition": null,
+     "i": 119
+    },
+    {
+     "y": 3960,
+     "diff": 10.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 120
+    },
+    {
+     "y": 3993,
+     "diff": 10.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 121
+    },
+    {
+     "y": 4026,
+     "diff": 9.9,
+     "section": "vergleich",
+     "transition": null,
+     "i": 122
+    },
+    {
+     "y": 4059,
+     "diff": 9.5,
+     "section": "vergleich",
+     "transition": null,
+     "i": 123
+    },
+    {
+     "y": 4092,
+     "diff": 6.3,
+     "section": "vergleich",
+     "transition": null,
+     "i": 124
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 0
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-fix-schmal.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-fix-schmal.jpg"
+   }
+  },
+  {
+   "view": "desktop",
+   "mode": "desktop",
+   "total": 14625,
+   "stepPx": 45,
+   "steps": 326,
+   "stdMin": 7.6,
+   "stdHistogram": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     20,
+     20
+    ]
+   ],
+   "blankRuns": [],
+   "blankInTransition": [],
+   "blankElsewhere": [],
+   "overlaps": {
+    "steps": 0,
+    "first": []
+   },
+   "counterBad": [],
+   "backDiffs": [
+    {
+     "y": 4680,
+     "diff": 6.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 104
+    },
+    {
+     "y": 4725,
+     "diff": 7.8,
+     "section": "vergleich",
+     "transition": null,
+     "i": 105
+    },
+    {
+     "y": 4770,
+     "diff": 9.1,
+     "section": "vergleich",
+     "transition": null,
+     "i": 106
+    },
+    {
+     "y": 5175,
+     "diff": 6.4,
+     "section": "vergleich",
+     "transition": null,
+     "i": 115
+    },
+    {
+     "y": 5310,
+     "diff": 6.2,
+     "section": "vergleich",
+     "transition": null,
+     "i": 118
+    },
+    {
+     "y": 6075,
+     "diff": 7,
+     "section": "beispiele",
+     "transition": null,
+     "i": 135
+    },
+    {
+     "y": 6120,
+     "diff": 15.3,
+     "section": "beispiele",
+     "transition": null,
+     "i": 136
+    },
+    {
+     "y": 6165,
+     "diff": 18.1,
+     "section": "beispiele",
+     "transition": null,
+     "i": 137
+    },
+    {
+     "y": 6210,
+     "diff": 19.2,
+     "section": "beispiele",
+     "transition": null,
+     "i": 138
+    },
+    {
+     "y": 6255,
+     "diff": 19.9,
+     "section": "beispiele",
+     "transition": null,
+     "i": 139
+    },
+    {
+     "y": 6300,
+     "diff": 13.1,
+     "section": "beispiele",
+     "transition": null,
+     "i": 140
+    }
+   ],
+   "fast": {
+    "blank": [],
+    "overlap": [],
+    "diff": [],
+    "samples": 0
+   },
+   "perf": null,
+   "errors": [],
+   "sheets": {
+    "befunde": "docs/screens/check/befunde-fix-desktop.jpg",
+    "uebersicht": "docs/screens/check/uebergaenge-fix-desktop.jpg"
+   }
+  }
+ ]
+}
