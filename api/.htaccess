@@ -1,0 +1,4 @@
+# Konfiguration, Beispiel und Fehlerprotokoll nie ausliefern
+<FilesMatch "^(config(\.sample)?\.php|np-config\.php|error_log)$">
+  Require all denied
+</FilesMatch>
