@@ -1,12 +1,12 @@
-# Vorschau-Build für Arbeitsbranches (claude/**): baut die Seite, misst Lighthouse (mobil) und legt alles als Artefakt ab.
-# Veröffentlicht nichts: kein Push auf deploy, kein Hostinger. Läuft nie auf main.
+# Vorschau-Build für Arbeitsbranches (claude/**): baut die Seite, misst Lighthouse (mobil) und legt das Ergebnis
+# im Branch "vorschau-build" ab (gebaute Seite, Prüfwerkzeuge, Berichte). Veröffentlicht nichts: kein deploy, kein Hostinger.
 name: Vorschau bauen und messen
 on:
   push:
     branches: ['claude/**']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   vorschau:
     runs-on: ubuntu-latest
@@ -32,22 +32,33 @@ jobs:
             n=$(echo "$p" | tr '/' '-')
             npx lighthouse "http://127.0.0.1:8080/$p.html" --quiet --chrome-flags="--headless=new --no-sandbox" \
               --only-categories=performance,accessibility,best-practices,seo \
-              --output=json --output=html --output-path="lighthouse/$n" || true
+              --output=json --output-path="lighthouse/$n.json" || true
           done
           node -e '
             const fs=require("fs");
-            for (const f of fs.readdirSync("lighthouse").filter(f=>f.endsWith(".report.json"))) {
+            for (const f of fs.readdirSync("lighthouse").filter(f=>f.endsWith(".json"))) {
               const r=JSON.parse(fs.readFileSync("lighthouse/"+f));
               const c=r.categories, a=r.audits;
-              console.log(f.padEnd(34), Object.values(c).map(x=>x.id.slice(0,4)+" "+Math.round(x.score*100)).join("  "),
-                "| LCP", a["largest-contentful-paint"].displayValue, "| TBT", a["total-blocking-time"].displayValue,
+              console.log(f.padEnd(30), Object.values(c).map(x=>x.id.slice(0,4)+" "+Math.round(x.score*100)).join("  "),
+                "| FCP", a["first-contentful-paint"].displayValue, "| LCP", a["largest-contentful-paint"].displayValue, "| TBT", a["total-blocking-time"].displayValue,
                 "| CLS", a["cumulative-layout-shift"].displayValue, "| Gewicht", a["total-byte-weight"].displayValue);
+              // schlanke Fassung für das Repo: nur Kennzahlen und Diagnosen, ohne Bildschirmbilder
+              const keep = ["first-contentful-paint","largest-contentful-paint","total-blocking-time","cumulative-layout-shift","speed-index","interactive",
+                "largest-contentful-paint-element","lcp-lazy-loaded","render-blocking-resources","render-blocking-insight","lcp-discovery-insight","lcp-phases-insight","document-latency-insight",
+                "bootup-time","mainthread-work-breakdown","long-tasks","total-byte-weight","network-requests","font-display","font-display-insight","unused-javascript","unused-css-rules",
+                "critical-request-chains","network-dependency-tree-insight","dom-size","dom-size-insight","forced-reflow-insight","third-parties-insight","legacy-javascript","duplicated-javascript",
+                "uses-text-compression","modern-image-formats","uses-responsive-images","offscreen-images","efficient-animated-content","non-composited-animations","layout-shifts","cls-culprits-insight"];
+              const slim = { categories: Object.fromEntries(Object.entries(c).map(([k,v])=>[k,v.score])), audits: Object.fromEntries(keep.filter(k=>a[k]).map(k=>[k,{score:a[k].score,displayValue:a[k].displayValue,numericValue:a[k].numericValue,details:a[k].details}])) };
+              fs.writeFileSync("lighthouse/"+f.replace(".json",".slim.json"), JSON.stringify(slim));
+              fs.unlinkSync("lighthouse/"+f);
             }'
-      - uses: actions/upload-artifact@v4
-        with:
-          name: vorschau
-          path: |
-            dist
-            werkzeuge
-            lighthouse
-          retention-days: 7
+      - name: Ergebnis in den Branch vorschau-build schreiben
+        run: |
+          mkdir -p out && cp -r dist werkzeuge lighthouse out/
+          cd out
+          git init -q -b vorschau-build
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Vorschau von ${GITHUB_REF_NAME} @ ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" vorschau-build
