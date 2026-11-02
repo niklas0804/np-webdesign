@@ -17,6 +17,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Abhängigkeiten als Archiv (nur auf Anforderung mit [module] in der Commit-Nachricht)
+        if: contains(github.event.head_commit.message, '[module]')
+        run: |
+          mkdir -p werkzeuge
+          tar czf - node_modules | split -b 90m - werkzeuge/node_modules.tgz.part-
+          ls -la werkzeuge
       - run: npm run build
       - name: Prüfwerkzeuge holen (nicht Teil der Website)
         run: |
@@ -25,7 +31,17 @@ jobs:
           cp node_modules/axe-core/axe.min.js werkzeuge/
       - name: Lighthouse mobil
         run: |
-          python3 -m http.server 8080 -d dist >/dev/null 2>&1 &
+          # Wie auf dem Webspace: gzip-Kompression und saubere Adressen (Hostinger komprimiert laut .htaccess)
+          node -e '
+            const http=require("http"),fs=require("fs"),path=require("path"),zlib=require("zlib");
+            const T={".html":"text/html; charset=utf-8",".css":"text/css",".js":"text/javascript",".svg":"image/svg+xml",".woff2":"font/woff2",".webp":"image/webp",".jpg":"image/jpeg",".png":"image/png",".avif":"image/avif",".json":"application/json"};
+            http.createServer((q,r)=>{let u=decodeURIComponent(q.url.split("?")[0]);if(u.endsWith("/"))u+="index.html";let f=path.join("dist",u);
+              if(!path.extname(f)&&fs.existsSync(f+".html"))f+=".html";
+              if(!fs.existsSync(f)||!fs.statSync(f).isFile()){r.writeHead(404);return r.end();}
+              const ext=path.extname(f),type=T[ext]||"application/octet-stream",body=fs.readFileSync(f);
+              const gz=/text|javascript|svg|json/.test(type)&&/gzip/.test(q.headers["accept-encoding"]||"");
+              r.writeHead(200,{"content-type":type,...(gz?{"content-encoding":"gzip"}:{})});r.end(gz?zlib.gzipSync(body):body);
+            }).listen(8080);' &
           sleep 2
           mkdir -p lighthouse
           for p in index welten leistungen branchenloesungen/baeckerei; do
