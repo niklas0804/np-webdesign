@@ -59,7 +59,7 @@ jobs:
                 "| FCP", a["first-contentful-paint"].displayValue, "| LCP", a["largest-contentful-paint"].displayValue, "| TBT", a["total-blocking-time"].displayValue,
                 "| CLS", a["cumulative-layout-shift"].displayValue, "| Gewicht", a["total-byte-weight"].displayValue);
               // schlanke Fassung für das Repo: nur Kennzahlen und Diagnosen, ohne Bildschirmbilder
-              const keep = ["first-contentful-paint","largest-contentful-paint","total-blocking-time","cumulative-layout-shift","speed-index","interactive",
+              const keep = ["metrics","first-contentful-paint","largest-contentful-paint","total-blocking-time","cumulative-layout-shift","speed-index","interactive",
                 "largest-contentful-paint-element","lcp-lazy-loaded","render-blocking-resources","render-blocking-insight","lcp-discovery-insight","lcp-phases-insight","document-latency-insight",
                 "bootup-time","mainthread-work-breakdown","long-tasks","total-byte-weight","network-requests","font-display","font-display-insight","unused-javascript","unused-css-rules",
                 "critical-request-chains","network-dependency-tree-insight","dom-size","dom-size-insight","forced-reflow-insight","third-parties-insight","legacy-javascript","duplicated-javascript",
