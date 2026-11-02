@@ -1,0 +1,248 @@
+<?php
+declare(strict_types=1);
+/*
+ * Formular-Endpunkt (Blueprint N, Q2): nimmt die Anfrage entgegen und stellt sie als E-Mail zu.
+ * Keine Datenbank, kein Drittdienst, kein Formularinhalt in Logs, keine Speicherung von IP-Adressen.
+ * Schutz: Honeypot, Zeitprüfung, Linkfilter, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
+ * Verdachtsfälle werden trotzdem zugestellt (Betreff „[Spam-Verdacht]“); verworfen wird nur, wenn alle drei Prüfungen anschlagen.
+ * Versand: standardmäßig über mail() des Hosters, optional über ein SMTP-Postfach (config.php, Eintrag „smtp“).
+ * Zugangsdaten und Adressen: nie im Repository. Gesucht wird zuerst np-config.php außerhalb des Web-Ordners (ein Ordner bzw. der Home-Ordner
+ * über public_html, übersteht jedes Neuladen der Website), sonst config.php neben dieser Datei (siehe config.sample.php).
+ */
+
+const MAX_PER_HOUR = 40;
+
+$cfg = ['to' => 'kontakt@np-webdesign.de', 'from' => 'kontakt@np-webdesign.de', 'subject' => 'Anfrage über np-webdesign.de'];
+// Orte für np-config.php: ein Ordner über dem Web-Ordner und der Home-Ordner (bei Hostinger liegt public_html unter domains/<Domain>/,
+// im Dateimanager erscheint es direkt unter dem Home-Ordner) sowie über dem Document-Root; zuletzt config.php neben dieser Datei.
+$configFiles = [];
+foreach ([dirname(__DIR__, 2), dirname(__DIR__, 4), dirname((string) ($_SERVER['DOCUMENT_ROOT'] ?? __DIR__))] as $configDir) {
+    $configFiles[$configDir . '/np-config.php'] = true;
+}
+$configFiles = array_keys($configFiles);
+$configFiles[] = __DIR__ . '/config.php';
+// Alle vorhandenen Dateien gelten, die zuerst genannte hat bei gleichem Eintrag Vorrang (fehlt der Eintrag „smtp“ in einer Datei,
+// zählt er aus der anderen). Im Protokoll steht nur, welche Dateien gelesen wurden, nie ein Inhalt.
+$configUsed = [];
+foreach (array_reverse($configFiles) as $configFile) {
+    if (@is_file($configFile)) {
+        $extra = require $configFile;
+        if (is_array($extra)) {
+            $cfg = array_merge($cfg, $extra);
+            $configUsed[] = basename($configFile);
+        }
+    }
+}
+
+header('Cache-Control: no-store');
+header('X-Robots-Tag: noindex');
+header('X-Content-Type-Options: nosniff');
+
+$json = str_contains($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json');
+
+/** Antwort: JSON für das Skript, sonst Rücksprung auf die Seite (ohne JavaScript zeigt :target die Meldung) */
+function finish(bool $ok, string $code, bool $json, int $status = 200): never
+{
+    if ($json) {
+        http_response_code($status);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => $ok, 'code' => $code]);
+        exit;
+    }
+    header('Location: /#' . ($ok ? 'anfrage-erhalten' : 'anfrage-fehler'), true, 303);
+    exit;
+}
+
+/**
+ * Versand über einen SMTP-Server mit Anmeldung (z. B. das Postfach beim E-Mail-Anbieter): STARTTLS (Port 587) oder SSL (465).
+ * Zugangsdaten stehen nur in config.php auf dem Server. Gibt bei Fehlern false zurück, ohne Inhalte zu protokollieren.
+ */
+function smtp_send(array $c, string $from, string $to, string $subject, array $headers, string $body, ?string &$stage = null): bool
+{
+    $stage = 'verbindung';
+    $secure = $c['secure'] ?? 'tls';
+    $port = (int) ($c['port'] ?? ($secure === 'ssl' ? 465 : 587));
+    $ssl = ['verify_peer' => true, 'verify_peer_name' => true];
+    if (!empty($c['cafile'])) {
+        $ssl['cafile'] = $c['cafile']; // nur für Tests mit eigenem Zertifikat
+    }
+    $fp = @stream_socket_client(($secure === 'ssl' ? 'ssl://' : 'tcp://') . ($c['host'] ?? '') . ':' . $port, $errno, $errstr, 10, STREAM_CLIENT_CONNECT, stream_context_create(['ssl' => $ssl]));
+    if ($fp === false) {
+        return false;
+    }
+    stream_set_timeout($fp, 15);
+    $read = static function () use ($fp): array {
+        $text = '';
+        while (($line = fgets($fp, 1024)) !== false) {
+            $text .= $line;
+            if (strlen($line) < 4 || $line[3] === ' ') {
+                break;
+            }
+        }
+        return [(int) substr($text, 0, 3), $text];
+    };
+    $last = 0;
+    $cmd = static function (string $line, int $ok) use ($fp, $read, &$last): bool {
+        fwrite($fp, $line . "\r\n");
+        [$code] = $read();
+        $last = $code;
+        return $code === $ok;
+    };
+    $host = preg_replace('/[^a-z0-9.-]/i', '', substr(strrchr($from, '@') ?: '@localhost', 1)) ?: 'localhost';
+    $done = false;
+    do {
+        $stage = 'begrüßung';
+        if ($read()[0] !== 220) {
+            break;
+        }
+        $stage = 'EHLO';
+        if (!$cmd('EHLO ' . $host, 250)) {
+            break;
+        }
+        if ($secure === 'tls') {
+            $stage = 'STARTTLS';
+            if (!$cmd('STARTTLS', 220) || !stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+                break;
+            }
+            $stage = 'EHLO nach STARTTLS';
+            if (!$cmd('EHLO ' . $host, 250)) {
+                break;
+            }
+        }
+        if (!empty($c['user'])) {
+            $stage = 'Anmeldung';
+            if (!$cmd('AUTH LOGIN', 334) || !$cmd(base64_encode((string) $c['user']), 334) || !$cmd(base64_encode((string) ($c['pass'] ?? '')), 235)) {
+                break;
+            }
+        }
+        $stage = 'Absender/Empfänger';
+        if (!$cmd('MAIL FROM:<' . $from . '>', 250) || !$cmd('RCPT TO:<' . $to . '>', 250) || !$cmd('DATA', 354)) {
+            break;
+        }
+        $stage = 'Nachricht';
+        $head = array_merge(['To: ' . $to, 'Subject: ' . $subject, 'Date: ' . date('r'), 'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . $host . '>'], $headers);
+        $msg = implode("\r\n", $head) . "\r\n\r\n" . preg_replace('/\r\n|\r|\n/', "\r\n", $body);
+        $msg = preg_replace('/^\./m', '..', $msg); // Punkt am Zeilenanfang verdoppeln
+        $done = $cmd($msg . "\r\n.", 250);
+    } while (false);
+    @fwrite($fp, "QUIT\r\n");
+    fclose($fp);
+    $stage = $done ? null : $stage . ', Antwort ' . $last;
+    return $done;
+}
+
+/** Eingabe säubern: Steuerzeichen raus, Zeilenumbrüche nur im Nachrichtentext erlaubt */
+function clean(mixed $v, int $max, bool $multiline = false): string
+{
+    $s = is_string($v) ? trim($v) : '';
+    $s = preg_replace($multiline ? '/[^\P{C}\n]/u' : '/\p{C}/u', '', str_replace("\r\n", "\n", $s)) ?? '';
+    return mb_substr($s, 0, $max);
+}
+
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    header('Allow: POST');
+    exit;
+}
+
+// Anfragen nur von der eigenen Seite
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$ownHost = strtolower(explode(':', $_SERVER['HTTP_HOST'] ?? '')[0]);
+if ($origin !== '' && strtolower((string) parse_url($origin, PHP_URL_HOST)) !== $ownHost) {
+    finish(false, 'origin', $json, 403);
+}
+
+// Spamverdacht: Honeypot-Feld (für Menschen unsichtbar, Name ohne Bezug zu Autofill-Feldern), Absenden unter 3 s nach dem
+// Seitenaufruf (fehlt oder unplausibel: nicht bewertet, z. B. ohne JavaScript) und Linkflut. Nichts davon wird gespeichert.
+$flags = [];
+if (clean($_POST['np_hp_field'] ?? '', 200) !== '') {
+    $flags[] = 'verstecktes Feld ausgefüllt';
+}
+$loaded = is_string($_POST['np_ts'] ?? null) && ctype_digit($_POST['np_ts']) && strlen($_POST['np_ts']) <= 15 ? (int) $_POST['np_ts'] : 0;
+$age = $loaded > 0 ? (int) (microtime(true) * 1000) - $loaded : -1;
+if ($age >= 0 && $age < 3000) {
+    $flags[] = 'unter 3 Sekunden nach dem Seitenaufruf gesendet';
+}
+
+$name = clean($_POST['name'] ?? '', 100);
+$company = clean($_POST['unternehmen'] ?? '', 120);
+$email = clean($_POST['email'] ?? '', 200);
+$phone = clean($_POST['telefon'] ?? '', 40);
+$topic = clean($_POST['anliegen'] ?? '', 40);
+$message = clean($_POST['nachricht'] ?? '', 4000, true);
+
+if (!in_array($topic, ['', 'Neue Website', 'Relaunch', 'Noch unsicher'], true)) {
+    $topic = '';
+}
+if ($name === '' || mb_strlen($message) < 10 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    finish(false, 'invalid', $json, 422);
+}
+
+if (preg_match_all('~https?://|www\.~i', $message . ' ' . $company) > 2) {
+    $flags[] = 'mehr als 2 Links';
+}
+// Nur wenn alle drei Prüfungen anschlagen, wird verworfen (scheinbarer Erfolg); sonst wird zugestellt und im Betreff markiert
+if (count($flags) === 3) {
+    finish(true, 'ok', $json);
+}
+
+// Mengenbegrenzung: nur Zeitstempel, keine IP-Adressen, keine Inhalte
+$rateFile = sys_get_temp_dir() . '/np-kontakt-rate.json';
+$fh = @fopen($rateFile, 'c+');
+if ($fh !== false && flock($fh, LOCK_EX)) {
+    $now = time();
+    $stamps = json_decode((string) stream_get_contents($fh), true);
+    $stamps = array_values(array_filter(is_array($stamps) ? $stamps : [], static fn ($t) => is_int($t) && $t > $now - 3600));
+    if (count($stamps) >= MAX_PER_HOUR) {
+        flock($fh, LOCK_UN);
+        fclose($fh);
+        finish(false, 'rate', $json, 429);
+    }
+    $stamps[] = $now;
+    ftruncate($fh, 0);
+    rewind($fh);
+    fwrite($fh, json_encode($stamps));
+    flock($fh, LOCK_UN);
+    fclose($fh);
+}
+
+$lines = [
+    'Neue Anfrage über np-webdesign.de',
+    '',
+    'Name:        ' . $name,
+    'Unternehmen: ' . ($company !== '' ? $company : '–'),
+    'E-Mail:      ' . $email,
+    'Telefon:     ' . ($phone !== '' ? $phone : '–'),
+    'Anliegen:    ' . ($topic !== '' ? $topic : '–'),
+    '',
+    $message,
+    '',
+    '— Gesendet über das Kontaktformular. Antworten geht direkt an die E-Mail-Adresse des Absenders.',
+];
+if ($flags) {
+    $lines[] = 'Spam-Verdacht: ' . implode('; ', $flags) . '.';
+}
+$headers = [
+    'From: NP Webdesign <' . $cfg['from'] . '>',
+    'Reply-To: ' . $email,
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: 8bit',
+];
+$subject = '=?UTF-8?B?' . base64_encode(($flags ? '[Spam-Verdacht] ' : '') . $cfg['subject'] . ' – ' . $name) . '?=';
+
+// Protokoll nur mit dem Weg, nie mit Name, Adresse oder Text
+$via = is_array($cfg['smtp'] ?? null) ? 'SMTP' : 'mail()';
+$log = 'kontakt: ' . $via . ', Konfiguration: ' . ($configUsed ? implode(' + ', array_reverse($configUsed)) : 'keine');
+$stage = null;
+if ($via === 'SMTP') {
+    $sent = smtp_send($cfg['smtp'], $cfg['from'], $cfg['to'], $subject, $headers, implode("\n", $lines), $stage);
+} else {
+    $sent = mail($cfg['to'], $subject, implode("\n", $lines), implode("\r\n", $headers), '-f' . $cfg['from']);
+}
+if (!$sent) {
+    error_log($log . ', Versand fehlgeschlagen' . ($stage !== null ? ' bei ' . $stage : ''));
+    finish(false, 'mail', $json, 502);
+}
+error_log($log . ', angenommen' . ($flags ? ', Spam-Verdacht' : ''));
+finish(true, 'ok', $json);
