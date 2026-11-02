@@ -89,7 +89,8 @@ html:not([data-js]) .w09-karte-panel { margin-bottom: var(--s6); }
 .w09-bar-f input, .w09-bar-f select { min-height: 48px; width: 100%; box-sizing: border-box; padding: 0 var(--s3); background: var(--ground); color: var(--text); border: 1px solid var(--w09-line); font: inherit; font-size: 1.125rem; border-radius: 0; color-scheme: dark; }
 .w09-bar-f input:focus-visible, .w09-bar-f select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
 .w09-bar-b { min-height: 48px; padding: 0 var(--s6); background: var(--accent); color: var(--ground); border: 0; font: inherit; font-size: 1.125rem; font-weight: 500; letter-spacing: .04em; cursor: pointer; box-shadow: inset 0 0 0 2px var(--accent); transition: background var(--dur-s), color var(--dur-s); }
-.w09-bar-b:hover, .w09-bar-b:focus-visible { background: transparent; color: var(--accent); }
+.w09-bar-b:focus-visible { background: transparent; color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .w09-bar-b:hover { background: transparent; color: var(--accent); } }
 .w09-bar-c { flex: 1 1 100%; margin: 0; font-size: 1rem; color: var(--text); } .w09-bar-c:empty { display: none; }
 @media (max-width: 1023px) { .w09-bar { bottom: 76px; } .w09-bar-t { display: none; } }
 

@@ -145,10 +145,14 @@
 .wp-caption { display: block; margin-top: var(--s2); color: var(--stein); overflow-wrap: anywhere; font-size: var(--fs-mono-xs); }
 .wp-bar-label { display: none; }
 @media (min-width: 600px) { .wp-bar-label { display: block; } .wp-caption { font-size: var(--fs-mono); margin-top: var(--s3); } }
-.wp-link:hover .wp-bar, .wp-link:focus-visible .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); }
+.wp-link:focus-visible .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); }
+@media (hover: hover) and (pointer: fine) { .wp-link:hover .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); } }
 .wp-still img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; }
-.wp-link:hover .wp-still, .wp-link:focus-visible .wp-still { transform: scale(1.03); }
+.wp-link:focus-visible .wp-still { transform: scale(1.03); }
+@media (hover: hover) and (pointer: fine) { .wp-link:hover .wp-still { transform: scale(1.03); } }
 .wp-link:focus-visible { outline-offset: 6px; }
+.wp-frame { transition: transform 160ms var(--ease-out); }
+.wp-link:active .wp-frame { transform: scale(.98); transition-duration: 100ms; }
 
 .wp-center { display: grid; place-items: center; aspect-ratio: 16 / 10; background: var(--sand); border: 1px solid var(--haarlinie); position: relative; }
 .wp-center-logo { height: var(--wp-logo, 64px); width: auto; color: var(--tinte); }
@@ -199,7 +203,8 @@
 /* Blinkt sechsmal, sobald die Szene im Bild ist (kein Endlos-Blinken, WCAG 2.2.2) */
 .wp-cursor.is-blink { animation: wp-blink 1s steps(1) 6; }
 @keyframes wp-blink { 50% { opacity: 0; } }
-.wp-link:hover .wp-frame-open, .wp-link:focus-visible .wp-frame-open { background: var(--hover-toenung); }
+.wp-link:focus-visible .wp-frame-open { background: var(--hover-toenung); }
+@media (hover: hover) and (pointer: fine) { .wp-link:hover .wp-frame-open { background: var(--hover-toenung); } }
 
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {

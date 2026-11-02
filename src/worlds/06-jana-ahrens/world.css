@@ -44,9 +44,10 @@
   background: var(--text); color: var(--ground); font: inherit; font-weight: 600; font-size: 1.0625rem; text-decoration: none;
   box-shadow: inset 0 0 0 2px var(--text); transition: background var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out);
 }
-.w06-pill:hover, .w06-pill:focus-visible { background: transparent; color: var(--text); }
+.w06-pill:focus-visible { background: transparent; color: var(--text); }
+@media (hover: hover) and (pointer: fine) { .w06-pill:hover { background: transparent; color: var(--text); } }
 .w06-pill:disabled { opacity: .45; cursor: not-allowed; }
-.w06-pill:disabled:hover { background: var(--text); color: var(--ground); }
+@media (hover: hover) and (pointer: fine) { .w06-pill:disabled:hover { background: var(--text); color: var(--ground); } }
 
 /* ---------- Haltung ---------- */
 .w06-haltung, .w06-prozess, .w06-fragen, .w06-termin { padding-top: var(--s10); }
@@ -76,7 +77,7 @@
 .w06-antwort { position: relative; }
 .w06-antwort input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
 .w06-antwort span { display: inline-flex; align-items: center; min-height: 52px; padding: 0 var(--s6); border-radius: 999px; box-shadow: inset 0 0 0 2px var(--text); font-weight: 600; transition: background var(--dur-s), color var(--dur-s); }
-.w06-antwort:hover span { background: color-mix(in srgb, var(--ground) 55%, #fff); }
+@media (hover: hover) and (pointer: fine) { .w06-antwort:hover span { background: color-mix(in srgb, var(--ground) 55%, #fff); } }
 .w06-antwort input:checked + span { background: var(--text); color: var(--ground); }
 .w06-antwort input:focus-visible + span { outline: 3px solid var(--text); outline-offset: 3px; }
 html:not([data-js]) .w06-antwort input { position: static; opacity: 1; width: auto; height: auto; margin-right: .5em; }
@@ -91,7 +92,7 @@ html:not([data-js]) .w06-orb-mini { display: none; }
 .w06-slots { display: flex; flex-wrap: wrap; gap: var(--s3); justify-content: center; margin-bottom: var(--s5); }
 html:not([data-js]) .w06-slots, html:not([data-js]) .w06-pill-fest { display: none; }
 .w06-slot { min-height: 52px; padding: 0 var(--s6); border: 0; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--text); background: transparent; color: var(--text); font: inherit; font-weight: 600; cursor: pointer; transition: background var(--dur-s), color var(--dur-s); }
-.w06-slot:hover { background: color-mix(in srgb, var(--ground) 55%, #fff); }
+@media (hover: hover) and (pointer: fine) { .w06-slot:hover { background: color-mix(in srgb, var(--ground) 55%, #fff); } }
 .w06-slot[aria-pressed='true'] { background: var(--text); color: var(--ground); }
 .w06-confirm { margin: var(--s5) auto 0; max-width: 46ch; padding: var(--s4) var(--s5); border-radius: 28px; background: color-mix(in srgb, var(--ground) 55%, #fff); }
 

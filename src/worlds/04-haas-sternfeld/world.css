@@ -84,8 +84,10 @@ html[data-js] .w04-margins:not([data-open]) .w04-hint { display: block; }
 .w04-reg-name { font-family: var(--np-disp); font-weight: 500; font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.1; transition: color var(--dur-s) var(--ease-out); }
 .w04-reg-dots { flex: 1; min-width: 24px; border-bottom: 2px dotted var(--accent2); transform: translateY(-.35em); transition: border-color var(--dur-s) var(--ease-out); }
 .w04-reg-seite { font-variant-numeric: lining-nums tabular-nums; font-weight: 600; font-size: 1.25rem; }
-.w04-register a:hover .w04-reg-name, .w04-register a:focus-visible .w04-reg-name { color: var(--accent); }
-.w04-register a:hover .w04-reg-dots, .w04-register a:focus-visible .w04-reg-dots { border-color: var(--accent); }
+.w04-register a:focus-visible .w04-reg-name { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .w04-register a:hover .w04-reg-name { color: var(--accent); } }
+.w04-register a:focus-visible .w04-reg-dots { border-color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .w04-register a:hover .w04-reg-dots { border-color: var(--accent); } }
 
 .w04-themenliste { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s7) var(--s6); padding-top: var(--s9); }
 .w04-thema { border-top: 2px solid var(--text); padding-top: var(--s4); scroll-margin-top: calc(var(--frame-top) + var(--s5)); transition: border-color var(--dur-s) var(--ease-out); }

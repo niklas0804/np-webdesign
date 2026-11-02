@@ -37,7 +37,7 @@
 html:not([data-js]) .w03-tabs { display: none; }
 .w03-tab { flex: 0 1 auto; min-width: 0; min-height: 48px; padding: 0 var(--s6); border: 2px solid var(--text); border-bottom-color: transparent; background: color-mix(in srgb, var(--ground) 60%, transparent); color: var(--text); font-size: 1.125rem; letter-spacing: .1em; transition: background var(--dur-s); }
 .w03-tab + .w03-tab { margin-left: -2px; }
-.w03-tab:hover { background: var(--ground); }
+@media (hover: hover) and (pointer: fine) { .w03-tab:hover { background: var(--ground); } }
 .w03-tab[aria-selected='true'] { background: var(--ground); border-bottom-color: var(--ground); }
 .w03-sheet { position: relative; border: 2px solid var(--text); background: var(--ground); padding: var(--s5); }
 .w03-sheet::before { content: ''; position: absolute; inset: 8px; border: 1px solid var(--text); pointer-events: none; opacity: .55; }
@@ -77,7 +77,7 @@ html:not([data-js]) .w03-view + .w03-view { margin-top: var(--s7); border-top: 1
 .w03-part { color: var(--text); transition: transform var(--dur-m) var(--ease-out), color var(--dur-s); }
 .w03-part svg { width: 100%; height: auto; display: block; }
 html[data-js] .w03-part { cursor: pointer; }
-html[data-js] .w03-part:hover { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { html[data-js] .w03-part:hover { color: var(--accent); } }
 .w03-part.is-open { color: var(--accent2); }
 .w03-expl[data-open='dach'] .p-dach, .w03-expl[data-open='rohbau'] .p-dach { transform: translateY(-30px); }
 .w03-expl[data-open='sanierung'] .p-sanierung, .w03-expl[data-open='rohbau'] .p-sanierung { transform: translateY(30px); }
