@@ -10,6 +10,18 @@ Stand: 16. Oktober 2026 (Teil B der Kurskorrektur vom 11. Oktober) · Arbeitsbra
 - **Aufnahmen:** `scripts/screenshots.cjs` (Ausgabe `docs/screens/`), `scripts/render-previews.cjs` (Werkplan-, Branchen- und Social-Bilder, `welten.jpg`, `start.jpg`).
 - Die Abschnitte 4 und 4a unten beschreiben den Stand vom 8. Oktober und sind für Zwischenspiele, Welt 10, zehn Welten und das Porträt überholt; maßgebend ist `docs/BLUEPRINT.md` Abschnitt „Kurskorrektur 11. Oktober 2026“.
 
+## 0a. Premium-Feinschliff 2. November 2026 (Branch `claude/premium-feinschliff`, nicht in `main`)
+Durchgang nach den Design-Engineering-Skills von Emil Kowalski (Bewegung, Touch, Leistung, Worst-Case-Daten). Gemessen, nicht geschätzt.
+- **Übergänge:** 09 → Finale ohne doppeltes Logo (das Finale fährt durchsichtig über die Bühne und zeigt sein Logo erst beim Anheften, `finale.js`, `finale.css`). Welt 02: Wartemarke im Bild über dem Namen (`order`), die fliegende Marke deckt „Messingstuhl“ nicht mehr zu. P-Iris ohne Halt bei 0,9 R, mit 1,5-px-Maßlinie am Rand (`.t-pi-ring`).
+- **/welten:** Werkplan ab dem ersten Paint sichtbar (war bis zum Ende des Aufbaus `visibility: hidden`), Vorschaubilder im Werkplan nicht mehr lazy (`WorldStill priority`).
+- **Aufbau in kurzen Aufgaben:** `yieldMain()` in `base.js`; `initTransitions()` ist jetzt `async` und gibt je Übergang den Hauptthread ab, ebenso zwischen den Welten. Reihenfolge und „ein Refresh am Ende“ bleiben.
+- **Kontakt:** Unternehmen bis 120 Zeichen (wie `kontakt.php`); Vorschau als Wortmarke ohne Rechtsform, lange Namen auf zwei Zeilen, am Handy feste Höhe. `fit.js`: bei `data-fit-max` nie breiter als der Rahmen. Paket aus `/?paket=…` (von /leistungen) wird in die leere Nachricht eingetragen.
+- **FAQ:** im Raster des Kontakts, kein doppelter Abstand nach dem Kontakt, Antworten klappen weich auf (`::details-content`, nur wo unterstützt).
+- **Leistungen:** Preise in Tinte, Knöpfe auf einer Linie, Orange nur beim empfohlenen Paket.
+- **Touch:** kein Tap-Blitz, `touch-action: manipulation`, alle `:hover`-Regeln hinter `(hover: hover) and (pointer: fine)`, `:active`-Druck auf Knöpfen, Chips und Karten. Menü öffnet in 280 ms ease-out, Einrücken per `transform`.
+- **Welt 07:** Knopf der Dateiauswahl im Stil der Welt.
+- **Lighthouse mobil** (erstmals gemessen, CI mit gzip wie auf dem Webspace): Startseite 89 → 95, /welten 69 → (siehe PR), Leistungen 100, Bäckerei 99. Werkzeug: `.github/workflows/vorschau.yml` baut jeden `claude/**`-Branch, misst und legt das Ergebnis im Branch `vorschau-build` ab (veröffentlicht nichts).
+
 ## 1. Worum es geht
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.
 

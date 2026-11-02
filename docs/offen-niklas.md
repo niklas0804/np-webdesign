@@ -1,6 +1,6 @@
 # Offene Punkte für Niklas
 
-Stand: 18. Oktober 2026. Erledigtes steht unten unter „Erledigt“. Arbeitsstand: Branch `claude/phase-3`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
+Stand: 2. November 2026 (Branch `claude/premium-feinschliff`). Erledigtes steht unten unter „Erledigt“. Arbeitsstand: Branch `claude/phase-3`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
 
 ## 1. Kontaktformular (läuft, Rest offen)
 - [ ] **Zugangsdaten sichern:** `np-config.php` einen Ordner **über** `public_html` anlegen (Vorlage `public/api/config.sample.php`, Block `smtp` für das IONOS-Postfach). Sie übersteht jedes Neuladen per Git oder ZIP; `api/config.php` bleibt als zweiter Ort möglich. Eine Kopie lokal aufbewahren, nie ins Repository, nie in den Chat.
@@ -30,7 +30,9 @@ Stand: 18. Oktober 2026. Erledigtes steht unten unter „Erledigt“. Arbeitssta
 - [ ] **Lighthouse mobil** (Ziel ≥ 90) auf `/` und `/welten`. Lokal nicht gelaufen. Die Ladewerte (LCP ≤ 2,0 s, INP ≤ 150 ms, CLS ≤ 0,05, erste Ansicht ≤ 350 KB) sind nicht gemessen.
 - [ ] VoiceOver (iOS/macOS), NVDA (Windows), Tastatur-Runde, 200 % Zoom.
 - [ ] Testversion auf einer Subdomain hochladen und durchklicken (`docs/testversion-hostinger.md`).
-- [ ] **Rundes beiges Element im Kontakt:** konnte nicht nachgestellt werden. Falls es wieder auftaucht: Browser und Fenstergröße melden.
+- [ ] **Rundes beiges Element im Kontakt:** sehr wahrscheinlich gefunden (2. November 2026): Die P-Iris blieb im Übergang Zusammenarbeit → Kontakt auf 0,9 R hinter dem Logo stehen und las sich als beige Scheibe. Sie öffnet jetzt in einem Zug mit einer orangen Maßlinie am Rand. Bitte am Handy ansehen; taucht die Scheibe noch auf, Browser und Fenstergröße melden.
+- [ ] **Leistungen „Anfragen“:** führt jetzt ins Formular der Startseite und trägt das Paket in die Nachricht ein (vorher `mailto:`). Bitte einmal durchklicken und bestätigen.
+- [ ] **Welt 02 Messingstuhl:** Die Wartemarke steht jetzt über dem Namen (vorher deckte die fliegende Marke beim Hereinscrollen „Messingstuhl“ zu). Bitte ansehen, ob dir der Kopf so gefällt.
 
 ## 5. Hinweise
 - **Über mich ist abgeschaltet** (`SITE_FLAGS.ueberMich`). Das Porträt liegt in `assets-parked/ueber-mich/` und geht nicht an Hostinger. Kommt die Seite zurück: Rechte am Foto, Datenschutzerklärung und Werdegang-Text neu prüfen.
