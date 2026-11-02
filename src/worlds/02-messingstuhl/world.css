@@ -34,6 +34,9 @@
 .w02-hero { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: calc(var(--frame-top) + var(--s4)); padding-bottom: var(--s5); gap: var(--s4); background: var(--ground); }
 .w02-title { font-size: clamp(1.5rem, 6.4vw, 6rem); line-height: 1; margin-right: -.2em; background: var(--ground); padding: 0 .2em 0 .4em; }
 .w02-stage { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--s7); width: 100%; margin-top: var(--s2); }
+/* Die Wartemarke steht im Bild über dem Namen (im Dokument bleibt die Überschrift vorn): Der Staffelstab aus Welt 01 landet auf ihr,
+   ohne dass „Messingstuhl“ beim Hereinscrollen eine Bildschirmhöhe lang unter der fliegenden Marke durchläuft */
+.w02-stage { order: -1; margin: 0 0 var(--s5); }
 .w02-tool { margin: 0; color: var(--accent); opacity: .85; }
 .w02-tool svg { width: 100%; height: auto; max-height: 300px; }
 .w02-tool-l { justify-self: end; width: clamp(80px, 11vw, 150px); }
@@ -62,7 +65,8 @@
   box-shadow: inset 0 0 0 1.5px var(--accent);
   transition: background var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out);
 }
-.w02-gold:hover, .w02-gold:focus-visible { background: transparent; color: var(--accent); }
+.w02-gold:focus-visible { background: transparent; color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .w02-gold:hover { background: transparent; color: var(--accent); } }
 .w02-gold:active { transform: scale(.98); }
 .w02-demo { color: var(--np-mass); text-transform: none; letter-spacing: .02em; font-size: var(--fs-mono-xs); max-width: none; background: var(--ground); padding: 0 var(--s2); }
 
@@ -81,8 +85,8 @@
 /* Goldlinie beim Hover: zieht von der Mittelachse nach außen auf */
 .w02-row::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-m) var(--ease-out); }
 .w02-list.is-left .w02-row::after { transform-origin: right; }
-.w02-row:hover { background: rgba(201, 162, 74, .08); }
-.w02-row:hover::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .w02-row:hover { background: rgba(201, 162, 74, .08); } }
+@media (hover: hover) and (pointer: fine) { .w02-row:hover::after { transform: scaleX(1); } }
 @media (max-width: 1023px) {
   .w02-lists { grid-template-columns: 1fr; gap: var(--s7); }
   .w02-list.is-left { text-align: left; }
@@ -95,7 +99,7 @@
 .w02-slots { display: flex; flex-wrap: wrap; gap: var(--s3); justify-content: center; }
 html:not([data-js]) .w02-slots { display: none; }
 .w02-slot-btn { min-height: 52px; padding: 0 var(--s6); border: 1.5px solid var(--accent); color: var(--accent); font-family: var(--bodoni); font-size: 1.0625rem; letter-spacing: .06em; background: var(--ground); transition: background var(--dur-s), color var(--dur-s); }
-.w02-slot-btn:hover { background: rgba(201, 162, 74, .12); }
+@media (hover: hover) and (pointer: fine) { .w02-slot-btn:hover { background: rgba(201, 162, 74, .12); } }
 .w02-slot-btn[aria-pressed='true'] { background: var(--accent); color: var(--ground); }
 .w02-confirm { max-width: 46ch; color: var(--text); border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); padding: var(--s3) var(--s5); background: var(--ground); }
 .w02-tool-mid { width: 110px; opacity: .6; margin-top: var(--s4); background: var(--ground); padding: var(--s2); }

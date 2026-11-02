@@ -11,7 +11,7 @@
  *   100 … 100+len  die Bühne steht frei (len = Länge des Übergangs aus der Konfiguration)
  *   100+len … L    die neue Welt schiebt sich von unten darüber; bei L (= 200 + len) steht ihr erstes Bild genau da, wo es hingehört
  */
-import { gsap, ScrollTrigger, $, $$, mode } from './base.js';
+import { gsap, ScrollTrigger, $, $$, mode, yieldMain } from './base.js';
 import { setTone, setSection } from './rahmen.js';
 import { docRect, viewRect, cloneOf, refreshClone, snapshot, lend } from './baton.js';
 import { logoAtStart } from './finale.js';
@@ -44,8 +44,9 @@ const NI = { immediateRender: false };
 const rgba = (hex, a) => { const h = String(hex).replace('#', ''); const n = parseInt(h.length === 3 ? h.replace(/./g, '$&$&') : h, 16); return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`; };
 const el = (cls) => { const e = document.createElement('div'); e.className = cls; return e; };
 
-export function initTransitions() {
-  $$('.transition').forEach((sec) => {
+export async function initTransitions() {
+  for (const sec of $$('.transition')) {
+    await yieldMain(); // jeder Übergang in einer eigenen kurzen Aufgabe
     const stage = $('.t-stage', sec);
     const layer = $('[data-t-layer]', sec);
     const thread = $('.t-thread', sec);
@@ -114,7 +115,7 @@ export function initTransitions() {
         .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: 60, ease: 'power2.inOut' }, 100 + 20);
     }
     tl.set({}, {}, L());
-  });
+  }
 }
 
 /* ---------- gemeinsame Hilfen ---------- */
@@ -514,11 +515,13 @@ function piris(c) {
   };
   const logo = put(c, c.clone(src, '05'));
   const iris = el('t-pi-iris');
+  // Kante der Iris: eine 1,5-px-Maßlinie in NP-Orange läuft am Rand mit, damit die Öffnung als Blende liest (Kalk auf Leinen allein ist zu leise)
+  const ring = el('t-pi-ring');
   const mark = $('svg', src).cloneNode(true); mark.setAttribute('class', 't-pi-mark'); mark.removeAttribute('style');
-  c.stage.append(iris, mark);
+  c.stage.append(ring, iris, mark);
   const G = () => { const w = c.vw(); const h = c.vh(); const W = Math.min(w * 0.6, h * 0.62, 460); return { w, h, W, R: W * 0.5, cx: w / 2, cy: h * 0.45 }; };
   const geom = () => {
-    const g = G(); iris.style.setProperty('--cx', String(g.cx)); iris.style.setProperty('--cy', String(g.cy));
+    const g = G(); [iris, ring].forEach((e) => { e.style.setProperty('--cx', String(g.cx)); e.style.setProperty('--cy', String(g.cy)); });
     const hh = (g.W * 56) / 107.4;
     Object.assign(mark.style, { left: `${g.cx - g.W / 2}px`, top: `${g.cy - hh / 2}px`, width: `${g.W}px`, height: `${hh}px` });
   };
@@ -530,8 +533,9 @@ function piris(c) {
     .fromTo(mark, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001, ...NI }, 78)
     .fromTo(logo, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.001, ...NI }, 78)
     .fromTo(logo, { x: () => sr().cx, y: () => sr().cy, scale: 1, autoAlpha: 1 }, { x: () => G().cx, y: () => G().cy, scale: () => G().W / sr().w, duration: 70, ease: 'power2.inOut', immediateRender: true }, 8)
-    .fromTo(iris, { '--r': 0 }, { '--r': 0, duration: 0.001, immediateRender: true }, 0)
-    .fromTo(iris, { '--r': 0 }, { '--r': () => G().R * 0.9, duration: len * 0.2, ease: 'power2.out', ...NI }, A + len * 0.16)
-    .fromTo(iris, { '--r': () => G().R * 0.9 }, { '--r': () => Math.hypot(G().w, G().h), duration: len * 0.55, ease: 'power2.in', ...NI }, A + len * 0.4);
+    .fromTo([iris, ring], { '--r': 0 }, { '--r': 0, duration: 0.001, immediateRender: true }, 0)
+    // Eine durchgehende Öffnung ohne Halt: Früher stand die Iris auf 0,9 R still hinter dem Logo und las sich als „rundes beiges Element“
+    // (offen-niklas.md, Abschnitt 4). Jetzt öffnet sie in einem Zug, langsam aus dem Logo heraus und zunehmend schneller bis über den Rand.
+    .fromTo([iris, ring], { '--r': 0 }, { '--r': () => Math.hypot(G().w, G().h), duration: len * 0.79, ease: 'power2.in', ...NI }, A + len * 0.16);
   return true;
 }

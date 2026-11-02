@@ -2,7 +2,7 @@
  * Einstieg der Startseite (Auftrag 11. Oktober 2026, Teil C). Die Startseite lädt nur ihre eigenen Module.
  * Eine Szene je Abschnitt, keine Gesamt-Timeline; alles wird vor dem ersten Messen eingerichtet, danach genau ein Refresh.
  */
-import { gsap, ScrollTrigger, root, mode, pinned, watchMode, whenReady } from '../base.js';
+import { gsap, ScrollTrigger, root, mode, pinned, watchMode, whenReady, yieldMain } from '../base.js';
 import { initFit } from '../fit.js';
 import { initClock, initMenu } from '../menu.js';
 import { initRahmen } from '../rahmen.js';
@@ -43,14 +43,20 @@ async function boot() {
   initFit();
   initKontakt();
 
+  // Kurze Aufgaben statt einer langen: zwischen den Abschnitten wird der Hauptthread abgegeben, gemessen wird einmal am Ende
+  await yieldMain();
   initRahmen();
   initHero();
+  await yieldMain();
   if (pinned) initWarum();
   lazyKundentest();
+  await yieldMain();
   initBeispiele();
+  await yieldMain();
   initZusammenarbeit();
-  if (pinned) { snapshotBatons(); initTransitions(); }
+  if (pinned) { snapshotBatons(); await initTransitions(); }
 
+  await yieldMain();
   ScrollTrigger.sort();
   ScrollTrigger.refresh();
   root.setAttribute('data-ready', '');

@@ -4,7 +4,7 @@
  * Die Kamera fährt zurück, bis der ganze Werkplan sichtbar ist, die neun Studien und der leere zehnte Platz erscheinen, der Cursor blinkt,
  * die Einladung erscheint. Gepinnte Szene, folgt dem Scrollen 1:1. Nur in den Modi desktop und mobile. Nur Transform, Deckkraft, Maske.
  */
-import { gsap, $, $$ } from './base.js';
+import { gsap, ScrollTrigger, $, $$ } from './base.js';
 import { docRect } from './baton.js';
 
 /** Größe des Logos im ersten Bild: halbe Bühnenhöhe, höchstens 78 Prozent der Breite */
@@ -94,4 +94,11 @@ export function initFinale() {
   // 62–82 %: Einladung
   tl.fromTo(invite, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.62);
   tl.set({}, {}, 1);
+
+  // Ankunft: Solange das Finale von unten über die Bühne des Übergangs 09 → Finale fährt, ist es durchsichtig und sein Logo verborgen.
+  // Sonst stünden zwei Logos gleichzeitig im Bild (das gezeichnete in der Bühne und das eigene, das von unten hereinfährt).
+  // In dem Moment, in dem das Finale anheftet, liegen beide Logos pixelgenau übereinander (logoAtStart): der Wechsel ist unsichtbar.
+  if (document.querySelector('.transition[data-variant="npzeichen"]')) {
+    ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'top top', toggleClass: { targets: sec, className: 'is-arriving' } });
+  }
 }

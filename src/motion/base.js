@@ -26,6 +26,15 @@ export function watchMode() {
   ['(min-width: 1024px)', '(pointer: fine)', '(prefers-reduced-motion: reduce)'].forEach((q) => matchMedia(q).addEventListener('change', check));
 }
 
+/**
+ * Den Hauptthread kurz abgeben: Der Aufbau läuft in mehreren kurzen Aufgaben statt in einer langen (Skill animation-performance).
+ * Eingaben (Tippen, Scrollen) während des Aufbaus werden sofort bedient; gemessen wird trotzdem erst ganz am Ende, genau einmal.
+ */
+export const yieldMain = () => new Promise((resolve) => {
+  if (globalThis.scheduler && typeof globalThis.scheduler.yield === 'function') globalThis.scheduler.yield().then(resolve);
+  else setTimeout(resolve, 0);
+});
+
 /** Messung der Seite nach Schriften und Bildern, einmal – nie beim Scrollen */
 export function whenReady(fn) {
   const go = () => document.fonts.ready.then(fn);
