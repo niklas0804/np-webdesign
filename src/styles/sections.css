@@ -9,6 +9,9 @@
 
 /* ---------- Welten ---------- */
 .world { position: relative; background: var(--ground); color: var(--text); min-height: calc(var(--len) * 1svh); padding: var(--block) var(--gutter); }
+/* Erstes Bild von /welten: Stil und Layout der neun Welten (rund 2.500 Elemente) warten, bis der Werkplan gezeichnet ist.
+   Nur bis zum zweiten Bild (data-painted, mode-init.js); gemessen wird erst danach. Ruhig und ohne JavaScript: keine Wirkung. */
+html[data-mode='desktop']:not([data-painted]) .world, html[data-mode='mobile']:not([data-painted]) .world { content-visibility: auto; contain-intrinsic-size: auto 100svh; }
 .world-inner { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--s5); align-content: start; }
 .world .kicker { color: var(--accent); }
 .world[data-tone='dark'] .kicker { color: var(--accent); }

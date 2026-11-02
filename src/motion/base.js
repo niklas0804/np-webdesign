@@ -37,6 +37,12 @@ export const yieldMain = () => new Promise((resolve) => {
 
 /** Messung der Seite nach Schriften und Bildern, einmal – nie beim Scrollen */
 export function whenReady(fn) {
-  const go = () => document.fonts.ready.then(fn);
+  const go = () => {
+    // Volles Layout vor dem Messen sicherstellen: Das Signal nach dem ersten Bild (mode-init.js) kann fehlen, z. B. wenn die Seite in einem
+    // Tab im Hintergrund lädt (dort laufen keine Bilder). Dann hier setzen und einmal layouten, damit auch die Schriften der Welten
+    // angefordert werden, und erst danach auf die Schriften warten.
+    if (!root.hasAttribute('data-painted')) { root.setAttribute('data-painted', ''); void document.body.offsetHeight; }
+    document.fonts.ready.then(fn);
+  };
   if (document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true });
 }

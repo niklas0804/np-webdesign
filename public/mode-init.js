@@ -12,4 +12,7 @@
   else if (window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches) mode = 'desktop';
   d.setAttribute('data-mode', mode);
   if (calm) d.setAttribute('data-calm', '');
+  // Erstes Bild zuerst: Die Welten unter dem ersten Bildschirm werden erst nach dem ersten Bild gesetzt (sections.css, content-visibility).
+  // Zwei Bilder später gilt wieder das volle Layout, lange bevor die Szenen gemessen werden (nach dem Laden und den Schriften).
+  requestAnimationFrame(function () { requestAnimationFrame(function () { d.setAttribute('data-painted', ''); }); });
 })();
