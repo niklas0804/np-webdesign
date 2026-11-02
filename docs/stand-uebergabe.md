@@ -20,7 +20,7 @@ Durchgang nach den Design-Engineering-Skills von Emil Kowalski (Bewegung, Touch,
 - **Leistungen:** Preise in Tinte, Knöpfe auf einer Linie, Orange nur beim empfohlenen Paket.
 - **Touch:** kein Tap-Blitz, `touch-action: manipulation`, alle `:hover`-Regeln hinter `(hover: hover) and (pointer: fine)`, `:active`-Druck auf Knöpfen, Chips und Karten. Menü öffnet in 280 ms ease-out, Einrücken per `transform`.
 - **Welt 07:** Knopf der Dateiauswahl im Stil der Welt.
-- **Lighthouse mobil** (erstmals gemessen, CI mit gzip wie auf dem Webspace): Startseite 89 → 95, /welten 69 → (siehe PR), Leistungen 100, Bäckerei 99. Werkzeug: `.github/workflows/vorschau.yml` baut jeden `claude/**`-Branch, misst und legt das Ergebnis im Branch `vorschau-build` ab (veröffentlicht nichts).
+- **Lighthouse mobil** (erstmals gemessen, CI mit gzip wie auf dem Webspace): Startseite 89 → 95–97, /welten 69 → 71–74 (LCP 4,7 → 4,1 s; im echten Chrome mit Drosselung 5,8 → 3,4 s), Leistungen 100, Bäckerei 99. Abnahme: check-site ✓, axe 0 Verstöße, check-transitions auf allen geänderten Übergängen ✓. Werkzeug: `.github/workflows/vorschau.yml` baut jeden `claude/**`-Branch, misst und legt das Ergebnis im Branch `vorschau-build` ab (veröffentlicht nichts).
 
 ## 1. Worum es geht
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.
