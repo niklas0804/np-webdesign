@@ -44,16 +44,26 @@ jobs:
             }).listen(8080);' &
           sleep 2
           mkdir -p lighthouse
+          # Drei Läufe je Seite, gewertet wird der Median (ein einzelner Lauf schwankt auf geteilten Maschinen um bis zu 10 Punkte)
           for p in index welten leistungen branchenloesungen/baeckerei; do
             n=$(echo "$p" | tr '/' '-')
-            npx lighthouse "http://127.0.0.1:8080/$p.html" --quiet --chrome-flags="--headless=new --no-sandbox" \
-              --only-categories=performance,accessibility,best-practices,seo \
-              --output=json --output-path="lighthouse/$n.json" || true
+            for i in 1 2 3; do
+              npx lighthouse "http://127.0.0.1:8080/$p.html" --quiet --chrome-flags="--headless=new --no-sandbox" \
+                --only-categories=performance,accessibility,best-practices,seo \
+                --output=json --output-path="lighthouse/$n.run$i.json" || true
+            done
           done
           node -e '
             const fs=require("fs");
-            for (const f of fs.readdirSync("lighthouse").filter(f=>f.endsWith(".json"))) {
-              const r=JSON.parse(fs.readFileSync("lighthouse/"+f));
+            const pages={};
+            for (const f of fs.readdirSync("lighthouse").filter(f=>/\.run\d\.json$/.test(f))) {
+              const n=f.replace(/\.run\d\.json$/,""); const r=JSON.parse(fs.readFileSync("lighthouse/"+f)); fs.unlinkSync("lighthouse/"+f);
+              if (r.categories && r.categories.performance) (pages[n]=pages[n]||[]).push(r);
+            }
+            for (const [n,runs] of Object.entries(pages)) {
+              runs.sort((a,b)=>a.categories.performance.score-b.categories.performance.score);
+              const r=runs[Math.floor(runs.length/2)]; const f=n+".json";
+              console.log(n.padEnd(30), "Läufe:", runs.map(x=>Math.round(x.categories.performance.score*100)).join("/"), "→ Median");
               const c=r.categories, a=r.audits;
               console.log(f.padEnd(30), Object.values(c).map(x=>x.id.slice(0,4)+" "+Math.round(x.score*100)).join("  "),
                 "| FCP", a["first-contentful-paint"].displayValue, "| LCP", a["largest-contentful-paint"].displayValue, "| TBT", a["total-blocking-time"].displayValue,
@@ -66,7 +76,6 @@ jobs:
                 "uses-text-compression","modern-image-formats","uses-responsive-images","offscreen-images","efficient-animated-content","non-composited-animations","layout-shifts","cls-culprits-insight"];
               const slim = { categories: Object.fromEntries(Object.entries(c).map(([k,v])=>[k,v.score])), audits: Object.fromEntries(keep.filter(k=>a[k]).map(k=>[k,{score:a[k].score,displayValue:a[k].displayValue,numericValue:a[k].numericValue,details:a[k].details}])) };
               fs.writeFileSync("lighthouse/"+f.replace(".json",".slim.json"), JSON.stringify(slim));
-              fs.unlinkSync("lighthouse/"+f);
             }'
       - name: Ergebnis in den Branch vorschau-build schreiben
         run: |
