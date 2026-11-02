@@ -218,8 +218,10 @@ html[data-mode='desktop'] .anchor, html[data-mode='mobile'] .anchor { top: calc(
 html[data-mode='desktop'] .hero, html[data-mode='mobile'] .hero { position: absolute; inset: 0; height: auto; }
 html[data-mode='desktop'] .werkplan, html[data-mode='mobile'] .werkplan {
   position: absolute; inset: 0; padding: calc(var(--frame-top) + var(--s4)) var(--gutter) var(--s9);
-  display: grid; place-items: center; visibility: hidden; background: transparent;
+  display: grid; place-items: center; background: transparent;
 }
+/* Der Werkplan ist das erste Bild von /welten und steht ab dem ersten Paint (vorher bis zum Ende des Aufbaus unsichtbar:
+   auf schwachen Handys drei bis vier Sekunden leere Fläche, und das größte Bild wurde erst danach gezeichnet). */
 html[data-mode='desktop'] .wp-grid, html[data-mode='mobile'] .wp-grid { width: 100%; will-change: auto; }
 html[data-mode='mobile'] .werkplan { padding: calc(var(--frame-top) + var(--s2)) var(--gutter) var(--s5); }
 @media (max-width: 1023px) and (max-height: 720px) { .werkplan[data-count='10'] .wp-frame { aspect-ratio: 2 / 1; } .werkplan[data-count='10'] .wp-center { min-height: 36px; } }
