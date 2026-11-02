@@ -6,9 +6,10 @@
  */
 import { SITE } from '../config/site.js';
 import { TEXT } from '../config/journey.js';
-import { STEPS, LEISTUNGEN } from '../config/site.js';
+import { STEPS, LEISTUNGEN, PACKAGES } from '../config/site.js';
 const { row } = Astro.props;
 const ablauf = STEPS.map((s) => s.title).join(', ');
+const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
 ---
 <section id={row.anchor} class="kontakt" data-section={row.id} data-ground={row.ground} data-tone="light"
          data-counter={`${TEXT.nextWorld} · Kontakt`} data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title" data-kontakt>
@@ -46,7 +47,7 @@ const ablauf = STEPS.map((s) => s.title).join(', ');
     </aside>
 
     <div class="k-main">
-      <form class="k-form" action="/api/kontakt.php" method="post" data-form data-within={SITE.responseWithin} autocomplete="on">
+      <form class="k-form" action="/api/kontakt.php" method="post" data-form data-within={SITE.responseWithin} data-pakete={pakete} autocomplete="on">
         <div class="k-row">
           <div class="k-field">
             <label for="k-name">Ihr Name <span class="k-req" aria-hidden="true">*</span></label>
@@ -55,7 +56,7 @@ const ablauf = STEPS.map((s) => s.title).join(', ');
           </div>
           <div class="k-field">
             <label for="k-firma">Unternehmen <span class="k-opt">(freiwillig)</span></label>
-            <input id="k-firma" name="unternehmen" type="text" autocomplete="organization" maxlength="40" data-company />
+            <input id="k-firma" name="unternehmen" type="text" autocomplete="organization" maxlength="120" data-company />
           </div>
         </div>
         <div class="k-row">

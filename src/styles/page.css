@@ -6,7 +6,7 @@
 .page-logo span { font-weight: 700; font-stretch: 90%; letter-spacing: .01em; }
 .page-nav { display: flex; align-items: center; gap: var(--s5); flex-wrap: wrap; }
 .page-nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; font-stretch: 95%; }
-.page-nav a:hover { color: var(--orange-text); }
+@media (hover: hover) and (pointer: fine) { .page-nav a:hover { color: var(--orange-text); } }
 
 .page-main { max-width: 860px; margin: 0 auto; padding: var(--s9) var(--gutter) var(--s10); }
 .page-main > .kicker { margin-bottom: var(--s4); }
@@ -16,7 +16,7 @@
 .page-main p { margin-bottom: var(--s4); color: var(--stein); }
 .page-main p strong { color: var(--tinte); font-weight: 600; }
 .page-main a { text-decoration: underline; text-decoration-color: var(--np-orange); text-decoration-thickness: 1.5px; text-underline-offset: 3px; color: var(--tinte); }
-.page-main a:hover { color: var(--orange-text); text-decoration-thickness: 3px; }
+@media (hover: hover) and (pointer: fine) { .page-main a:hover { color: var(--orange-text); text-decoration-thickness: 3px; } }
 .page-main ul { margin-bottom: var(--s4); }
 .page-main ul li { position: relative; padding: var(--s2) 0 var(--s2) var(--s5); color: var(--stein); border-bottom: 1px solid rgba(28, 23, 18, .06); overflow-wrap: break-word; }
 .page-main ul li::before { content: ''; position: absolute; left: 0; top: 1.15em; width: 12px; height: 1px; background: var(--tinte); }
@@ -33,10 +33,13 @@
 /* Leistungen */
 .pkgs { display: grid; gap: var(--s5); margin-top: var(--s7); }
 @media (min-width: 1024px) { .pkgs { grid-template-columns: repeat(3, 1fr); } .page-main.wide { max-width: var(--max); } }
-.pkg { background: var(--kalk); border: 1px solid var(--haarlinie); padding: var(--s6); display: grid; gap: var(--s3); align-content: start; }
+.pkg { background: var(--kalk); border: 1px solid var(--haarlinie); padding: var(--s6); display: flex; flex-direction: column; gap: var(--s3); }
+/* Die Knöpfe stehen in allen drei Karten auf einer Linie, egal wie lang die Liste ist */
+.pkg ul { flex: 1; }
+.pkg .btn { align-self: flex-start; margin-top: var(--s4); }
 .pkg-featured { border-color: var(--tinte); box-shadow: inset 0 3px 0 var(--np-orange); }
 .pkg h2 { all: unset; display: block; font-size: var(--fs-h3); font-weight: 700; font-stretch: 95%; }
-.pkg-price { font-size: var(--fs-h2); font-weight: 750; font-stretch: 90%; line-height: 1; letter-spacing: -.02em; }
+.page-main .pkg-price { font-size: var(--fs-h2); font-weight: 750; font-stretch: 90%; line-height: 1; letter-spacing: -.02em; color: var(--tinte); font-variant-numeric: tabular-nums; }
 .pkg-note { color: var(--stein); font-size: var(--fs-small); margin: 0 !important; }
 .pkg ul { margin: var(--s3) 0 0; }
 .pkg ul li { font-size: var(--fs-small); }
@@ -46,7 +49,7 @@
 .page-footer { background: var(--nacht); color: var(--asche); padding: var(--s7) var(--gutter); }
 .page-footer-inner { max-width: var(--max); margin: 0 auto; display: flex; flex-wrap: wrap; gap: var(--s4) var(--s7); justify-content: space-between; align-items: center; }
 .page-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); text-decoration: none; }
-.page-footer a:hover { color: var(--glut); }
+@media (hover: hover) and (pointer: fine) { .page-footer a:hover { color: var(--glut); } }
 .page-footer ul { display: flex; gap: var(--s5); flex-wrap: wrap; }
 .page-footer :focus-visible { outline-color: var(--glut); }
 

@@ -24,7 +24,7 @@
 .note-tag { color: var(--stein); }
 .world[data-tone='dark'] .note-tag { color: var(--asche); }
 .note-link { justify-self: start; min-height: 44px; display: inline-flex; align-items: center; }
-.world[data-tone='dark'] .note-link:hover { color: var(--glut); }
+@media (hover: hover) and (pointer: fine) { .world[data-tone='dark'] .note-link:hover { color: var(--glut); } }
 .credit { color: inherit; opacity: .8; margin-top: var(--s7); font-size: var(--fs-mono-xs); }
 
 /* ---------- Übergänge ----------
@@ -112,8 +112,15 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 
 /* ---------- FAQ ---------- */
 .faq { background: var(--ground); padding: var(--block) var(--gutter); }
-.faq-inner { max-width: 960px; margin: 0 auto; }
-.faq h2 { margin-bottom: var(--s7); }
+/* Nach dem Kontakt (gleicher Grund): kein doppelter Abschnittsabstand, sonst steht eine leere Fläche zwischen Fakten und Fragen */
+.kontakt + .faq { padding-top: calc(var(--block) * .5); }
+/* Gleiches Raster wie der Kontakt darüber: links die Überschrift, rechts die Fragen (Kante = Kante der Vorschau) */
+.faq-inner { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--s7); }
+.faq h2 { margin-bottom: 0; }
+@media (min-width: 1024px) {
+  .faq-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s9); align-items: start; }
+  .faq h2 { position: sticky; top: calc(var(--frame-top) + var(--s6)); }
+}
 .faq-item { border-top: 1px solid var(--haarlinie); }
 .faq-item:last-child { border-bottom: 1px solid var(--haarlinie); }
 .faq-item summary {
@@ -127,7 +134,17 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 .faq-icon::before { left: 0; right: 0; top: 9px; height: 2px; }
 .faq-icon::after { top: 0; bottom: 0; left: 9px; width: 2px; }
 .faq-item[open] .faq-icon::after { transform: scaleY(0); }
-.faq-item summary:hover { color: var(--orange-text); }
+.faq-item summary:active { color: var(--orange-text); }
+/* Antwort klappt weich auf (wo der Browser es kann; sonst sofort wie bisher). Kurz, kräftiges ease-out, Schließen schneller als Öffnen */
+@supports (interpolate-size: allow-keywords) {
+  .faq-list { interpolate-size: allow-keywords; }
+  .faq-item::details-content { block-size: 0; overflow: clip; opacity: 0;
+    transition: block-size 160ms var(--ease-out), opacity 160ms var(--ease-out), content-visibility 160ms allow-discrete; }
+  .faq-item[open]::details-content { block-size: auto; opacity: 1; transition-duration: 240ms; }
+  html[data-mode='calm'] .faq-item::details-content { transition: none; }
+  @media (prefers-reduced-motion: reduce) { .faq-item::details-content { transition: none; } }
+}
+@media (hover: hover) and (pointer: fine) { .faq-item summary:hover { color: var(--orange-text); } }
 .faq-a { padding-bottom: var(--s5); color: var(--stein); }
 .faq-a a { color: var(--tinte); }
 
@@ -141,7 +158,7 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 .footer .link { color: var(--leinen); }
 .footer-links { display: grid; gap: var(--s1); }
 .footer-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); }
-.footer-links a:hover { color: var(--glut); }
+@media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--glut); } }
 .footer .partner-badge { margin-top: var(--s7); }
 .footer-credit { margin-top: var(--s8); color: var(--asche); font-size: var(--fs-mono-xs); }
 

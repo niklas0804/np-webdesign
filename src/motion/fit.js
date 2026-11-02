@@ -42,6 +42,9 @@ function fitOne(el) {
   if (max && parseFloat(getComputedStyle(el).fontSize) > max) {
     wrap.fontStretch = '';
     wrap.fontSize = max + 'px';
+    // In Normalbreite kann die Zeile bei der Obergrenze breiter sein als der Rahmen (lange Namen auf zwei Zeilen): dann kleiner setzen
+    const wMax = measure();
+    if (wMax > box + 1) wrap.fontSize = (max * box) / wMax + 'px';
   }
 }
 

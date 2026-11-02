@@ -26,6 +26,11 @@ export function initKontakt() {
   const DEFAULT = 'Ihr Unternehmen';
 
   form.setAttribute('novalidate', '');
+  /* Von /leistungen: „Anfragen“ trägt das gewählte Paket in die Nachricht ein (nur ins leere Feld, nichts wird gespeichert oder gesendet) */
+  const paket = new URLSearchParams(location.search).get('paket');
+  const pakete = Object.fromEntries((form.dataset.pakete || '').split(',').filter(Boolean).map((x) => x.split(':')));
+  const msg = form.elements.nachricht;
+  if (paket && pakete[paket] && msg && !msg.value.trim()) msg.value = `Ich interessiere mich für das Paket ${pakete[paket]}. `;
   /* Zeitpunkt des Seitenaufrufs für die Zeitprüfung im Endpunkt (Spamschutz, wird nicht gespeichert) */
   const ts = $('[data-ts]', form);
   if (ts) ts.value = String(Date.now());
@@ -49,11 +54,33 @@ export function initKontakt() {
     crops.forEach((c, i) => { c.style.left = `${at[i][0]}px`; c.style.top = `${at[i][1]}px`; });
   };
   let snapTimer;
+  /**
+   * Wortmarke statt Handelsregister: Ein Designer setzt „Bäckerei Hofmann GmbH & Co. KG“ als „Bäckerei Hofmann“.
+   * Die Rechtsform fällt in der Vorschau weg (im Formular bleibt sie vollständig), lange Namen stehen auf zwei ausgewogenen Zeilen.
+   */
+  const RECHTSFORM = /[\s,]+(gmbh\s*&\s*co\.?\s*kg(aa)?|ug\s*\(haftungsbeschränkt\)|gmbh|mbh|gbr|ohg|kgaa|kg|ag|ug|e\.\s?k(fr|fm)?\.?|e\.\s?v\.?|inh\.?\s.+)$/i;
+  const wortmarke = (v) => { let w = v; for (let i = 0; i < 2; i++) w = w.replace(RECHTSFORM, '').trim(); return w || v; };
+  const zeilen = (w) => {
+    const words = w.split(/\s+/);
+    if (w.length <= 22 || words.length < 2) return [w];
+    // Umbruch an der Wortgrenze, die die beiden Zeilen am ähnlichsten lang macht
+    let best = 1; let diff = Infinity;
+    for (let i = 1; i < words.length; i++) {
+      const d = Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length);
+      if (d < diff) { diff = d; best = i; }
+    }
+    return [words.slice(0, best).join(' '), words.slice(best).join(' ')];
+  };
+  /** Höchste Schriftgröße der Vorschau: am Handy niedriger, damit kurze Namen den Rahmen nicht aufblähen und das Formular nicht verschieben */
+  const maxPx = () => (matchMedia('(max-width: 1023px)').matches ? 52 : 150);
   const setTitle = (animate) => {
     const v = company.value.trim();
-    text.textContent = v || DEFAULT;
+    const lines = v ? zeilen(wortmarke(v)) : [DEFAULT];
+    text.replaceChildren(...lines.flatMap((l, i) => (i ? [document.createElement('br'), l] : [l])));
     title.classList.toggle('is-empty', !v);
-    mark.textContent = v ? v.slice(0, 18) : '–';
+    title.classList.toggle('is-two', lines.length > 1);
+    mark.textContent = v || '–';
+    title.dataset.fitMax = String(lines.length > 1 ? maxPx() * 0.62 : maxPx());
     fitElement(title);
     layout();
     frame.classList.toggle('is-built', !!v);

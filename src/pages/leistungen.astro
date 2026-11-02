@@ -1,7 +1,11 @@
 ---
-/** Leistungen und Preise: die einzige Stelle mit Preisen (Blueprint N, T.1). Daten aus src/config/site.js. */
+/**
+ * Leistungen und Preise: die einzige Stelle mit Preisen (Blueprint N, T.1). Daten aus src/config/site.js.
+ * Orange nur für einen Knopf (das empfohlene Paket), die anderen als Kontur. „Anfragen“ führt ins Formular der Startseite
+ * und trägt das Paket in die Nachricht ein (mailto: allein scheitert ohne eingerichtetes Mailprogramm).
+ */
 import Page from '../layouts/Page.astro';
-import { PACKAGES, SITE } from '../config/site.js';
+import { PACKAGES } from '../config/site.js';
 ---
 <Page title="Leistungen und Preise – NP Webdesign" description="Pakete und Preise für Ihre Website: Starter, Professional und Premium. Festpreise, Endpreise ohne Umsatzsteuer nach § 19 UStG." path="/leistungen" wide image="/images/social/leistungen.jpg">
   <p class="kicker">Leistungen und Preise</p>
@@ -14,7 +18,7 @@ import { PACKAGES, SITE } from '../config/site.js';
         <p class="pkg-price">{p.price}</p>
         <p class="pkg-note">{p.note}</p>
         <ul>{p.features.map((f) => <li>{f}</li>)}</ul>
-        <a class="btn btn-primary" href={`mailto:${SITE.email}?subject=Anfrage%20${p.name}-Paket`}>
+        <a class={`btn ${p.featured ? 'btn-primary' : 'btn-secondary'}`} href={`/?paket=${p.id}#kontakt`} aria-label={`Paket ${p.name} anfragen`}>
           <span class="btn-label"><span>Anfragen</span><span aria-hidden="true">Anfragen</span></span>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
