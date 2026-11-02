@@ -1,5 +1,5 @@
 /** Einstieg der Bewegung. Eine Szene pro Abschnitt, keine Gesamt-Timeline (Blueprint N, T.1). */
-import { gsap, ScrollTrigger, root, mode, pinned, watchMode, whenReady } from './base.js';
+import { gsap, ScrollTrigger, root, mode, pinned, watchMode, whenReady, yieldMain } from './base.js';
 import { initFit } from './fit.js';
 import { initClock, initMenu } from './menu.js';
 import { initRahmen } from './rahmen.js';
@@ -30,7 +30,8 @@ const WORLD_MODULES = {
 async function initWorlds() {
   const entries = Object.entries(WORLD_MODULES).filter(([anchor]) => document.getElementById(anchor));
   const modules = await Promise.all(entries.map(([, load]) => load()));
-  modules.forEach((m) => m.init());
+  // Jede Welt in einer eigenen kurzen Aufgabe (vorher eine lange von über einer Sekunde auf schwachen Handys)
+  for (const m of modules) { await yieldMain(); m.init(); }
 }
 
 async function boot() {
@@ -49,16 +50,21 @@ async function boot() {
   initFit();
   initKontakt();
 
-  // Alles wird vor dem ersten Messen eingerichtet; danach genau ein Refresh, nie mehr während des Scrollens
+  // Alles wird vor dem ersten Messen eingerichtet; danach genau ein Refresh, nie mehr während des Scrollens.
+  // Zwischen den Schritten wird der Hauptthread kurz abgegeben (kurze Aufgaben statt einer langen), die Reihenfolge bleibt dieselbe.
+  await yieldMain();
   initRahmen();
   if (pinned) {
+    await yieldMain();
     initOpening();
+    await yieldMain();
     initFinale();
   }
   if (pinned) snapshotBatons(); // Ziele der Übergänge im Zustand beim Laden festhalten, bevor die Weltmodule sie animieren
   await initWorlds();
-  if (pinned) initTransitions();
+  if (pinned) await initTransitions();
 
+  await yieldMain();
   ScrollTrigger.sort();
   ScrollTrigger.refresh();
   root.setAttribute('data-ready', '');

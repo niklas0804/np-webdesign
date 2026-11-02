@@ -23,6 +23,7 @@
   white-space: nowrap; max-width: none; display: block; overflow: hidden; color: var(--tinte);
 }
 .k-pv-title [data-pv-text] { display: inline; }
+.k-pv-title.is-two { line-height: .98; }
 .k-pv-title.is-empty [data-pv-text] { color: var(--stein); opacity: .55; }
 .k-cursor { display: inline-block; width: .06em; height: .8em; margin-left: .08em; background: var(--np-orange); vertical-align: -.06em; }
 .k-cursor.is-blink { animation: k-blink 1s steps(1) 6; }
@@ -34,7 +35,7 @@
 /* Die Vorschau konstruiert sich: Hilfslinien schnappen ein, der Name steht auf Breite, der Faden unterstreicht ihn, Schnittmarken setzen sich */
 .k-pv-nav { position: absolute; left: var(--s5); right: var(--s5); top: var(--s6); display: flex; align-items: center; gap: var(--s3); }
 .k-pv-nav i { width: 28px; height: 3px; background: var(--haarlinie); }
-.k-pv-mark { margin-right: auto; font-family: var(--mono); font-size: var(--fs-mono-xs); color: var(--stein); border: 1px solid var(--haarlinie); padding: 2px 8px; max-width: 40%; overflow: hidden; white-space: nowrap; text-overflow: clip; }
+.k-pv-mark { margin-right: auto; font-family: var(--mono); font-size: var(--fs-mono-xs); color: var(--stein); border: 1px solid var(--haarlinie); padding: 2px 8px; max-width: 40%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .k-pv-guide { position: absolute; left: calc(var(--s5) * -1); right: calc(var(--s5) * -1); height: 1px; background: var(--np-orange); opacity: 0; pointer-events: none; }
 .k-pv-faden { position: absolute; left: 0; height: 3px; width: 0; background: var(--np-orange); transform-origin: left; transform: scaleX(0); pointer-events: none; }
 .k-pv-btn { display: block; width: 96px; height: 28px; background: var(--haarlinie); }
@@ -83,8 +84,9 @@ html[data-mode='calm'] .is-snap .k-pv-guide, html[data-mode='calm'] .is-snap .k-
 .k-chips { display: flex; flex-wrap: wrap; gap: var(--s3); }
 .k-chip { position: relative; display: inline-flex; }
 .k-chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; cursor: pointer; margin: 0; }
-.k-chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s5); border: 1.5px solid var(--tinte); font-weight: 600; font-size: var(--fs-small); background: var(--kalk); transition: background var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out); }
-.k-chip:hover span { background: var(--hover-toenung); }
+.k-chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s5); border: 1.5px solid var(--tinte); font-weight: 600; font-size: var(--fs-small); background: var(--kalk); transition: background var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out), transform 160ms var(--ease-out); }
+.k-chip:active span { transform: scale(.97); transition-duration: 100ms; }
+@media (hover: hover) and (pointer: fine) { .k-chip:hover span { background: var(--hover-toenung); } }
 .k-chip input:checked + span { background: var(--tinte); color: var(--leinen); }
 .k-chip input:focus-visible + span { outline: 2px solid var(--tinte); outline-offset: 2px; }
 .k-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
@@ -124,6 +126,8 @@ html[data-mode='calm'] .is-snap .k-pv-guide, html[data-mode='calm'] .is-snap .k-
   .k-preview { order: -1; }
   .k-pv-frame { aspect-ratio: auto; min-height: 0; padding: var(--s9) var(--s5) var(--s5); }
   .k-pv-title { font-size: clamp(1.75rem, 9vw, 3rem); }
+  /* Feste Höhe des Namensfelds: kurze, lange und zweizeilige Namen verschieben das Formular darunter nicht (Skill break-ui) */
+  .k-pv-body { min-height: 112px; align-content: end; }
   .k-pv-line { display: none; }
   .k-pv-label { left: 30px; }
   .k-head { order: -2; }

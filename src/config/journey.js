@@ -189,7 +189,7 @@ export const journey = (() => {
  * label: Name im Lineal (Desktop). Eigene Zählung: Die Startseite hat keinen Weltzähler.
  */
 export const HOME_TRANSITIONS = {
-  'warum>vergleich': { variant: 'nblende', d: 80, m: 60 }, // die Diagonale des N wischt von Nacht zu Leinen, das rechte Bein endet am rechten Rand der Demo (Kunden-Test)
+  'warum>vergleich': { variant: 'nblende', d: 80, m: 34 }, // mobil 34 statt 60 (2. November 2026, Diagonale zeichnet schon im Ausgang von S2); die Diagonale des N wischt von Nacht zu Leinen, das rechte Bein endet am rechten Rand der Demo (Kunden-Test)
   'arbeitsweise>kontakt': { variant: 'piris', d: 100, m: 50 }, // der Faden endet im NP-Logo, aus dem die Iris den Kontakt öffnet
 };
 export const homeJourney = (() => {

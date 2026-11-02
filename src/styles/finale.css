@@ -70,3 +70,8 @@ html[data-mode='desktop'] .f-invite .finale-actions, html[data-mode='mobile'] .f
   html[data-mode='desktop'] .f-invite { grid-column: 2 / 4; padding-top: 0; }
   html[data-mode='desktop'] .f-invite h2 { font-size: clamp(2rem, 3.8vw, 3.75rem); }
 }
+
+/* Ankunft über der Bühne des Übergangs 09 → Finale (finale.js): durchsichtig, eigenes Logo verborgen, bis das Finale anheftet */
+html[data-mode='desktop'] .finale.is-arriving, html[data-mode='mobile'] .finale.is-arriving,
+html[data-mode='desktop'] .finale.is-arriving .f-stage, html[data-mode='mobile'] .finale.is-arriving .f-stage { background-color: transparent !important; }
+html[data-mode='desktop'] .finale.is-arriving .f-logo, html[data-mode='mobile'] .finale.is-arriving .f-logo { visibility: hidden; }

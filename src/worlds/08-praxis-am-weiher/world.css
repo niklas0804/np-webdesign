@@ -40,7 +40,7 @@
 .w08-schalter { display: flex; flex-wrap: wrap; gap: var(--s3); }
 html:not([data-js]) .w08-schalter { display: none; }
 .w08-sw { min-height: 52px; padding: 0 var(--s5); border: 2px solid var(--text); background: transparent; color: var(--text); font: inherit; font-weight: 700; border-radius: 8px; cursor: pointer; transition: background var(--dur-s), color var(--dur-s); }
-.w08-sw:hover { background: var(--w08-card); }
+@media (hover: hover) and (pointer: fine) { .w08-sw:hover { background: var(--w08-card); } }
 .w08-sw[aria-pressed='true'] { background: var(--text); color: var(--ground); }
 
 /* ---------- Layout: eine klare Spalte plus Seitenleiste ---------- */
@@ -69,7 +69,7 @@ html:not([data-js]) .w08-schalter { display: none; }
 .w08-opt { position: relative; display: block; }
 .w08-opt input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer; }
 .w08-opt span { display: flex; align-items: center; min-height: 52px; padding: .4em var(--s4); border: 2px solid var(--text); border-radius: 8px; background: var(--ground); font-weight: 700; transition: background var(--dur-s), color var(--dur-s); gap: .5em; flex-wrap: wrap; }
-.w08-opt:hover span { background: var(--w08-card); }
+@media (hover: hover) and (pointer: fine) { .w08-opt:hover span { background: var(--w08-card); } }
 .w08-opt input:checked + span { background: var(--text); color: var(--ground); }
 .w08-opt input:focus-visible + span { outline: 4px solid var(--accent); outline-offset: 3px; box-shadow: 0 0 0 2px var(--ground); }
 .world.w08[data-contrast] .w08-opt input:focus-visible + span { outline-color: #000; }
@@ -79,7 +79,8 @@ html:not([data-js]) .w08-opt span { border: 0; background: none; min-height: 0; 
 html:not([data-js]) .w08-send { display: none; }
 .w08-send { min-height: 56px; padding: 0 var(--s6); border: 2px solid var(--text); border-radius: 8px; background: var(--accent); color: #fff; font: inherit; font-weight: 700; cursor: pointer; transition: background var(--dur-s), color var(--dur-s); }
 .world.w08[data-contrast] .w08-send { background: #000; color: #fff; }
-.w08-send:hover, .w08-send:focus-visible { background: var(--text); }
+.w08-send:focus-visible { background: var(--text); }
+@media (hover: hover) and (pointer: fine) { .w08-send:hover { background: var(--text); } }
 .w08-send:disabled { opacity: .55; cursor: not-allowed; }
 .w08-confirm { margin: 0; min-height: 0; font-weight: 700; }
 .w08-confirm:empty { display: none; }

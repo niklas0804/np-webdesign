@@ -145,10 +145,14 @@
 .wp-caption { display: block; margin-top: var(--s2); color: var(--stein); overflow-wrap: anywhere; font-size: var(--fs-mono-xs); }
 .wp-bar-label { display: none; }
 @media (min-width: 600px) { .wp-bar-label { display: block; } .wp-caption { font-size: var(--fs-mono); margin-top: var(--s3); } }
-.wp-link:hover .wp-bar, .wp-link:focus-visible .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); }
+.wp-link:focus-visible .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); }
+@media (hover: hover) and (pointer: fine) { .wp-link:hover .wp-bar { background: var(--hover-toenung); border-color: var(--np-orange); } }
 .wp-still img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; }
-.wp-link:hover .wp-still, .wp-link:focus-visible .wp-still { transform: scale(1.03); }
+.wp-link:focus-visible .wp-still { transform: scale(1.03); }
+@media (hover: hover) and (pointer: fine) { .wp-link:hover .wp-still { transform: scale(1.03); } }
 .wp-link:focus-visible { outline-offset: 6px; }
+.wp-frame { transition: transform 160ms var(--ease-out); }
+.wp-link:active .wp-frame { transform: scale(.98); transition-duration: 100ms; }
 
 .wp-center { display: grid; place-items: center; aspect-ratio: 16 / 10; background: var(--sand); border: 1px solid var(--haarlinie); position: relative; }
 .wp-center-logo { height: var(--wp-logo, 64px); width: auto; color: var(--tinte); }
@@ -199,7 +203,8 @@
 /* Blinkt sechsmal, sobald die Szene im Bild ist (kein Endlos-Blinken, WCAG 2.2.2) */
 .wp-cursor.is-blink { animation: wp-blink 1s steps(1) 6; }
 @keyframes wp-blink { 50% { opacity: 0; } }
-.wp-link:hover .wp-frame-open, .wp-link:focus-visible .wp-frame-open { background: var(--hover-toenung); }
+.wp-link:focus-visible .wp-frame-open { background: var(--hover-toenung); }
+@media (hover: hover) and (pointer: fine) { .wp-link:hover .wp-frame-open { background: var(--hover-toenung); } }
 
 /* ===== Gepinnte Bühne (nur Modus desktop und mobile) ===== */
 html[data-mode='desktop'] .opening, html[data-mode='mobile'] .opening {
@@ -213,8 +218,10 @@ html[data-mode='desktop'] .anchor, html[data-mode='mobile'] .anchor { top: calc(
 html[data-mode='desktop'] .hero, html[data-mode='mobile'] .hero { position: absolute; inset: 0; height: auto; }
 html[data-mode='desktop'] .werkplan, html[data-mode='mobile'] .werkplan {
   position: absolute; inset: 0; padding: calc(var(--frame-top) + var(--s4)) var(--gutter) var(--s9);
-  display: grid; place-items: center; visibility: hidden; background: transparent;
+  display: grid; place-items: center; background: transparent;
 }
+/* Der Werkplan ist das erste Bild von /welten und steht ab dem ersten Paint (vorher bis zum Ende des Aufbaus unsichtbar:
+   auf schwachen Handys drei bis vier Sekunden leere Fläche, und das größte Bild wurde erst danach gezeichnet). */
 html[data-mode='desktop'] .wp-grid, html[data-mode='mobile'] .wp-grid { width: 100%; will-change: auto; }
 html[data-mode='mobile'] .werkplan { padding: calc(var(--frame-top) + var(--s2)) var(--gutter) var(--s5); }
 @media (max-width: 1023px) and (max-height: 720px) { .werkplan[data-count='10'] .wp-frame { aspect-ratio: 2 / 1; } .werkplan[data-count='10'] .wp-center { min-height: 36px; } }

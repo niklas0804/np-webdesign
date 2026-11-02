@@ -10,6 +10,24 @@ Stand: 16. Oktober 2026 (Teil B der Kurskorrektur vom 11. Oktober) · Arbeitsbra
 - **Aufnahmen:** `scripts/screenshots.cjs` (Ausgabe `docs/screens/`), `scripts/render-previews.cjs` (Werkplan-, Branchen- und Social-Bilder, `welten.jpg`, `start.jpg`).
 - Die Abschnitte 4 und 4a unten beschreiben den Stand vom 8. Oktober und sind für Zwischenspiele, Welt 10, zehn Welten und das Porträt überholt; maßgebend ist `docs/BLUEPRINT.md` Abschnitt „Kurskorrektur 11. Oktober 2026“.
 
+## 0a. Premium-Feinschliff 2. November 2026 (Branch `claude/premium-feinschliff`, nicht in `main`)
+Durchgang nach den Design-Engineering-Skills von Emil Kowalski (Bewegung, Touch, Leistung, Worst-Case-Daten). Gemessen, nicht geschätzt.
+- **Übergänge:** 09 → Finale ohne doppeltes Logo (das Finale fährt durchsichtig über die Bühne und zeigt sein Logo erst beim Anheften, `finale.js`, `finale.css`). Welt 02: Wartemarke im Bild über dem Namen (`order`), die fliegende Marke deckt „Messingstuhl“ nicht mehr zu. P-Iris ohne Halt bei 0,9 R, mit 1,5-px-Maßlinie am Rand (`.t-pi-ring`).
+- **/welten:** Werkplan ab dem ersten Paint sichtbar (war bis zum Ende des Aufbaus `visibility: hidden`), Vorschaubilder im Werkplan nicht mehr lazy (`WorldStill priority`).
+- **Aufbau in kurzen Aufgaben:** `yieldMain()` in `base.js`; `initTransitions()` ist jetzt `async` und gibt je Übergang den Hauptthread ab, ebenso zwischen den Welten. Reihenfolge und „ein Refresh am Ende“ bleiben.
+- **Kontakt:** Unternehmen bis 120 Zeichen (wie `kontakt.php`); Vorschau als Wortmarke ohne Rechtsform, lange Namen auf zwei Zeilen, am Handy feste Höhe. `fit.js`: bei `data-fit-max` nie breiter als der Rahmen. Paket aus `/?paket=…` (von /leistungen) wird in die leere Nachricht eingetragen.
+- **FAQ:** im Raster des Kontakts, kein doppelter Abstand nach dem Kontakt, Antworten klappen weich auf (`::details-content`, nur wo unterstützt).
+- **Leistungen:** Preise in Tinte, Knöpfe auf einer Linie, Orange nur beim empfohlenen Paket.
+- **Touch:** kein Tap-Blitz, `touch-action: manipulation`, alle `:hover`-Regeln hinter `(hover: hover) and (pointer: fine)`, `:active`-Druck auf Knöpfen, Chips und Karten. Menü öffnet in 280 ms ease-out, Einrücken per `transform`.
+- **Welt 07:** Knopf der Dateiauswahl im Stil der Welt.
+- **N-Blende (S2 → S3) am Handy:** keine leere Strecke mehr. Die Diagonale zeichnet schon im Ausgang des letzten Satzes, der Wisch folgt, sobald S2 weg ist; Länge mobil 34 statt 60 (`journey.js`), Zeiten mobil eigen in `nblende()`. Desktop unverändert.
+- **/welten, erstes Bild:** Die neun Welten tragen bis zum zweiten Bild `content-visibility: auto` (`sections.css`, `data-painted` aus `mode-init.js`); Stil und Layout von rund 2.500 Elementen warten, bis der Werkplan steht. `whenReady` setzt `data-painted` selbst, falls das Signal fehlt (Tab im Hintergrund), layoutet einmal und wartet dann auf die Schriften. Geprüft: Seitenhöhe, alle Abschnitte und alle Pin-Abstände nach dem Aufbau identisch zu ohne; keine Schrift lädt beim Messen.
+- **Messwerte** (Median, gleiche Bedingungen für vorher und nachher):
+  - Echter Chrome, Handy, 4× CPU, langsames Netz, gzip, Median aus 5: /welten erstes Bild 2,0 → 1,4 s, größtes Bild 4,2 → 1,4 s. Startseite unverändert (1,4 s).
+  - Lighthouse mobil in CI, Median aus 3: Startseite 98 → 98 (war schon sehr schnell; ein früher genannter Wert „89 → 95–97“ beruhte auf Einzelläufen und war falsch), /welten 68 → 73, Leistungen 100, Bäckerei 99. Lighthouse simuliert das größte Bild auf /welten weiter bei rund 4 s, weil es den gesamten Aufbau der Szenen einrechnet; beobachtet steht es mit dem ersten Bild da.
+  - Abnahme: check-site ✓ (15 Seiten × 5 Viewports + ohne JavaScript), axe 0 Verstöße, check-transitions auf allen geänderten Übergängen ✓.
+- **Werkzeug:** `.github/workflows/vorschau.yml` baut jeden `claude/**`-Branch, misst Lighthouse (drei Läufe, Median) und legt Ergebnis und gebaute Seite im Branch `vorschau-build` ab. Veröffentlicht nichts.
+
 ## 1. Worum es geht
 Relaunch von np-webdesign.de als statische Astro-Seite „Die Journey“: eine durchgehende Scroll-Reise vom NP-Logo über einen Werkplan durch verkettete Branchenwelten bis in einen Kontaktrahmen. Maßgebend ist die `BLUEPRINT.md` (liegt **nicht** im Repository; Niklas hat sie hochgeladen und muss sie bei Bedarf erneut liefern). Gebaut wird phasenweise; jede Phase endet mit einer Zusammenfassung „fertig / von Niklas nötig“.
 
