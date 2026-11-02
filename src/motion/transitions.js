@@ -488,9 +488,16 @@ function nblende(c) {
   geom();
   ScrollTrigger.addEventListener('refresh', geom);
   const { tl, A } = c; const len = c.len();
-  tl.fromTo(wipe, { '--a': 0 }, { '--a': 1, duration: len * 0.42, ease: 'power2.inOut', immediateRender: true }, A + len * 0.34)
-    .fromTo(diag, { scaleX: 0 }, { scaleX: 1, duration: len * 0.28, ease: 'power2.inOut', immediateRender: true }, A)
-    .fromTo(right, { scaleY: 0 }, { scaleY: 1, duration: 40 + len * 0.15, ease: 'power2.out', immediateRender: true }, A - 40);
+  // Handy: keine leere Strecke. Die Diagonale zeichnet schon, während der letzte Satz oben hinausläuft (sie taucht unter der abziehenden
+  // Nacht auf), und der Wisch beginnt, sobald S2 ganz weg ist. Vorher lag gut ein Bildschirm Daumenweg zwischen dem letzten Satz und dem Kunden-Test,
+  // davon die Hälfte nur Linien auf Nacht oder Leinen. Desktop bleibt wie gehabt (breites N, Mausrad).
+  const m = mode === 'mobile';
+  const t = m
+    ? { diag: A - 26, diagLen: 16, wipe: A + 2, wipeLen: len * 0.6, leg: A - 40, legLen: 32 }
+    : { diag: A, diagLen: len * 0.28, wipe: A + len * 0.34, wipeLen: len * 0.42, leg: A - 40, legLen: 40 + len * 0.15 };
+  tl.fromTo(wipe, { '--a': 0 }, { '--a': 1, duration: t.wipeLen, ease: 'power2.inOut', immediateRender: true }, t.wipe)
+    .fromTo(diag, { scaleX: 0 }, { scaleX: 1, duration: t.diagLen, ease: 'power2.inOut', immediateRender: true }, t.diag)
+    .fromTo(right, { scaleY: 0 }, { scaleY: 1, duration: t.legLen, ease: 'power2.out', immediateRender: true }, t.leg);
   return true;
 }
 
