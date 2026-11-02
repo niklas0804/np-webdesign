@@ -1,0 +1,53 @@
+# Vorschau-Build für Arbeitsbranches (claude/**): baut die Seite, misst Lighthouse (mobil) und legt alles als Artefakt ab.
+# Veröffentlicht nichts: kein Push auf deploy, kein Hostinger. Läuft nie auf main.
+name: Vorschau bauen und messen
+on:
+  push:
+    branches: ['claude/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vorschau:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Prüfwerkzeuge holen (nicht Teil der Website)
+        run: |
+          mkdir -p werkzeuge
+          npm i --no-save --no-package-lock axe-core@4 lighthouse@12
+          cp node_modules/axe-core/axe.min.js werkzeuge/
+      - name: Lighthouse mobil
+        run: |
+          python3 -m http.server 8080 -d dist >/dev/null 2>&1 &
+          sleep 2
+          mkdir -p lighthouse
+          for p in index welten leistungen branchenloesungen/baeckerei; do
+            n=$(echo "$p" | tr '/' '-')
+            npx lighthouse "http://127.0.0.1:8080/$p.html" --quiet --chrome-flags="--headless=new --no-sandbox" \
+              --only-categories=performance,accessibility,best-practices,seo \
+              --output=json --output=html --output-path="lighthouse/$n" || true
+          done
+          node -e '
+            const fs=require("fs");
+            for (const f of fs.readdirSync("lighthouse").filter(f=>f.endsWith(".report.json"))) {
+              const r=JSON.parse(fs.readFileSync("lighthouse/"+f));
+              const c=r.categories, a=r.audits;
+              console.log(f.padEnd(34), Object.values(c).map(x=>x.id.slice(0,4)+" "+Math.round(x.score*100)).join("  "),
+                "| LCP", a["largest-contentful-paint"].displayValue, "| TBT", a["total-blocking-time"].displayValue,
+                "| CLS", a["cumulative-layout-shift"].displayValue, "| Gewicht", a["total-byte-weight"].displayValue);
+            }'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vorschau
+          path: |
+            dist
+            werkzeuge
+            lighthouse
+          retention-days: 7
