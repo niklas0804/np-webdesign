@@ -1,0 +1,89 @@
+# Vorschau-Build für Arbeitsbranches (claude/**): baut die Seite, misst Lighthouse (mobil) und legt das Ergebnis
+# im Branch "vorschau-build" ab (gebaute Seite, Prüfwerkzeuge, Berichte). Veröffentlicht nichts: kein deploy, kein Hostinger.
+name: Vorschau bauen und messen
+on:
+  push:
+    branches: ['claude/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  vorschau:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Abhängigkeiten als Archiv (nur auf Anforderung mit [module] in der Commit-Nachricht)
+        if: contains(github.event.head_commit.message, '[module]')
+        run: |
+          mkdir -p werkzeuge
+          tar czf - node_modules | split -b 90m - werkzeuge/node_modules.tgz.part-
+          ls -la werkzeuge
+      - run: npm run build
+      - name: Prüfwerkzeuge holen (nicht Teil der Website)
+        run: |
+          mkdir -p werkzeuge
+          npm i --no-save --no-package-lock axe-core@4 lighthouse@12
+          cp node_modules/axe-core/axe.min.js werkzeuge/
+      - name: Lighthouse mobil
+        run: |
+          # Wie auf dem Webspace: gzip-Kompression und saubere Adressen (Hostinger komprimiert laut .htaccess)
+          node -e '
+            const http=require("http"),fs=require("fs"),path=require("path"),zlib=require("zlib");
+            const T={".html":"text/html; charset=utf-8",".css":"text/css",".js":"text/javascript",".svg":"image/svg+xml",".woff2":"font/woff2",".webp":"image/webp",".jpg":"image/jpeg",".png":"image/png",".avif":"image/avif",".json":"application/json"};
+            http.createServer((q,r)=>{let u=decodeURIComponent(q.url.split("?")[0]);if(u.endsWith("/"))u+="index.html";let f=path.join("dist",u);
+              if(!path.extname(f)&&fs.existsSync(f+".html"))f+=".html";
+              if(!fs.existsSync(f)||!fs.statSync(f).isFile()){r.writeHead(404);return r.end();}
+              const ext=path.extname(f),type=T[ext]||"application/octet-stream",body=fs.readFileSync(f);
+              const gz=/text|javascript|svg|json/.test(type)&&/gzip/.test(q.headers["accept-encoding"]||"");
+              r.writeHead(200,{"content-type":type,...(gz?{"content-encoding":"gzip"}:{})});r.end(gz?zlib.gzipSync(body):body);
+            }).listen(8080);' &
+          sleep 2
+          mkdir -p lighthouse
+          # Drei Läufe je Seite, gewertet wird der Median (ein einzelner Lauf schwankt auf geteilten Maschinen um bis zu 10 Punkte)
+          for p in index welten leistungen branchenloesungen/baeckerei; do
+            n=$(echo "$p" | tr '/' '-')
+            for i in 1 2 3; do
+              npx lighthouse "http://127.0.0.1:8080/$p.html" --quiet --chrome-flags="--headless=new --no-sandbox" \
+                --only-categories=performance,accessibility,best-practices,seo \
+                --output=json --output-path="lighthouse/$n.run$i.json" || true
+            done
+          done
+          node -e '
+            const fs=require("fs");
+            const pages={};
+            for (const f of fs.readdirSync("lighthouse").filter(f=>/\.run\d\.json$/.test(f))) {
+              const n=f.replace(/\.run\d\.json$/,""); const r=JSON.parse(fs.readFileSync("lighthouse/"+f)); fs.unlinkSync("lighthouse/"+f);
+              if (r.categories && r.categories.performance) (pages[n]=pages[n]||[]).push(r);
+            }
+            for (const [n,runs] of Object.entries(pages)) {
+              runs.sort((a,b)=>a.categories.performance.score-b.categories.performance.score);
+              const r=runs[Math.floor(runs.length/2)]; const f=n+".json";
+              console.log(n.padEnd(30), "Läufe:", runs.map(x=>Math.round(x.categories.performance.score*100)).join("/"), "→ Median");
+              const c=r.categories, a=r.audits;
+              console.log(f.padEnd(30), Object.values(c).map(x=>x.id.slice(0,4)+" "+Math.round(x.score*100)).join("  "),
+                "| FCP", a["first-contentful-paint"].displayValue, "| LCP", a["largest-contentful-paint"].displayValue, "| TBT", a["total-blocking-time"].displayValue,
+                "| CLS", a["cumulative-layout-shift"].displayValue, "| Gewicht", a["total-byte-weight"].displayValue);
+              // schlanke Fassung für das Repo: nur Kennzahlen und Diagnosen, ohne Bildschirmbilder
+              const keep = ["metrics","first-contentful-paint","largest-contentful-paint","total-blocking-time","cumulative-layout-shift","speed-index","interactive",
+                "largest-contentful-paint-element","lcp-lazy-loaded","render-blocking-resources","render-blocking-insight","lcp-discovery-insight","lcp-phases-insight","document-latency-insight",
+                "bootup-time","mainthread-work-breakdown","long-tasks","total-byte-weight","network-requests","font-display","font-display-insight","unused-javascript","unused-css-rules",
+                "critical-request-chains","network-dependency-tree-insight","dom-size","dom-size-insight","forced-reflow-insight","third-parties-insight","legacy-javascript","duplicated-javascript",
+                "uses-text-compression","modern-image-formats","uses-responsive-images","offscreen-images","efficient-animated-content","non-composited-animations","layout-shifts","cls-culprits-insight"];
+              const slim = { categories: Object.fromEntries(Object.entries(c).map(([k,v])=>[k,v.score])), audits: Object.fromEntries(keep.filter(k=>a[k]).map(k=>[k,{score:a[k].score,displayValue:a[k].displayValue,numericValue:a[k].numericValue,details:a[k].details}])) };
+              fs.writeFileSync("lighthouse/"+f.replace(".json",".slim.json"), JSON.stringify(slim));
+            }'
+      - name: Ergebnis in den Branch vorschau-build schreiben
+        run: |
+          mkdir -p out && cp -r dist werkzeuge lighthouse out/
+          cd out
+          git init -q -b vorschau-build
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Vorschau von ${GITHUB_REF_NAME} @ ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" vorschau-build
