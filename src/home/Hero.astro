@@ -1,7 +1,7 @@
 ---
 /**
  * S1 · Hero (Auftrag 11. Oktober 2026, Teil C). Leinen. Die H1 ist ein echtes Textelement (LCP), unabhängig von jeder Animation.
- * Die Maßschicht bemaßt die Zeilen mit live gemessenen Breiten (src/motion/home/hero.js, nie erfundene Zahlen, für Screenreader verborgen).
+ * Die Maßschicht bemaßt die Zeilen mit live gemessenen Breiten (src/motion/home/hero.js, nie erfundene Zahlen, für Screenreader verborgen); sie liegt neben der H1, nicht darin.
  * Die Logo-Konstruktion läuft in 1,6 s per CSS (home.css). Der orange Faden verlässt den Hero am linken Rand und führt in S2.
  */
 import Logo from '../components/Logo.astro';
@@ -13,13 +13,15 @@ const { row } = Astro.props;
   <div class="hero-inner">
     <div class="hero-text">
       <p class="kicker hero-kicker">NP Webdesign · Schwandorf</p>
-      <h1 id="hero-title" class="hero-title" data-hero-title>
-        <span class="hero-line" data-hero-line>Websites, die</span>
-        <span class="hero-line" data-hero-line>nach Ihrem</span>
-        <span class="hero-line" data-hero-line>Unternehmen</span>
-        <span class="hero-line" data-hero-line>aussehen.</span>
+      <div class="hero-titlewrap">
+        <h1 id="hero-title" class="hero-title" data-hero-title>
+          <span class="hero-line" data-hero-line>Websites, die</span>{' '}
+          <span class="hero-line" data-hero-line>nach Ihrem</span>{' '}
+          <span class="hero-line" data-hero-line>Unternehmen</span>{' '}
+          <span class="hero-line" data-hero-line>aussehen.</span>
+        </h1>
         <span class="hero-ms-layer" aria-hidden="true" data-hero-ms></span>
-      </h1>
+      </div>
       <p class="lead hero-lead">Individuell entworfen und gebaut für Betriebe in der Oberpfalz und darüber hinaus. Ohne Baukasten, ohne Vorlage.</p>
       <div class="hero-buttons">
         <a class="btn btn-primary" href="#kontakt">

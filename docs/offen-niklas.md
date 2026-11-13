@@ -1,6 +1,6 @@
 # Offene Punkte für Niklas
 
-Stand: 2. November 2026 (Branch `claude/premium-feinschliff`). Erledigtes steht unten unter „Erledigt“. Arbeitsstand: Branch `claude/phase-3`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
+Stand: 13. November 2026 (Phase 1 des Arbeitsauftrags „Vertrauen, Leistungen, Welten kürzen“, Branch `claude/vertrauen-und-welten`). Erledigtes steht unten unter „Erledigt“. `main` enthält `claude/premium-feinschliff`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
 
 ## 1. Kontaktformular (läuft, Rest offen)
 - [ ] **Zugangsdaten sichern:** `np-config.php` einen Ordner **über** `public_html` anlegen (Vorlage `public/api/config.sample.php`, Block `smtp` für das IONOS-Postfach). Sie übersteht jedes Neuladen per Git oder ZIP; `api/config.php` bleibt als zweiter Ort möglich. Eine Kopie lokal aufbewahren, nie ins Repository, nie in den Chat.
@@ -11,6 +11,8 @@ Stand: 2. November 2026 (Branch `claude/premium-feinschliff`). Erledigtes steht 
 
 ## 2. Vor dem Livegang (Pflicht)
 - [ ] **Logfile-Speicherdauer:** In `src/content/datenschutz.html` steht ein sichtbarer Platzhalter. Hostinger-Support fragen und eintragen. Das ist der einzige sichtbare `[PLATZHALTER]` auf der gebauten Seite.
+- [ ] **Platzhalter-Inventur:** `npm run build` listet am Ende jeden sichtbaren `[PLATZHALTER]` in `dist/`. `npm run check:platzhalter` bricht ab, solange einer offen ist (für die Freigabe vor dem Livegang).
+- [ ] **Orange festlegen:** Das Logo nutzt `#E8601C` (`Logo.astro`), die Seite `--np-orange` `#CE5D17` (`tokens.css`). Bitte einen Wert wählen; ich ändere nichts ohne deine Entscheidung.
 - [ ] **Datenschutz ergänzen:** beim Eintrag `np-calm` (localStorage) die Laufzeit nennen („bleibt gespeichert, bis Sie ihn löschen“).
 - [ ] **`.htaccess` auf dem echten Hostinger-Server testen:** HTTPS, HSTS, saubere Adressen (`/leistungen`), Sicherheits-Header, 404-Seite, `/api/kontakt.php`.
 - [ ] **Cookie- und Speicherprüfung live** mit dem Web-Inspektor (Reiter „Speicher“ und „Netzwerk“) auf Start, `/welten` und `/datenschutz`. Befund lokal: keine Cookies, nur `np-calm` nach Klick auf „Ruhige Ansicht“, keine Fremd-Requests; der Live-Server ist nicht geprüft.
@@ -20,6 +22,7 @@ Stand: 2. November 2026 (Branch `claude/premium-feinschliff`). Erledigtes steht 
 - [ ] **GitHub Pages abschalten** (Repository-Einstellungen → Pages), damit nichts Halbes veröffentlicht wird.
 
 ## 3. Inhalte und Bilder
+- [ ] **Porträtfoto** liefern (für „Über mich“, Phase 2) und **zwei Brotfotos für Welt 01**. Bis dahin zeigen die Flächen nur „Foto folgt“, ohne Bauanleitung.
 - [ ] **Fotos besorgen:** 21 offene Fotos laut `docs/fotoliste.md` (Rechte und Abbildungsrechte vorab klären, keine erkennbaren Personen, keine Herstellerlogos).
 - [ ] **Bäckerei-Branchenseite** und die neuen Branchenseiten (Kanzlei, Oldtimer-Werkstatt, Physiotherapie, Gastronomie/Hotel) inhaltlich lesen und freigeben; sie sind nicht aus deinen Vorlagen.
 - [ ] **Werdegang** („Ich komme aus der Technik …“) nach eigener Prüfung anpassen. Wird erst gebraucht, wenn „Über mich“ zurückkommt.

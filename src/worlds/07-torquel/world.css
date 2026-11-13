@@ -125,3 +125,6 @@ html:not([data-js]) .w07-send { display: none; }
 @media (min-width: 1024px) { .w07-rund { position: absolute; right: 0; top: calc(var(--frame-top) + var(--s9)); margin-top: 0; width: 260px; } }
 .w07-raster { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; width: min(100%, 420px); margin: var(--s10) auto 0; }
 .w07-raster i { aspect-ratio: 1.25; border: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+
+/* Überschriften in der Weltschrift (base.css setzt h1–h3 sonst auf die NP-Hausschrift) */
+.w07 :is(h1, h2, h3) { font-family: inherit; font-weight: 700; font-synthesis: none; }

@@ -102,3 +102,6 @@ html:not([data-js]) .w08-send { display: none; }
 .w08-kalender i { aspect-ratio: 1.25; font-style: normal; padding: 4px 6px; font-size: .75rem; border: 3px solid var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 10%, transparent); }
 .w08-kalender i.is-leer { border-style: dashed; background: transparent; }
 .w08-kalender i.is-termin { background: var(--accent); color: #fff; }
+
+/* Überschriften in der Weltschrift (base.css setzt h1–h3 sonst auf die NP-Hausschrift) */
+.w08 :is(h1, h2, h3) { font-family: inherit; font-weight: 700; font-synthesis: none; }

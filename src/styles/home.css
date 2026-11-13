@@ -17,6 +17,7 @@ html[data-mode='desktop']:not([data-ready]) .satz, html[data-mode='mobile']:not(
 @media (min-width: 1024px) { .hero-inner { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--s8); } }
 .hero-faden { top: 64%; }
 .hero-kicker { margin-bottom: var(--s5); }
+.hero-titlewrap { position: relative; }
 .hero-title { position: relative; font-size: clamp(2.5rem, 12.4vw, 4.75rem); line-height: .94; letter-spacing: -.03em; font-weight: 790; font-stretch: 86%; margin-bottom: var(--s6); }
 @media (min-width: 1024px) { .hero-title { font-size: clamp(4.5rem, 7.3vw, 9.25rem); margin-bottom: var(--s7); } }
 .hero-line { display: block; width: max-content; white-space: nowrap; }

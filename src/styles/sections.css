@@ -167,17 +167,13 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 
 /* Bildplatzhalter (Blueprint T.1, Punkt 10: fehlende Inhalte als sichtbarer Platzhalter). Farben folgen der Welt. */
 .foto-platzhalter { margin: 0; }
-.fp-frame { display: grid; align-content: center; justify-items: start; gap: var(--s2); padding: var(--s5); position: relative;
-  border: 2px dashed currentColor; color: var(--text);
-  background: repeating-linear-gradient(135deg, color-mix(in srgb, currentColor 7%, transparent) 0 10px, transparent 10px 20px); }
+.fp-frame { display: grid; align-content: end; justify-items: start; padding: var(--s3); position: relative;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent); color: var(--text);
+  background: color-mix(in srgb, currentColor 6%, transparent); }
 .fp-frame[data-ratio='3-2'] { aspect-ratio: 3 / 2; } .fp-frame[data-ratio='4-3'] { aspect-ratio: 4 / 3; } .fp-frame[data-ratio='21-9'] { aspect-ratio: 21 / 9; }
 .fp-frame[data-ratio='4-5'] { aspect-ratio: 4 / 5; } .fp-frame[data-ratio='1-1'] { aspect-ratio: 1; } .fp-frame[data-ratio='16-9'] { aspect-ratio: 16 / 9; }
-.fp-frame p { margin: 0; max-width: 48ch; font-size: .875rem; line-height: 1.4; text-align: left; text-transform: none; letter-spacing: 0; }
-.fp-tag { font-family: var(--mono); font-size: var(--fs-mono-xs) !important; letter-spacing: .1em !important; text-transform: uppercase !important; background: var(--text); color: var(--ground); padding: 3px 8px; }
-.fp-titel { font-weight: 700; font-size: 1rem !important; }
-.fp-k { font-weight: 700; }
-.fp-meta { opacity: .85; }
-@media (max-width: 599px) { .fp-frame { padding: var(--s3); gap: var(--s1); } .fp-frame p { font-size: .8125rem; } }
+.fp-frame p { margin: 0; max-width: 48ch; text-align: left; text-transform: none; letter-spacing: 0; }
+.fp-tag { font-family: var(--mono); font-size: var(--fs-mono-xs) !important; letter-spacing: .1em !important; text-transform: uppercase !important; }
 
 /* NP-Zeichen im Übergang 09 → Finale: gezeichnete Striche und das echte Logo liegen an derselben Stelle der Bühne */
 .t-np, .t-np-real { position: absolute; display: block; overflow: visible; pointer-events: none; }

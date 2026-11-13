@@ -22,6 +22,8 @@
 @media (min-width: 1024px) { .frame-strip { height: 64px; } }
 :is(.frame-strip, .frame-logo, .frame-right) { transition: transform var(--dur-s) var(--ease-out); }
 html[data-header='hidden'] :is(.frame-strip, .frame-logo, .frame-right) { transform: translateY(-96px); }
+/* Am Desktop bleibt die schmale Kopfzeile mit Anfrage-Knopf immer stehen (kein Ausblenden beim Abwärtsscrollen); auf dem Handy trägt die Anfrage-Leiste unten */
+@media (min-width: 1024px) { html[data-header='hidden'] :is(.frame-strip, .frame-logo, .frame-right) { transform: none; } }
 /* Zähler: auf dem Handy oben in der Mitte (blendet mit aus); am Desktop unten links als Etikett mit Grundfarbe, damit Text dahinter nicht darunter läuft */
 .frame-counter { transition: transform var(--dur-s) var(--ease-out); }
 @media (max-width: 1023px) { html[data-header='hidden'] .frame-counter { transform: translateY(-96px); } }

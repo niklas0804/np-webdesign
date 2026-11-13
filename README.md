@@ -8,7 +8,7 @@ Der Quellcode liegt im Wurzelverzeichnis; die fertige Seite entsteht beim Bauen 
 ```bash
 npm install
 npm run dev        # Entwicklung
-npm run build      # erzeugt dist/ (nur Dateien, nichts Inline)
+npm run build      # erzeugt dist/ (nur Dateien, nichts Inline); am Ende die Platzhalter-Inventur (sichtbare [PLATZHALTER: …])
 npm run preview    # dist/ lokal ansehen
 
 # Datenschutz- und Qualitäts-Abnahme (Blueprint Q2 / T.4), braucht Playwright mit Chromium
@@ -27,10 +27,10 @@ npm run build && NODE_PATH=$(npm root -g) node scripts/render-previews.cjs
 | --- | --- |
 | `src/config/journey.js` | **Einzige Quelle** für Reihenfolge, Längen (vh), Paletten, Welten, Claim-Texte. Aktuelle Bauphase: `PHASE` |
 | `src/config/site.js` | Kontakt, Pakete und Preise (einzige Preisstelle), FAQ, Arbeitsweise, sichtbare Platzhalter |
-| `src/pages/` | `index.astro` (Startseite, vorläufig bis Teil C), `welten.astro` (Werkplan → Welten 01–09 → Finale), `leistungen`, Branchenseiten, `impressum`, `datenschutz`, 404 |
+| `src/pages/` | `index.astro` (Startseite „Maßarbeit“: Hero, Warum, Kunden-Test, Beispiele, Zusammenarbeit, Kontakt, FAQ), `welten.astro` (Werkplan → Welten 01–09 → Finale), `leistungen`, Branchenseiten, `impressum`, `datenschutz`, 404 |
 | `src/pages/journey.css.js` | erzeugt `/journey.css` aus der Konfiguration (Längen, Paletten) |
 | `src/content/branchen.js` | Texte der Branchenseiten (aus den Beispielkonzepten Friseur & Barber, Handwerker, Beratung & Coaching), Vorlage `src/pages/branchenloesungen/[slug].astro` |
-| `src/components/` | Rahmen, Menü, Opening (Werkplan-Szene), Werkplan, Übergang, Finale, Kontakt, FAQ, Footer; vorläufig Kopf der Startseite, Warum, Arbeitsweise; abgeschaltet: Über mich |
+| `src/components/` | Rahmen, Menü, Opening (Werkplan-Szene), Werkplan, Übergang, Finale, Kontakt, FAQ, Footer; abgeschaltet: Über mich. Die Abschnitte der Startseite liegen in `src/home/` |
 | `src/motion/` | GSAP-Module: Grundgerüst/Modi, Rahmen, Opening (t00), Übergänge, Staffelstab-Technik (`baton.js`), Finale, Satz nach Maß, Menü |
 | `src/styles/` | Tokens, Grundstile, Rahmen, Opening, Sektionen, Unterseiten |
 | `public/mode-init.js` | setzt vor dem ersten Paint `data-js` und `data-mode` (`desktop`, `mobile`, `calm`) |

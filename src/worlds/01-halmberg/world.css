@@ -48,7 +48,6 @@
 .w01-loaf-ph { clip-path: none; background: var(--ground); }
 .w01-loaf-ph .fp-frame { padding: var(--s4); }
 .w01-loaf-small .fp-frame { padding: var(--s3); }
-.w01-loaf-small .fp-motiv { display: none; }
 .w01-loaf-big { width: min(100%, 780px); margin-left: auto; }
 .w01-loaf-small { position: absolute; width: 46%; max-width: 330px; left: 0; bottom: -6%; }
 

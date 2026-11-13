@@ -17,7 +17,7 @@ export function initHero() {
 
   const draw = () => {
     layer.replaceChildren();
-    const base = title.getBoundingClientRect();
+    const base = layer.getBoundingClientRect(); // die Schicht deckt die H1 (gleiches Feld)
     let widest = null;
     lines.forEach((ln, i) => {
       const r = document.createRange();
