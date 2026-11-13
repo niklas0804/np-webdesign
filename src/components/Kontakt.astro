@@ -4,25 +4,67 @@
  * Ohne JavaScript sendet das Formular normal an /api/kontakt.php; die Antwort kommt über :target (#anfrage-erhalten).
  * Eingaben bleiben im Browser bis zum Absenden: keine Zwischenspeicherung, kein Mitschneiden.
  */
-import { SITE } from '../config/site.js';
+import { SITE, SERVICE, STEPS, LEISTUNGEN, PACKAGES } from '../config/site.js';
 import { TEXT } from '../config/journey.js';
-import { STEPS, LEISTUNGEN, PACKAGES } from '../config/site.js';
+import { BRANCHEN_LIST } from '../content/branchen.js';
 const { row } = Astro.props;
 const ablauf = STEPS.map((s) => s.title).join(', ');
 const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
+/** Für ?branche=<slug>: Name der Branche für den Nachrichtentext (Mechanik wie ?paket=) */
+const branchen = BRANCHEN_LIST.map((b) => `${b.slug}:${b.title.replace('Website-Konzept ', '')}`).join('|');
 ---
 <section id={row.anchor} class="kontakt" data-section={row.id} data-ground={row.ground} data-tone="light"
-         data-counter={`${TEXT.nextWorld} · Kontakt`} data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title" data-kontakt>
+         data-counter="Kontakt" data-counter-short="Kontakt" data-bar-off aria-labelledby="kontakt-title" data-kontakt>
   <div class="kontakt-inner k-grid">
     <div class="k-head">
-      <p class="kicker">{TEXT.nextWorld} · Kontakt</p>
+      <p class="kicker">Ihr Betrieb · Kontakt</p>
       <h2 id="kontakt-title">Ihr Entwurf beginnt mit einem Gespräch.</h2>
       <p class="lead k-lead">Schreiben Sie mir, worum es geht. {SITE.responseTime}.</p>
     </div>
 
-    <aside class="k-preview" aria-label="Vorschau Ihrer Welt" data-preview>
+    <div class="k-call" data-rc>
+      <h3 class="k-call-title">Lieber telefonisch?</h3>
+      <p class="k-call-phone"><a class="link" href={SITE.phoneHref}>{SITE.phone}</a></p>
+      <p class="small k-call-note">{SITE.phoneNote}</p>
+      <details class="k-cb" data-rc-details>
+        <summary><span>Rückruf anfordern</span><span class="faq-icon" aria-hidden="true"></span></summary>
+        <form class="k-rc-form" action="/api/kontakt.php" method="post" data-rc-form autocomplete="on">
+          <input type="hidden" name="art" value="rueckruf" />
+          <div class="k-row">
+            <div class="k-field">
+              <label for="k-rc-name">Ihr Name <span class="k-req" aria-hidden="true">*</span></label>
+              <input id="k-rc-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="k-rc-name-err" />
+              <p class="k-err" id="k-rc-name-err" data-err hidden>Bitte nennen Sie mir Ihren Namen.</p>
+            </div>
+            <div class="k-field">
+              <label for="k-rc-tel">Telefon <span class="k-req" aria-hidden="true">*</span></label>
+              <input id="k-rc-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" required maxlength="40" aria-describedby="k-rc-tel-err" />
+              <p class="k-err" id="k-rc-tel-err" data-err hidden>Bitte geben Sie eine Telefonnummer an, unter der ich Sie erreiche.</p>
+            </div>
+          </div>
+          <div class="k-field">
+            <label for="k-rc-wann">Wann passt es? <span class="k-opt">(freiwillig)</span></label>
+            <input id="k-rc-wann" name="wann" type="text" maxlength="100" autocomplete="off" placeholder="zum Beispiel: werktags nach 18 Uhr" />
+          </div>
+          <div class="k-trap" aria-hidden="true"><label for="np_hp_field_rc">Bitte leer lassen</label><input type="text" id="np_hp_field_rc" name="np_hp_field" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore /></div>
+          <input type="hidden" name="np_ts" value="" data-ts />
+          <button class="btn btn-secondary k-submit" type="submit" data-rc-submit>
+            <span class="btn-label"><span data-rc-label>Rückruf anfordern</span><span aria-hidden="true">Rückruf anfordern</span></span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="small k-privacy">Name und Telefonnummer verwende ich nur für den Rückruf. Näheres in der <a class="link" href="/datenschutz#kontakt">Datenschutzerklärung</a>. * Pflichtfeld.</p>
+          <p class="k-status" role="status" aria-live="polite" data-rc-status></p>
+        </form>
+      </details>
+      <div class="k-rc-done" id="rueckruf-erhalten" tabindex="-1" data-rc-done>
+        <p class="k-done-title">{SITE.callbackDone}</p>
+      </div>
+      <p class="k-rc-fail" id="rueckruf-fehler" role="alert" data-rc-fail><span>Das hat leider nicht geklappt. Bitte rufen Sie mich an: <a class="link" href={SITE.phoneHref}>{SITE.phone}</a>, oder schreiben Sie mir: <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</span></p>
+    </div>
+
+    <aside class="k-preview" aria-label="Vorschau Ihres Betriebs" data-preview>
       <div class="k-pv-frame">
-        <span class="k-pv-label mono" aria-hidden="true">{TEXT.nextWorld} · Ihr Unternehmen</span>
+        <span class="k-pv-label mono" aria-hidden="true">Ihr Betrieb</span>
         <div class="k-pv-nav" aria-hidden="true"><span class="k-pv-mark" data-pv-mark>–</span><i></i><i></i><i></i></div>
         <div class="k-pv-body" data-pv-body>
           <span class="k-pv-guide k-pv-guide-top" aria-hidden="true" data-pv-guide></span>
@@ -47,7 +89,7 @@ const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
     </aside>
 
     <div class="k-main">
-      <form class="k-form" action="/api/kontakt.php" method="post" data-form data-within={SITE.responseWithin} data-pakete={pakete} autocomplete="on">
+      <form class="k-form" action="/api/kontakt.php" method="post" data-form data-within={SITE.responseWithin} data-pakete={pakete} data-branchen={branchen} autocomplete="on">
         <div class="k-row">
           <div class="k-field">
             <label for="k-name">Ihr Name <span class="k-req" aria-hidden="true">*</span></label>
@@ -71,7 +113,7 @@ const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
           </div>
         </div>
         <fieldset class="k-topic">
-          <legend>Worum geht es? <span class="k-opt">(freiwillig)</span></legend>
+          <legend>Worum geht es? <span class="k-opt">(wählen Sie eines oder schreiben Sie unten)</span></legend>
           <div class="k-chips">
             <label class="k-chip"><input type="radio" name="anliegen" value="Neue Website" /><span>Neue Website</span></label>
             <label class="k-chip"><input type="radio" name="anliegen" value="Relaunch" /><span>Relaunch</span></label>
@@ -79,9 +121,14 @@ const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
           </div>
         </fieldset>
         <div class="k-field">
-          <label for="k-msg">Ihr Vorhaben in ein paar Sätzen <span class="k-req" aria-hidden="true">*</span></label>
-          <textarea id="k-msg" name="nachricht" rows="5" required minlength="10" maxlength="4000" aria-describedby="k-msg-err"></textarea>
-          <p class="k-err" id="k-msg-err" data-err hidden>Bitte beschreiben Sie Ihr Vorhaben in ein, zwei Sätzen (mindestens 10 Zeichen).</p>
+          <label for="k-msg">Ihr Vorhaben in ein paar Sätzen <span class="k-opt">(Pflicht, wenn Sie oben nichts wählen)</span></label>
+          <textarea id="k-msg" name="nachricht" rows="5" maxlength="4000" aria-describedby="k-msg-err"></textarea>
+          <p class="k-err" id="k-msg-err" data-err hidden>Bitte wählen Sie oben ein Anliegen oder beschreiben Sie Ihr Vorhaben in ein, zwei Sätzen (mindestens 10 Zeichen).</p>
+        </div>
+        <div class="k-field">
+          <label for="k-web">Ihre jetzige Website <span class="k-opt">(freiwillig)</span></label>
+          <p class="small k-hint" id="k-web-hint">{SERVICE.websiteCheck}</p>
+          <input id="k-web" name="jetzige_website" type="text" inputmode="url" autocomplete="url" maxlength="200" aria-describedby="k-web-hint" placeholder="www.ihre-adresse.de" />
         </div>
         <div class="k-trap" aria-hidden="true"><label for="np_hp_field">Bitte leer lassen</label><input type="text" id="np_hp_field" name="np_hp_field" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore /></div>
         <input type="hidden" name="np_ts" value="" data-ts />
@@ -95,8 +142,8 @@ const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
 
       <div class="k-done" id="anfrage-erhalten" tabindex="-1" data-done>
         <p class="k-done-title" data-done-title>Danke. Ich melde mich {SITE.responseWithin}.</p>
-        <p>{TEXT.nextWorld} ist angelegt.</p>
-        <p class="small"><a class="link" href="/welten#werkplan">Zu den neun Welten</a></p>
+        <p>Ihre Anfrage ist bei mir angekommen.</p>
+        <p class="small"><a class="link" href="/welten#werkplan">Zu den {TEXT.worldCount} Welten</a></p>
       </div>
       <p class="k-fail" id="anfrage-fehler" role="alert" data-fail><span>Das hat leider nicht geklappt. Bitte prüfen Sie Ihre Angaben oder schreiben Sie mir direkt: <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</span></p>
     </div>
@@ -106,6 +153,7 @@ const pakete = PACKAGES.map((p) => `${p.id}:${p.name}`).join(',');
       <div><dt class="mono">Preise</dt><dd><a class="link" href="/leistungen">Pakete und Preise</a></dd></div>
       <div><dt class="mono">Ablauf</dt><dd>{ablauf}. Von der ersten Skizze bis nach dem Launch sprechen Sie mit mir.</dd></div>
       <div><dt class="mono">Antwortzeit</dt><dd>{SITE.responseTime}</dd></div>
+      <div><dt class="mono">Telefon</dt><dd><a class="link" href={SITE.phoneHref}>{SITE.phone}</a></dd></div>
       <div><dt class="mono">E-Mail</dt><dd><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
       <div><dt class="mono">Standort</dt><dd>{SITE.city}, Oberpfalz</dd></div>
     </dl>

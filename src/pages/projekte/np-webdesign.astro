@@ -1,0 +1,65 @@
+---
+/**
+ * Fallstudie 00: die eigene Website als Projekt (Auftrag 13. November 2026, 2.8).
+ * NP hat noch kein Kundenprojekt abgeschlossen. Die Seite sagt das offen und behauptet keine Kundenerfahrung.
+ * Zahlen nur aus Messung, mit Datum und Methode: src/content/messwerte.js (dort steht, wie und wann gemessen wurde).
+ */
+import Page from '../../layouts/Page.astro';
+import { SITE } from '../../config/site.js';
+import { MESSWERTE } from '../../content/messwerte.js';
+const path = '/projekte/np-webdesign';
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: SITE.name, item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Fallstudie: die Website von NP Webdesign', item: SITE.url + path } ] },
+];
+---
+<Page title="Fallstudie 00: die Website von NP Webdesign" description="Wie diese Website entstanden ist: Ausgangslage, Ziel, Idee, Umsetzung und gemessene Ergebnisse. Ein Eigenprojekt, noch kein Kundenprojekt." path={path} jsonLd={jsonLd}>
+  <p class="kicker">Fallstudie 00 · Eigenprojekt</p>
+  <h1>Die Website von NP Webdesign.</h1>
+  <p class="lead">Ich habe noch kein Kundenprojekt abgeschlossen. Deshalb zeige ich hier das Projekt, das ich ganz kenne: diese Website. Alle Zahlen darunter habe ich selbst gemessen, mit Datum und Methode.</p>
+
+  <h2>Ausgangslage</h2>
+  <p>NP Webdesign ist mein Ein-Personen-Studio in {SITE.city}. Ich baue Websites für kleine Betriebe aus der Region, nebenberuflich. Mir fehlte ein Beispiel, das ich zeigen kann. Also habe ich meine eigene Website so gebaut, wie ich für Sie bauen würde.</p>
+
+  <h2>Ziel</h2>
+  <p>Ein Besucher, der abends am Handy schaut, soll schnell verstehen, was ich anbiete, was es kostet und wie er mich erreicht. Dazu kamen vier feste Vorgaben:</p>
+  <ul>
+    <li>Die Seite lädt schnell, auch am Handy.</li>
+    <li>Sie kommt ohne Cookies, ohne Einwilligungsbanner und ohne Anfragen an fremde Server aus.</li>
+    <li>Sie lässt sich ohne JavaScript und mit der Einstellung „Bewegung reduzieren“ vollständig benutzen.</li>
+    <li>Sie behauptet nichts, was ich nicht belegen kann.</li>
+  </ul>
+
+  <h2>Idee</h2>
+  <p>Die Seite soll zeigen statt behaupten. Im „Kunden-Test“ sehen Sie denselben Barbershop zweimal: einmal als Baukasten-Seite, einmal als Maßarbeit. Wie viele Schritte braucht ein Kunde bis zum Termin? Dazu kommen Studien: erfundene Betriebe, bei denen ich zeige, wie unterschiedlich Gestaltung sein kann. Sie sind überall als „Studie · fiktives Unternehmen“ gekennzeichnet.</p>
+
+  <h2>Umsetzung</h2>
+  <ul>
+    <li>Statische Seite mit Astro, ohne Baukasten und ohne Datenbank.</li>
+    <li>Bewegung mit GSAP und weichem Scrollen nur am Desktop, und nur dort, wo sie etwas erklärt.</li>
+    <li>Alle Schriften und Bilder liegen auf dem eigenen Server. Eine strenge Inhaltsrichtlinie (CSP) verbietet fremde Quellen.</li>
+    <li>Das Kontaktformular schickt die Nachricht über meinen eigenen Mailserver. Spamschutz ohne Zusatzdienst: ein verstecktes Feld, eine Zeitprüfung und eine Mengenbegrenzung.</li>
+    <li>Preise, Fristen und Telefonnummer stehen an genau einer Stelle im Code. Jeder Text bezieht sie von dort.</li>
+    <li>Jede Änderung prüfen automatische Tests: Seitenprüfung, Barrierefreiheit (axe) und Übergänge.</li>
+  </ul>
+
+  <h2>Ergebnis</h2>
+  <p>Gemessen am <strong>{MESSWERTE.stand}</strong>. Die Methode steht jeweils dabei.</p>
+  <div class="mess-tabelle" role="region" aria-label="Messwerte" tabindex="0">
+    <table>
+      <caption class="visually-hidden">Messwerte der Website mit Methode</caption>
+      <thead><tr><th scope="col">Was</th><th scope="col">Wert</th><th scope="col">Methode</th></tr></thead>
+      <tbody>
+        {MESSWERTE.zeilen.map((z) => <tr><th scope="row">{z.was}</th><td>{z.wert}</td><td>{z.methode}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <h3>Was ich nicht gemessen habe</h3>
+  <ul>
+    {MESSWERTE.nichtGemessen.map((t) => <li>{t}</li>)}
+  </ul>
+  <p>Ob diese Website mir Anfragen bringt, weiß ich noch nicht. Besucherzahlen erhebe ich bewusst nicht.</p>
+
+  <p class="seal"><a class="link" href="/#kontakt">Zum Kontakt</a> · <a class="link" href="/leistungen">Leistungen und Preise</a> · <a class="link" href="/">Zur Startseite</a></p>
+</Page>

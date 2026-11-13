@@ -1,6 +1,6 @@
 # Prüfliste für die rechtliche Prüfung (np-webdesign.de, Relaunch)
 
-Stand: 7. Oktober 2026 · Verantwortlicher: Niklas Prüfling, Einzelunternehmen, Friedrich-Ebert-Straße 60, 92421 Schwandorf
+Stand: 13. November 2026 (Datenschutzerklärung und Prüfliste um Rückruf, Telefon, Website-Check und `np-calm`-Laufzeit ergänzt; Rest Stand 7. Oktober 2026) · Verantwortlicher: Niklas Prüfling, Einzelunternehmen, Friedrich-Ebert-Straße 60, 92421 Schwandorf
 Quelle der Texte: `src/content/impressum.html`, `src/content/datenschutz.html`, `src/components/*`, `public/api/kontakt.php`.
 Diese Liste ist keine Rechtsberatung. Sie sagt, was die Seite tut, und fragt, was geprüft werden soll.
 
@@ -9,7 +9,9 @@ Diese Liste ist keine Rechtsberatung. Sie sagt, was die Seite tut, und fragt, wa
 | Vorgang | Daten | Empfänger | Stand |
 | --- | --- | --- | --- |
 | Seitenaufruf | IP-Adresse, Zeitpunkt, Seite, Browserkennung (Server-Logfiles) | HOSTINGER operations, UAB, Vilnius (Auftragsverarbeiter), dessen Unterauftragnehmer (u. a. AWS, Google Cloud) | läuft |
-| Kontaktformular | Name, E-Mail, Nachricht; freiwillig Unternehmen, Telefon, Anliegen | Hostinger (Entgegennahme, Versand), IONOS SE (Postfach) | gebaut |
+| Kontaktformular | Name, E-Mail, Nachricht (oder gewähltes Anliegen); freiwillig Unternehmen, Telefon, Adresse der jetzigen Website | Hostinger (Entgegennahme, Versand), IONOS SE (Postfach) | gebaut |
+| Rückruf-Formular (neu 13. November 2026) | Name, Telefon; freiwillig Wunschzeit | Hostinger (Entgegennahme, Versand), IONOS SE (Postfach) | gebaut |
+| Telefonnummer auf der Seite (neu) | nichts, solange niemand anruft (`tel:`-Link, keine Erfassung) | Telefonanbieter beim Anruf | läuft |
 | Direkte E-Mail oder Anruf | was der Absender mitteilt | IONOS SE (Postfach), Telefonanbieter | läuft |
 | „Ruhige Ansicht“ | ein Eintrag im Browser (localStorage `np-calm`), erst nach Klick | niemand, bleibt im Browser | läuft |
 | Statistik (Matomo, eigener Server) | Seitenaufrufe, Scrolltiefe, Klicks, gekürzte IP, Besucherkennung im Cookie | eigene Installation bei Hostinger | **geplant, noch nicht gebaut** |
@@ -47,8 +49,12 @@ Technisch abgesichert (Prüfskript `tools/check-site.cjs`): null Anfragen an fre
 - [ ] Spamschutz ohne Personenbezug (Honeypot, Zeitprüfung mit übertragenem Zeitpunkt des Seitenaufrufs, Linkfilter, Zustellung mit Betreff-Markierung statt Verwerfen, Mengenbegrenzung nach Gesamtzahl pro Stunde, ohne IP-Speicherung): Darstellung im Text richtig und ausreichend?
 - [ ] Hinweis, dass der Formularinhalt bis zum Absenden im Browser bleibt (Live-Vorschau lokal): sinnvoll oder überflüssig?
 
+- [ ] **Rückruf** (neu): Name und Telefonnummer, Zeitwunsch freiwillig; gleicher Weg und gleiche Schutzmaßnahmen wie die Anfrage; Speicherdauer „bis zur Bearbeitung“. Hinweis am Formular („nur für den Rückruf“) ausreichend? Der Text sagt, ich rufe „falls ich Sie nicht erreiche, später noch einmal“ an: Ist das gedeckt?
+- [ ] **Website-Check** (neu): Das Feld „Ihre jetzige Website“ ist freiwillig; die Adresse dient nur dem Website-Check (öffentliche Seite ansehen, Ergebnis per E-Mail). Einordnung als vorvertragliche Maßnahme tragfähig? Die Zusage „kostenlos, auch wenn daraus nichts wird“ und „innerhalb einer Woche“ ist verbindlich: wettbewerbsrechtlich unbedenklich?
+- [ ] **Telefonnummer** (neu): Die Nummer steht auf der Seite, im Footer und im Menü. Der Text zur Erreichbarkeit („späten Nachmittag und abends“, „Rückruf spätestens am nächsten Werktag“) ist eine Zusage. Eher „in der Regel“?
+
 **Browser-Speicher**
-- [ ] „Ruhige Ansicht“ speichert erst nach Klick einen Eintrag im Browser und stützt sich auf § 25 Abs. 2 Nr. 2 TDDDG (unbedingt erforderlich für den vom Nutzer gewünschten Dienst). Trägt diese Einordnung?
+- [ ] „Ruhige Ansicht“ speichert erst nach Klick einen Eintrag im Browser und stützt sich auf § 25 Abs. 2 Nr. 2 TDDDG (unbedingt erforderlich für den vom Nutzer gewünschten Dienst). Trägt diese Einordnung? Die Laufzeit steht jetzt im Text („bleibt gespeichert, bis Sie ihn löschen“): genügt das?
 - [ ] Opening-Animation merkt sich bewusst nicht, ob sie schon lief (kein Speichern ohne Handlung).
 
 **Allgemeiner Teil**
@@ -79,8 +85,8 @@ Noch nicht gebaut. Bitte das Konzept bewerten, bevor es gebaut wird (Blueprint A
 - [ ] **Antwortzeit:** „Antwort innerhalb von 2 Werktagen“ ist eine verbindliche Zusage. Haftungs- oder Irreführungsrisiko? Eher „in der Regel“?
 - [ ] **Werbeaussagen** („individuell, keine Standardvorlagen, keine Baukastensysteme“, „DSGVO-orientierte Umsetzung“, „schnelle Website“) belegbar und nicht irreführend (UWG)?
 - [ ] **Branchenseite Bäckerei** (`/branchenloesungen/baeckerei`, neu geschrieben, mit Checkliste und drei FAQ): Aussagen wie „Ein Redaktionssystem gehört zum Premium-Paket“, „Bildrechte klären wir vorher“ und der Hinweis auf geprüfte Allergenangaben sachlich und rechtlich unbedenklich? Die drei anderen Branchenseiten sind wörtlich aus den vorhandenen Beispielkonzepten übernommen.
-- [ ] **Werdegang** (Über mich): „gelernter Mechatroniker, heute IT-Systemtechniker“. Berufsbezeichnungen richtig verwendet?
-- [ ] **Porträtfoto (ruht):** Seit 11. Oktober 2026 ist „Über mich“ abgeschaltet (`SITE_FLAGS.ueberMich`), das Porträt liegt in `assets-parked/ueber-mich/` und ist nicht im Build. Die Datenschutzerklärung nennt kein Porträt. Erst beim Einschalten klären: Rechte beim Fotografen/Urheber (falls nicht Selbstaufnahme), Datenschutzerklärung und Metadaten des Bildes prüfen.
+- [ ] **Werdegang** (Über mich, Text von Niklas): „gelernter Mechatroniker“, „Betriebs- und Wirtschaftsinformatik“, „hauptberuflich in der IT-Systemtechnik“, „bilde mich zum Technischen Betriebswirt weiter“, „höchstens zwei Projekte gleichzeitig“. Berufsbezeichnungen richtig verwendet? Die Fallstudie 00 (`/projekte/np-webdesign`) nennt Messwerte mit Methode und sagt offen, dass es noch kein Kundenprojekt gibt: Aussagen wie „ohne Cookies“ und „ohne Fremdanfragen“ sind belegbar (`tools/check-site.cjs`).
+- [ ] **Porträtfoto (ruht):** „Über mich“ ist seit 13. November 2026 wieder auf der Startseite, aber ohne Bild (`SITE_FLAGS.portrait = false`). Das Porträt liegt in `assets-parked/ueber-mich/` und ist nicht im Build. Die Datenschutzerklärung nennt kein Porträt. Erst beim Einschalten klären: Rechte beim Fotografen/Urheber (falls nicht Selbstaufnahme), Datenschutzerklärung und Metadaten des Bildes prüfen.
 
 ## 7. Lizenzen Dritter
 

@@ -2,7 +2,7 @@
 /** Branchenseite (Blueprint K, Q): eine Vorlage für alle Branchen. Inhalte aus src/content/branchen.js. */
 import Page from '../../layouts/Page.astro';
 import '../../styles/branche.css';
-import { BRANCHEN, BRANCHEN_LIST } from '../../content/branchen.js';
+import { BRANCHEN, BRANCHEN_LIST, branchenTitel, branchenLink } from '../../content/branchen.js';
 import { WORLDS } from '../../config/journey.js';
 import { SITE } from '../../config/site.js';
 
@@ -13,7 +13,8 @@ const { b } = Astro.props;
 const world = WORLDS.find((w) => w.nr === b.world);
 const related = BRANCHEN_LIST.filter((x) => x.slug !== b.slug);
 const path = `/branchenloesungen/${b.slug}`;
-const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent(b.cta.subject)}&body=${encodeURIComponent(b.cta.body)}`;
+/** Projekt besprechen: ins Formular der Startseite, die Branche kommt in die Nachricht (Mechanik wie ?paket=) */
+const anfrage = `/?branche=${b.slug}#kontakt`;
 const plain = (s) => s.replace(/<[^>]+>/g, '');
 const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'Service', name: `Webdesign für ${world.branche}`, serviceType: 'Webdesign',
@@ -22,7 +23,7 @@ const jsonLd = [
     { '@type': 'ListItem', position: 1, name: SITE.name, item: SITE.url + '/' },
     { '@type': 'ListItem', position: 2, name: b.title, item: SITE.url + path } ] },
 ];
-const titleFull = `${b.title} – NP Webdesign`;
+const titleFull = branchenTitel(b);
 ---
 <Page title={titleFull} description={b.description} path={path} bare jsonLd={jsonLd} image={`/images/social/branche-${b.slug}.jpg`}>
   <header class="bs-hero">
@@ -32,7 +33,7 @@ const titleFull = `${b.title} – NP Webdesign`;
         <h1 set:html={b.h1} />
         <p class="lead bs-lead">{b.lead}</p>
         <div class="bs-actions">
-          <a class="btn btn-primary" href="#anfrage">
+          <a class="btn btn-primary" href={anfrage}>
             <span class="btn-label"><span>Projekt besprechen</span><span aria-hidden="true">Projekt besprechen</span></span>
             <span class="btn-arrow" aria-hidden="true">→</span>
           </a>
@@ -155,7 +156,7 @@ const titleFull = `${b.title} – NP Webdesign`;
       <p class="bs-eyebrow">Weiterlesen</p>
       <ul>
         <li><a class="link" href={world.built ? `/welten#${world.anchor}` : '/welten#werkplan'}>Diese Studie in der Reise ansehen</a></li>
-        {related.map((r) => <li><a class="link" href={`/branchenloesungen/${r.slug}`}>{r.title.replace('Website-Konzept ', 'Webdesign für ')}</a></li>)}
+        {related.map((r) => <li><a class="link" href={`/branchenloesungen/${r.slug}`}>{branchenLink(r)}</a></li>)}
         <li><a class="link" href="/leistungen">Leistungen und Preise</a></li>
       </ul>
     </div>
@@ -166,7 +167,7 @@ const titleFull = `${b.title} – NP Webdesign`;
       <p class="bs-eyebrow">{b.cta.eyebrow}</p>
       <h2 id="h-anfrage">{b.cta.h2}</h2>
       <p class="lead">{b.cta.text}</p>
-      <a class="btn btn-primary" href={mailto}>
+      <a class="btn btn-primary" href={anfrage}>
         <span class="btn-label"><span>{b.cta.button}</span><span aria-hidden="true">{b.cta.button}</span></span>
         <span class="btn-arrow" aria-hidden="true">→</span>
       </a>

@@ -411,7 +411,7 @@ function wasser(c) {
  */
 const NS = 'http://www.w3.org/2000/svg';
 const NP_STRICHE = [ // Mittellinien im Koordinatensystem der Logo-Zeichnung (viewBox 0 1 107.4 92), Strichstärke siehe unten
-  { d: 'M7.15 56.28 L27.65 1.76', w: 6, final: '#E8601C' }, // Schrägstrich
+  { d: 'M7.15 56.28 L27.65 1.76', w: 6, final: '#CE5D17' }, // Schrägstrich
   { d: 'M50.17 49.9 V7.56', w: 5.4, final: 'currentColor' }, // N, linkes Bein
   { d: 'M50.4 9.2 L69.4 48.2', w: 5.6, final: 'currentColor' }, // N, Diagonale
   { d: 'M69.65 49.9 V7.56', w: 5.4, final: 'currentColor' }, // N, rechtes Bein
@@ -419,7 +419,7 @@ const NP_STRICHE = [ // Mittellinien im Koordinatensystem der Logo-Zeichnung (vi
   { d: 'M82.93 10.1 H93.8', w: 5.1, final: 'currentColor' }, // P, oben
   { d: 'M93.8 10.1 A10.1 10.1 0 0 1 93.8 30.3', w: 5.1, final: 'currentColor' }, // P, Bauch
   { d: 'M93.8 30.3 H82.93', w: 5.1, final: 'currentColor' }, // P, unten
-  { d: 'M0 70.5 H107.4', w: 5, final: '#E8601C' }, // Balken
+  { d: 'M0 70.5 H107.4', w: 5, final: '#CE5D17' }, // Balken
 ];
 function npzeichen(c) {
   const real = $('[data-f-logo] svg', c.toSec);

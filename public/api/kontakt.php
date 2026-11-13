@@ -3,6 +3,7 @@ declare(strict_types=1);
 /*
  * Formular-Endpunkt (Blueprint N, Q2): nimmt die Anfrage entgegen und stellt sie als E-Mail zu.
  * Keine Datenbank, kein Drittdienst, kein Formularinhalt in Logs, keine Speicherung von IP-Adressen.
+ * Zwei Arten: die Anfrage und der Rückruf (Feld art=rueckruf: nur Name und Telefon sind Pflicht, E-Mail und Nachricht entfallen).
  * Schutz: Honeypot, Zeitprüfung, Linkfilter, serverseitige Prüfung, Mengenbegrenzung über die Gesamtzahl pro Stunde (ohne Personenbezug).
  * Verdachtsfälle werden trotzdem zugestellt (Betreff „[Spam-Verdacht]“); verworfen wird nur, wenn alle drei Prüfungen anschlagen.
  * Versand: standardmäßig über mail() des Hosters, optional über ein SMTP-Postfach (config.php, Eintrag „smtp“).
@@ -43,13 +44,15 @@ $json = str_contains($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json');
 /** Antwort: JSON für das Skript, sonst Rücksprung auf die Seite (ohne JavaScript zeigt :target die Meldung) */
 function finish(bool $ok, string $code, bool $json, int $status = 200): never
 {
+    global $callback;
     if ($json) {
         http_response_code($status);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode(['ok' => $ok, 'code' => $code]);
         exit;
     }
-    header('Location: /#' . ($ok ? 'anfrage-erhalten' : 'anfrage-fehler'), true, 303);
+    $target = !empty($callback) ? ($ok ? 'rueckruf-erhalten' : 'rueckruf-fehler') : ($ok ? 'anfrage-erhalten' : 'anfrage-fehler');
+    header('Location: /#' . $target, true, 303);
     exit;
 }
 
@@ -145,6 +148,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     exit;
 }
 
+// Rückruf oder Anfrage (alles andere gilt als Anfrage)
+$callback = ($_POST['art'] ?? '') === 'rueckruf';
+
 // Anfragen nur von der eigenen Seite
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $ownHost = strtolower(explode(':', $_SERVER['HTTP_HOST'] ?? '')[0]);
@@ -170,15 +176,25 @@ $email = clean($_POST['email'] ?? '', 200);
 $phone = clean($_POST['telefon'] ?? '', 40);
 $topic = clean($_POST['anliegen'] ?? '', 40);
 $message = clean($_POST['nachricht'] ?? '', 4000, true);
+$site = clean($_POST['jetzige_website'] ?? '', 200); // Website-Check: zählt nicht im Linkfilter
+$when = clean($_POST['wann'] ?? '', 100);
 
 if (!in_array($topic, ['', 'Neue Website', 'Relaunch', 'Noch unsicher'], true)) {
     $topic = '';
 }
-if ($name === '' || mb_strlen($message) < 10 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if ($callback) {
+    // Rückruf: Name und Telefon (mindestens sechs Ziffern, nur Zeichen, die in Nummern vorkommen)
+    $digits = preg_replace('/\D/', '', $phone) ?? '';
+    if ($name === '' || strlen($digits) < 6 || !preg_match('~^[\d\s+()\-/.]+$~', $phone)) {
+        finish(false, 'invalid', $json, 422);
+    }
+    $email = '';
+} elseif ($name === '' || (mb_strlen($message) < 10 && $topic === '') || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // Anfrage: Freitext ist nicht nötig, wenn ein Anliegen gewählt ist
     finish(false, 'invalid', $json, 422);
 }
 
-if (preg_match_all('~https?://|www\.~i', $message . ' ' . $company) > 2) {
+if (preg_match_all('~https?://|www\.~i', $message . ' ' . $company . ' ' . $when) > 2) {
     $flags[] = 'mehr als 2 Links';
 }
 // Nur wenn alle drei Prüfungen anschlagen, wird verworfen (scheinbarer Erfolg); sonst wird zugestellt und im Betreff markiert
@@ -206,7 +222,15 @@ if ($fh !== false && flock($fh, LOCK_EX)) {
     fclose($fh);
 }
 
-$lines = [
+$lines = $callback ? [
+    'Rückrufbitte über np-webdesign.de',
+    '',
+    'Name:        ' . $name,
+    'Telefon:     ' . $phone,
+    'Wann passt es: ' . ($when !== '' ? $when : '–'),
+    '',
+    '— Gesendet über das Rückruf-Formular. Zugesagt: Rückruf spätestens am nächsten Werktag.',
+] : [
     'Neue Anfrage über np-webdesign.de',
     '',
     'Name:        ' . $name,
@@ -214,8 +238,9 @@ $lines = [
     'E-Mail:      ' . $email,
     'Telefon:     ' . ($phone !== '' ? $phone : '–'),
     'Anliegen:    ' . ($topic !== '' ? $topic : '–'),
+    'Website:     ' . ($site !== '' ? $site . '  (Website-Check gewünscht)' : '–'),
     '',
-    $message,
+    $message !== '' ? $message : '(kein Text, nur Anliegen gewählt)',
     '',
     '— Gesendet über das Kontaktformular. Antworten geht direkt an die E-Mail-Adresse des Absenders.',
 ];
@@ -224,12 +249,12 @@ if ($flags) {
 }
 $headers = [
     'From: NP Webdesign <' . $cfg['from'] . '>',
-    'Reply-To: ' . $email,
+    ...($email !== '' ? ['Reply-To: ' . $email] : []),
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
 ];
-$subject = '=?UTF-8?B?' . base64_encode(($flags ? '[Spam-Verdacht] ' : '') . $cfg['subject'] . ' – ' . $name) . '?=';
+$subject = '=?UTF-8?B?' . base64_encode(($flags ? '[Spam-Verdacht] ' : '') . ($callback ? 'Rückrufbitte über np-webdesign.de' : $cfg['subject']) . ' – ' . $name) . '?=';
 
 // Protokoll nur mit dem Weg, nie mit Name, Adresse oder Text
 $via = is_array($cfg['smtp'] ?? null) ? 'SMTP' : 'mail()';

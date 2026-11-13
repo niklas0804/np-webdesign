@@ -1,19 +1,27 @@
 ---
 import { SITE } from '../config/site.js';
 import PartnerBadge from './PartnerBadge.astro';
+import { BRANCHEN_LIST, branchenLink } from '../content/branchen.js';
 ---
 <footer class="footer on-dark" data-section="footer" data-tone="dark" data-counter="Kontakt · Rechtliches" data-counter-short="NP" data-bar-off>
   <div class="footer-inner">
     <p class="footer-sign" aria-hidden="true" data-fit>NP Webdesign</p>
     <div class="footer-cols">
       <p class="small">{SITE.owner}<br>{SITE.name}, {SITE.city}</p>
-      <p class="small"><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p class="small">Telefon: <a class="link" href={SITE.phoneHref}>{SITE.phone}</a><br><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
       <ul class="footer-links">
         <li><a href="/leistungen">Leistungen und Preise</a></li>
+        <li><a href="/projekte/np-webdesign">Fallstudie: diese Website</a></li>
         <li><a href="/impressum">Impressum</a></li>
         <li><a href="/datenschutz">Datenschutz</a></li>
       </ul>
     </div>
+    <nav class="footer-branchen" aria-label="Für Ihre Branche">
+      <p class="mono">Für Ihre Branche</p>
+      <ul>
+        {BRANCHEN_LIST.map((b) => <li><a href={`/branchenloesungen/${b.slug}`}>{branchenLink(b)}</a></li>)}
+      </ul>
+    </nav>
     <PartnerBadge />
     <p class="mono footer-credit">© {new Date().getFullYear()} {SITE.owner} · Gestaltung und Code: NP Webdesign</p>
   </div>

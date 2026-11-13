@@ -58,8 +58,11 @@ const homeTicks = page === 'home' ? homeRows.filter((r) => r.id !== 'faq') : [];
 </header>
 
 <!-- Mobile: Anfrage-Leiste in der Daumenzone -->
-<div class="frame-bar" data-frame-bar role="region" aria-label="Projekt anfragen">
-  <a class="btn btn-primary" href="/#kontakt">
+<div class="frame-bar" data-frame-bar role="region" aria-label="Anrufen oder Projekt anfragen">
+  <a class="btn btn-secondary frame-bar-call" href={SITE.phoneHref} aria-label={`Anrufen: ${SITE.phone}`}>
+    <span class="btn-label"><span>Anrufen</span><span aria-hidden="true">Anrufen</span></span>
+  </a>
+  <a class="btn btn-primary frame-bar-cta" href="/#kontakt">
     <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
     <span class="btn-arrow" aria-hidden="true">→</span>
   </a>

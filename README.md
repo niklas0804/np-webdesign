@@ -27,7 +27,9 @@ npm run build && NODE_PATH=$(npm root -g) node scripts/render-previews.cjs
 | --- | --- |
 | `src/config/journey.js` | **Einzige Quelle** für Reihenfolge, Längen (vh), Paletten, Welten, Claim-Texte. Aktuelle Bauphase: `PHASE` |
 | `src/config/site.js` | Kontakt, Pakete und Preise (einzige Preisstelle), FAQ, Arbeitsweise, sichtbare Platzhalter |
-| `src/pages/` | `index.astro` (Startseite „Maßarbeit“: Hero, Warum, Kunden-Test, Beispiele, Zusammenarbeit, Kontakt, FAQ), `welten.astro` (Werkplan → Welten 01–09 → Finale), `leistungen`, Branchenseiten, `impressum`, `datenschutz`, 404 |
+| `src/pages/` | `index.astro` (Startseite „Maßarbeit“: Hero, Warum, Kunden-Test, Beispiele, Über mich, Zusammenarbeit, Kontakt mit Telefon und Rückruf, FAQ), `welten.astro` (Werkplan → Welten 01–09 → Finale), `leistungen` (je Paket Enthalten / Nicht enthalten / Danach, Zusatzleistungen, FAQ), `projekte/np-webdesign` (Fallstudie 00 mit Messwerten), Branchenseiten, `impressum`, `datenschutz`, `sitemap.xml.js` (Sitemap aus den Seiten erzeugt), 404 |
+| `src/config/site.js` | **Einzige Quelle** für Preise, Telefon (`SITE.phone`), Kapazität (`SITE.maxProjekte`), Fristen und Kosten (`SERVICE`), Pakete (`PACKAGES`), Zusatzleistungen, Schritte, FAQ und die Schalter `SITE_FLAGS` (`ueberMich`, `portrait`) |
+| `src/content/messwerte.js` | Messwerte der Fallstudie mit Datum und Methode (nur gemessene Zahlen) |
 | `src/pages/journey.css.js` | erzeugt `/journey.css` aus der Konfiguration (Längen, Paletten) |
 | `src/content/branchen.js` | Texte der Branchenseiten (aus den Beispielkonzepten Friseur & Barber, Handwerker, Beratung & Coaching), Vorlage `src/pages/branchenloesungen/[slug].astro` |
 | `src/components/` | Rahmen, Menü, Opening (Werkplan-Szene), Werkplan, Übergang, Finale, Kontakt, FAQ, Footer; abgeschaltet: Über mich. Die Abschnitte der Startseite liegen in `src/home/` |
@@ -74,7 +76,7 @@ Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/f
 - `/welten`: Werkplan (4 × 3, Zentrum über zwei Spalten, zehnter Platz „Ihr Betrieb“) → Welten 01–09 mit Übergängen → Finale. Titel „Neun Welten · Studien von NP Webdesign“, indexiert, Sitemap.
 - `/`: **vorläufige** Startseite (Kopf, Warum, Arbeitsweise, Kontakt, FAQ). Teil C ersetzt sie durch die neue Startseite.
 - Übergänge: Bühne unter den Welten, Staffelstab als Abbild eines echten Elements der alten Welt, Landung auf dem Gegenstück der neuen Welt (neun Übergänge, drei neu: Stempel → rote Linie, Messkreise mit Laser, Fenster → Werkplan).
-- Entfernt: NP Labor (Welt 10), Zwischenspiele auf `/welten`, Übergänge `ausziehen` und `rohbau`. „Über mich“ ist per Schalter in `src/config/site.js` aus, das Porträt liegt geparkt in `assets-parked/` und wird nicht ausgeliefert.
+- Entfernt: NP Labor (Welt 10), Zwischenspiele auf `/welten`, Übergänge `ausziehen` und `rohbau`. „Über mich“ ist seit 13. November 2026 wieder an (ohne Bild, bis `SITE_FLAGS.portrait` eingeschaltet wird); das Porträt liegt geparkt in `assets-parked/ueber-mich/` und wird nicht ausgeliefert.
 - Noch offen: Teil C (neue Startseite), Teil D (Abnahme, Übergabe), Einwilligungsbanner mit Matomo (erst nach rechtlicher Klärung), Prüfung von Impressum und Datenschutz durch eine fachkundige Stelle, 21 Fotos (`docs/fotoliste.md`).
 
 ## Rechtliche Prüfung

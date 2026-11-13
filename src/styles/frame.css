@@ -123,11 +123,14 @@ html[data-tone='mid'] .frame-cta, html[data-tone='mid'] .frame-bar .btn { box-sh
   padding: var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));
   display: none;
 }
-.frame-bar .btn { width: 100%; justify-content: center; min-height: 52px; }
+.frame-bar { gap: var(--s3); }
+.frame-bar .btn { justify-content: center; min-height: 52px; }
+.frame-bar-call { flex: 0 0 auto; padding-inline: var(--s5); background: var(--kalk); }
+.frame-bar-cta { flex: 1 1 auto; }
 @media (max-width: 1023px) {
-  html[data-js] .frame-bar { display: block; transform: translateY(110%); transition: transform var(--dur-m) var(--ease-out); }
+  html[data-js] .frame-bar { display: flex; transform: translateY(110%); transition: transform var(--dur-m) var(--ease-out); }
   html[data-bar='on'] .frame-bar { transform: translateY(0); }
-  html[data-mode='calm'] .frame-bar { display: block; transform: none; }
+  html[data-mode='calm'] .frame-bar { display: flex; transform: none; }
   html[data-bar='off'] .frame-bar { transform: translateY(110%); }
   html[data-mode='calm'][data-bar='off'] .frame-bar { display: none; }
 }
@@ -136,7 +139,7 @@ html[data-tone='mid'] .frame-cta, html[data-tone='mid'] .frame-bar .btn { box-sh
 html:not([data-js]) .frame { position: absolute; }
 html:not([data-js]) .frame-counter, html:not([data-js]) .frame-ruler, html:not([data-js]) .frame-progress, html:not([data-js]) .crop { display: none; }
 html:not([data-js]) .frame-menu-btn { display: none; }
-html:not([data-js]) .frame-bar { display: block; position: static; }
+html:not([data-js]) .frame-bar { display: flex; position: static; }
 
 /* ===== Menü-Overlay ===== */
 .menu {

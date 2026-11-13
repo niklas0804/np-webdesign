@@ -29,6 +29,7 @@ import { SITE, SITE_FLAGS } from '../config/site.js';
           <li><a href="/#kontakt" data-menu-link>Kontakt</a></li>
         </ul>
         <p class="small menu-contact">
+          <a href={SITE.phoneHref} class="link">{SITE.phone}</a><br>
           <a href={`mailto:${SITE.email}`} class="link">{SITE.email}</a><br>
           <span class="mono" aria-hidden="true">{SITE.city} · <time data-clock>--:--</time></span><br>
           <span class="mono">{SITE.responseTime}</span>

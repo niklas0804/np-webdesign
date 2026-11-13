@@ -82,7 +82,7 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 .transition[data-variant] .t-wipe, .transition[data-variant] .t-thread { display: none !important; }
 .transition[data-variant='goldlinie'] .t-wipe { display: block !important; }
 
-/* ---------- Abschnitt „Über mich“ (abgeschaltet, Komponente bleibt) ---------- */
+/* ---------- Abschnitt „Über mich“ (Startseite, ruhig, ohne Pin) ---------- */
 .interlude { position: relative; background: var(--ground); min-height: calc(var(--len) * 1svh); padding: var(--block) var(--gutter); overflow: clip; } /* clip statt hidden: hidden bricht position: sticky */
 .interlude-inner { max-width: var(--max); margin: 0 auto; }
 .on-dark { color: var(--leinen); }
@@ -98,6 +98,11 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 .window-photo img { object-fit: cover; object-position: 50% 30%; }
 .window-frame .mono { color: var(--tinte); text-transform: none; letter-spacing: .02em; }
 .ich-text h2 { margin-bottom: var(--s5); }
+.ich-text .kicker { margin-bottom: var(--s3); }
+.ich-more { margin-top: var(--s5); }
+/* Ohne Porträt: reines Textlayout, eine ruhige Spalte */
+.ich-grid-text { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) { .ich-grid-text { grid-template-columns: minmax(0, 46rem); } }
 .ich-text p + p { margin-top: var(--s4); }
 
 /* ---------- Finale und Kontakt ---------- */
@@ -160,6 +165,12 @@ html[data-mode='desktop'] .t-ws-line, html[data-mode='mobile'] .t-ws-line { disp
 @media (min-width: 1024px) { .footer-cols { grid-template-columns: 1fr 1fr 1fr; } }
 .footer .link { color: var(--leinen); }
 .footer-links { display: grid; gap: var(--s1); }
+.footer-branchen { display: grid; gap: var(--s2); color: var(--asche); margin-top: var(--s7); }
+.footer-branchen ul { display: grid; gap: 0 var(--s7); }
+@media (min-width: 640px) { .footer-branchen ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .footer-branchen ul { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.footer-branchen a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); }
+@media (hover: hover) and (pointer: fine) { .footer-branchen a:hover { color: var(--glut); } }
 .footer-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--leinen); }
 @media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--glut); } }
 .footer .partner-badge { margin-top: var(--s7); }

@@ -1,24 +1,33 @@
 ---
-/** Abschnitt „Über mich“ (früher Zwischenspiel III; seit 11. Oktober 2026 per `SITE_FLAGS.ueberMich` abgeschaltet) (Blueprint F, K). Porträt von Niklas (Oktober 2026 geliefert). Werdegang-Text von Niklas freigegeben (7. Oktober 2026). */
-import { SITE } from '../config/site.js';
+/**
+ * Abschnitt „Über mich“ (Auftrag 13. November 2026, 2.1). Text von Niklas festgelegt, nur sprachlich geglättet.
+ * Ruhig: kein Pin, keine Szene. Ohne Porträt reines Textlayout, ohne Bild und ohne sichtbaren Platzhalter;
+ * `SITE_FLAGS.portrait` schaltet das Bild zu, sobald die Dateien in public/images/ liegen (siehe assets-parked/ueber-mich/).
+ * Zahl der gleichzeitigen Projekte kommt aus SITE.maxProjekte.
+ */
+import { SITE, SITE_FLAGS, zahlwort } from '../config/site.js';
 const { row } = Astro.props;
 ---
-<section id={row.anchor} class="interlude interlude-ich" data-section={row.id} data-ground={row.ground} data-tone="light"
-         data-counter="Über mich" data-counter-short="Über mich" aria-labelledby="ich-title">
-  <div class="interlude-inner ich-grid">
-    <figure class="window" aria-label="Porträt">
-      <div class="window-frame window-photo">
-        <picture>
-          <source type="image/webp" srcset="/images/niklas-portrait-360.webp 360w, /images/niklas-portrait-614.webp 614w" sizes="(min-width: 1024px) 420px, 80vw" />
-          <img src="/images/niklas-portrait-614.jpg" srcset="/images/niklas-portrait-360.jpg 360w, /images/niklas-portrait-614.jpg 614w" sizes="(min-width: 1024px) 420px, 80vw"
-               width="614" height="768" alt="Porträt von Niklas Prüfling, Inhaber von NP Webdesign" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-    </figure>
+<section id={row.anchor} class={`interlude interlude-ich${SITE_FLAGS.portrait ? '' : ' ich-textonly'}`} data-section={row.id} data-ground={row.ground} data-tone={row.tone}
+         data-counter={row.label} data-counter-short={row.label} aria-labelledby="ich-title">
+  <div class={`interlude-inner ich-grid${SITE_FLAGS.portrait ? '' : ' ich-grid-text'}`}>
+    {SITE_FLAGS.portrait && (
+      <figure class="window" aria-label="Porträt">
+        <div class="window-frame window-photo">
+          <picture>
+            <source type="image/webp" srcset="/images/niklas-portrait-360.webp 360w, /images/niklas-portrait-614.webp 614w" sizes="(min-width: 1024px) 420px, 80vw" />
+            <img src="/images/niklas-portrait-614.jpg" srcset="/images/niklas-portrait-360.jpg 360w, /images/niklas-portrait-614.jpg 614w" sizes="(min-width: 1024px) 420px, 80vw"
+                 width="614" height="768" alt={`Porträt von ${SITE.owner}, Inhaber von ${SITE.name}`} loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </figure>
+    )}
     <div class="ich-text prose">
-      <h2 id="ich-title">Ich bin Niklas Prüfling.</h2>
-      <p class="lead">NP Webdesign ist mein Studio in Schwandorf. Ich komme aus der Technik: gelernter Mechatroniker, heute IT-Systemtechniker. Von dort bringe ich die Haltung mit: erst verstehen, wie etwas funktionieren muss — dann bauen.</p>
-      <p>Sie sprechen von der ersten Skizze bis nach dem Launch mit mir. Nicht mit einem Projektmanager.</p>
+      <p class="kicker">Über mich</p>
+      <h2 id="ich-title">Wer hinter NP Webdesign steht.</h2>
+      <p class="lead">Ich bin {SITE.owner} aus {SITE.city}. Ich bin gelernter Mechatroniker, danach kamen Betriebs- und Wirtschaftsinformatik. Heute arbeite ich hauptberuflich in der IT-Systemtechnik und sorge dafür, dass Systeme laufen, auf die sich andere verlassen. Nebenher bilde ich mich zum Technischen Betriebswirt weiter.</p>
+      <p>Websites baue ich nebenberuflich, abends und am Wochenende, höchstens {zahlwort(SITE.maxProjekte)} Projekte gleichzeitig. Für Sie heißt das: Von der ersten Nachricht bis nach dem Launch sprechen Sie mit mir und mit niemandem sonst.</p>
+      <p class="small ich-more"><a class="link" href="/projekte/np-webdesign">Wie ich arbeite, zeigt die Fallstudie zu dieser Website</a></p>
     </div>
   </div>
 </section>

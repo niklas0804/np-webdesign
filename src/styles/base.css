@@ -152,3 +152,6 @@ html, body { max-width: 100%; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .001ms !important; }
 }
+
+/* NP-Logo: Schrägstrich und Balken in der Markenfarbe (eine Quelle: --np-orange) */
+.logo-slash, .logo-bar { fill: var(--np-orange); }

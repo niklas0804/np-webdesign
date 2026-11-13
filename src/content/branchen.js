@@ -401,3 +401,14 @@ export const BRANCHEN = {
 };
 
 export const BRANCHEN_LIST = Object.values(BRANCHEN);
+
+/** Name der Zielgruppe für Titel und Verlinkung (Auftrag 13. November 2026, 2.7): „Webdesign für <Name> in Schwandorf und der Oberpfalz“ */
+export const BRANCHEN_NAME = {
+  baeckerei: 'Bäckereien', 'friseur-barber': 'Friseure und Barbershops', handwerker: 'Handwerker', 'beratung-coaching': 'Berater und Coaches',
+  kanzlei: 'Kanzleien und Steuerberater', 'kfz-werkstatt': 'Oldtimer-Werkstätten', industrie: 'Industrie und Fertigung',
+  physiotherapie: 'Physiotherapie-Praxen', 'gastronomie-hotel': 'Gastronomie und Hotels',
+};
+/** Seitentitel der Branchenseite */
+export const branchenTitel = (b) => `Webdesign für ${BRANCHEN_NAME[b.slug]} in Schwandorf und der Oberpfalz – NP Webdesign`;
+/** Linktext zur Branchenseite */
+export const branchenLink = (b) => `Webdesign für ${BRANCHEN_NAME[b.slug]}`;

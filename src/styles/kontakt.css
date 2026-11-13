@@ -106,6 +106,28 @@ html[data-mode='calm'] .is-snap .k-pv-guide, html[data-mode='calm'] .is-snap .k-
 .k-fail:target, .k-main.is-failed .k-fail { display: flex; }
 .k-fail::before { margin-top: .15em; }
 
+/* Telefon und Rückruf (Auftrag 13. November 2026, 2.2 und 2.3) */
+.k-call { display: grid; gap: var(--s3); max-width: 640px; margin-bottom: var(--s7); padding-bottom: var(--s6); border-bottom: 1px solid var(--haarlinie); }
+.k-call-title { font-size: var(--fs-h3); font-weight: 700; line-height: 1.2; }
+.k-call-phone { font-size: var(--fs-h3); font-weight: 700; font-variant-numeric: tabular-nums; }
+.k-call-phone a { display: inline-block; min-height: 44px; padding-block: var(--s2); }
+.k-call-note { color: var(--stein); max-width: 52ch; }
+.k-cb { margin-top: var(--s2); }
+.k-cb summary { display: inline-flex; align-items: center; gap: var(--s3); min-height: 48px; padding: 0 var(--s5); border: 1.5px solid var(--tinte); font-weight: 600; cursor: pointer; list-style: none; background: var(--kalk); }
+.k-cb summary::-webkit-details-marker { display: none; }
+.k-cb summary:focus-visible { outline: 2px solid var(--tinte); outline-offset: 2px; }
+.k-cb[open] .faq-icon::after { transform: scaleY(0); }
+@media (hover: hover) and (pointer: fine) { .k-cb summary:hover { background: var(--hover-toenung); } }
+.k-rc-form { display: grid; gap: var(--s5); margin-top: var(--s5); max-width: 640px; }
+.k-rc-done, .k-rc-fail { display: none; }
+.k-rc-done { gap: var(--s3); border: 1.5px solid var(--tinte); background: var(--kalk); padding: var(--s6); }
+.k-rc-fail { align-items: flex-start; gap: var(--s2); color: var(--fehler); font-size: var(--fs-small); }
+.k-rc-fail::before { content: '!'; flex: 0 0 auto; display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; margin-top: .15em; font-weight: 800; font-size: .8em; line-height: 1; color: var(--kalk); background: var(--fehler); }
+.k-rc-done:target, .k-call.is-sent .k-rc-done { display: grid; }
+.k-rc-fail:target, .k-call.is-failed .k-rc-fail { display: flex; }
+.k-call.is-sent .k-cb, .k-call:has(.k-rc-done:target) .k-cb { display: none; }
+.k-hint { color: var(--stein); max-width: 52ch; }
+
 /* Leistungen: einzelne Begriffe, durch Mittelpunkte getrennt */
 .k-leist { display: flex; flex-wrap: wrap; gap: 0 .4em; }
 .k-leist li:not(:last-child)::after { content: '·'; margin-left: .4em; color: var(--stein); }
@@ -116,21 +138,24 @@ html[data-mode='calm'] .is-snap .k-pv-guide, html[data-mode='calm'] .is-snap .k-
 @media (min-width: 1024px) {
   .k-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s9); row-gap: var(--s7); align-items: start; }
   .k-head { grid-column: 1 / -1; }
-  .k-main { grid-column: 1; grid-row: 2 / span 2; }
-  .k-preview { grid-column: 2; grid-row: 2; }
-  .k-facts { grid-column: 2; grid-row: 3; grid-template-columns: 1fr 1fr; max-width: none; }
+  .k-call { grid-column: 1; grid-row: 2; align-self: start; margin-bottom: 0; }
+  .k-main { grid-column: 1; grid-row: 3 / span 2; }
+  .k-preview { grid-column: 2; grid-row: 2 / span 2; align-self: start; }
+  .k-facts { grid-column: 2; grid-row: 4; align-self: start; grid-template-columns: 1fr 1fr; max-width: none; }
   .k-row { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 1023px) {
   /* Mobile: kompakter Streifen über dem Formular */
+  /* Reihenfolge am Handy: Kopf, Telefon, flache Vorschau, Formular (Auftrag 13. November 2026, 2.4) */
+  .k-call { order: -2; margin-bottom: 0; }
   .k-preview { order: -1; }
-  .k-pv-frame { aspect-ratio: auto; min-height: 0; padding: var(--s9) var(--s5) var(--s5); }
-  .k-pv-title { font-size: clamp(1.75rem, 9vw, 3rem); }
+  .k-pv-frame { aspect-ratio: auto; min-height: 0; padding: var(--s7) var(--s4) var(--s4); }
+  .k-pv-title { font-size: clamp(1.5rem, 7vw, 2.25rem); }
   /* Feste Höhe des Namensfelds: kurze, lange und zweizeilige Namen verschieben das Formular darunter nicht (Skill break-ui) */
-  .k-pv-body { min-height: 112px; align-content: end; }
+  .k-pv-body { min-height: 56px; align-content: end; }
   .k-pv-line { display: none; }
   .k-pv-label { left: 30px; }
-  .k-head { order: -2; }
+  .k-head { order: -3; }
   .k-main { order: 0; }
   .k-facts { order: 1; }
 }

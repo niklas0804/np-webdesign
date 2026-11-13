@@ -1,17 +1,19 @@
 ---
 /**
- * Leistungen und Preise: die einzige Stelle mit Preisen (Blueprint N, T.1). Daten aus src/config/site.js.
- * Orange nur für einen Knopf (das empfohlene Paket), die anderen als Kontur. Der Knopf steht direkt unter dem Preis (dort fällt die Entscheidung)
- * und damit in allen Karten auf einer Linie. „Anfragen“ führt ins Formular der Startseite
- * und trägt das Paket in die Nachricht ein (mailto: allein scheitert ohne eingerichtetes Mailprogramm).
+ * Leistungen und Preise: die einzige Stelle mit ausführlicher Preisliste (Blueprint N, T.1). Daten aus src/config/site.js.
+ * Je Paket drei Blöcke: Enthalten, Nicht enthalten, Danach (Auftrag 13. November 2026, 2.5). Orange nur für einen Knopf (das empfohlene Paket),
+ * die anderen als Kontur. „Anfragen“ führt ins Formular der Startseite und trägt das Paket in die Nachricht ein
+ * (mailto: allein scheitert ohne eingerichtetes Mailprogramm).
  */
 import Page from '../layouts/Page.astro';
-import { PACKAGES } from '../config/site.js';
+import { PACKAGES, ZUSATZ, SERVICE, SITE } from '../config/site.js';
+import { BRANCHEN_LIST, branchenLink } from '../content/branchen.js';
+import FaqListe from '../components/FaqListe.astro';
 ---
-<Page title="Leistungen und Preise – NP Webdesign" description="Pakete und Preise für Ihre Website: Starter, Professional und Premium. Festpreise, Endpreise ohne Umsatzsteuer nach § 19 UStG." path="/leistungen" wide image="/images/social/leistungen.jpg">
+<Page title="Leistungen und Preise – NP Webdesign" description="Pakete und Preise für Ihre Website: Starter, Professional und Premium. Was enthalten ist, was nicht und was danach kommt. Endpreise ohne Umsatzsteuer nach § 19 UStG." path="/leistungen" wide image="/images/social/leistungen.jpg">
   <p class="kicker">Leistungen und Preise</p>
   <h1>Transparente Preise, klare Leistungen.</h1>
-  <p class="lead">Kein versteckter Aufwand — Sie wissen von Anfang an genau, was Sie bekommen.</p>
+  <p class="lead">Kein versteckter Aufwand: Sie sehen für jedes Paket, was enthalten ist, was nicht und was danach kommt.</p>
   <div class="pkgs">
     {PACKAGES.map((p) => (
       <article class={`pkg${p.featured ? ' pkg-featured' : ''}`}>
@@ -22,9 +24,43 @@ import { PACKAGES } from '../config/site.js';
           <span class="btn-label"><span>Anfragen</span><span aria-hidden="true">Anfragen</span></span>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
-        <ul>{p.features.map((f) => <li>{f}</li>)}</ul>
+        <div class="pkg-block"><h3>Enthalten</h3><ul>{p.enthalten.map((f) => <li>{f}</li>)}</ul></div>
+        <div class="pkg-block"><h3>Nicht enthalten</h3><ul>{p.nichtEnthalten.map((f) => <li>{f}</li>)}</ul></div>
+        <div class="pkg-block"><h3>Danach</h3><ul>{p.danach.map((f) => <li>{f}</li>)}</ul></div>
       </article>
     ))}
   </div>
-  <p class="preise-hinweis small">Alle Preise sind Endpreise. Als Kleinunternehmer nach § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+  <p class="preise-hinweis small">Alle Preise sind Endpreise. Als Kleinunternehmer nach § 19 UStG wird keine Umsatzsteuer berechnet. {SERVICE.dauerText}</p>
+
+  <section class="lst-sec" aria-labelledby="zusatz-title">
+    <h2 id="zusatz-title">Zusatzleistungen</h2>
+    <div class="lst-zusatz">
+      {ZUSATZ.map((z) => <article><h3>{z.name}</h3><p>{z.text}</p></article>)}
+    </div>
+  </section>
+
+  <section class="lst-sec" aria-labelledby="check-title">
+    <h2 id="check-title">Der Website-Check</h2>
+    <div class="lst-check">
+      <p>{SERVICE.websiteCheck}</p>
+      <a class="btn btn-secondary" href="/#kontakt">
+        <span class="btn-label"><span>Adresse nennen</span><span aria-hidden="true">Adresse nennen</span></span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="lst-sec" aria-labelledby="branche-title">
+    <h2 id="branche-title">Für Ihre Branche</h2>
+    <ul class="lst-branchen">
+      {BRANCHEN_LIST.map((b) => <li><a class="link" href={`/branchenloesungen/${b.slug}`}>{branchenLink(b)}</a></li>)}
+    </ul>
+  </section>
+
+  <section class="lst-sec" aria-labelledby="faq-title">
+    <h2 id="faq-title">Häufige Fragen</h2>
+    <FaqListe />
+  </section>
+
+  <p class="preise-hinweis small">Fragen? Rufen Sie mich an unter <a class="link" href={SITE.phoneHref}>{SITE.phone}</a> oder schreiben Sie mir an <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
 </Page>

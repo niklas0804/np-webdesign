@@ -31,6 +31,10 @@ export function initKontakt() {
   const pakete = Object.fromEntries((form.dataset.pakete || '').split(',').filter(Boolean).map((x) => x.split(':')));
   const msg = form.elements.nachricht;
   if (paket && pakete[paket] && msg && !msg.value.trim()) msg.value = `Ich interessiere mich für das Paket ${pakete[paket]}. `;
+  /* Von einer Branchenseite: „Projekt besprechen“ trägt die Branche in die Nachricht ein (gleiche Mechanik, nur ins leere Feld) */
+  const branche = new URLSearchParams(location.search).get('branche');
+  const branchen = Object.fromEntries((form.dataset.branchen || '').split('|').filter(Boolean).map((x) => { const i = x.indexOf(':'); return [x.slice(0, i), x.slice(i + 1)]; }));
+  if (branche && branchen[branche] && msg && !msg.value.trim()) msg.value = `Ich möchte über eine Website für meinen Betrieb sprechen (Branche: ${branchen[branche]}). `;
   /* Zeitpunkt des Seitenaufrufs für die Zeitprüfung im Endpunkt (Spamschutz, wird nicht gespeichert) */
   const ts = $('[data-ts]', form);
   if (ts) ts.value = String(Date.now());
@@ -72,7 +76,7 @@ export function initKontakt() {
     return [words.slice(0, best).join(' '), words.slice(best).join(' ')];
   };
   /** Höchste Schriftgröße der Vorschau: am Handy niedriger, damit kurze Namen den Rahmen nicht aufblähen und das Formular nicht verschieben */
-  const maxPx = () => (matchMedia('(max-width: 1023px)').matches ? 52 : 150);
+  const maxPx = () => (matchMedia('(max-width: 1023px)').matches ? 36 : 150);
   const setTitle = (animate) => {
     const v = company.value.trim();
     const lines = v ? zeilen(wortmarke(v)) : [DEFAULT];
@@ -111,10 +115,12 @@ export function initKontakt() {
   }));
 
   /* Prüfung beim Verlassen eines Feldes; Fehler als Text mit Symbol */
+  /* Nachricht: mindestens 10 Zeichen, oder ein Anliegen ist gewählt (Auftrag 13. November 2026, 2.4) */
+  const anliegenGewaehlt = () => radios.some((r) => r.checked);
   const rules = {
     name: (v) => v.trim().length > 0,
     email: (v) => MAIL.test(v.trim()),
-    nachricht: (v) => v.trim().length >= 10,
+    nachricht: (v) => v.trim().length >= 10 || anliegenGewaehlt(),
   };
   const check = (field, show) => {
     const rule = rules[field.name];
@@ -132,6 +138,9 @@ export function initKontakt() {
     f.addEventListener('blur', () => check(f, true));
     f.addEventListener('input', () => { if (f.getAttribute('aria-invalid') === 'true') check(f, true); });
   });
+
+  /* Wer ein Anliegen wählt, braucht keinen Freitext mehr: ein offener Fehler am Textfeld verschwindet */
+  radios.forEach((r) => r.addEventListener('change', () => { if (msg.getAttribute('aria-invalid') === 'true') check(msg, true); }));
 
   const fail = (msg) => { main.classList.add('is-failed'); status.textContent = msg || ''; };
 
@@ -167,6 +176,55 @@ export function initKontakt() {
       submit.disabled = false;
       submit.removeAttribute('aria-busy');
       submitLabel.textContent = 'Anfrage senden';
+    }
+  });
+
+  initRueckruf(section);
+}
+
+/** Rückruf: Name und Telefon sind Pflicht, „Wann passt es?“ ist freiwillig. Gleicher Endpunkt, Feld art=rueckruf. */
+function initRueckruf(section) {
+  const box = $('[data-rc]', section);
+  const form = box && $('[data-rc-form]', box);
+  if (!form) return;
+  const details = $('[data-rc-details]', box);
+  const done = $('[data-rc-done]', box);
+  const status = $('[data-rc-status]', form);
+  const submit = $('[data-rc-submit]', form);
+  const label = $('[data-rc-label]', form);
+  const ts = $('[data-ts]', form);
+  if (ts) ts.value = String(Date.now());
+  form.setAttribute('novalidate', '');
+  /* Telefonnummer: mindestens sechs Ziffern, sonst nur Zeichen, die in Nummern vorkommen */
+  const rules = {
+    name: (v) => v.trim().length > 0,
+    telefon: (v) => /^[\d\s+()\-/.]+$/.test(v.trim()) && v.replace(/\D/g, '').length >= 6,
+  };
+  const check = (field, show) => {
+    const ok = rules[field.name](field.value);
+    const err = document.getElementById(field.getAttribute('aria-describedby'));
+    if (show) { field.setAttribute('aria-invalid', ok ? 'false' : 'true'); if (err) err.hidden = ok; }
+    return ok;
+  };
+  Object.keys(rules).forEach((n) => {
+    const f = form.elements[n];
+    f.addEventListener('blur', () => check(f, true));
+    f.addEventListener('input', () => { if (f.getAttribute('aria-invalid') === 'true') check(f, true); });
+  });
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    box.classList.remove('is-failed');
+    status.textContent = '';
+    const bad = Object.keys(rules).map((n) => form.elements[n]).filter((f) => !check(f, true));
+    if (bad.length) { status.textContent = bad.length === 1 ? 'Bitte prüfen Sie das markierte Feld.' : 'Bitte prüfen Sie die markierten Felder.'; bad[0].focus(); return; }
+    submit.disabled = true; submit.setAttribute('aria-busy', 'true'); label.textContent = 'Wird gesendet …';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) { box.classList.add('is-sent'); form.reset(); if (details) details.open = false; done.focus({ preventScroll: true }); return; }
+      box.classList.add('is-failed');
+    } catch { box.classList.add('is-failed'); } finally {
+      submit.disabled = false; submit.removeAttribute('aria-busy'); label.textContent = 'Rückruf anfordern';
     }
   });
 }

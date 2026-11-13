@@ -1,7 +1,7 @@
 ---
 /**
  * Startseite „Maßarbeit“ (Auftrag 11. Oktober 2026, Teil C). Sieben Abschnitte, der orange Faden als Werkzeug durch alle:
- * S1 Hero · S2 Warum · S3 Der Kunden-Test · S4 Beispiele · S5 Zusammenarbeit · S6 Kontakt · S7 FAQ und Footer.
+ * S1 Hero · S2 Warum · S3 Der Kunden-Test · S4 Beispiele · Über mich · S5 Zusammenarbeit · S6 Kontakt · S7 FAQ und Footer.
  * Übergänge mit Staffelstab: S2 → S3 (N-Blende), S5 → S6 (P-Iris). Die neun Welten wohnen auf /welten.
  * Die Startseite lädt nur ihre eigenen Module (src/motion/home/).
  */
@@ -11,13 +11,14 @@ import '../styles/sections.css';
 import '../styles/home.css';
 import '../styles/kontakt.css';
 import { homeJourney } from '../config/journey.js';
-import { SITE, PACKAGES } from '../config/site.js';
+import { SITE, SITE_FLAGS, PACKAGES } from '../config/site.js';
 import Frame from '../components/Frame.astro';
 import Menu from '../components/Menu.astro';
 import Hero from '../home/Hero.astro';
 import Warum from '../home/Warum.astro';
 import KundenTest from '../home/KundenTest.astro';
 import Beispiele from '../home/Beispiele.astro';
+import UeberMich from '../components/UeberMich.astro';
 import Transition from '../components/Transition.astro';
 import Zusammenarbeit from '../home/Zusammenarbeit.astro';
 import Kontakt from '../components/Kontakt.astro';
@@ -32,11 +33,14 @@ const jsonLd = [
     name: SITE.name,
     url: SITE.url,
     email: SITE.email,
+    telephone: SITE.phone,
     founder: { '@type': 'Person', name: SITE.owner },
     address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: 'Bayern', addressCountry: 'DE' },
     areaServed: ['Schwandorf', 'Regensburg', 'Amberg', 'Weiden', 'Oberpfalz'],
     priceRange: `${PACKAGES[0].price} – ${PACKAGES[PACKAGES.length - 1].price}`,
   },
+  { '@context': 'https://schema.org', '@type': 'Person', name: SITE.owner, url: `${SITE.url}/#ueber-mich`, jobTitle: 'Webdesigner',
+    worksFor: { '@type': 'ProfessionalService', name: SITE.name, url: SITE.url }, address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressCountry: 'DE' } },
   { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'de-DE' },
 ];
 ---
@@ -60,6 +64,7 @@ const jsonLd = [
     <Transition row={row['t-warum-vergleich']} />
     <KundenTest row={row.vergleich} />
     <Beispiele row={row.beispiele} />
+    {SITE_FLAGS.ueberMich && <UeberMich row={row['ueber-mich']} />}
     <Zusammenarbeit row={row.arbeitsweise} />
     <Transition row={row['t-arbeitsweise-kontakt']} />
     <Kontakt row={row.kontakt} />
