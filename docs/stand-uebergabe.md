@@ -25,11 +25,11 @@ Statische Astro-Seite (Astro 7, GSAP 3.15 mit ScrollTrigger, Lenis nur Desktop),
 - Abnahme: `node tools/check-site.cjs dist`, `AXE=<Pfad zu axe.min.js> node tools/axe-check.cjs`, bei geänderten Übergängen `node tools/check-transitions.cjs --path /` (und `--path /welten`). Alles mit `NODE_PATH=$(npm root -g)` (Playwright, Chromium). Aufnahmen: `scripts/home-shots.cjs`, `scripts/screenshots.cjs`, `scripts/kundentest-shots.cjs`.
 - CI: `.github/workflows/vorschau.yml` baut jeden `claude/**`-Branch, misst Lighthouse (Median aus drei Läufen) und legt das Ergebnis im Branch `vorschau-build` ab. `deploy.yml` baut bei jedem Push auf `main` den Branch `deploy` (der Inhalt gehört direkt ins Hauptverzeichnis des Webspace).
 
-## 5. Gemessene Werte (Stand `9f0cfe9`, CI-Vorschau und eigene Läufe)
-- Startseite rund 203 KB gzip in 11 Anfragen, `/welten` rund 490 KB in 43 Anfragen; 0 Fremdanfragen, 0 Cookies, kein Banner.
-- Lighthouse mobil (Median aus 3): Startseite 98, Leistungen 100, Bäckerei 99, `/welten` 73 bis 76; Accessibility, Best Practices, SEO je 100.
-- axe 0 Verstöße, kein horizontaler Überlauf ab 320 px, `check-site` und `check-transitions` ohne Befund beim letzten Lauf.
-- `/welten` ist 64,6 Bildschirmhöhen am Handy lang, 21 Bildplatzhalter sind offen (Phase 3 des Auftrags vom 13. November kürzt das).
+## 5. Gemessene Werte (23. November 2026, Commit `07872f6` und Nachfolger, CI-Vorschau und eigene Läufe)
+- Lighthouse mobil (Median aus 3, CI): Startseite 98, Leistungen 100, `/welten` 95, Branchenseite Handwerker 99; Accessibility, Best Practices, SEO je 100.
+- Länge am Handy (390×844): `/welten` 29,9 Bildschirmhöhen (vorher 64,6), Startseite 18,3 (Phase 2 hat sie von 16,6 verlängert). Desktop (1440×900): `/welten` 31,1, Startseite 17,8.
+- Abstand zwischen Weltende und Weltanfang (= 100 + Länge, in svh): `/welten` Desktop 1,3 (vorher 1,6), Handy 1,1 (vorher 1,4); Startseite N-Blende 1,4/1,2 (vorher 1,8/1,3), P-Iris 1,5/1,3 (vorher 2,0/1,5). Mit der Bauart (klebende Bühne von 100 svh) liegt das Minimum bei 1,0; die Zielwerte 0,6/0,8/1,0 aus dem Auftrag gehen nur mit anderer Bauart.
+- axe 0 Verstöße, kein horizontaler Überlauf ab 320 px, `check-site` und `check-transitions` (`/welten` Desktop, Handy, schmal; Startseite) ohne Befund.
 
 ## 6. Formular und Server
 `public/api/kontakt.php` (PHP ab 8.1): zwei Arten, Anfrage (Name, E-Mail, Chip oder Text mindestens 10 Zeichen; freiwillig Unternehmen, Telefon, jetzige Website) und Rückruf (`art=rueckruf`, nur Name und Telefon Pflicht, Wunschzeit freiwillig; ohne JavaScript landet man auf `#rueckruf-erhalten` bzw. `#rueckruf-fehler`). Schutz: Honeypot `np_hp_field`, Zeitprüfung (unter 3 s), Linkfilter, Herkunftsprüfung, Stundenlimit (40, nur Zeitpunkte, ohne IP), Verdacht wird zugestellt und im Betreff markiert, kein Inhalt in Logs. Versand per SMTP über das IONOS-Postfach (oder `mail()` ohne Konfiguration). Zugangsdaten stehen nur auf dem Server in `np-config.php` (Ordner über `public_html`) oder `api/config.php`; nie lesen, nie committen. `public/.htaccess`: HTTPS, HSTS, Header, saubere Adressen.

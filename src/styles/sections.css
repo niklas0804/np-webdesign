@@ -57,7 +57,7 @@ html[data-mode='desktop'] .transition, html[data-mode='mobile'] .transition {
 html[data-mode='desktop'] main > section:not(.transition), html[data-mode='mobile'] main > section:not(.transition) { position: relative; z-index: 1; }
 html[data-mode='desktop'] .t-stage, html[data-mode='mobile'] .t-stage { display: block; position: sticky; top: 0; z-index: 0; height: 100svh; height: 100lvh; overflow: hidden; background: var(--from); }
 html[data-mode='desktop'] .t-wipe, html[data-mode='mobile'] .t-wipe { display: block; position: absolute; inset: 0; background: var(--to); transform: translateY(100%); }
-html[data-mode='desktop'] .t-thread, html[data-mode='mobile'] .t-thread { display: block; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: var(--np-orange); transform: scaleX(0); transform-origin: left; }
+html[data-mode='desktop'] .t-thread, html[data-mode='mobile'] .t-thread { display: block; position: absolute; left: 0; right: 0; top: 28%; height: 4px; background: var(--np-orange); transform: scaleX(0); transform-origin: left; }
 /* Ebene des Staffelstabs: ohne Höhe, klebt wie die Bühne, liegt über den Welten (z-index 2), lässt alles durch */
 html[data-mode='desktop'] .t-baton, html[data-mode='mobile'] .t-baton { display: block; position: sticky; top: 0; z-index: 2; height: 0; margin-top: calc(-100 * 1lvh); pointer-events: none; }
 .t-baton-in { position: absolute; left: 0; top: 0; width: 100%; height: 100svh; height: 100lvh; overflow: hidden; visibility: hidden; perspective: 1200px; }
