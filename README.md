@@ -52,7 +52,7 @@ Ohne JavaScript und im Modus `calm` gibt es keine Pins: eine lange, ruhige Seite
 
 ## Welten
 
-Neun Welten (Stand Kurskorrektur 11. Oktober 2026: NP Labor entfällt, die Welten wohnen auf `/welten`). Jede Welt ist ein Modul unter `src/worlds/<nr>-<name>/` (Markup, CSS, Bewegung, Daten).
+Neun Welten gebaut, **fünf sichtbar** (Stand 23. November 2026: 02, 03, 04, 06, 07; ausgeblendet mit `built: false` in `src/config/journey.js`: 01 Halmberg, 05 Chromwerk, 08 Praxis am Weiher, 09 Gut Weidenstein; ihr Code bleibt, eine Welt kommt mit `built: true` zurück, die Branchenseite dazu mit ihr, und die Zeile in `public/.htaccess` entfällt). Anzeigenummern („01 / 05“) folgen der Position (`pos`), nicht der Kennung `nr`. Die Welten wohnen auf `/welten`. Jede Welt ist ein Modul unter `src/worlds/<nr>-<name>/` (Markup, CSS, Bewegung, Daten).
 Die Bewegungsmodule sind klein (1–3 KB) und werden beim Start in Dokumentreihenfolge geladen und eingerichtet (`src/motion/index.js`, `WORLD_MODULES`); es gibt genau einen `ScrollTrigger.refresh()`, nie mehr während des Scrollens.
 
 | Welt | Stand und Übergänge |
@@ -73,7 +73,7 @@ Das Finale (`src/components/Finale.astro`, `src/motion/finale.js`, `src/styles/f
 
 ## Stand (Teil B der Kurskorrektur vom 11. Oktober 2026)
 
-- `/welten`: Werkplan (4 × 3, Zentrum über zwei Spalten, zehnter Platz „Ihr Betrieb“) → Welten 01–09 mit Übergängen → Finale. Titel „Neun Welten · Studien von NP Webdesign“, indexiert, Sitemap.
+- `/welten`: Werkplan (4 × 2, Zentrum über zwei Spalten, sechster Platz „Ihr Betrieb“) → die fünf sichtbaren Welten mit Übergängen (02 → 03 Goldlinie, 03 → 04 Stempel, 04 → 06 Faden, 06 → 07 Messkreise, 07 → Finale einfach) → Finale. Titel „Neun Welten · Studien von NP Webdesign“, indexiert, Sitemap.
 - `/`: **vorläufige** Startseite (Kopf, Warum, Arbeitsweise, Kontakt, FAQ). Teil C ersetzt sie durch die neue Startseite.
 - Übergänge: Bühne unter den Welten, Staffelstab als Abbild eines echten Elements der alten Welt, Landung auf dem Gegenstück der neuen Welt (neun Übergänge, drei neu: Stempel → rote Linie, Messkreise mit Laser, Fenster → Werkplan).
 - Entfernt: NP Labor (Welt 10), Zwischenspiele auf `/welten`, Übergänge `ausziehen` und `rohbau`. „Über mich“ ist seit 13. November 2026 wieder an (ohne Bild, bis `SITE_FLAGS.portrait` eingeschaltet wird); das Porträt liegt geparkt in `assets-parked/ueber-mich/` und wird nicht ausgeliefert.

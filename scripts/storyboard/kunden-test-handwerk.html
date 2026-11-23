@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Storyboard Kunden-Test Handwerk</title>
+<style>
+  :root { --tinte:#1C1712; --stein:#5E5852; --leinen:#F0EBE3; --kalk:#FBF8F5; --orange:#CE5D17; --rot:#B3261E; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; background: #1C1712; color: var(--tinte); padding: 24px; display: grid; gap: 24px; justify-items: center; }
+  .row { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+  figure { display: grid; gap: 10px; }
+  figcaption { color: #F0EBE3; font-size: 15px; font-weight: 700; max-width: 300px; }
+  figcaption small { display: block; font-weight: 400; opacity: .75; margin-top: 2px; }
+  .phone { width: 300px; height: 600px; border: 2px solid #5E5852; border-radius: 22px; overflow: hidden; background: #fff; position: relative; }
+  .studie { position: absolute; top: 0; left: 0; right: 0; background: #1C1712; color: #F0EBE3; font: 600 10px/1 monospace; letter-spacing: .08em; text-transform: uppercase; padding: 6px 10px; z-index: 5; }
+  .counter { position: absolute; left: 10px; right: 10px; top: 26px; display: flex; justify-content: space-between; font: 700 11px/1 Arial; z-index: 5; }
+  .counter span { background: #1C1712; color: #fff; padding: 4px 7px; }
+  .counter span.mass { background: var(--orange); }
+  /* Baukasten */
+  .bk { background: #fff; height: 100%; padding-top: 52px; }
+  .bk-nav { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #2b6cb0; color: #fff; font-weight: 700; font-size: 14px; }
+  .bk-stock { height: 150px; background: linear-gradient(135deg,#c8d4e0,#9fb4c8); display: grid; place-items: center; color: #fff; font-size: 12px; }
+  .bk h2 { font-size: 17px; padding: 12px; color: #2b6cb0; }
+  .bk .kachel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px; }
+  .bk .kachel div { background: #eef2f7; height: 62px; display: grid; place-items: center; font-size: 12px; color: #456; }
+  .bk .tel { margin: 14px 12px; border: 3px solid var(--rot); padding: 6px 8px; font-size: 11px; color: #567; }
+  .bk .tel b { font-size: 12px; }
+  .cookie { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-top: 3px solid #2b6cb0; padding: 12px; font-size: 11px; box-shadow: 0 -8px 20px rgba(0,0,0,.2); z-index: 4; }
+  .cookie p { margin-bottom: 8px; color: #333; }
+  .cookie button { background: #2b6cb0; color: #fff; border: 0; padding: 8px 12px; font-size: 11px; margin-right: 6px; }
+  .cookie button.s { background: #ddd; color: #333; }
+  .lines i { display: block; height: 7px; background: #dfe5ec; margin: 0 12px 7px; border-radius: 4px; }
+  /* Maßarbeit */
+  .ma { height: 100%; background: #0f1f2e; color: #fff; padding-top: 52px; position: relative; }
+  .ma .kopf { padding: 14px 16px 0; font: 700 12px/1.2 Arial; letter-spacing: .08em; text-transform: uppercase; color: #7fb3e6; }
+  .ma h2 { font-size: 30px; line-height: 1.02; padding: 8px 16px 0; letter-spacing: -.02em; }
+  .ma p { padding: 10px 16px; font-size: 14px; color: #c8d6e4; }
+  .ma .thumb { position: absolute; left: 0; right: 0; bottom: 0; height: 38%; background: repeating-linear-gradient(135deg, rgba(80,160,100,.16) 0 8px, transparent 8px 16px); border-top: 2px dashed #4caf7a; padding: 16px; }
+  .ma .thumb .chip { position: absolute; top: -12px; left: 12px; background: #1f6b44; color: #fff; font: 700 10px/1 Arial; padding: 5px 8px; letter-spacing: .06em; text-transform: uppercase; }
+  .ma .call { display: block; background: var(--orange); color: #14100C; font-weight: 800; font-size: 20px; text-align: center; padding: 22px 12px; border-radius: 4px; margin-top: 14px; }
+  .ma .call small { display: block; font-size: 12px; font-weight: 600; margin-top: 4px; color: #2b1305; }
+  /* Auflösung */
+  .aufloesung { padding: 70px 22px 22px; background: var(--leinen); height: 100%; display: grid; align-content: start; gap: 18px; }
+  .aufloesung .zeile { display: flex; align-items: baseline; gap: 12px; }
+  .aufloesung .zahl { font-size: 54px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .aufloesung .zahl.mass { color: var(--orange); }
+  .aufloesung .was { font-size: 14px; color: var(--stein); }
+  .aufloesung .satz { font-size: 15px; line-height: 1.35; border-top: 1px solid #cfc6bb; padding-top: 14px; }
+  h1 { color: #F0EBE3; font-size: 20px; }
+  .sw { display: flex; gap: 0; border: 1.5px solid #F0EBE3; }
+  .sw span { padding: 10px 18px; color: #F0EBE3; font-weight: 700; font-size: 14px; }
+  .sw span.on { background: #F0EBE3; color: #1C1712; }
+</style></head><body>
+<h1>Kunden-Test, zweiter Fall „Handwerk“ · Standbilder (Simulation, erfundener Betrieb)</h1>
+<div class="sw" aria-label="Umschalter"><span>Barbershop</span><span class="on">Handwerk</span></div>
+
+<div class="row" id="reihe">
+  <figure data-f="m1"><div class="phone"><div class="studie">Simulation · Heizung &amp; Sanitär · Studie</div>
+    <div class="counter"><span>Taps 0 · Scrollen 0 ×</span></div>
+    <div class="bk"><div class="bk-nav"><span>Heizung &amp; Sanitär Muster</span><span>☰</span></div><div class="bk-stock">Stockfoto: lächelnder Handwerker</div>
+      <h2>Willkommen bei Ihrem Meisterbetrieb</h2><div class="lines"><i></i><i></i><i style="width:70%"></i></div><div class="kachel"><div>Bad</div><div>Heizung</div><div>Solar</div><div>Wartung</div></div>
+      <div class="cookie"><p>Wir verwenden Cookies, um Ihnen das beste Erlebnis zu bieten.</p><button>Alle akzeptieren</button><button class="s">Einstellungen</button></div></div></div>
+    <figcaption>1 · Start, 0 s<small>Samstag, 18:40. Die Heizung ist kalt. Die Baukasten-Seite lädt träge, ein Cookie-Banner steht davor.</small></figcaption></figure>
+
+  <figure data-f="m2"><div class="phone"><div class="studie">Simulation · Heizung &amp; Sanitär · Studie</div>
+    <div class="counter"><span>Taps 5 · Scrollen 4 ×</span></div>
+    <div class="bk"><div class="bk-nav"><span>Heizung &amp; Sanitär Muster</span><span>☰</span></div>
+      <h2 style="padding-top:44px">Kontakt</h2><div class="lines"><i></i><i style="width:60%"></i></div>
+      <div class="tel"><b>Büro: Mo–Fr 8–16 Uhr</b><br>Telefon 01234 567890<br><br><b>Notdienst</b> siehe „Service“ → „Notfall“ → Formular …<br><b style="color:#B3261E">Notdienstnummer: 01234 000000</b> (ganz unten, klein)</div>
+      <div class="lines"><i></i><i></i><i style="width:80%"></i><i></i></div></div></div>
+    <figcaption>2 · Nummer gefunden, etwa 6 s<small>Menü, „Service“, „Notfall“, Scrollen bis zum Seitenende: Die Notdienstnummer steht klein und rot umrandet über der Daumenzone.</small></figcaption></figure>
+
+  <figure data-f="m3"><div class="phone"><div class="studie">Simulation · Heizung &amp; Sanitär · Studie</div>
+    <div class="counter"><span class="mass">Taps 1 · Scrollen 0 ×</span></div>
+    <div class="ma"><div class="kopf">Heizung &amp; Sanitär · Studie</div><h2>Heizung kalt? Wir sind da.</h2><p>Notdienst auch am Wochenende, Rückmeldung in Minuten. (Simulation, keine echten Zeiten.)</p>
+      <div class="thumb"><span class="chip">Daumenzone</span><span class="call">Notdienst anrufen<small>Ein Tipp. Ein Anruf.</small></span></div></div></div>
+    <figcaption>3 · Maßarbeit, etwa 8 s<small>Der Baukasten zerfällt in Blöcke und ordnet sich neu. Ein großer Knopf „Notdienst anrufen“ liegt in der Daumenzone. Ein Tipp.</small></figcaption></figure>
+
+  <figure data-f="m4"><div class="phone"><div class="studie">Simulation · Heizung &amp; Sanitär · Studie</div>
+    <div class="aufloesung"><div class="zeile"><span class="zahl">5</span><span class="was">Taps bis zur Notdienstnummer (Baukasten)</span></div>
+      <div class="zeile"><span class="zahl mass">1</span><span class="was">Tap bis zum Anruf (Maßarbeit)</span></div>
+      <p class="satz">Wer bei kalter Heizung sucht, ruft den an, bei dem die Nummer sofort da ist. Alle Zahlen beschreiben nur diese beiden Demo-Fassungen.</p></div></div>
+    <figcaption>4 · Auflösung, danach<small>„5 Taps“ gegen „1 Tap“ und ein Satz. Dazu Pause-Knopf und „Nochmal“.</small></figcaption></figure>
+</div>
+</body></html>

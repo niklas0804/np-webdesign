@@ -1,6 +1,6 @@
 ---
 /**
- * S4 · Was ich baue: der Musterkoffer (Auftrag 11. Oktober 2026, Teil C). Kalk. Die neun Studien als Vorschaukarten (echte Bilder aus images/werkplan).
+ * S4 · Was ich baue: der Musterkoffer (Auftrag 11. Oktober 2026, Teil C). Kalk. Die sichtbaren Studien als Vorschaukarten (echte Bilder aus images/werkplan) und als letzte Karte „Ihr Betrieb“ (führt zum Kontakt).
  * Desktop: Sie liegen zuerst als gefächerter Stapel wie Planblätter auf dem Tisch; beim Scrollen werden sie ausgeteilt und rasten in ein 3×3-Raster ein.
  * Mobil: zweispaltiges Raster, jede Karte erscheint beim Einfahren. Ruhig und ohne JavaScript: das Raster steht da. Jede Karte führt zur Welt auf /welten.
  */
@@ -22,7 +22,7 @@ const { row } = Astro.props;
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
       </div>
-      <ol class="bsp-grid" aria-label={`Die ${TEXT.worldCount} Studien`} data-bsp-grid>
+      <ol class="bsp-grid" aria-label={`Die ${TEXT.worldCount} Studien und Ihr Betrieb`} data-bsp-grid>
         {builtWorlds.map((w) => (
           <li class="bsp-card" data-card>
             <a class="bsp-link" href={`/welten#${w.anchor}`} data-bsp-link>
@@ -36,6 +36,17 @@ const { row } = Astro.props;
             </a>
           </li>
         ))}
+        <li class="bsp-card bsp-card-open" data-card>
+          <a class="bsp-link" href="#kontakt" data-bsp-link>
+            <span class="visually-hidden">Platz {builtWorlds.length + 1}: Ihr Betrieb. Hier entsteht Ihre Website. Zum Kontakt.</span>
+            <span class="bsp-in" aria-hidden="true">
+              <span class="bsp-bar"><i></i><i></i><i></i><span class="bsp-bar-label mono">Ihr Betrieb</span></span>
+              <span class="bsp-still bsp-open"><span class="bsp-open-text mono">Ihr Betrieb<span class="bsp-cursor"></span></span></span>
+              <span class="bsp-caption mono">{String(builtWorlds.length + 1).padStart(2, '0')} · Ihr Betrieb</span>
+              <span class="bsp-crops"><b></b><b></b><b></b><b></b></span>
+            </span>
+          </a>
+        </li>
       </ol>
     </div>
   </div>

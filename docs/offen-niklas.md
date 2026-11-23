@@ -1,6 +1,6 @@
 # Offene Punkte für Niklas
 
-Stand: 13. November 2026 (Phase 2 des Arbeitsauftrags „Vertrauen, Leistungen, Welten kürzen“, Branch `claude/vertrauen-und-welten`). Erledigtes steht unten unter „Erledigt“. `main` enthält `claude/premium-feinschliff`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
+Stand: 23. November 2026 (Phase 3 des Arbeitsauftrags „Vertrauen, Leistungen, Welten kürzen“, Branch `claude/vertrauen-und-welten`). Erledigtes steht unten unter „Erledigt“. `main` enthält `claude/premium-feinschliff`; nach `main` kommt nur, was Niklas ausdrücklich freigibt (danach baut die GitHub Action den Branch `deploy`, den Hostinger übernimmt).
 
 ## 1. Kontaktformular (läuft, Rest offen)
 - [ ] **Zugangsdaten sichern:** `np-config.php` einen Ordner **über** `public_html` anlegen (Vorlage `public/api/config.sample.php`, Block `smtp` für das IONOS-Postfach). Sie übersteht jedes Neuladen per Git oder ZIP; `api/config.php` bleibt als zweiter Ort möglich. Eine Kopie lokal aufbewahren, nie ins Repository, nie in den Chat.
@@ -24,8 +24,8 @@ Stand: 13. November 2026 (Phase 2 des Arbeitsauftrags „Vertrauen, Leistungen, 
 
 ## 3. Inhalte und Bilder
 - [ ] **Porträtfoto** liefern (schaltet `SITE_FLAGS.portrait` frei) und **zwei Brotfotos für Welt 01**. Bis dahin zeigen die Flächen nur „Foto folgt“, ohne Bauanleitung.
-- [ ] **Fotos besorgen:** 21 offene Fotos laut `docs/fotoliste.md` (Rechte und Abbildungsrechte vorab klären, keine erkennbaren Personen, keine Herstellerlogos).
-- [ ] **Bäckerei-Branchenseite** und die neuen Branchenseiten (Kanzlei, Oldtimer-Werkstatt, Physiotherapie, Gastronomie/Hotel) inhaltlich lesen und freigeben; sie sind nicht aus deinen Vorlagen.
+- [ ] **Fotos:** Die sichtbaren Welten (02, 03, 04, 06, 07) brauchen keine Fotos mehr; Platzhalterflächen gibt es auf keiner öffentlichen Seite. Offen sind nur Fotos für ausgeblendete Welten (`docs/fotoliste.md`, 17 Einträge, davon zwei Brotfotos für Welt 01, die diese Welt zurückbringen).
+- [ ] **Branchenseiten** Kanzlei sowie Industrie inhaltlich lesen und freigeben; sie sind nicht aus deinen Vorlagen. Die Seiten Bäckerei, Kfz-Werkstatt, Physiotherapie und Gastronomie/Hotel werden nicht mehr gebaut; `public/.htaccess` leitet ihre Adressen vorläufig (302) auf `/`.
 - [ ] **Werdegang** („Ich komme aus der Technik …“) nach eigener Prüfung anpassen. Wird erst gebraucht, wenn „Über mich“ zurückkommt.
 - [ ] **Social-Vorschaubilder** ansehen (`public/images/social/`).
 

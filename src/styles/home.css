@@ -118,6 +118,12 @@ html[data-mode='desktop'] .t-nb-wipe, html[data-mode='mobile'] .t-nb-wipe {
 .bsp-bar-label { margin-left: 6px; font-size: .625rem; letter-spacing: .1em; }
 .bsp-still { display: block; }
 .bsp-still img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
+.bsp-card-open .bsp-in { border: 1.5px dashed var(--np-orange); }
+.bsp-card-open .bsp-bar { border-bottom: 1.5px dashed var(--np-orange); }
+.bsp-open { aspect-ratio: 8 / 5; display: grid; place-items: center; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--np-orange) 8%, transparent) 0 10px, transparent 10px 20px); }
+.bsp-open-text { color: var(--orange-text); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; }
+.bsp-cursor { display: inline-block; width: 2px; height: 1.2em; margin-left: 5px; background: var(--np-orange); vertical-align: -.25em; }
+.bsp-card-open .bsp-caption { border-top: 1.5px dashed var(--np-orange); color: var(--orange-text); }
 .bsp-caption { display: block; padding: 6px 8px; border-top: 1.5px solid var(--tinte); background: var(--kalk); font-size: .625rem; line-height: 1.3; color: var(--tinte); letter-spacing: .06em; }
 .bsp-link:focus-visible .bsp-in { transform: translateY(-6px); }
 @media (hover: hover) and (pointer: fine) { .bsp-link:hover .bsp-in { transform: translateY(-6px); } }

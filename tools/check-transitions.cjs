@@ -136,7 +136,7 @@ const PAGE_STATE = `() => {
       for (const q of range.getClientRects()) {
         if (q.width < 2 || q.height < 2) continue;
         for (const f of rects) {
-          if (q.left < f.r && q.right > f.l && q.top < f.b && q.bottom > f.t && !(stripBottom && q.bottom <= stripBottom + 1)) {
+          if (q.left < f.r && q.right > f.l && q.top < f.b && q.bottom > f.t && !(stripBottom && q.bottom <= stripBottom + 1) && !(stripBottom && f.b <= stripBottom + 1)) { // Rahmenelement liegt ganz in der deckenden Kopfzeile: Text dahinter ist verdeckt, nicht überlagert
             const p = n.parentElement; const cs = getComputedStyle(p);
             let o = 1; for (let e = p; e && e !== document.documentElement; e = e.parentElement) o *= parseFloat(getComputedStyle(e).opacity);
             if (cs.visibility === 'hidden' || o < 0.15) continue;

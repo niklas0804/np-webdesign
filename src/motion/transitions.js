@@ -111,8 +111,10 @@ export async function initTransitions() {
     const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, npzeichen, nblende, piris }[variant];
     if (!(fn && fn(c))) {
       // Ohne Staffelstab: der Faden zeichnet eine Linie, dann wischt die neue Welt herein
-      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: 40, ease: 'power2.out' }, 100)
-        .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: 60, ease: 'power2.inOut' }, 100 + 20);
+      // Zeiten richten sich nach der Länge des freien Fensters (A … A + len), damit auch kurze Übergänge nie eine leere Bühne zeigen (13. November 2026)
+      const T = len();
+      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: T * 0.5, ease: 'power2.out' }, c.A)
+        .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: T * 0.75, ease: 'power2.inOut' }, c.A);
     }
     tl.set({}, {}, L());
   }
