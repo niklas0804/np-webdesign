@@ -111,10 +111,11 @@ export async function initTransitions() {
     const fn = { bon, goldlinie, stempel, zierlinie, scheinwerfer, messkreise, messraster, wasser, npzeichen, nblende, piris }[variant];
     if (!(fn && fn(c))) {
       // Ohne Staffelstab: der Faden zeichnet eine Linie, dann wischt die neue Welt herein
-      // Zeiten richten sich nach der Länge des freien Fensters (A … A + len), damit auch kurze Übergänge nie eine leere Bühne zeigen (13. November 2026)
+      // Die Bühne wird schon sichtbar, während die alte Welt abzieht (0 … A): Linie und Wisch beginnen dort, nicht erst im freien Fenster.
+      // So steht nie eine leere Fläche in der Grundfarbe der alten Welt im Bild, auch bei kurzen Übergängen (13. November 2026).
       const T = len();
-      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: T * 0.5, ease: 'power2.out' }, c.A)
-        .fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: T * 0.75, ease: 'power2.inOut' }, c.A);
+      tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, duration: c.A * 0.5 + T * 0.4, ease: 'power2.out' }, c.A * 0.4)
+        .fromTo(wipe, { yPercent: 100, y: 0 }, { yPercent: 0, y: 0, duration: c.A * 0.55 + T * 0.7, ease: 'power2.inOut' }, c.A * 0.45); // y: 0 hebt das CSS-translateY(100%) auf, sonst bliebe der Wisch außerhalb der Bühne
     }
     tl.set({}, {}, L());
   }

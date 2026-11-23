@@ -196,7 +196,7 @@
 /* Der zehnte Platz: leerer Rahmen „Ihr Betrieb“ mit Cursor. Orange gehört NP. */
 .wp-frame-open { border: 1.5px dashed var(--np-orange); }
 .wp-open { position: absolute; inset: 18px 0 0 0; display: grid; place-items: center; overflow: hidden;
-  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--np-orange) 8%, transparent) 0 10px, transparent 10px 20px); }
+  background: color-mix(in srgb, var(--np-orange) 7%, transparent); } /* flach statt gestreift: keine Platzhalterfläche mit Streifen (13. November 2026) */
 .wp-open > * { grid-area: 1 / 1; }
 .wp-open-text { color: var(--orange-text); font-size: var(--fs-mono-xs); text-align: center; }
 .wp-cursor { display: inline-block; width: 2px; height: 1.2em; margin-left: 5px; background: var(--np-orange); vertical-align: -.25em; }

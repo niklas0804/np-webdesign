@@ -120,7 +120,7 @@ html[data-mode='desktop'] .t-nb-wipe, html[data-mode='mobile'] .t-nb-wipe {
 .bsp-still img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
 .bsp-card-open .bsp-in { border: 1.5px dashed var(--np-orange); }
 .bsp-card-open .bsp-bar { border-bottom: 1.5px dashed var(--np-orange); }
-.bsp-open { aspect-ratio: 8 / 5; display: grid; place-items: center; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--np-orange) 8%, transparent) 0 10px, transparent 10px 20px); }
+.bsp-open { aspect-ratio: 8 / 5; display: grid; place-items: center; background: color-mix(in srgb, var(--np-orange) 7%, transparent); }
 .bsp-open-text { color: var(--orange-text); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; }
 .bsp-cursor { display: inline-block; width: 2px; height: 1.2em; margin-left: 5px; background: var(--np-orange); vertical-align: -.25em; }
 .bsp-card-open .bsp-caption { border-top: 1.5px dashed var(--np-orange); color: var(--orange-text); }
