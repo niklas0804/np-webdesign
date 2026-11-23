@@ -6,6 +6,7 @@
  * Das Markup zeigt den Endzustand: Ruhige Ansicht und Seiten ohne JavaScript zeigen Standbilder mit Labels und Zählern.
  * Ablauf und Steuerung: src/motion/home/kundentest.js (wird erst bei Annäherung geladen, kein Scroll-Hijacking, kein ScrollTrigger).
  */
+import { TEXT } from '../config/journey.js';
 import KtBase from './KtBase.astro';
 import KtMass from './KtMass.astro';
 import '../styles/kundentest.css';
@@ -115,7 +116,7 @@ const WARUM = [
         <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
         <span class="btn-arrow" aria-hidden="true">→</span>
       </a>
-      <a class="link" href="/welten">Alle neun Beispiele ansehen</a>
+      <a class="link" href="/welten">Alle {TEXT.zahlKlein} Beispiele ansehen</a>
     </div>
   </div>
 </section>

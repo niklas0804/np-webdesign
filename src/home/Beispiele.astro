@@ -18,7 +18,7 @@ const { row } = Astro.props;
         <span class="bsp-underline" aria-hidden="true" data-bsp-underline></span>
         <p class="mono bsp-note">{TEXT.statementNote}</p>
         <a class="btn btn-primary bsp-btn" href="/welten">
-          <span class="btn-label"><span>Alle neun Beispiele ansehen</span><span aria-hidden="true">Alle neun Beispiele ansehen</span></span>
+          <span class="btn-label"><span>Alle {TEXT.zahlKlein} Beispiele ansehen</span><span aria-hidden="true">Alle {TEXT.zahlKlein} Beispiele ansehen</span></span>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -26,11 +26,11 @@ const { row } = Astro.props;
         {builtWorlds.map((w) => (
           <li class="bsp-card" data-card>
             <a class="bsp-link" href={`/welten#${w.anchor}`} data-bsp-link>
-              <span class="visually-hidden">Welt {w.nr}: {w.name}, {w.branche} (Studie)</span>
+              <span class="visually-hidden">Welt {w.pos}: {w.name}, {w.branche} (Studie)</span>
               <span class="bsp-in" aria-hidden="true">
-                <span class="bsp-bar"><i></i><i></i><i></i><span class="bsp-bar-label mono">Studie {w.nr}</span></span>
+                <span class="bsp-bar"><i></i><i></i><i></i><span class="bsp-bar-label mono">Studie {w.pos}</span></span>
                 <span class="bsp-still"><WorldStill nr={w.nr} /></span>
-                <span class="bsp-caption mono">{w.nr} · {w.name} · {w.branche}</span>
+                <span class="bsp-caption mono">{w.pos} · {w.name} · {w.branche}</span>
                 <span class="bsp-crops"><b></b><b></b><b></b><b></b></span>
               </span>
             </a>

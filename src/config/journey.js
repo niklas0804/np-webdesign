@@ -4,7 +4,7 @@
  *
  * @typedef {'light'|'mid'|'dark'} Tone  NP-Modus der Welt, aus dem Grund berechnet (npMode): hell → Orange-Text, mittel → Tinte, dunkel → Glut
  * @typedef {{ground:string,text:string,accent:string,accentUse:'text'|'large',accent2:string,accent2Use:'text'|'graphic'|'fill'|'lines'|'dekor',accent3?:string,tone:Tone}} Palette
- * @typedef {{nr:string,slug:string,name:string,branche:string,anchor:string,branchPage:string,palette:Palette,
+ * @typedef {{nr:string,pos:string|null,slug:string,name:string,branche:string,anchor:string,branchPage:string,palette:Palette,
  *            built:boolean,source:'neu'|'demo',leistung:string,notiz?:string}} World
  */
 
@@ -49,7 +49,7 @@ export const WORLDS = [
   { nr: '01', slug: 'baeckerei', name: 'Halmberg', branche: 'Bäckerei', anchor: 'baeckerei', branchPage: '/branchenloesungen/baeckerei',
     palette: pal('#E9C46A', '#3B2618', '#5E2B4A', '#8B5A2B', { accent2Use: 'graphic' }), // Weizengold · Kruste · Zwetschge · Roggen (nur Grafik, nie Text)
     notiz: 'Eine Bäckerei verkauft Duft. Darum trägt hier die Fotografie, nicht der Text.',
-    built: true, source: 'neu', leistung: 'Bildkonzept und Fotobriefing' },
+    built: false, source: 'neu', leistung: 'Bildkonzept und Fotobriefing' },
   { nr: '02', slug: 'friseur-barber', name: 'Messingstuhl', branche: 'Barbershop', anchor: 'barbershop', branchPage: '/branchenloesungen/friseur-barber',
     palette: pal('#121010', '#EDE6D8', '#C9A24A', '#7A2433', { accent2Use: 'fill' }), // Schwarz · Elfenbein · Gold · Bordeaux (nur Fläche)
     notiz: 'Ein Barbershop verkauft Atmosphäre. Die Wartemarke macht Warten zum Teil des Erlebnisses.',
@@ -65,7 +65,7 @@ export const WORLDS = [
   { nr: '05', slug: 'kfz-werkstatt', name: 'Chromwerk', branche: 'Oldtimer-Werkstatt', anchor: 'oldtimer', branchPage: '/branchenloesungen/kfz-werkstatt',
     palette: pal('#13382B', '#E8EAED', '#EFE6D2', '#8C939B', { accent2Use: 'lines' }), // British Racing Green · Chrom · Elfenbein · Chromgrau (nur Linien und große Schrift)
     notiz: 'Ein Oldtimer ist Bewegung. Darum fährt diese Seite quer.',
-    built: true, source: 'neu', leistung: 'Animation und Interaktion' },
+    built: false, source: 'neu', leistung: 'Animation und Interaktion' },
   { nr: '06', slug: 'beratung-coaching', name: 'Jana Ahrens', branche: 'Coaching', anchor: 'coaching', branchPage: '/branchenloesungen/beratung-coaching',
     palette: pal('#DCD1EA', '#35292A', '#8A5470', '#F1C9B5', { accentUse: 'large', accent2Use: 'fill', accent3: '#C9B6D9' }), // Flieder · Dunkelbraun · Malve (nur große Schrift/Grafik) · Kugelverlauf Pfirsich → Flieder (nur Fläche)
     notiz: 'Beratung beginnt mit Vertrauen. Darum ist hier nichts laut — und der Weg zur Anfrage ist zwei Klicks kurz.',
@@ -77,11 +77,11 @@ export const WORLDS = [
   { nr: '08', slug: 'physiotherapie', name: 'Praxis am Weiher', branche: 'Physiotherapie', anchor: 'physiotherapie', branchPage: '/branchenloesungen/physiotherapie',
     palette: pal('#CDE8DA', '#1E2D2A', '#2F6B57', '#CFE6DC', { accent2Use: 'fill' }), // Mint · Tannengrün · Salbei · Hellmint (nur Fläche)
     notiz: 'Patienten sind nicht immer fit. Darum ist hier alles groß, klar und mit der Tastatur bedienbar.',
-    built: true, source: 'neu', leistung: 'Barrierefreiheit und Terminbuchung' },
+    built: false, source: 'neu', leistung: 'Barrierefreiheit und Terminbuchung' },
   { nr: '09', slug: 'gastronomie-hotel', name: 'Gut Weidenstein', branche: 'Landgasthof', anchor: 'landgasthof', branchPage: '/branchenloesungen/gastronomie-hotel',
     palette: pal('#2A1F33', '#ECE6DA', '#A9BC93', '#6F8796', { accent2Use: 'lines' }), // Dämmerungsviolett · Elfenbein · Schilf · Wasser (nur Linien)
     notiz: 'Gäste buchen ein Gefühl. Darum kommt die Anfrage erst, wenn es da ist — und dann ohne Hürde.',
-    built: true, source: 'neu', leistung: 'Conversion-Struktur' },
+    built: false, source: 'neu', leistung: 'Conversion-Struktur' },
 ];
 
 /**
@@ -95,6 +95,13 @@ export const DISTINCT = {
   leinenExempt: ['04'],
 };
 
+/**
+ * Sichtbare Welten (Auftrag 13. November 2026, 3.1): `built` bedeutet jetzt „sichtbar auf /welten, in Werkplan, Menü, Beispielen, Zähler und Sitemap“.
+ * Ausgeblendet (Code bleibt, kein Ausliefern): 01 Halmberg (bis Niklas zwei Brotfotos liefert), 05 Chromwerk, 08 Praxis am Weiher, 09 Gut Weidenstein.
+ * Eine Welt kommt mit einer Zeile zurück: `built: true`. `pos` ist die Anzeigenummer nach Position („01 / 05“); `nr` bleibt die feste Kennung (Bilder, Paletten).
+ */
+let positionen = 0;
+WORLDS.forEach((w) => { w.pos = w.built ? String(++positionen).padStart(2, '0') : null; });
 export const builtWorlds = WORLDS.filter((w) => w.built);
 
 /** Zahlwörter für Claim und Statement – richten sich nach der Zahl der gebauten Welten */
@@ -104,6 +111,14 @@ const ORDINAL = ['', 'erste', 'zweite', 'dritte', 'vierte', 'fünfte', 'sechste'
 const n = builtWorlds.length;
 export const TEXT = {
   worldCount: n,
+  /** Zahlwort groß/klein („Fünf“ / „fünf“) für Titel, Menü und Knöpfe */
+  zahl: ZAHL[n],
+  zahlKlein: ZAHL_KLEIN[n],
+  /** Titel und Beschreibung von /welten */
+  weltenTitel: `${ZAHL[n]} Welten · Studien von NP Webdesign`,
+  weltenBeschreibung: `${ZAHL[n]} erfundene Betriebe, ${ZAHL_KLEIN[n]} völlig verschiedene Websites: Studien von NP Webdesign. Keine sieht aus wie die andere.`,
+  /** Erster Bildschirm von /welten (3.5) */
+  weltenSatz: 'Studien von NP Webdesign: erfundene Betriebe, echte Gestaltung. Tippen Sie eine an.',
   claim: `${ZAHL[n]} Welten. Die ${ORDINAL[n + 1]} gehört Ihnen.`,
   statement: `${ZAHL[n]} Betriebe. ${ZAHL[n]} Websites. Keine sieht aus wie die andere.`,
   statementNote: `Alle ${ZAHL_KLEIN[n]} sind Studien: erfundene Unternehmen, echte Gestaltung.`,
@@ -128,12 +143,9 @@ export const TRANSITION_VARIANTS = {
 };
 
 /** Standard-Übergang: der orange Faden zieht eine Linie quer über den Viewport, dahinter wischt die neue Welt herein */
-export const TRANSITION_DEFAULT = { desktop: 60, mobile: 40 };
-/** Längere Übergänge (Blueprint F): Weiher → See, Linien → NP-Logo */
-export const TRANSITION_LENGTH = {
-  'welt-08>welt-09': { desktop: 80, mobile: 50 },
-  'welt-09>finale': { desktop: 100, mobile: 80 },
-};
+export const TRANSITION_DEFAULT = { desktop: 30, mobile: 10 }; // gekürzt am 13. November 2026 (3.4); Abstand im Dokument = 100 + Länge (svh)
+/** Abweichende Längen einzelner Übergänge (Schlüssel `von>nach`); leer, seit die langen Übergänge der ausgeblendeten Welten 08, 09 entfallen */
+export const TRANSITION_LENGTH = {};
 
 /**
  * Reihenfolge der Seite /welten: Werkplan → Welten 01–09 mit Übergängen → Finale (Auftrag 11. Oktober 2026).
@@ -141,9 +153,9 @@ export const TRANSITION_LENGTH = {
  */
 export const journey = (() => {
   /** @type {any[]} */
-  const seq = [
+  const seqAll = [
     // Werkplan-Szene: Der Werkplan steht von Anfang an (kein Hero, der gehört der Startseite), ruht kurz (plan) und t00 lässt die Zelle 01 wachsen (grow)
-    { id: 'opening', kind: 'opening', anchor: 'werkplan', expansion: { d: 0, m: 0 }, plan: { d: 20, m: 15 }, grow: { d: 60, m: 40 }, ground: MASTER.leinen, tone: 'light' },
+    { id: 'opening', kind: 'opening', anchor: 'werkplan', expansion: { d: 0, m: 0 }, plan: { d: 10, m: 5 }, grow: { d: 50, m: 20 }, ground: MASTER.leinen, tone: 'light' },
     { id: 'welt-01', kind: 'world', world: '01', d: 160, m: 140 },
     { id: 'welt-02', kind: 'world', world: '02', d: 140, m: 120 },
     { id: 'welt-03', kind: 'world', world: '03', d: 140, m: 120 },
@@ -156,8 +168,11 @@ export const journey = (() => {
     // scene: Länge der gepinnten Bildüberblendung (Blueprint F: 120vh plus Verweilen); die langsamste Welt der Reise
     { id: 'welt-09', kind: 'world', world: '09', d: 320, m: 240, scene: { d: 240, m: 170 } },
     // Finale: Rückzoom auf den Werkplan, der zehnte Platz bleibt leer, Einladung (Blueprint L). Der Kontakt liegt auf der Startseite.
-    { id: 'finale', kind: 'finale', anchor: 'finale', d: 160, m: 120, ground: MASTER.leinen, tone: 'light' },
+    { id: 'finale', kind: 'finale', anchor: 'finale', d: 120, m: 30, ground: MASTER.leinen, tone: 'light' },
   ];
+
+  // Nur sichtbare Welten (3.1): Das Opening lässt die erste sichtbare Welt wachsen, die Übergänge entstehen zwischen den verbleibenden Nachbarn
+  const seq = seqAll.filter((s) => s.kind !== 'world' || WORLDS.find((w) => w.nr === s.world).built);
 
   const groundOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.ground : s.ground);
   const accentOf = (s) => (s.kind === 'world' ? WORLDS.find((w) => w.nr === s.world).palette.accent : null);
@@ -189,8 +204,8 @@ export const journey = (() => {
  * label: Name im Lineal (Desktop). Eigene Zählung: Die Startseite hat keinen Weltzähler.
  */
 export const HOME_TRANSITIONS = {
-  'warum>vergleich': { variant: 'nblende', d: 80, m: 34 }, // mobil 34 statt 60 (2. November 2026, Diagonale zeichnet schon im Ausgang von S2); die Diagonale des N wischt von Nacht zu Leinen, das rechte Bein endet am rechten Rand der Demo (Kunden-Test)
-  'arbeitsweise>kontakt': { variant: 'piris', d: 100, m: 50 }, // der Faden endet im NP-Logo, aus dem die Iris den Kontakt öffnet
+  'warum>vergleich': { variant: 'nblende', d: 40, m: 20 }, // mobil 34 statt 60 (2. November 2026, Diagonale zeichnet schon im Ausgang von S2); die Diagonale des N wischt von Nacht zu Leinen, das rechte Bein endet am rechten Rand der Demo (Kunden-Test)
+  'arbeitsweise>kontakt': { variant: 'piris', d: 50, m: 30 }, // der Faden endet im NP-Logo, aus dem die Iris den Kontakt öffnet
 };
 export const homeJourney = (() => {
   const seq = [

@@ -17,6 +17,10 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
+  # Branchenseiten ausgeblendeter Welten (Bäckerei, Kfz-Werkstatt, Physiotherapie, Gastronomie/Hotel): vorläufig (302) auf die Startseite.
+  # Kommt eine Welt zurück (journey.js, built: true), die Zeile der Branche hier entfernen.
+  RewriteRule ^branchenloesungen/(baeckerei|kfz-werkstatt|physiotherapie|gastronomie-hotel)/?$ / [R=302,L]
+
   # Saubere Adressen: /leistungen liefert leistungen.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

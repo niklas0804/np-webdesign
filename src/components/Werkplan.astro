@@ -1,7 +1,7 @@
 ---
 /**
- * Der Werkplan (Blueprint D, Kurskorrektur 11. Oktober 2026): 4 × 3 Plätze, das Zentrum mit dem Logo über zwei Spalten,
- * neun Plätze zeigen Welten, der zehnte ist ein leerer Rahmen „Ihr Betrieb“ mit blinkendem Cursor und führt zum Kontakt auf der Startseite.
+ * Der Werkplan (Blueprint D, Kurskorrektur 11. Oktober 2026, gekürzt 13. November 2026): 4 × 2 Plätze, das Zentrum mit dem Logo über zwei Spalten,
+ * fünf Plätze zeigen Welten, der sechste ist ein leerer Rahmen „Ihr Betrieb“ mit blinkendem Cursor und führt zum Kontakt auf der Startseite.
  * Mobil: zwei Spalten, das Zentrum als Band quer über beide.
  */
 import { builtWorlds, TEXT } from '../config/journey.js';
@@ -11,17 +11,17 @@ const slots = builtWorlds.length + 1;
 ---
 <div class="werkplan" data-werkplan data-count={slots}>
   <div class="wp-grid">
-    <h1 id="werkplan-title" class="visually-hidden">Neun Welten · Studien von NP Webdesign</h1>
+    <h1 id="werkplan-title" class="visually-hidden">{TEXT.weltenTitel}</h1>
     <ol class="wp-cells" aria-label={`Die ${TEXT.worldCount} Welten`}>
       {builtWorlds.map((w) => (
         <li class="wp-cell" data-world={w.nr}>
           <a href={`/welten#${w.anchor}`} class="wp-link" data-wp-link>
-            <span class="visually-hidden">Welt {w.nr}: {w.name}, {w.branche} (Studie)</span>
+            <span class="visually-hidden">Welt {w.pos}: {w.name}, {w.branche} (Studie)</span>
             <span class="wp-frame" aria-hidden="true">
-              <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.nr}</span></span>
+              <span class="wp-bar"><i></i><i></i><i></i><span class="wp-bar-label mono">Studie {w.pos}</span></span>
               <span class="wp-still"><WorldStill nr={w.nr} priority /></span>
             </span>
-            <span class="wp-caption mono" aria-hidden="true">{w.nr} · {w.name} · {w.branche}</span>
+            <span class="wp-caption mono" aria-hidden="true">{w.pos} · {w.name} · {w.branche}</span>
           </a>
         </li>
       ))}
@@ -41,7 +41,7 @@ const slots = builtWorlds.length + 1;
     </div>
     <div class="wp-statement" data-wp-statement>
       <h2 id="werkplan-statement">{TEXT.statement}</h2>
-      <p class="mono wp-note">{TEXT.statementNote}</p>
+      <p class="mono wp-note">{TEXT.weltenSatz}</p>
     </div>
   </div>
   <p class="wp-coord mono needs-js" aria-hidden="true" data-wp-coord>x 0000 · y 0000</p>

@@ -12,6 +12,8 @@
 /* Erstes Bild von /welten: Stil und Layout der neun Welten (rund 2.500 Elemente) warten, bis der Werkplan gezeichnet ist.
    Nur bis zum zweiten Bild (data-painted, mode-init.js); gemessen wird erst danach. Ruhig und ohne JavaScript: keine Wirkung. */
 html[data-mode='desktop']:not([data-painted]) .world, html[data-mode='mobile']:not([data-painted]) .world { content-visibility: auto; contain-intrinsic-size: auto 100svh; }
+/* Handy: große Abstände innerhalb der Welten enger (13. November 2026, 3.4: /welten am Handy unter 30 Bildschirmhöhen) */
+@media (max-width: 1023px) { .world { --s8: 48px; --s9: 56px; --s10: 72px; --block: 80px; } }
 .world-inner { max-width: var(--max); margin: 0 auto; display: grid; gap: var(--s5); align-content: start; }
 .world .kicker { color: var(--accent); }
 .world[data-tone='dark'] .kicker { color: var(--accent); }
@@ -26,6 +28,10 @@ html[data-mode='desktop']:not([data-painted]) .world, html[data-mode='mobile']:n
 .note-text { font-size: var(--fs-lead); line-height: 1.35; font-weight: 520; }
 .note-tag { color: var(--stein); }
 .world[data-tone='dark'] .note-tag { color: var(--asche); }
+.note-cta { display: grid; gap: var(--s3); justify-items: start; padding-top: var(--s4); border-top: 1px solid var(--haarlinie); }
+.world[data-tone='dark'] .note-cta { border-top-color: rgba(240, 235, 227, .2); }
+.note-cta-q { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--orange-text); }
+.world[data-tone='dark'] .note-cta-q { color: var(--glut); }
 .note-link { justify-self: start; min-height: 44px; display: inline-flex; align-items: center; }
 @media (hover: hover) and (pointer: fine) { .world[data-tone='dark'] .note-link:hover { color: var(--glut); } }
 .credit { color: inherit; opacity: .8; margin-top: var(--s7); font-size: var(--fs-mono-xs); }

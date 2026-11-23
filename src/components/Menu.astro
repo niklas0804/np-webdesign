@@ -12,7 +12,7 @@ import { SITE, SITE_FLAGS } from '../config/site.js';
           {builtWorlds.map((w) => (
             <li>
               <a href={`/welten#${w.anchor}`} data-menu-link data-menu-world={w.nr}>
-                <span class="mono menu-nr">{w.nr}</span>
+                <span class="mono menu-nr">{w.pos}</span>
                 <span class="menu-name">{w.name}</span>
                 <span class="mono menu-branche">{w.branche}</span>
               </a>

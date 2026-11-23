@@ -15,10 +15,10 @@ import './world.css';
 const { row } = Astro.props;
 const w = WORLDS.find((x) => x.nr === '09');
 const total = String(builtWorlds.length).padStart(2, '0');
-const counter = `Welt 09 / ${total} · Landgasthof · Studie`;
+const counter = `Welt ${w.pos} / ${total} · Landgasthof · Studie`;
 ---
 <section id={w.anchor} class="world w09" data-section={row.id} data-world="09" data-ground={w.palette.ground} data-tone={w.palette.tone}
-         data-counter={counter} data-counter-short={`09 / ${total}`} aria-labelledby="w09-title" data-w09>
+         data-counter={counter} data-counter-short={`${w.pos} / ${total}`} aria-labelledby="w09-title" data-w09>
 
   <header class="w09-hero">
     <p class="w09-kicker">{KICKER}</p>

@@ -2,19 +2,22 @@
 /**
  * Einstieg von /welten: der Werkplan auf einer Bühne (Blueprint D, Kurskorrektur 11. Oktober 2026).
  * Den Hero gibt es hier nicht mehr, er gehört der Startseite. Der Werkplan steht von Anfang an, ruht kurz,
- * dann wächst die Zelle von Welt 01 auf Viewport-Größe (t00). Ruhig und ohne JavaScript: der Werkplan als Raster, die Zellen sind Links.
+ * dann wächst die Zelle der ersten sichtbaren Welt auf Viewport-Größe (t00). Ruhig und ohne JavaScript: der Werkplan als Raster, die Zellen sind Links.
  */
 import Werkplan from './Werkplan.astro';
+import { builtWorlds } from '../config/journey.js';
+/** Die erste sichtbare Welt wächst (3.3); Bilder der Wachstumsebene: scripts/render-previews.cjs */
+const first = builtWorlds[0];
 ---
 <section id="opening" class="opening" data-section="opening" data-counter="Werkplan" data-ground="#F0EBE3" data-tone="light" aria-labelledby="werkplan-title">
   <span id="werkplan" class="anchor"></span>
   <div class="stage" data-stage>
     <Werkplan />
 
-    <!-- t00: Die Zelle 01 wächst auf Viewport-Größe (Ausschnitt-Maske); nur Bühne, für Hilfstechnik verborgen -->
-    <div class="grow" data-world="01" data-grow aria-hidden="true"><div class="grow-art"><picture>
-      <source media="not all and (min-width: 1024px) and (pointer: fine)" srcset="/images/werkplan/welt-01-grow-m.webp">
-      <img src="/images/werkplan/welt-01-grow-d.webp" width="1280" height="800" alt="" loading="lazy" decoding="async">
+    <!-- t00: Die erste Zelle wächst auf Viewport-Größe (Ausschnitt-Maske); nur Bühne, für Hilfstechnik verborgen -->
+    <div class="grow" data-world={first.nr} data-anchor={first.anchor} data-grow aria-hidden="true"><div class="grow-art"><picture>
+      <source media="not all and (min-width: 1024px) and (pointer: fine)" srcset={`/images/werkplan/welt-${first.nr}-grow-m.webp`}>
+      <img src={`/images/werkplan/welt-${first.nr}-grow-d.webp`} width="1280" height="800" alt="" loading="lazy" decoding="async">
     </picture></div></div>
   </div>
 </section>

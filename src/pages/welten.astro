@@ -1,6 +1,6 @@
 ---
 /**
- * /welten: Die Reise durch neun Welten (Auftrag 11. Oktober 2026). Werkplan → Welten 01–09 mit Übergängen → Finale.
+ * /welten: Die Reise durch die sichtbaren Welten (Auftrag 11. Oktober 2026, gekürzt am 13. November 2026). Werkplan → Welten mit Übergängen → Finale.
  * Reihenfolge, Längen und Paletten kommen aus src/config/journey.js (Blueprint N, T.3). Die Seite wird indexiert.
  * Ein DOM, echter Text in Lesereihenfolge; Bühne und Rahmen liegen für Hilfstechnik verborgen darüber.
  */
@@ -9,7 +9,7 @@ import '../styles/frame.css';
 import '../styles/opening.css';
 import '../styles/sections.css';
 import '../styles/finale.css';
-import { journey } from '../config/journey.js';
+import { journey, TEXT } from '../config/journey.js';
 import { SITE } from '../config/site.js';
 import Frame from '../components/Frame.astro';
 import Menu from '../components/Menu.astro';
@@ -31,15 +31,15 @@ const worldModules = { '01': World01, '02': World02, '03': World03, '04': World0
 const jsonLd = [
   {
     '@context': 'https://schema.org', '@type': 'CollectionPage',
-    name: 'Neun Welten · Studien von NP Webdesign', url: `${SITE.url}/welten`, inLanguage: 'de-DE',
-    description: 'Neun erfundene Betriebe, neun völlig verschiedene Websites: Studien von NP Webdesign aus Schwandorf.',
+    name: TEXT.weltenTitel, url: `${SITE.url}/welten`, inLanguage: 'de-DE',
+    description: `${TEXT.weltenBeschreibung} Aus Schwandorf.`,
     isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
   },
 ];
 ---
 <Base
-  title="Neun Welten · Studien von NP Webdesign"
-  description="Neun erfundene Betriebe, neun völlig verschiedene Websites: Studien von NP Webdesign. Keine sieht aus wie die andere."
+  title={TEXT.weltenTitel}
+  description={TEXT.weltenBeschreibung}
   path="/welten"
   image="/images/social/welten.jpg"
   jsonLd={jsonLd}

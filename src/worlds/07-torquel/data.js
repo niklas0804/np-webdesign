@@ -1,6 +1,6 @@
 /**
  * Welt 07 · TORQUEL – Inhalte der Studie. Fiktiv: kein echter Betrieb, keine Adresse, keine Telefonnummer, keine Domain,
- * keine Kunden, keine Zertifikate. Alle Werte sind Beispielwerte. Fotos stehen als Bildplatzhalter (src/content/fotos.js).
+ * keine Kunden, keine Zertifikate. Alle Werte sind Beispielwerte.
  */
 export const KICKER = 'Präzisionsfertigung · Studie, fiktives Unternehmen';
 export const UNTER = 'Frästeile und Drehteile nach Zeichnung, vom Einzelstück bis zur Serie.';
@@ -29,5 +29,4 @@ export const PROTOKOLL = {
 
 export const MATERIALIEN = ['Aluminium (EN AW-6082)', 'Edelstahl (1.4301)', 'Stahl (S355)', 'Messing (CuZn39Pb3)', 'Kunststoff (POM)'];
 
-export const BAUTEIL = { ansichten: 12, schritt: 30 };
 export const f = (n, dec) => n.toLocaleString('de-DE', { minimumFractionDigits: dec, maximumFractionDigits: dec });

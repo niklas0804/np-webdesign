@@ -6,6 +6,8 @@
  * Geändert nur: keine Fremdschrift, kein Fremd-Badge, E-Mail-Adresse aus site.js.
  * Screenshots und Live-Demos bleiben vorerst weg (Entscheidung von Niklas).
  */
+import { WORLDS } from '../config/journey.js';
+
 const COMMON = {
   tech: [
     { tag: 'Responsive Design' }, { tag: 'GSAP-Animationen' }, { tag: 'Datenschutz' }, { tag: 'Performance & SEO' },
@@ -400,7 +402,8 @@ export const BRANCHEN = {
 
 };
 
-export const BRANCHEN_LIST = Object.values(BRANCHEN);
+/** Nur Branchenseiten sichtbarer Welten werden gebaut (Auftrag 13. November 2026, 3.6); die der ausgeblendeten Welten leitet public/.htaccess vorläufig auf / (302) */
+export const BRANCHEN_LIST = Object.values(BRANCHEN).filter((b) => WORLDS.find((w) => w.nr === b.world)?.built);
 
 /** Name der Zielgruppe für Titel und Verlinkung (Auftrag 13. November 2026, 2.7): „Webdesign für <Name> in Schwandorf und der Oberpfalz“ */
 export const BRANCHEN_NAME = {

@@ -37,7 +37,7 @@ const homeTicks = page === 'home' ? homeRows.filter((r) => r.id !== 'faq') : [];
     <span class="ruler-fill" data-ruler-fill></span>
     <span class="ruler-mark" data-ruler-mark></span>
     {builtWorlds.map((w) => (
-      <a class="ruler-tick" href={`/welten#${w.anchor}`} tabindex="-1" data-tick={w.nr} data-label={`${w.nr} · ${w.name}`}><span class="ruler-tick-label">{w.nr} · {w.name}</span></a>
+      <a class="ruler-tick" href={`/welten#${w.anchor}`} tabindex="-1" data-tick={w.nr} data-label={`${w.pos} · ${w.name}`}><span class="ruler-tick-label">{w.pos} · {w.name}</span></a>
     ))}
   </div>}
 

@@ -112,12 +112,12 @@ srv.listen(0, async () => {
     // Startseite: der Satz der Startseite, vier Studien als Andeutung
     start: `<div class="card"><div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>
       <h1 style="font-size:60px;margin:34px 0 0;max-width:980px">Websites, die nach Ihrem Unternehmen aussehen.</h1>
-      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:24px">${builtWorlds.slice(0, 4).map((w) => frame(b64(shots[`${w.nr}-d`]), w.nr, 262, 164)).join('')}</div></div>`,
-    // /welten: neun Studien
+      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:24px">${builtWorlds.slice(0, 4).map((w) => frame(b64(shots[`${w.nr}-d`]), w.pos, 262, 164)).join('')}</div></div>`,
+    // /welten: die sichtbaren Studien
     welten: `<div class="card"><div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>
       <h1 style="font-size:54px;margin:34px 0 0;max-width:980px">${esc(TEXT.statement)}</h1>
-      <p class="mono note" style="margin-top:18px;font-size:18px">Neun Welten · Studien von NP Webdesign</p>
-      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:24px">${builtWorlds.slice(0, 4).map((w) => frame(b64(shots[`${w.nr}-d`]), w.nr, 262, 164)).join('')}</div></div>`,
+      <p class="mono note" style="margin-top:18px;font-size:18px">${esc(TEXT.weltenTitel)}</p>
+      <div style="position:absolute;left:64px;right:64px;bottom:50px;display:flex;gap:24px">${builtWorlds.slice(0, 4).map((w) => frame(b64(shots[`${w.nr}-d`]), w.pos, 262, 164)).join('')}</div></div>`,
     // Leistungen und Preise: ohne Welt, nur Marke
     leistungen: `<div class="card"><div class="brand"><img src="${logo}"><span class="mono">NP Webdesign · Schwandorf</span></div>
       <h1 style="font-size:96px;margin-top:150px;max-width:900px">Leistungen und Preise</h1>
@@ -131,12 +131,12 @@ srv.listen(0, async () => {
     if (w.built) {
       cards[`branche-${b.slug}`] = `<div class="card">${kopf}
         <h1 style="font-size:${klein ? 48 : 60}px;margin-top:70px;width:470px">${titel}</h1>
-        <p class="mono note" style="margin-top:28px;width:460px">Studie ${w.nr} · ${esc(w.name)}<br>${esc(w.branche)}</p>
-        <div style="position:absolute;right:64px;top:112px">${frame(b64(shots[`${w.nr}-d`]), w.nr, 580, 363)}</div></div>`;
+        <p class="mono note" style="margin-top:28px;width:460px">Studie ${w.pos} · ${esc(w.name)}<br>${esc(w.branche)}</p>
+        <div style="position:absolute;right:64px;top:112px">${frame(b64(shots[`${w.nr}-d`]), w.pos, 580, 363)}</div></div>`;
     } else {
       cards[`branche-${b.slug}`] = `<div class="card">${kopf}
         <h1 style="font-size:84px;margin-top:130px;max-width:960px">${titel}</h1>
-        <p class="mono note" style="margin-top:30px;font-size:20px">Studie ${w.nr} · ${esc(w.name)} · ${esc(w.branche)}</p></div>`;
+        <p class="mono note" style="margin-top:30px;font-size:20px">Studie ${w.pos} · ${esc(w.name)} · ${esc(w.branche)}</p></div>`;
     }
   }
   const ctx = await browser.newContext({ viewport: { width: 1200, height: 630 } });

@@ -5,6 +5,7 @@ import '../styles/page.css';
 import Logo from '../components/Logo.astro';
 import PartnerBadge from '../components/PartnerBadge.astro';
 import { SITE } from '../config/site.js';
+import { TEXT } from '../config/journey.js';
 const { title, description, path, noindex = false, wide = false, bare = false, jsonLd = null, image = undefined } = Astro.props;
 ---
 <Base title={title} description={description} path={path} noindex={noindex} jsonLd={jsonLd} image={image}>
@@ -15,7 +16,7 @@ const { title, description, path, noindex = false, wide = false, bare = false, j
       <nav class="page-nav" aria-label="Hauptnavigation">
         <a href="/leistungen">Leistungen und Preise</a>
         <a href="/#kontakt">Kontakt</a>
-        <a href="/welten">Die neun Welten</a>
+        <a href="/welten">Die {TEXT.zahlKlein} Welten</a>
       </nav>
     </div>
   </header>

@@ -9,17 +9,16 @@
 import { WORLDS, builtWorlds } from '../../config/journey.js';
 import { SCHLAGZEILE, UNTERZEILE, MARGINALIEN, LEITARTIKEL, ZITAT, THEMEN } from './data.js';
 import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
-import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
 import './world.css';
 
 const { row } = Astro.props;
 const w = WORLDS.find((x) => x.nr === '04');
 const total = String(builtWorlds.length).padStart(2, '0');
-const counter = `Welt 04 / ${total} · Kanzlei · Studie`;
+const counter = `Welt ${w.pos} / ${total} · Kanzlei · Studie`;
 const nr = (id) => MARGINALIEN.findIndex((m) => m.id === id) + 1;
 ---
 <section id={w.anchor} class="world w04" data-section={row.id} data-world="04" data-ground={w.palette.ground} data-tone={w.palette.tone}
-         data-counter={counter} data-counter-short={`04 / ${total}`} aria-labelledby="w04-title">
+         data-counter={counter} data-counter-short={`${w.pos} / ${total}`} aria-labelledby="w04-title">
 
   <!-- Rubrikenleiste: Zeitungskopf -->
   <header class="w04-head">
@@ -66,9 +65,6 @@ const nr = (id) => MARGINALIEN.findIndex((m) => m.id === id) + 1;
     </aside>
   </div>
 
-  <!-- Architektur: Bildplatzhalter statt gezeichneter Ersatzgrafik -->
-  <div class="w04-photo"><BildPlatzhalter id="w04-architektur" /></div>
-
   <!-- Zitat -->
   <figure class="w04-quote">
     <blockquote><p>{ZITAT.text}</p></blockquote>
@@ -85,7 +81,6 @@ const nr = (id) => MARGINALIEN.findIndex((m) => m.id === id) + 1;
         ))}
       </ol>
     </nav>
-    <div class="w04-photo-s"><BildPlatzhalter id="w04-dokumente" /></div>
   </div>
 
   <div class="w04-themenliste">

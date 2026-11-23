@@ -38,7 +38,7 @@ export function initOpening() {
     // Zielgeometrie im Endzustand messen: Rahmen der Zelle 01, Startform der Wachstums-Maske (t00)
     gsap.set(grid, { clearProps: 'transform' });
     const sr = stage.getBoundingClientRect();
-    const frameEl = $('.wp-cell[data-world="01"] .wp-frame', wp);
+    const frameEl = $('.wp-cell .wp-frame', wp); // erste Zelle = erste sichtbare Welt
     const fr = frameEl.getBoundingClientRect();
     const barH = $('.wp-bar', frameEl).getBoundingClientRect().height;
     const top = fr.top - sr.top + barH;
@@ -53,10 +53,10 @@ export function initOpening() {
 
   // ---- t00 · Werkplan → Welt 01: Die Zelle wächst auf Viewport-Größe (Blueprint F, Übergang 1) ----
   const grow = $('[data-grow]', sec);
-  const cell1 = $('.wp-cell[data-world="01"]', wp);
+  const cell1 = $('.wp-cell', wp);
   const others = cells.filter((c) => c !== cell1);
   const rest = [centre, statement, ...others, $('.wp-caption', cell1)].filter(Boolean);
-  const world1 = document.getElementById('baeckerei');
+  const world1 = document.getElementById($('[data-grow]', sec).dataset.anchor);
   const H = () => stage.offsetHeight;
   const css = (name) => parseFloat(getComputedStyle(sec).getPropertyValue(name));
   const art = $('.grow-art', grow);

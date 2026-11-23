@@ -73,19 +73,6 @@ html[data-js][data-mode='desktop'] .w07-table tbody tr:not(.is-on), html[data-js
 @media (max-width: 599px) { .w07-table { font-size: .8125rem; } .w07-table thead th:nth-child(3), .w07-table tbody td:nth-child(3) { display: none; } .w07-tolcell { width: 70px; } }
 
 /* ---------- Bauteil drehen ---------- */
-.w07-dreher { padding-top: var(--s10); }
-.w07-dreher-bild { position: relative; max-width: 860px; touch-action: pan-y; cursor: ew-resize; user-select: none; }
-.w07-winkel { position: absolute; right: var(--s4); bottom: var(--s4); display: flex; align-items: center; gap: var(--s3); background: var(--ground); border: 1px solid var(--w07-grid-major); padding: var(--s2) var(--s3); }
-.w07-winkel-kreis { position: relative; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--text); }
-.w07-winkel-zeiger { position: absolute; left: 50%; top: 50%; width: 2px; height: 12px; margin-left: -1px; margin-top: -12px; background: var(--accent); transform-origin: 50% 12px; transform: rotate(var(--w07-winkel, 0deg)); transition: transform var(--dur-m) var(--ease-out); }
-.w07-winkel-text { font-family: var(--w07-mono); font-size: var(--fs-mono-xs); letter-spacing: .06em; text-transform: uppercase; }
-html:not([data-js]) .w07-winkel, html:not([data-js]) .w07-dreher-bedien { display: none; }
-.w07-dreher-bedien { display: flex; align-items: center; gap: var(--s4); max-width: 860px; margin-top: var(--s4); }
-.w07-btn { flex: none; width: 52px; height: 52px; border: 1.5px solid var(--text); background: transparent; color: var(--text); font: inherit; font-size: 1.25rem; cursor: pointer; transition: background var(--dur-s), color var(--dur-s); }
-.w07-btn:focus-visible { background: var(--accent); color: var(--ground); border-color: var(--accent); }
-@media (hover: hover) and (pointer: fine) { .w07-btn:hover { background: var(--accent); color: var(--ground); border-color: var(--accent); } }
-.w07-range { flex: 1; }
-.w07-range input { width: 100%; height: 44px; accent-color: var(--accent); background: transparent; cursor: pointer; }
 
 /* ---------- Anfrage (Demo) ---------- */
 .w07-anfrage { padding-top: var(--s10); }
@@ -114,7 +101,6 @@ html:not([data-js]) .w07-send { display: none; }
 .w07-note .note { margin: 0; }
 .w07 > .credit { margin: var(--s8) auto 0; max-width: 1280px; }
 @media (min-width: 700px) { .w07-kennzahlen { grid-template-columns: repeat(4, minmax(0, 1fr)); } .w07-kz { border-right: 1px solid var(--w07-grid-major); padding-left: var(--s4); } .w07-kz:first-child { padding-left: 0; } .w07-kz:last-child { border-right: 0; } }
-@media (min-width: 1024px) { .w07-scan-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 6fr); } }
 
 /* Messkreise der Rundheitsmessung: Ziel des Übergangs 06 → 07. Messraster am Ende: Staffelstab des Übergangs 07 → 08 */
 .w07-rund { width: clamp(150px, 22vw, 220px); margin-top: var(--s7); color: var(--accent); }

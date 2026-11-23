@@ -1,12 +1,20 @@
 ---
-/** Werkstattnotiz (Blueprint K): kleine Karte der NP-Schicht am Ende jeder Welt. NP-Schriften, NP-Farben, höchstens 45 Wörter. */
+/** Werkstattnotiz (Blueprint K): kleine Karte der NP-Schicht am Ende jeder Welt. NP-Schriften, NP-Farben, höchstens 45 Wörter.
+ *  Seit 13. November 2026 (3.5) mit der Zeile „So etwas für Ihren Betrieb?“ und dem Knopf zur Anfrage (Branche wird in die Nachricht übernommen). */
 import { BRANCHEN_LIST } from '../content/branchen.js';
 const { world: w, linkLabel = null } = Astro.props;
 const page = BRANCHEN_LIST.find((b) => b.world === w.nr);
 ---
-<aside class="note" aria-label={`Werkstattnotiz Welt ${w.nr}: ${w.name}`}>
-  <p class="mono note-head">Welt {w.nr} · Studie · {w.branche}</p>
+<aside class="note" aria-label={`Werkstattnotiz Studie ${w.pos}: ${w.name}`}>
+  <p class="mono note-head">Studie {w.pos} · {w.branche}</p>
   <p class="note-text">{w.notiz}</p>
   <p class="mono note-tag">Leistung im Einsatz: {w.leistung}</p>
   {page && linkLabel && <a class="link note-link" href={w.branchPage}>{linkLabel}</a>}
+  <div class="note-cta">
+    <p class="note-cta-q">So etwas für Ihren Betrieb?</p>
+    <a class="btn btn-primary" href={page ? `/?branche=${page.slug}#kontakt` : '/#kontakt'}>
+      <span class="btn-label"><span>Projekt anfragen</span><span aria-hidden="true">Projekt anfragen</span></span>
+      <span class="btn-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
 </aside>

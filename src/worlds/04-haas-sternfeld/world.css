@@ -65,7 +65,6 @@ html[data-js] .w04-margin:not(.is-open) { display: none; }
 html[data-js] .w04-margins:not([data-open]) .w04-hint { display: block; }
 
 /* ---------- Bildplatzhalter ---------- */
-.w04-photo { padding-top: var(--s9); }
 .w04 .fp-frame { border-color: var(--text); }
 
 /* ---------- Zitat ---------- */
@@ -110,11 +109,10 @@ html[data-js] .w04-margins:not([data-open]) .w04-hint { display: block; }
   .w04-margins { grid-column: 10 / 13; padding-left: var(--s5); border-left: 1px solid var(--w04-rule); }
   .w04-cols { column-count: 3; }
   .w04-register-wrap { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
-  .w04-register { grid-column: 1 / 8; }
-  .w04-photo-s { grid-column: 9 / 13; }
+  .w04-register { grid-column: 1 / 9; }
   .w04-themenliste { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-@media (max-width: 1023px) { .w04-photo-s { max-width: 420px; } .w04-margins { padding-top: var(--s2); } }
+@media (max-width: 1023px) { .w04-margins { padding-top: var(--s2); } .w04-fragen { display: none; } /* Handy: kürzere Seite (3.4); Beispielfragen stehen am Desktop */ }
 
 /* Schlusslinie des Leitartikels (Zeitungsrubrik): Staffelstab des Übergangs 04 → 05 */
 .w04-schluss { height: 4px; width: min(100%, 520px); margin-top: var(--s10); background: var(--accent); }

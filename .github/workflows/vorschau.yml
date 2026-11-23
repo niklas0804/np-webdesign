@@ -45,7 +45,7 @@ jobs:
           sleep 2
           mkdir -p lighthouse
           # Drei Läufe je Seite, gewertet wird der Median (ein einzelner Lauf schwankt auf geteilten Maschinen um bis zu 10 Punkte)
-          for p in index welten leistungen branchenloesungen/baeckerei; do
+          for p in index welten leistungen branchenloesungen/handwerker; do
             n=$(echo "$p" | tr '/' '-')
             for i in 1 2 3; do
               npx lighthouse "http://127.0.0.1:8080/$p.html" --quiet --chrome-flags="--headless=new --no-sandbox" \

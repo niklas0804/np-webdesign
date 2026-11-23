@@ -3,24 +3,23 @@
  * Welt 07 · TORQUEL · Präzisionsfertigung (Blueprint F). Studie, fiktives Unternehmen.
  * Hightech aus der Oberpfalz: dunkel, kühl, exakt. Sichtbares 8-px-Raster, Koordinatenachsen, Messprotokoll.
  * Hauptanimation: eine Laserlinie scannt horizontal, dahinter entsteht das Messprotokoll; die Kennzahlen zählen einmal hoch.
- * Interaktion: Bauteil drehen per Ziehen, Scrollen, Regler, Tasten (12 Ansichten als Bildfolge, kein WebGL; hier als Bildplatzhalter).
+ * Ohne Bildflächen (13. November 2026, 3.2): kein Foto, kein „Bauteil drehen“. Die Laserlinie läuft über das Messprotokoll selbst.
  * Leistung im Einsatz: Performance und Technik. Anfrage für Zeichnungen ist eine Demo und sendet nichts.
  * Ohne JavaScript: alle Werte stehen fertig im Text, Regler und Sendeknopf fehlen.
  */
 import { WORLDS, builtWorlds } from '../../config/journey.js';
-import { KICKER, UNTER, KENNZAHLEN, PROTOKOLL, MATERIALIEN, BAUTEIL, f } from './data.js';
+import { KICKER, UNTER, KENNZAHLEN, PROTOKOLL, MATERIALIEN, f } from './data.js';
 import Werkstattnotiz from '../../components/Werkstattnotiz.astro';
-import BildPlatzhalter from '../../components/BildPlatzhalter.astro';
 import './world.css';
 
 const { row } = Astro.props;
 const w = WORLDS.find((x) => x.nr === '07');
 const total = String(builtWorlds.length).padStart(2, '0');
-const counter = `Welt 07 / ${total} · Industrie · Studie`;
+const counter = `Welt ${w.pos} / ${total} · Industrie · Studie`;
 const pos = (z) => Math.max(-1, Math.min(1, (z.ist - z.soll) / z.tol));
 ---
 <section id={w.anchor} class="world w07" data-section={row.id} data-world="07" data-ground={w.palette.ground} data-tone={w.palette.tone}
-         data-counter={counter} data-counter-short={`07 / ${total}`} aria-labelledby="w07-title">
+         data-counter={counter} data-counter-short={`${w.pos} / ${total}`} aria-labelledby="w07-title">
   <div class="w07-axes" aria-hidden="true"><span class="w07-ax-x"></span><span class="w07-ax-y"></span></div>
 
   <header class="w07-hero">
@@ -49,9 +48,6 @@ const pos = (z) => Math.max(-1, Math.min(1, (z.ist - z.soll) / z.tol));
     <h3 id="w07-scan-h" class="w07-h">Scan und Messprotokoll</h3>
     <div class="w07-scan-grid">
       <div class="w07-scan-bild">
-        <BildPlatzhalter id="w07-makro" />
-        <span class="w07-laser" aria-hidden="true" data-laser></span>
-      </div>
       <table class="w07-table" data-protokoll>
         <caption>{PROTOKOLL.titel}</caption>
         <thead><tr><th scope="col">Merkmal</th><th scope="col">Soll</th><th scope="col">Toleranz</th><th scope="col">Ist</th><th scope="col"><span class="visually-hidden">Lage im Toleranzband</span></th></tr></thead>
@@ -73,27 +69,10 @@ const pos = (z) => Math.max(-1, Math.min(1, (z.ist - z.soll) / z.tol));
           ))}
         </tbody>
       </table>
-    </div>
-    <p class="w07-demo">{PROTOKOLL.hinweis}</p>
-  </section>
-
-  <!-- Bauteil drehen -->
-  <section class="w07-dreher" aria-labelledby="w07-dreher-h" data-dreher data-ansichten={BAUTEIL.ansichten} data-schritt={BAUTEIL.schritt}>
-    <h3 id="w07-dreher-h" class="w07-h">Bauteil drehen</h3>
-    <p class="w07-lead">Ziehen, scrollen oder den Regler benutzen: zwölf Ansichten im Abstand von 30 Grad. Mobil sind es sechs.</p>
-    <div class="w07-dreher-bild" data-dreher-stage>
-      <BildPlatzhalter id="w07-bauteil" />
-      <div class="w07-winkel" aria-hidden="true">
-        <span class="w07-winkel-kreis"><span class="w07-winkel-zeiger" data-zeiger></span></span>
-        <span class="w07-winkel-text" data-winkel-text>Ansicht 01 von 12 · 0°</span>
+      <span class="w07-laser" aria-hidden="true" data-laser></span>
       </div>
     </div>
-    <div class="w07-dreher-bedien">
-      <button class="w07-btn" type="button" data-prev aria-label="Eine Ansicht zurück">←</button>
-      <label class="w07-range"><span class="visually-hidden">Ansicht wählen</span><input type="range" min="0" max={BAUTEIL.ansichten - 1} step="1" value="0" data-range aria-valuetext="Ansicht 1 von 12, 0 Grad"></label>
-      <button class="w07-btn" type="button" data-next aria-label="Eine Ansicht vor">→</button>
-    </div>
-    <p class="w07-demo">Demo · die Bildfolge kommt mit den Fotos, die Bedienung funktioniert schon</p>
+    <p class="w07-demo">{PROTOKOLL.hinweis}</p>
   </section>
 
   <!-- Anfrage für Zeichnungen (Demo) -->
